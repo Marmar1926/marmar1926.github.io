@@ -166,7 +166,14 @@
     lightbox.style.height = window.innerHeight + 'px';
   }
   window.addEventListener('resize', fitLightboxHeight);
-  window.addEventListener('orientationchange', () => setTimeout(fitLightboxHeight, 100));
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
 
   const lightboxImg = document.getElementById('lightboxImg');
   document.getElementById('zoomBtn').addEventListener('click', ()=>{
