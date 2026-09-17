@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis viajes por USA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#2B2620; --line:#D9CFB8; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; }
+  header{ text-align:center; padding:38px 24px 18px; }
+  h1{ font-family:'Playfair Display', serif; font-size:2rem; margin:0 0 6px; }
+  header p{ color:var(--ink-soft); font-size:0.95rem; margin:0; }
+  .tabs{ display:flex; justify-content:center; gap:8px; margin:22px 0 10px; }
+  .tab{ font-size:0.92rem; font-weight:600; padding:8px 18px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; }
+  .tab.active{ background:var(--ink); color:#fff; border-color:transparent; }
+  main{ max-width:600px; margin:0 auto; padding:10px 20px 60px; }
+  .view{ display:none; }
+  .view.active{ display:block; }
+  .trip-group{ margin-bottom:26px; }
+  .trip-head{ display:flex; align-items:center; gap:8px; font-weight:700; font-size:1.02rem; margin:0 0 8px; padding:0 4px; }
+  .trip-head .yr{ color:var(--ink-soft); font-weight:400; font-size:0.85rem; margin-left:2px; }
+  .dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .dot.small{ width:8px; height:8px; }
+  .row{ display:flex; align-items:center; gap:12px; padding:10px 4px; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); }
+  .row:last-child{ border-bottom:none; }
+  .num{ font-size:0.8rem; color:var(--ink-soft); width:22px; flex-shrink:0; }
+  .info{ display:flex; flex-direction:column; }
+  .name{ font-weight:600; font-size:0.98rem; }
+  .sub{ font-size:0.82rem; color:var(--ink-soft); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; --accent:#EDE6D8; }
+  }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; --accent:#EDE6D8; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Mis viajes por USA</h1>
+    <p>45 lugares · elegí cómo quer&eacute;s explorarlos</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" id="tabYear">Por año</button>
+    <button class="tab" id="tabAlpha">Por nombre (A-Z)</button>
+  </div>
+
+  <main>
+    <div class="view active" id="viewYear">
+      <div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#d81b60"></span>Disney & Miami Vibes <span class="yr">2012</span></div>
+      <a class="row" href="/2012md/miami/">
+          <span class="num">1</span>
+          <span class="info"><span class="name">Miami</span><span class="sub">Florida</span></span>
+        </a>
+<a class="row" href="/2012md/disney-world/">
+          <span class="num">2</span>
+          <span class="info"><span class="name">Disney World</span><span class="sub">Orlando, Florida</span></span>
+        </a>
+
+    </div>
+<div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#2ea043"></span>La Ruta del Este <span class="yr">2012</span></div>
+      <a class="row" href="/2012ny/new-york/">
+          <span class="num">3</span>
+          <span class="info"><span class="name">New York</span><span class="sub">New York</span></span>
+        </a>
+<a class="row" href="/2012ny/boston/">
+          <span class="num">4</span>
+          <span class="info"><span class="name">Boston</span><span class="sub">Massachusetts</span></span>
+        </a>
+
+    </div>
+<div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#e67e22"></span>Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS <span class="yr">2013</span></div>
+      <a class="row" href="/2013/disneyland/">
+          <span class="num">5</span>
+          <span class="info"><span class="name">Disneyland</span><span class="sub">Anaheim, California</span></span>
+        </a>
+<a class="row" href="/2013/san-diego/">
+          <span class="num">6</span>
+          <span class="info"><span class="name">San Diego</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/los-angeles/">
+          <span class="num">7</span>
+          <span class="info"><span class="name">Los Angeles</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/santa-monica/">
+          <span class="num">8</span>
+          <span class="info"><span class="name">Santa Mónica</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/beverly-hills/">
+          <span class="num">9</span>
+          <span class="info"><span class="name">Beverly Hills</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/burbank/">
+          <span class="num">10</span>
+          <span class="info"><span class="name">Warner Bros. Studios</span><span class="sub">Burbank, California</span></span>
+        </a>
+<a class="row" href="/2013/golden-oak-ranch/">
+          <span class="num">11</span>
+          <span class="info"><span class="name">Golden Oak Ranch</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/pacific-coast-highway/">
+          <span class="num">12</span>
+          <span class="info"><span class="name">Pacific Coast Highway</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/san-francisco/">
+          <span class="num">13</span>
+          <span class="info"><span class="name">San Francisco</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/yosemite/">
+          <span class="num">14</span>
+          <span class="info"><span class="name">Yosemite National Park</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2013/valley-of-fire/">
+          <span class="num">15</span>
+          <span class="info"><span class="name">Valley of Fire State Park</span><span class="sub">Nevada</span></span>
+        </a>
+<a class="row" href="/2013/las-vegas/">
+          <span class="num">16</span>
+          <span class="info"><span class="name">Las Vegas</span><span class="sub">Nevada</span></span>
+        </a>
+<a class="row" href="/2013/grand-canyon-skywalk/">
+          <span class="num">17</span>
+          <span class="info"><span class="name">Grand Canyon West Skywalk</span><span class="sub">Arizona</span></span>
+        </a>
+
+    </div>
+<div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#2e7cf6"></span>Palmeras y magnolias <span class="yr">2016</span></div>
+      <a class="row" href="/trip2/key-west/">
+          <span class="num">18</span>
+          <span class="info"><span class="name">Key West</span><span class="sub">Florida</span></span>
+        </a>
+<a class="row" href="/trip2/fort-lauderdale/">
+          <span class="num">19</span>
+          <span class="info"><span class="name">Fort Lauderdale</span><span class="sub">Florida</span></span>
+        </a>
+<a class="row" href="/trip2/kennedy-space-center/">
+          <span class="num">20</span>
+          <span class="info"><span class="name">Kennedy Space Center</span><span class="sub">Florida</span></span>
+        </a>
+<a class="row" href="/trip2/saint-augustine/">
+          <span class="num">21</span>
+          <span class="info"><span class="name">Saint Augustine</span><span class="sub">Florida</span></span>
+        </a>
+<a class="row" href="/trip2/atlanta/">
+          <span class="num">22</span>
+          <span class="info"><span class="name">Atlanta</span><span class="sub">Georgia</span></span>
+        </a>
+<a class="row" href="/trip2/world-of-coca-cola/">
+          <span class="num">23</span>
+          <span class="info"><span class="name">World of Coca-Cola</span><span class="sub">Atlanta, Georgia</span></span>
+        </a>
+<a class="row" href="/trip2/covington/">
+          <span class="num">24</span>
+          <span class="info"><span class="name">Covington</span><span class="sub">Georgia</span></span>
+        </a>
+<a class="row" href="/trip2/hollywood-of-the-south/">
+          <span class="num">25</span>
+          <span class="info"><span class="name">Hollywood of the South</span><span class="sub">Georgia</span></span>
+        </a>
+<a class="row" href="/trip2/clearwater/">
+          <span class="num">26</span>
+          <span class="info"><span class="name">Clearwater</span><span class="sub">Florida</span></span>
+        </a>
+
+    </div>
+<div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#dc322f"></span>Ruta de Gigantes y Géiseres, del Granito al Evergreen <span class="yr">2018</span></div>
+      <a class="row" href="/2018/mount-rushmore/">
+          <span class="num">27</span>
+          <span class="info"><span class="name">Mount Rushmore Memorial</span><span class="sub">Pennington County, South Dakota</span></span>
+        </a>
+<a class="row" href="/2018/crazy-horse/">
+          <span class="num">28</span>
+          <span class="info"><span class="name">Crazy Horse Memorial</span><span class="sub">Custer, South Dakota</span></span>
+        </a>
+<a class="row" href="/2018/cody/">
+          <span class="num">29</span>
+          <span class="info"><span class="name">Cody</span><span class="sub">Wyoming</span></span>
+        </a>
+<a class="row" href="/2018/yellowstone/">
+          <span class="num">30</span>
+          <span class="info"><span class="name">Yellowstone National Park</span><span class="sub">Wyoming</span></span>
+        </a>
+<a class="row" href="/2018/seattle/">
+          <span class="num">31</span>
+          <span class="info"><span class="name">Seattle</span><span class="sub">Washington</span></span>
+        </a>
+<a class="row" href="/2018/olympia/">
+          <span class="num">32</span>
+          <span class="info"><span class="name">Olympia</span><span class="sub">Washington</span></span>
+        </a>
+<a class="row" href="/2018/big-sur/">
+          <span class="num">33</span>
+          <span class="info"><span class="name">Big Sur</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2018/solvang/">
+          <span class="num">34</span>
+          <span class="info"><span class="name">Solvang</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2018/santa-barbara/">
+          <span class="num">35</span>
+          <span class="info"><span class="name">Santa Barbara</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2018/paramount-ranch/">
+          <span class="num">36</span>
+          <span class="info"><span class="name">Paramount Ranch</span><span class="sub">Agoura Hills, California</span></span>
+        </a>
+
+    </div>
+<div class="trip-group">
+      <div class="trip-head"><span class="dot" style="background:#f1c40f"></span>Ruta de Gigantes: Del Pacífico al Gran Cañón <span class="yr">2022</span></div>
+      <a class="row" href="/2022/grand-canyon/">
+          <span class="num">37</span>
+          <span class="info"><span class="name">Grand Canyon</span><span class="sub">South Rim, Arizona</span></span>
+        </a>
+<a class="row" href="/2022/antelope-canyon/">
+          <span class="num">38</span>
+          <span class="info"><span class="name">Antelope Canyon</span><span class="sub">Arizona</span></span>
+        </a>
+<a class="row" href="/2022/horseshoe-bend/">
+          <span class="num">39</span>
+          <span class="info"><span class="name">Horseshoe Bend</span><span class="sub">Arizona</span></span>
+        </a>
+<a class="row" href="/2022/monument-valley/">
+          <span class="num">40</span>
+          <span class="info"><span class="name">Monument Valley</span><span class="sub">Utah</span></span>
+        </a>
+<a class="row" href="/2022/kingman/">
+          <span class="num">41</span>
+          <span class="info"><span class="name">Kingman</span><span class="sub">Arizona</span></span>
+        </a>
+<a class="row" href="/2022/seligman/">
+          <span class="num">42</span>
+          <span class="info"><span class="name">Seligman</span><span class="sub">Arizona</span></span>
+        </a>
+<a class="row" href="/2022/flagstaff/">
+          <span class="num">43</span>
+          <span class="info"><span class="name">Flagstaff</span><span class="sub">Arizona</span></span>
+        </a>
+<a class="row" href="/2022/malibu/">
+          <span class="num">44</span>
+          <span class="info"><span class="name">Malibu</span><span class="sub">California</span></span>
+        </a>
+<a class="row" href="/2022/universal-studios/">
+          <span class="num">45</span>
+          <span class="info"><span class="name">Universal Studios</span><span class="sub">Burbank, California</span></span>
+        </a>
+
+    </div>
+
+    </div>
+    <div class="view" id="viewAlpha">
+      <a class="row" href="/2022/antelope-canyon/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Antelope Canyon</span><span class="sub">Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/trip2/atlanta/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Atlanta</span><span class="sub">Georgia · 2016</span></span>
+    </a>
+<a class="row" href="/2013/beverly-hills/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Beverly Hills</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2018/big-sur/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Big Sur</span><span class="sub">California · 2018</span></span>
+    </a>
+<a class="row" href="/2012ny/boston/">
+      <span class="dot small" style="background:#2ea043"></span>
+      <span class="info"><span class="name">Boston</span><span class="sub">Massachusetts · 2012</span></span>
+    </a>
+<a class="row" href="/trip2/clearwater/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Clearwater</span><span class="sub">Florida · 2016</span></span>
+    </a>
+<a class="row" href="/2018/cody/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Cody</span><span class="sub">Wyoming · 2018</span></span>
+    </a>
+<a class="row" href="/trip2/covington/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Covington</span><span class="sub">Georgia · 2016</span></span>
+    </a>
+<a class="row" href="/2018/crazy-horse/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Crazy Horse Memorial</span><span class="sub">Custer, South Dakota · 2018</span></span>
+    </a>
+<a class="row" href="/2012md/disney-world/">
+      <span class="dot small" style="background:#d81b60"></span>
+      <span class="info"><span class="name">Disney World</span><span class="sub">Orlando, Florida · 2012</span></span>
+    </a>
+<a class="row" href="/2013/disneyland/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Disneyland</span><span class="sub">Anaheim, California · 2013</span></span>
+    </a>
+<a class="row" href="/2022/flagstaff/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Flagstaff</span><span class="sub">Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/trip2/fort-lauderdale/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Fort Lauderdale</span><span class="sub">Florida · 2016</span></span>
+    </a>
+<a class="row" href="/2013/golden-oak-ranch/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Golden Oak Ranch</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2022/grand-canyon/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Grand Canyon</span><span class="sub">South Rim, Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/2013/grand-canyon-skywalk/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Grand Canyon West Skywalk</span><span class="sub">Arizona · 2013</span></span>
+    </a>
+<a class="row" href="/trip2/hollywood-of-the-south/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Hollywood of the South</span><span class="sub">Georgia · 2016</span></span>
+    </a>
+<a class="row" href="/2022/horseshoe-bend/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Horseshoe Bend</span><span class="sub">Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/trip2/kennedy-space-center/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Kennedy Space Center</span><span class="sub">Florida · 2016</span></span>
+    </a>
+<a class="row" href="/trip2/key-west/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Key West</span><span class="sub">Florida · 2016</span></span>
+    </a>
+<a class="row" href="/2022/kingman/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Kingman</span><span class="sub">Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/2013/las-vegas/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Las Vegas</span><span class="sub">Nevada · 2013</span></span>
+    </a>
+<a class="row" href="/2013/los-angeles/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Los Angeles</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2022/malibu/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Malibu</span><span class="sub">California · 2022</span></span>
+    </a>
+<a class="row" href="/2012md/miami/">
+      <span class="dot small" style="background:#d81b60"></span>
+      <span class="info"><span class="name">Miami</span><span class="sub">Florida · 2012</span></span>
+    </a>
+<a class="row" href="/2022/monument-valley/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Monument Valley</span><span class="sub">Utah · 2022</span></span>
+    </a>
+<a class="row" href="/2018/mount-rushmore/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Mount Rushmore Memorial</span><span class="sub">Pennington County, South Dakota · 2018</span></span>
+    </a>
+<a class="row" href="/2012ny/new-york/">
+      <span class="dot small" style="background:#2ea043"></span>
+      <span class="info"><span class="name">New York</span><span class="sub">New York · 2012</span></span>
+    </a>
+<a class="row" href="/2018/olympia/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Olympia</span><span class="sub">Washington · 2018</span></span>
+    </a>
+<a class="row" href="/2013/pacific-coast-highway/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Pacific Coast Highway</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2018/paramount-ranch/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Paramount Ranch</span><span class="sub">Agoura Hills, California · 2018</span></span>
+    </a>
+<a class="row" href="/trip2/saint-augustine/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">Saint Augustine</span><span class="sub">Florida · 2016</span></span>
+    </a>
+<a class="row" href="/2013/san-diego/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">San Diego</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2013/san-francisco/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">San Francisco</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2018/santa-barbara/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Santa Barbara</span><span class="sub">California · 2018</span></span>
+    </a>
+<a class="row" href="/2013/santa-monica/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Santa Mónica</span><span class="sub">California · 2013</span></span>
+    </a>
+<a class="row" href="/2018/seattle/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Seattle</span><span class="sub">Washington · 2018</span></span>
+    </a>
+<a class="row" href="/2022/seligman/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Seligman</span><span class="sub">Arizona · 2022</span></span>
+    </a>
+<a class="row" href="/2018/solvang/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Solvang</span><span class="sub">California · 2018</span></span>
+    </a>
+<a class="row" href="/2022/universal-studios/">
+      <span class="dot small" style="background:#f1c40f"></span>
+      <span class="info"><span class="name">Universal Studios</span><span class="sub">Burbank, California · 2022</span></span>
+    </a>
+<a class="row" href="/2013/valley-of-fire/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Valley of Fire State Park</span><span class="sub">Nevada · 2013</span></span>
+    </a>
+<a class="row" href="/2013/burbank/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Warner Bros. Studios</span><span class="sub">Burbank, California · 2013</span></span>
+    </a>
+<a class="row" href="/trip2/world-of-coca-cola/">
+      <span class="dot small" style="background:#2e7cf6"></span>
+      <span class="info"><span class="name">World of Coca-Cola</span><span class="sub">Atlanta, Georgia · 2016</span></span>
+    </a>
+<a class="row" href="/2018/yellowstone/">
+      <span class="dot small" style="background:#dc322f"></span>
+      <span class="info"><span class="name">Yellowstone National Park</span><span class="sub">Wyoming · 2018</span></span>
+    </a>
+<a class="row" href="/2013/yosemite/">
+      <span class="dot small" style="background:#e67e22"></span>
+      <span class="info"><span class="name">Yosemite National Park</span><span class="sub">California · 2013</span></span>
+    </a>
+
+    </div>
+  </main>
+
+<script>
+  const tabYear = document.getElementById('tabYear');
+  const tabAlpha = document.getElementById('tabAlpha');
+  const viewYear = document.getElementById('viewYear');
+  const viewAlpha = document.getElementById('viewAlpha');
+  tabYear.addEventListener('click', () => {
+    tabYear.classList.add('active'); tabAlpha.classList.remove('active');
+    viewYear.classList.add('active'); viewAlpha.classList.remove('active');
+  });
+  tabAlpha.addEventListener('click', () => {
+    tabAlpha.classList.add('active'); tabYear.classList.remove('active');
+    viewAlpha.classList.add('active'); viewYear.classList.remove('active');
+  });
+</script>
+</body>
+</html>
