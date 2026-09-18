@@ -43,6 +43,12 @@
   .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
   footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
   footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
   :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
 </style>
@@ -80,6 +86,8 @@
     </div>
     <p class="photo-caption" id="caption"></p>
   </main>
+
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
 
   <footer>
     <span class="dot"></span> Punto #9 · Mis viajes por USA
