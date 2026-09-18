@@ -57,9 +57,15 @@
   footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
   :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
+  .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
+  .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
+  .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
+  .prevnext a.next{ text-align:right; }
 </style>
 </head>
 <body>
+  <div class="topnav"><a href="/">← Índice</a></div>
 
   <div class="hero">
     <img src="hero.jpg" alt="Mount Rushmore al atardecer">
@@ -96,6 +102,10 @@
     <p class="photo-caption" id="caption"></p>
   </main>
 
+  <div class="prevnext">
+    <a class="prev" href="/trip2/clearwater/">← Clearwater</a>
+    <a class="next" href="/2018/crazy-horse/">Crazy Horse Memorial →</a>
+  </div>
   <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
 
   <footer>

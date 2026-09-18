@@ -50,9 +50,15 @@
   }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
   :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
+  .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
+  .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
+  .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
+  .prevnext a.next{ text-align:right; }
 </style>
 </head>
 <body>
+  <div class="topnav"><a href="/">← Índice</a></div>
 
   <div class="hero">
     <img src="hero.jpg" alt="Cartel de Beverly Hills">
@@ -87,6 +93,10 @@
     <p class="photo-caption" id="caption"></p>
   </main>
 
+  <div class="prevnext">
+    <a class="prev" href="/2013/santa-monica/">← Santa Mónica</a>
+    <a class="next" href="/2013/burbank/">Warner Bros. Studios →</a>
+  </div>
   <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
 
   <footer>
