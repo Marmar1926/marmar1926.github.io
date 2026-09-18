@@ -28,8 +28,16 @@
   .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
   .story p:last-child{margin-bottom:0;}
   .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
-  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 16px; }
+  .year-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .year-tab{ font-family:'Source Sans 3', sans-serif; font-size:0.95rem; font-weight:600; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .year-tab .dot{ width:8px; height:8px; border-radius:50%; }
+  .year-tab.active{ color:#fff; border-color:transparent; }
+  .year-tab:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+  .empty-state{ display:none; background:var(--paper-2); border-radius:4px; padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.95rem; }
+  .empty-state.show{ display:block; }
   .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel.hide{ display:none; }
   .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
   .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
   .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
@@ -80,7 +88,9 @@
     </div>
 
     <p class="section-label">Nuestras fotos</p>
-    <p class="section-sub">Warner Bros. Studios, Burbank</p>
+    <p class="section-sub" id="yearSub">Warner Bros. Studios, Burbank — 2013</p>
+
+    <div class="year-tabs" id="yearTabs"></div>
 
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
@@ -91,6 +101,7 @@
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
       <div class="carousel-count" id="count">1 / 23</div>
     </div>
+    <div class="empty-state" id="emptyState">Todavía no cargamos fotos de esta visita. ¡Vuelvan a escanear más adelante!</div>
     <p class="photo-caption" id="caption"></p>
   </main>
 
@@ -111,69 +122,127 @@
 
 <script>
 (function(){
-  const PHOTOS = [
-    { src:'01.jpg', ratio:0.6645, caption:'' },
-    { src:'02.jpg', ratio:0.6645, caption:'Una de las calles del backlot, reutilizada en series y películas distintas a lo largo de los años — entre ellas Dukes of Hazzard, Gilmore Girls, Pretty Little Liars y Norbit.' },
-    { src:'03.jpg', ratio:0.6645, caption:'' },
-    { src:'04.jpg', ratio:0.6645, caption:'' },
-    { src:'05.jpg', ratio:0.6645, caption:'' },
-    { src:'06.jpg', ratio:0.6645, caption:'' },
-    { src:'07.jpg', ratio:0.6645, caption:'' },
-    { src:'08.jpg', ratio:0.6645, caption:'' },
-    { src:'09.jpg', ratio:0.6645, caption:'' },
-    { src:'10.jpg', ratio:0.6645, caption:'Esta casa fue la del comisionado J.D. Hogg (interpretado por Sorrell Booke) en Dukes of Hazzard.' },
-    { src:'11.jpg', ratio:0.6645, caption:'El General Lee, el auto de Dukes of Hazzard.' },
-    { src:'12.jpg', ratio:0.6645, caption:'' },
-    { src:'13.jpg', ratio:0.6645, caption:'' },
-    { src:'14.jpg', ratio:0.6645, caption:'La moto y el maniquí pertenecen a Matrix.' },
-    { src:'15.jpg', ratio:0.6645, caption:'Este auto rojo se usó en Get Smart.' },
-    { src:'16.jpg', ratio:0.6645, caption:'Este Rolls-Royce se usó en Conduciendo a Miss Daisy.' },
-    { src:'17.jpg', ratio:0.6645, caption:'El auto verde es el de Bullitt.' },
-    { src:'18.jpg', ratio:0.6645, caption:'Este es el auto de Batman.' },
-    { src:'19.jpg', ratio:0.6645, caption:'Ford Anglia usado en la saga Harry Potter. Este auto cobra gran protagonismo en La cámara secreta, primero cuando los hermanos Weasley rescatan a Harry de la casa de sus tíos, y más tarde cuando Harry y Ron lo usan para viajar a Hogwarts tras perder el Expreso, terminando estrellados contra el temible Sauce Boxeador.' },
-    { src:'20.jpg', ratio:0.6645, caption:'El set de la cafetería es el de Friends.' },
-    { src:'21.jpg', ratio:0.6645, caption:'' },
-    { src:'22.jpg', ratio:0.6645, caption:'' },
-    { src:'23.jpg', ratio:0.6645, caption:'' }
+  const YEARS = [
+    { year: 2013, color: '#E67E22', photos: [
+      { src:'01.jpg', ratio:0.6645, caption:'' },
+      { src:'02.jpg', ratio:0.6645, caption:'Una de las calles del backlot, reutilizada en series y películas distintas a lo largo de los años — entre ellas Dukes of Hazzard, Gilmore Girls, Pretty Little Liars y Norbit.' },
+      { src:'03.jpg', ratio:0.6645, caption:'' },
+      { src:'04.jpg', ratio:0.6645, caption:'' },
+      { src:'05.jpg', ratio:0.6645, caption:'' },
+      { src:'06.jpg', ratio:0.6645, caption:'' },
+      { src:'07.jpg', ratio:0.6645, caption:'' },
+      { src:'08.jpg', ratio:0.6645, caption:'' },
+      { src:'09.jpg', ratio:0.6645, caption:'' },
+      { src:'10.jpg', ratio:0.6645, caption:'Esta casa fue la del comisionado J.D. Hogg (interpretado por Sorrell Booke) en Dukes of Hazzard.' },
+      { src:'11.jpg', ratio:0.6645, caption:'El General Lee, el auto de Dukes of Hazzard.' },
+      { src:'12.jpg', ratio:0.6645, caption:'' },
+      { src:'13.jpg', ratio:0.6645, caption:'' },
+      { src:'14.jpg', ratio:0.6645, caption:'La moto y el maniquí pertenecen a Matrix.' },
+      { src:'15.jpg', ratio:0.6645, caption:'Este auto rojo se usó en Get Smart.' },
+      { src:'16.jpg', ratio:0.6645, caption:'Este Rolls-Royce se usó en Conduciendo a Miss Daisy.' },
+      { src:'17.jpg', ratio:0.6645, caption:'El auto verde es el de Bullitt.' },
+      { src:'18.jpg', ratio:0.6645, caption:'Este es el auto de Batman.' },
+      { src:'19.jpg', ratio:0.6645, caption:'Ford Anglia usado en la saga Harry Potter. Este auto cobra gran protagonismo en La cámara secreta, primero cuando los hermanos Weasley rescatan a Harry de la casa de sus tíos, y más tarde cuando Harry y Ron lo usan para viajar a Hogwarts tras perder el Expreso, terminando estrellados contra el temible Sauce Boxeador.' },
+      { src:'20.jpg', ratio:0.6645, caption:'El set de la cafetería es el de Friends.' },
+      { src:'21.jpg', ratio:0.6645, caption:'' },
+      { src:'22.jpg', ratio:0.6645, caption:'' },
+      { src:'23.jpg', ratio:0.6645, caption:'' }
+    ]},
+    { year: 2018, color: '#DC3229', photos: [] }
   ];
+
+  let currentYearIdx = 0;
+  let currentPhotoIdx = 0;
+
+  const tabsEl = document.getElementById('yearTabs');
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
-  let i = 0;
+  const emptyState = document.getElementById('emptyState');
+  const yearSub = document.getElementById('yearSub');
 
-  function render(){
-    track.innerHTML = '';
-    PHOTOS.forEach(p => {
-      const img = document.createElement('img');
-      img.src = p.src; img.alt = 'Foto familiar en Warner Bros. Studios';
-      track.appendChild(img);
+  function renderTabs(){
+    tabsEl.innerHTML = '';
+    YEARS.forEach((y, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
+      btn.style.background = idx === currentYearIdx ? y.color : 'transparent';
+      btn.style.borderColor = idx === currentYearIdx ? y.color : '';
+      btn.innerHTML = '<span class="dot" style="background:' + (idx===currentYearIdx ? '#fff' : y.color) + '"></span>' + y.year;
+      btn.addEventListener('click', () => selectYear(idx));
+      tabsEl.appendChild(btn);
     });
   }
-  function setHeightFor(idx){
-    const ratio = PHOTOS[idx].ratio;
+
+  function renderPhotos(){
+    const yearObj = YEARS[currentYearIdx];
+    track.innerHTML = '';
+    yearObj.photos.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = 'Foto familiar en Warner Bros. Studios, ' + yearObj.year;
+      track.appendChild(img);
+    });
+    currentPhotoIdx = 0;
+
+    if(yearObj.photos.length === 0){
+      carousel.classList.add('hide');
+      emptyState.classList.add('show');
+      captionEl.textContent = '';
+    } else {
+      carousel.classList.remove('hide');
+      emptyState.classList.remove('show');
+      updatePhotoView();
+    }
+  }
+
+  function updatePhotoView(){
+    const yearObj = YEARS[currentYearIdx];
+    const n = yearObj.photos.length;
+    if(n === 0) return;
+    track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
+    countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
+    const ratio = yearObj.photos[currentPhotoIdx].ratio;
     const w = carousel.clientWidth;
     let h = w * ratio;
     h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
     track.style.height = h + 'px';
   }
-  function go(n){
-    i = (n + PHOTOS.length) % PHOTOS.length;
-    track.style.transform = 'translateX(' + (-i*100) + '%)';
-    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
-    captionEl.textContent = PHOTOS[i].caption || '';
-    setHeightFor(i);
+
+  function selectYear(idx){
+    currentYearIdx = idx;
+    yearSub.textContent = 'Warner Bros. Studios, Burbank — ' + YEARS[idx].year;
+    renderTabs();
+    renderPhotos();
   }
-  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
-  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
-  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx - 1 + n) % n;
+    updatePhotoView();
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx + 1) % n;
+    updatePhotoView();
+  });
+  window.addEventListener('resize', updatePhotoView);
 
   let startX = null;
   track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
   track.addEventListener('touchend', e => {
     if(startX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 40){ dx > 0 ? go(i-1) : go(i+1); }
+    if(Math.abs(dx) > 40){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+    }
     startX = null;
   }, {passive:true});
 
@@ -189,12 +258,17 @@
   if(screen.orientation){
     screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
   }
-  function openLightbox(){
-    lightboxImg.src = PHOTOS[i].src;
+  function refreshLightboxImg(){
+    const yearObj = YEARS[currentYearIdx];
+    if(yearObj.photos.length === 0) return;
+    lightboxImg.src = yearObj.photos[currentPhotoIdx].src;
+  }
+  document.getElementById('zoomBtn').addEventListener('click', ()=>{
+    if(YEARS[currentYearIdx].photos.length === 0) return;
+    refreshLightboxImg();
     fitLightboxHeight();
     lightbox.classList.add('open');
-  }
-  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
+  });
   function closeLightbox(){ lightbox.classList.remove('open'); }
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
@@ -209,18 +283,20 @@
   }, {passive:true});
   lightbox.addEventListener('touchend', e => {
     if(lbStartX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
     const dx = e.changedTouches[0].clientX - lbStartX;
-    if(Math.abs(dx) > 40){
-      go(dx > 0 ? i-1 : i+1);
-      lightboxImg.src = PHOTOS[i].src;
+    if(n > 0 && Math.abs(dx) > 40){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+      refreshLightboxImg();
     } else if(!lbMoved && e.target !== lightboxImg){
       closeLightbox();
     }
     lbStartX = null;
   }, {passive:true});
 
-  render();
-  go(0);
+  renderTabs();
+  renderPhotos();
 })();
 </script>
 </body>
