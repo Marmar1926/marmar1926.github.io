@@ -29,3 +29,10 @@ Disney World.
    se tiene uno vigente, clonar/pull el repo, copiar fotos + index.html a
    {trip}/{slug}/, commit, push. Borrar el token del entorno despues.
 6. Actualizar este archivo (ESTADO.md) con el nuevo lugar completado.
+
+
+## Fotos de portada (hero.jpg)
+Las 45 carpetas ya tienen su hero.jpg guardado (la misma foto icónica que
+se usó en el índice impreso), aunque el lugar todavía sea un placeholder.
+Al armar la página real de un lugar nuevo, NO hace falta pedirle la foto de
+portada al usuario — ya está en {trip}/{slug}/hero.jpg, lista para usar.
