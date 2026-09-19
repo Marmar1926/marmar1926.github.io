@@ -36,3 +36,6 @@ Las 45 carpetas ya tienen su hero.jpg guardado (la misma foto icónica que
 se usó en el índice impreso), aunque el lugar todavía sea un placeholder.
 Al armar la página real de un lugar nuevo, NO hace falta pedirle la foto de
 portada al usuario — ya está en {trip}/{slug}/hero.jpg, lista para usar.
+
+## Portadas en paginas placeholder (19/09)
+Las 41 paginas "en construccion" ahora muestran su hero.jpg en la cabecera (mismo bloque .hero que las paginas completas). Portadas muy pesadas (Los Angeles, World of Coca-Cola, Yellowstone, Antelope Canyon, Monument Valley) se aligeraron a max 2200px. Al completar un lugar, la plantilla completa reemplaza a la placeholder y reutiliza el mismo hero.jpg.
