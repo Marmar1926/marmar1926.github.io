@@ -1,0 +1,526 @@
+{
+  "trips": {
+    "2012md": {
+      "color": [
+        216,
+        27,
+        96
+      ],
+      "label": "Disney & Miami Vibes",
+      "shares_column_with": "trip2",
+      "year": 2012
+    },
+    "2012ny": {
+      "color": [
+        46,
+        160,
+        67
+      ],
+      "label": "La Ruta del Este",
+      "shares_column_with": "2018",
+      "year": 2012
+    },
+    "2013": {
+      "color": [
+        230,
+        126,
+        34
+      ],
+      "label": "Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS",
+      "year": 2013
+    },
+    "trip2": {
+      "color": [
+        46,
+        124,
+        246
+      ],
+      "label": "Palmeras y magnolias",
+      "year": 2016
+    },
+    "2018": {
+      "color": [
+        220,
+        50,
+        47
+      ],
+      "label": "Ruta de Gigantes y Géiseres, del Granito al Evergreen",
+      "year": 2018
+    },
+    "2022": {
+      "color": [
+        241,
+        196,
+        15
+      ],
+      "label": "Ruta de Gigantes: Del Pacífico al Gran Cañón",
+      "year": 2022
+    }
+  },
+  "entries": [
+    {
+      "number": 1,
+      "trip": "2012md",
+      "name": "Miami",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789490774734_copyImage.jpg",
+      "slug": "t42ww8um",
+      "extra_visits": [
+        {
+          "year": 2016,
+          "color": [
+            46,
+            124,
+            246
+          ]
+        },
+        {
+          "year": 2019,
+          "color": [
+            23,
+            162,
+            184
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "trip": "2012md",
+      "name": "Disney World",
+      "sub": "Orlando, Florida",
+      "photo": "/mnt/user-data/uploads/1789490880084_copyImage.jpg",
+      "slug": "5bda48yt",
+      "extra_visits": [
+        {
+          "year": 2019,
+          "color": [
+            23,
+            162,
+            184
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "trip": "2012ny",
+      "name": "New York",
+      "sub": "New York",
+      "photo": "/mnt/user-data/uploads/1789482071081_image.png",
+      "slug": "n7t349b3"
+    },
+    {
+      "number": 4,
+      "trip": "2012ny",
+      "name": "Boston",
+      "sub": "Massachusetts",
+      "photo": "/mnt/user-data/uploads/1789482186780_image.png",
+      "slug": "6c9hd7z5"
+    },
+    {
+      "number": 5,
+      "trip": "2013",
+      "name": "Disneyland",
+      "sub": "Anaheim, California",
+      "photo": "/mnt/user-data/uploads/1789509673430_image.png",
+      "slug": "yyzr6szr"
+    },
+    {
+      "number": 6,
+      "trip": "2013",
+      "name": "San Diego",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789509776517_image.png",
+      "slug": "7a2qpwvt"
+    },
+    {
+      "number": 7,
+      "trip": "2013",
+      "name": "Los Angeles",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789421448252_image.png",
+      "slug": "9y43778h",
+      "extra_visits": [
+        {
+          "year": 2018,
+          "color": [
+            220,
+            50,
+            47
+          ]
+        },
+        {
+          "year": 2022,
+          "color": [
+            241,
+            196,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "trip": "2013",
+      "name": "Santa Mónica",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789421493533_image.png",
+      "slug": "fprphxqb",
+      "extra_visits": [
+        {
+          "year": 2018,
+          "color": [
+            220,
+            50,
+            47
+          ]
+        },
+        {
+          "year": 2022,
+          "color": [
+            241,
+            196,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "trip": "2013",
+      "name": "Beverly Hills",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789509972002_image.png",
+      "slug": "r4kmmtsn"
+    },
+    {
+      "number": 10,
+      "trip": "2013",
+      "name": "Warner Bros. Studios",
+      "sub": "Burbank, California",
+      "photo": "/mnt/user-data/uploads/49808667-82a1-4c50-9070-c4770d7b0b59.jpg",
+      "slug": "5ubvwzzk",
+      "extra_visits": [
+        {
+          "year": 2018,
+          "color": [
+            220,
+            50,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "trip": "2013",
+      "name": "Golden Oak Ranch",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789509834707_block-view-central-circle.jpg",
+      "slug": "h4fruj4d"
+    },
+    {
+      "number": 12,
+      "trip": "2013",
+      "name": "Pacific Coast Highway",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789510094163_image.png",
+      "slug": "yptuwrm3"
+    },
+    {
+      "number": 13,
+      "trip": "2013",
+      "name": "San Francisco",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/images-12.jpeg",
+      "slug": "y9v39ar4",
+      "extra_visits": [
+        {
+          "year": 2018,
+          "color": [
+            220,
+            50,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "trip": "2013",
+      "name": "Yosemite National Park",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789510130251_Yosemite_Valley_c466b706-6bcf-4985-941a-a7abd2d1cd09.jpg",
+      "slug": "b3snzzth"
+    },
+    {
+      "number": 15,
+      "trip": "2013",
+      "name": "Valley of Fire State Park",
+      "sub": "Nevada",
+      "photo": "/mnt/user-data/uploads/1789510187563_image.png",
+      "slug": "gkkdjw5g"
+    },
+    {
+      "number": 16,
+      "trip": "2013",
+      "name": "Las Vegas",
+      "sub": "Nevada",
+      "photo": "/mnt/user-data/uploads/1789422369682_WhatsApp_Image_2026-09-14_at_18_45_46.jpeg",
+      "slug": "95a7284c",
+      "extra_visits": [
+        {
+          "year": 2018,
+          "color": [
+            220,
+            50,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "trip": "2013",
+      "name": "Grand Canyon West Skywalk",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789510488335_image.png",
+      "slug": "fef9ux73"
+    },
+    {
+      "number": 18,
+      "trip": "trip2",
+      "name": "Key West",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789426608393_key_west.jpeg",
+      "slug": "zeusbujg"
+    },
+    {
+      "number": 19,
+      "trip": "trip2",
+      "name": "Fort Lauderdale",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789426631935_fort_lauderdale.jpeg",
+      "slug": "4h9u87fr"
+    },
+    {
+      "number": 20,
+      "trip": "trip2",
+      "name": "Kennedy Space Center",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789426608392_kennedy_space_center.jpeg",
+      "slug": "y5ch4w6k"
+    },
+    {
+      "number": 21,
+      "trip": "trip2",
+      "name": "Saint Augustine",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789426650109_saint_augustine.jpg",
+      "slug": "pwabnjn8"
+    },
+    {
+      "number": 22,
+      "trip": "trip2",
+      "name": "Atlanta",
+      "sub": "Georgia",
+      "photo": "/mnt/user-data/uploads/images-14.jpeg",
+      "slug": "enbpes64"
+    },
+    {
+      "number": 23,
+      "trip": "trip2",
+      "name": "World of Coca-Cola",
+      "sub": "Atlanta, Georgia",
+      "photo": "/mnt/user-data/uploads/1789426509233_6d4d749b-1263-4151-b932-6179d2544682.jpg",
+      "slug": "vknj9s5j"
+    },
+    {
+      "number": 24,
+      "trip": "trip2",
+      "name": "Covington",
+      "sub": "Georgia",
+      "photo": "/mnt/user-data/uploads/covington-georgia-usa-4-13-260nw-2288846551.jpg",
+      "slug": "m6kz6xs6"
+    },
+    {
+      "number": 25,
+      "trip": "trip2",
+      "name": "Hollywood of the South",
+      "sub": "Georgia",
+      "photo": "/mnt/user-data/uploads/1789511770184_IMG_5126.jpg",
+      "slug": "25fr6s4w"
+    },
+    {
+      "number": 26,
+      "trip": "trip2",
+      "name": "Clearwater",
+      "sub": "Florida",
+      "photo": "/mnt/user-data/uploads/1789426667451_Clearwater-Beach-pier-60.jpg",
+      "slug": "wsgty6hn"
+    },
+    {
+      "number": 27,
+      "trip": "2018",
+      "name": "Mount Rushmore Memorial",
+      "sub": "Pennington County, South Dakota",
+      "photo": "/mnt/user-data/uploads/1789422865052_WhatsApp_Image_2026-09-14_at_18_53_56.jpeg",
+      "slug": "uye2hff3"
+    },
+    {
+      "number": 28,
+      "trip": "2018",
+      "name": "Crazy Horse Memorial",
+      "sub": "Custer, South Dakota",
+      "photo": "/mnt/user-data/uploads/crazyhorsememorial05-04-20cc1opt.jpg",
+      "slug": "xqnmjrte"
+    },
+    {
+      "number": 29,
+      "trip": "2018",
+      "name": "Cody",
+      "sub": "Wyoming",
+      "photo": "/mnt/user-data/uploads/1789421306516_image.png",
+      "slug": "ubgnxpzb"
+    },
+    {
+      "number": 30,
+      "trip": "2018",
+      "name": "Yellowstone National Park",
+      "sub": "Wyoming",
+      "photo": "/mnt/user-data/uploads/GettyImages-1187698526-scaled.jpg",
+      "slug": "hmdsz9xf"
+    },
+    {
+      "number": 31,
+      "trip": "2018",
+      "name": "Seattle",
+      "sub": "Washington",
+      "photo": "/mnt/user-data/uploads/6936723048_e4dee38d16_b.jpg",
+      "slug": "cmddvkt4"
+    },
+    {
+      "number": 32,
+      "trip": "2018",
+      "name": "Olympia",
+      "sub": "Washington",
+      "photo": "/mnt/user-data/uploads/olympia-washington-scavenger-hunt_large.jpg",
+      "slug": "wvjsnwey"
+    },
+    {
+      "number": 33,
+      "trip": "2018",
+      "name": "Big Sur",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/images-13.jpeg",
+      "slug": "naeceaua"
+    },
+    {
+      "number": 34,
+      "trip": "2018",
+      "name": "Solvang",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/caption-1.jpg",
+      "slug": "b55dxwdc"
+    },
+    {
+      "number": 35,
+      "trip": "2018",
+      "name": "Santa Barbara",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/hq720.jpg",
+      "slug": "xhqeq3hg",
+      "extra_visits": [
+        {
+          "year": 2022,
+          "color": [
+            241,
+            196,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "trip": "2018",
+      "name": "Paramount Ranch",
+      "sub": "Agoura Hills, California",
+      "photo": "/mnt/user-data/uploads/1789421394658_image.png",
+      "slug": "kv78g638"
+    },
+    {
+      "number": 37,
+      "trip": "2022",
+      "name": "Grand Canyon",
+      "sub": "South Rim, Arizona",
+      "photo": "/mnt/user-data/uploads/1789506830779_grand_canyon.jpg",
+      "slug": "sf29r4j6"
+    },
+    {
+      "number": 38,
+      "trip": "2022",
+      "name": "Antelope Canyon",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789506842810_antylope_canyon.jpg",
+      "slug": "pseyp8vu"
+    },
+    {
+      "number": 39,
+      "trip": "2022",
+      "name": "Horseshoe Bend",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789506934425_image.png",
+      "slug": "b4tqncq9"
+    },
+    {
+      "number": 40,
+      "trip": "2022",
+      "name": "Monument Valley",
+      "sub": "Utah",
+      "photo": "/mnt/user-data/uploads/1789506944187_monument_valley.jpg",
+      "slug": "chkhrqx3"
+    },
+    {
+      "number": 41,
+      "trip": "2022",
+      "name": "Kingman",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789507032093_kingman.jpg",
+      "slug": "e5c72jw2"
+    },
+    {
+      "number": 42,
+      "trip": "2022",
+      "name": "Seligman",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789508178615_image.png",
+      "slug": "32kch4zp"
+    },
+    {
+      "number": 43,
+      "trip": "2022",
+      "name": "Flagstaff",
+      "sub": "Arizona",
+      "photo": "/mnt/user-data/uploads/1789509438425_image.png",
+      "slug": "s8y5zw2w"
+    },
+    {
+      "number": 44,
+      "trip": "2022",
+      "name": "Malibu",
+      "sub": "California",
+      "photo": "/mnt/user-data/uploads/1789507736594_image.png",
+      "slug": "9hnfu8kc"
+    },
+    {
+      "number": 45,
+      "trip": "2022",
+      "name": "Universal Studios",
+      "sub": "Burbank, California",
+      "photo": "/mnt/user-data/uploads/1789511988020_image.png",
+      "slug": "t3yh5c8d"
+    }
+  ]
+}
