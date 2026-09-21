@@ -2,6 +2,7 @@
 
 ## Lugares con fotos reales y pagina completa
 - #5 Disneyland (2013/yyzr6szr) - 11 fotos
+- #6 San Diego (2013/7a2qpwvt) - 14 fotos (Coronado y La Jolla); falta la foto 12 (Children's Pool), pendiente de subir; se nombran 01..15 segun el numero original del usuario, sin 12
 - #9 Beverly Hills (2013/r4kmmtsn) - 12 fotos
 - #10 Warner Bros. Studios (2013/5ubvwzzk) - 23 fotos (2013) + 19 fotos (2018), pestañas por anio
 - #27 Mount Rushmore Memorial (2018/uye2hff3) - 10 fotos
