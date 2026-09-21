@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Warner Bros. Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#E67E22; --line:#D9CFB8; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
+  .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
+  .hero{ position:relative; width:100%; aspect-ratio: 4/5; max-height:65vh; overflow:hidden; }
+  .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .fact-box{ background:var(--paper-2); border-left:4px solid var(--accent); padding:16px 18px; margin:0 0 30px; border-radius:2px; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .fact-box strong{ color:var(--accent); }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 16px; }
+  .year-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .year-tab{ font-family:'Source Sans 3', sans-serif; font-size:0.95rem; font-weight:600; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .year-tab .dot{ width:8px; height:8px; border-radius:50%; }
+  .year-tab.active{ color:#fff; border-color:transparent; }
+  .year-tab:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+  .empty-state{ display:none; background:var(--paper-2); border-radius:4px; padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.95rem; }
+  .empty-state.show{ display:block; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel.hide{ display:none; }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
+  .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
+  .prevnext a.next{ text-align:right; }
+  .closing-cta{ display:block; text-align:center; margin:28px 26px 0; padding:14px 20px; border:1.5px solid var(--line); border-radius:24px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem; max-width:640px; margin-left:auto; margin-right:auto; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+</style>
+</head>
+<body>
+  <div class="topnav"><a href="/">← Índice</a></div>
+
+  <div class="hero">
+    <img src="hero.jpg" alt="Torre de agua de Warner Bros. Studios">
+  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Warner Bros. Studios</h1>
+      <p class="location">Burbank, California</p>
+      <div class="visit-years">
+        <span class="pill"><span class="dot" style="background:#E67E22"></span>2013</span>
+        <span class="pill"><span class="dot" style="background:#DC3229"></span>2018</span>
+      </div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> el estudio abrió sus puertas en 1918, y su recorrido guiado (el "Studio Tour") todavía cruza calles de backlot reales que siguen filmándose hoy — no son réplicas para turistas, son sets de trabajo activos.</div>
+    <div class="story">
+      <p>Fundado en 1923 por los hermanos Warner, el estudio se instaló en Burbank en 1928 y desde entonces es uno de los más grandes y activos de Hollywood, con más de 100 hectáreas de sets, oficinas y estudios de sonido.</p>
+      <p>El "backlot" —las calles de fachadas que se recorren en el tour— es en realidad un conjunto reciclable: la misma cuadra puede ser un pueblo del sur en una serie y una calle de Nueva York en la siguiente producción, según qué carteles y vidrieras le pongan.</p>
+      <p>Por sus calles y estudios pasaron series y películas tan distintas entre sí como Casablanca, El Mago de Oz (parte del rodaje), Friends, ER, Batman y Harry Potter, entre muchísimas otras.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub" id="yearSub">Warner Bros. Studios, Burbank — 2013</p>
+
+    <div class="year-tabs" id="yearTabs"></div>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 23</div>
+    </div>
+    <div class="empty-state" id="emptyState">Todavía no cargamos fotos de esta visita. ¡Vuelvan a escanear más adelante!</div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
+  <div class="prevnext">
+    <a class="prev" href="/2013/r4kmmtsn/">← Beverly Hills</a>
+    <a class="next" href="/2013/h4fruj4d/">Golden Oak Ranch →</a>
+  </div>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #10 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const YEARS = [
+    { year: 2013, color: '#E67E22', photos: [
+      { src:'01.jpg', ratio:0.6645, caption:'Ingreso principal a Warner Bros. Studios, con las estatuas de Bugs Bunny y otros personajes de Looney Tunes dando la bienvenida — el punto de partida del recorrido guiado por el estudio.' },
+      { src:'02.jpg', ratio:0.6645, caption:'Una de las calles del backlot, reutilizada en series y películas distintas a lo largo de los años — entre ellas Dukes of Hazzard, Gilmore Girls, Pretty Little Liars y Norbit.' },
+      { src:'03.jpg', ratio:0.6645, caption:'Este set en particular forma parte de la zona llamada Midwest Street, diseñada para simular el centro urbano o la plaza principal de cualquier pueblo típico de los Estados Unidos ("Anytown, USA"). El edificio de ladrillo marrón con detalles verdes en las ventanas ha servido como fachada comercial interactiva en numerosas producciones de televisión y cine.' },
+      { src:'04.jpg', ratio:0.6645, caption:'En la plaza central de Midwest Street, con el edificio Rosewood de fondo.' },
+      { src:'05.jpg', ratio:0.6645, caption:'En la plaza central de Midwest Street, con el edificio Rosewood de fondo.' },
+      { src:'06.jpg', ratio:0.6645, caption:'El edificio Rosewood, utilizado como el juzgado (courthouse) del condado de Hazzard en la serie The Dukes of Hazzard.' },
+      { src:'07.jpg', ratio:0.6645, caption:'Este set en particular forma parte de la zona llamada Midwest Street, diseñada para simular el centro urbano o la plaza principal de cualquier pueblo típico de los Estados Unidos ("Anytown, USA"). El edificio de ladrillo marrón con detalles verdes en las ventanas ha servido como fachada comercial interactiva en numerosas producciones de televisión y cine.' },
+      { src:'08.jpg', ratio:0.6645, caption:'Este set en particular forma parte de la zona llamada Midwest Street, diseñada para simular el centro urbano o la plaza principal de cualquier pueblo típico de los Estados Unidos ("Anytown, USA"). El edificio de ladrillo marrón con detalles verdes en las ventanas ha servido como fachada comercial interactiva en numerosas producciones de televisión y cine.' },
+      { src:'09.jpg', ratio:0.6645, caption:'Este set en particular forma parte de la zona llamada Midwest Street, diseñada para simular el centro urbano o la plaza principal de cualquier pueblo típico de los Estados Unidos ("Anytown, USA"). El edificio de ladrillo marrón con detalles verdes en las ventanas ha servido como fachada comercial interactiva en numerosas producciones de televisión y cine.' },
+      { src:'10.jpg', ratio:0.6645, caption:'Esta casa fue la del comisionado J.D. Hogg (interpretado por Sorrell Booke) en Dukes of Hazzard.' },
+      { src:'11.jpg', ratio:0.6645, caption:'El General Lee es el legendario automóvil de la serie de televisión estadounidense The Dukes of Hazzard, emitida originalmente entre 1979 y 1985. Se trataba de un Dodge Charger de 1969. Se estima que la producción destruyó entre 300 y 325 unidades de Dodge Charger durante las siete temporadas de la serie.' },
+      { src:'12.jpg', ratio:0.6645, caption:'El General Lee es el legendario automóvil de la serie de televisión estadounidense The Dukes of Hazzard, emitida originalmente entre 1979 y 1985. Se trataba de un Dodge Charger de 1969. Se estima que la producción destruyó entre 300 y 325 unidades de Dodge Charger durante las siete temporadas de la serie.' },
+      { src:'13.jpg', ratio:0.6645, caption:'El General Lee es el legendario automóvil de la serie de televisión estadounidense The Dukes of Hazzard, emitida originalmente entre 1979 y 1985. Se trataba de un Dodge Charger de 1969. Se estima que la producción destruyó entre 300 y 325 unidades de Dodge Charger durante las siete temporadas de la serie.' },
+      { src:'14.jpg', ratio:0.6645, caption:'Este elegante sedán clásico destaca por sus icónicas puertas de apertura inversa (tipo suicida). En la misma sección de la muestra se observa una figura a escala real de un Agente con traje negro, la motocicleta Ducati 996 verde que protagonizó la famosa escena de la autopista en The Matrix Reloaded, y al fondo a la derecha, la clásica furgoneta The Mystery Machine de Scooby-Doo.' },
+      { src:'15.jpg', ratio:0.6645, caption:'Maxwell Smart, el torpe agente 86 de la serie Get Smart (1965-1970), manejaba este Sunbeam Tiger rojo descapotable equipado con gadgets de espía, entre ellos una ametralladora oculta bajo el capó. A lo largo de la serie se usaron al menos tres unidades, ya que varias terminaron destruidas en distintos episodios.' },
+      { src:'16.jpg', ratio:0.6645, caption:'Rolls Royce utilizado en la mega producción del año 1981, "Arthur", ganadora de dos premios Oscar, con Liza Minelli y Dudley Moore.' },
+      { src:'17.jpg', ratio:0.6645, caption:'Icónico Ford Gran Torino Sport de 1972, famoso por ser la pieza central y dar título a la aclamada película de 2008 Gran Torino, dirigida y protagonizada por Clint Eastwood.' },
+      { src:'18.jpg', ratio:0.6645, caption:'Este Batimóvil pertenece a la era de las películas de Batman dirigidas por Joel Schumacher para Warner Bros. en los años 90 (Batman Forever, 1995, y Batman & Robin, 1997). A diferencia del diseño más industrial de la era de Tim Burton, esta versión —diseñada por Barbara Ling y luego Harald Belker— apostó por líneas orgánicas, un motor expuesto tipo costillar y una gran aleta trasera con forma de ala de murciélago.' },
+      { src:'19.jpg', ratio:0.6645, caption:'Ford Anglia usado en la saga Harry Potter. Este auto cobra gran protagonismo en La cámara secreta, primero cuando los hermanos Weasley rescatan a Harry de la casa de sus tíos, y más tarde cuando Harry y Ron lo usan para viajar a Hogwarts tras perder el Expreso, terminando estrellados contra el temible Sauce Boxeador.' },
+      { src:'20.jpg', ratio:0.6645, caption:'La imagen muestra el mítico set de la cafetería Central Perk de la popular serie de televisión Friends, recreado originalmente en los estudios de filmación.' },
+      { src:'21.jpg', ratio:0.6645, caption:'La imagen muestra el mítico set de la cafetería Central Perk de la popular serie de televisión Friends, recreado originalmente en los estudios de filmación.' },
+      { src:'22.jpg', ratio:0.6645, caption:'La imagen muestra el mítico set de la cafetería Central Perk de la popular serie de televisión Friends, recreado originalmente en los estudios de filmación.' },
+      { src:'23.jpg', ratio:0.6645, caption:'La imagen muestra el mítico set de la cafetería Central Perk de la popular serie de televisión Friends, recreado originalmente en los estudios de filmación.' }
+    ]},
+    { year: 2018, color: '#DC3229', photos: [
+      { src:'2018-01.jpg', ratio:0.5527, caption:'Este icónico establecimiento se encuentra exactamente en la intersección de N San Fernando Blvd y E Palm Ave en Downtown Burbank, California. La esquina destaca por su distintivo cartel con letras de madera y el conocido mural colorido con la palabra "BURBANK" pintado en la pared lateral exterior de la cafetería.' },
+      { src:'2018-02.jpg', ratio:0.7495, caption:'Este icónico establecimiento se encuentra exactamente en la intersección de N San Fernando Blvd y E Palm Ave en Downtown Burbank, California. La esquina destaca por su distintivo cartel con letras de madera y el conocido mural colorido con la palabra "BURBANK" pintado en la pared lateral exterior de la cafetería.' },
+      { src:'2018-03.jpg', ratio:0.75, caption:'Este icónico establecimiento se encuentra exactamente en la intersección de N San Fernando Blvd y E Palm Ave en Downtown Burbank, California. La esquina destaca por su distintivo cartel con letras de madera y el conocido mural colorido con la palabra "BURBANK" pintado en la pared lateral exterior de la cafetería.' },
+      { src:'2018-04.jpg', ratio:0.6645, caption:'Entrada principal del Warner Bros. Studio Tour Hollywood, ubicado en la dirección 3400 Warner Boulevard, Burbank, California. Las dos grandes estatuas de bronce que flanquean el sendero representan a los icónicos personajes de los Looney Tunes: el Pato Lucas (Daffy Duck) a la izquierda y Bugs Bunny a la derecha, ambos saludando con sus sombreros de copa.' },
+      { src:'2018-05.jpg', ratio:0.6645, caption:'Entrada principal del Warner Bros. Studio Tour Hollywood, ubicado en la dirección 3400 Warner Boulevard, Burbank, California. Las dos grandes estatuas de bronce que flanquean el sendero representan a los icónicos personajes de los Looney Tunes: el Pato Lucas (Daffy Duck) a la izquierda y Bugs Bunny a la derecha, ambos saludando con sus sombreros de copa.' },
+      { src:'2018-06.jpg', ratio:0.7495, caption:'La famosa torre de agua de Warner Bros., ubicada dentro de los estudios cinematográficos Warner Bros. Studios en Burbank, California. Construida originalmente en 1927, esta estructura metálica de 41 metros de altura es uno de los símbolos más icónicos de Hollywood. Aunque en sus inicios funcionaba como un tanque de agua real para emergencias e incendios dentro del lote, hoy en día ya no almacena líquido y sirve exclusivamente como un emblema publicitario y cultural de la compañía.' },
+      { src:'2018-07.jpg', ratio:0.7495, caption:'La famosa casa victoriana (conocida como la casa de la Sra. Deagle) ubicada en la sección Kings Row / Midwest Street dentro del set exterior de los estudios cinematográficos de Warner Bros. Studios Burbank. Esta fachada exterior es sumamente conocida por haber aparecido en numerosas producciones de cine y televisión, tales como: Gremlins (1984): la residencia de la malvada Sra. Deagle (donde ocurre la icónica escena del salvaescaleras). Gilmore Girls: utilizada como la tienda de antigüedades de Kim (Kim\'s Antiques). Pretty Little Liars: la casa de Emily Fields. ¡Ay! Cómo Duele Crecer (Growing Pains): la casa principal de la familia Seaver durante la serie.' },
+      { src:'2018-08.jpg', ratio:0.7495, caption:'Se recrea un vecindario residencial típico de Estados Unidos (conocido como Midwest Street o calles residenciales), escenario clásico utilizado en innumerables películas y series de televisión famosas como Gilmore Girls (Stars Hollow) o Pretty Little Liars.' },
+      { src:'2018-09.jpg', ratio:0.7495, caption:'Se recrea un vecindario residencial típico de Estados Unidos (conocido como Midwest Street o calles residenciales), escenario clásico utilizado en innumerables películas y series de televisión famosas como Gilmore Girls (Stars Hollow) o Pretty Little Liars.' },
+      { src:'2018-10.jpg', ratio:0.7495, caption:'Se encuentra específicamente en la zona conocida como Hennesy Street (anteriormente parte de los decorados de New York Street). Ha sido modificada y utilizada para representar distintos edificios en numerosas producciones de cine y televisión: Los Dukes de Hazzard: sirvió de forma recurrente como la fachada del Hazzard County Bank (Banco del Condado de Hazzard). Gilmore Girls: formó parte de los alrededores de la plaza de Stars Hollow. Las aventuras de Brisco County Jr.: se ambientó como el elegante Westerfield Club de San Francisco. Lois & Clark (Las nuevas aventuras de Superman): se utilizó para simular diversas calles de Metrópolis.' },
+      { src:'2018-11.jpg', ratio:0.75, caption:'Se encuentra específicamente en la zona conocida como Hennesy Street (anteriormente parte de los decorados de New York Street). Ha sido modificada y utilizada para representar distintos edificios en numerosas producciones de cine y televisión: Los Dukes de Hazzard: sirvió de forma recurrente como la fachada del Hazzard County Bank (Banco del Condado de Hazzard). Gilmore Girls: formó parte de los alrededores de la plaza de Stars Hollow. Las aventuras de Brisco County Jr.: se ambientó como el elegante Westerfield Club de San Francisco. Lois & Clark (Las nuevas aventuras de Superman): se utilizó para simular diversas calles de Metrópolis.' },
+      { src:'2018-12.jpg', ratio:0.6645, caption:'Set de filmación donde ha aparecido simulando vecindarios de Nueva York o Chicago en producciones televisivas como Friends, ER Emergencias, Gilmore Girls y Pretty Little Liars. Gremlins (1984): se transformó por completo para simular el barrio de Chinatown al comienzo de la película, donde el protagonista compra al tierno Gizmo. Spider-Man (2002): justo en la sección de escaleras de incendios metálicas que se ve al fondo a la derecha (Tenement Alley), se filmó la famosa escena del beso bajo la lluvia al revés entre el Spider-Man de Tobey Maguire y Mary Jane (Kirsten Dunst). Batman Returns (1992) y secuelas: sirvió como los oscuros callejones y zonas residenciales de Gotham City.' },
+      { src:'2018-13.jpg', ratio:1.3341, caption:'Personaje: R2-D2 (Artoo-Detoo), el famoso droide astromecánico de la saga Star Wars.' },
+      { src:'2018-14.jpg', ratio:0.6645, caption:'El vehículo: se trata del diseño aerodinámico del Batimóvil utilizado en la película de 1995, reconocido por sus líneas curvas y aletas iluminadas.' },
+      { src:'2018-15.jpg', ratio:0.6645, caption:'Mesa de perspectiva forzada. La perspectiva forzada es un efecto "práctico", lo que significa que se realiza dentro de la cámara durante la producción. Dado que una cámara solo tiene un lente, no puede capturar la profundidad con la misma precisión que el ojo humano. Mediante la manipulación del ángulo de la cámara, el enfoque y el tamaño relativo de los objetos en el set, los cineastas pueden crear ilusiones ópticas de escala. Los trucos de perspectiva forzada (como esta mesa) se utilizaron para crear la ilusión del mago humano Gandalf hablando con el diminuto Bilbo Bolsón en El Señor de los Anillos: la Comunidad del Anillo. Efectos prácticos similares también se combinaron con trucos digitales para crear la misma ilusión de escala en las películas de El Hobbit.' },
+      { src:'2018-16.jpg', ratio:0.6645, caption:'Mesa de perspectiva forzada. La perspectiva forzada es un efecto "práctico", lo que significa que se realiza dentro de la cámara durante la producción. Dado que una cámara solo tiene un lente, no puede capturar la profundidad con la misma precisión que el ojo humano. Mediante la manipulación del ángulo de la cámara, el enfoque y el tamaño relativo de los objetos en el set, los cineastas pueden crear ilusiones ópticas de escala. Los trucos de perspectiva forzada (como esta mesa) se utilizaron para crear la ilusión del mago humano Gandalf hablando con el diminuto Bilbo Bolsón en El Señor de los Anillos: la Comunidad del Anillo. Efectos prácticos similares también se combinaron con trucos digitales para crear la misma ilusión de escala en las películas de El Hobbit.' },
+      { src:'2018-17.jpg', ratio:0.6645, caption:'Set de filmación recreado de la emblemática cafetería Central Perk de la serie de televisión Friends. El famoso sofá naranja original, rodeado por la icónica barra de servicio, la taza gigante de café con luces de neón en la ventana y los muebles clásicos que dieron vida al punto de encuentro de los protagonistas durante las diez temporadas de la serie.' },
+      { src:'2018-18.jpg', ratio:0.7495, caption:'Set de filmación recreado de la emblemática cafetería Central Perk de la serie de televisión Friends. El famoso sofá naranja original, rodeado por la icónica barra de servicio, la taza gigante de café con luces de neón en la ventana y los muebles clásicos que dieron vida al punto de encuentro de los protagonistas durante las diez temporadas de la serie.' },
+      { src:'2018-19.jpg', ratio:0.7495, caption:'Set de filmación recreado de la emblemática cafetería Central Perk de la serie de televisión Friends. El famoso sofá naranja original, rodeado por la icónica barra de servicio, la taza gigante de café con luces de neón en la ventana y los muebles clásicos que dieron vida al punto de encuentro de los protagonistas durante las diez temporadas de la serie.' }
+    ]}
+  ];
+
+  let currentYearIdx = 0;
+  let currentPhotoIdx = 0;
+
+  const tabsEl = document.getElementById('yearTabs');
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  const emptyState = document.getElementById('emptyState');
+  const yearSub = document.getElementById('yearSub');
+
+  function renderTabs(){
+    tabsEl.innerHTML = '';
+    YEARS.forEach((y, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
+      btn.style.background = idx === currentYearIdx ? y.color : 'transparent';
+      btn.style.borderColor = idx === currentYearIdx ? y.color : '';
+      btn.innerHTML = '<span class="dot" style="background:' + (idx===currentYearIdx ? '#fff' : y.color) + '"></span>' + y.year;
+      btn.addEventListener('click', () => selectYear(idx));
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function renderPhotos(){
+    const yearObj = YEARS[currentYearIdx];
+    track.innerHTML = '';
+    yearObj.photos.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = 'Foto familiar en Warner Bros. Studios, ' + yearObj.year;
+      track.appendChild(img);
+    });
+    currentPhotoIdx = 0;
+
+    if(yearObj.photos.length === 0){
+      carousel.classList.add('hide');
+      emptyState.classList.add('show');
+      captionEl.textContent = '';
+    } else {
+      carousel.classList.remove('hide');
+      emptyState.classList.remove('show');
+      updatePhotoView();
+    }
+  }
+
+  function updatePhotoView(){
+    const yearObj = YEARS[currentYearIdx];
+    const n = yearObj.photos.length;
+    if(n === 0) return;
+    track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
+    countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
+    const ratio = yearObj.photos[currentPhotoIdx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+
+  function selectYear(idx){
+    currentYearIdx = idx;
+    yearSub.textContent = 'Warner Bros. Studios, Burbank — ' + YEARS[idx].year;
+    renderTabs();
+    renderPhotos();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx - 1 + n) % n;
+    updatePhotoView();
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx + 1) % n;
+    updatePhotoView();
+  });
+  window.addEventListener('resize', updatePhotoView);
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+    }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  function fitLightboxHeight(){ lightbox.style.height = window.innerHeight + 'px'; }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+  function refreshLightboxImg(){
+    const yearObj = YEARS[currentYearIdx];
+    if(yearObj.photos.length === 0) return;
+    lightboxImg.src = yearObj.photos[currentPhotoIdx].src;
+  }
+  document.getElementById('zoomBtn').addEventListener('click', ()=>{
+    if(YEARS[currentYearIdx].photos.length === 0) return;
+    refreshLightboxImg();
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  });
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(n > 0 && Math.abs(dx) > 40){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+      refreshLightboxImg();
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  renderTabs();
+  renderPhotos();
+})();
+</script>
+</body>
+</html>
