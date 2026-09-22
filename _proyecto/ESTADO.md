@@ -43,3 +43,7 @@ portada al usuario — ya está en {trip}/{slug}/hero.jpg, lista para usar.
 
 ## Portadas en paginas placeholder (19/09)
 Las 41 paginas "en construccion" ahora muestran su hero.jpg en la cabecera (mismo bloque .hero que las paginas completas). Portadas muy pesadas (Los Angeles, World of Coca-Cola, Yellowstone, Antelope Canyon, Monument Valley) se aligeraron a max 2200px. Al completar un lugar, la plantilla completa reemplaza a la placeholder y reutiliza el mismo hero.jpg.
+
+## Fix cabecera en pantallas anchas (22/09)
+Se corrigio el CSS .hero en las 45 paginas: antes usaba width:100% + max-height:65vh sin tope de ancho, y en pantallas de escritorio (anchas y no muy altas) el recorte se volvia extremo (relacion de aspecto disparada), mostrando la foto muy pegada/estirada. Ahora .hero tiene max-width:640px y margin:0 auto (igual que el resto del contenido), con max-height:min(65vh,720px). En movil no cambia nada.
+Beverly Hills ademas tiene portada nueva (foto real 3840x2160 provista por el usuario), reemplazando la version de baja resolucion.
