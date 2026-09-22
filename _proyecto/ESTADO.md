@@ -3,6 +3,7 @@
 ## Lugares con fotos reales y pagina completa
 - #5 Disneyland (2013/yyzr6szr) - 11 fotos
 - #6 San Diego (2013/7a2qpwvt) - 15 fotos (Coronado y La Jolla), numeradas 01..15 segun el numero original del usuario
+- #8 Santa Monica (2013/fprphxqb) - 26 fotos en la pestaña 2013 con textos completos; pestañas 2018 y 2022 creadas pero vacias (pendiente de fotos)
 - #17 Grand Canyon West Skywalk (2013/fef9ux73) - 17 fotos con textos (capas de roca roja cerca del Skywalk, Eagle Point, Guano Point, Skywalk, Hualapai Ranch); faltan 2 fotos que el usuario va a agregar mas adelante (reordenadas por contenido real, no coinciden 1 a 1 con la numeracion original del usuario: ver notas del chat)
 - #16 Las Vegas (2013/95a7284c) - 11 fotos en la pestaña 2013 (Venetian, Paris, Wynn/Encore); pestaña 2018 creada pero vacia (pendiente de fotos)
 - #9 Beverly Hills (2013/r4kmmtsn) - 12 fotos
