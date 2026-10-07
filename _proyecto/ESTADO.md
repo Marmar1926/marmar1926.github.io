@@ -14,6 +14,7 @@
 - #1 Miami (2012md/t42ww8um) - pestañas 2012/2016/2019; 2012 con 21 fotos (Daytona Speedway, Sony Ericsson Open 2012 en Crandon Park, South Beach/Ocean Drive/Marlin Hotel). Fotos 12-14 llevan tabla de resultados (campo 'table' en YEARS: title + rows). 2016 y 2019 pendientes.
 - #18 Key West (trip2/zeusbujg) - 26 fotos con textos (Seven Mile Bridge en Marathon, hotel Fairfield Inn, Duval Street, Mallory Square, Smathers Beach, Truman Annex, casa de Hemingway y gatos polidactilos, Southernmost Point). Plantilla simple (una sola visita).
 - #19 Fort Lauderdale (trip2/4h9u87fr) - 21 fotos con textos (paseo en bote por el Intracostero y Las Olas, Port Everglades, Riverwalk de noche, Fort Lauderdale Beach y Beach Park; incluye fotos de la vecina Hollywood Beach: Broadwalk, Margaritaville, Hollywood Beach Theatre). La foto 22 la elimino el usuario; quedan 21.
+- #20 Kennedy Space Center (trip2/y5ch4w6k) - 18 fotos con textos (mural ISS, Rocket Garden y Saturn IB SA-209, VAB, pasarela Apollo 11, tanque externo y SRB, Atlantis, Orion, capsula Apollo, SLS, rovers de Marte, globo NASA).
 
 ## Resto de los 45 lugares
 Todavia en placeholder ("en construccion"). Revisar manifest.json para la
