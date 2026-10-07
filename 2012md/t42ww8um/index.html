@@ -53,9 +53,10 @@
   .caption-table .ct-title{ font-size:0.85rem; font-weight:600; color:var(--accent); margin:0 0 6px; }
   .caption-table table{ width:100%; border-collapse:collapse; font-size:0.86rem; color:var(--ink); }
   .caption-table td{ padding:6px 6px; border-top:1px solid var(--line); vertical-align:top; }
-  .caption-table td:first-child{ color:var(--ink-soft); white-space:nowrap; padding-left:0; }
-  .caption-table td:last-child{ text-align:right; white-space:nowrap; padding-right:0; }
-  @media (max-width:420px){ .caption-table table{ font-size:0.8rem; } .caption-table td:first-child{ white-space:normal; } }
+  .caption-table td:first-child{ color:var(--ink-soft); padding-left:0; }
+  .caption-table td{ white-space:pre-line; }
+  .caption-table td:last-child{ text-align:right; padding-right:0; white-space:pre; }
+  @media (max-width:420px){ .caption-table table{ font-size:0.8rem; } }
   .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
   .lightbox.open{opacity:1; pointer-events:auto;}
   @media (orientation: landscape){ .lightbox{ padding:8px; } }
@@ -269,42 +270,37 @@
       {
         "src": "14.jpg",
         "ratio": 0.75,
-        "caption": "El argentino Juan \"Pico\" Mónaco durante su semifinal del Masters 1000 de Miami 2012.",
-        "table": {
-          "title": "El camino de Mónaco en Miami 2012",
-          "rows": [
-            [
-              "Segunda ronda",
-              "🇹🇼 Yen-Hsun Lu",
-              "Ganó 5-0 y abandono"
-            ],
-            [
-              "Tercera ronda",
-              "🇫🇷 Gaël Monfils (14)",
-              "Ganó 4-6, 6-3, 6-4"
-            ],
-            [
-              "Octavos de final",
-              "🇺🇸 Andy Roddick",
-              "Ganó 7-5, 6-0"
-            ],
-            [
-              "Cuartos de final",
-              "🇺🇸 Mardy Fish (8)",
-              "Ganó 6-1, 6-3"
-            ],
-            [
-              "Semifinal",
-              "🇷🇸 Novak Djokovic (1)",
-              "Perdió 0-6, 6-7 (5)"
-            ]
-          ]
-        }
+        "caption": "El argentino Juan \"Pico\" Mónaco durante su semifinal del Masters 1000 de Miami 2012."
       },
       {
         "src": "15.jpg",
         "ratio": 1.3333,
-        "caption": "Gisela Dulko y Paola Suárez durante su semifinal de dobles en el Masters 1000 de Miami. Las dos tenistas argentinas unieron fuerzas en varias ocasiones representando al país, en el circuito WTA y en los Juegos Olímpicos de Londres 2012."
+        "caption": "Gisela Dulko y Paola Suárez durante su semifinal de dobles en el Masters 1000 de Miami. Las dos tenistas argentinas unieron fuerzas en varias ocasiones representando al país, en el circuito WTA y en los Juegos Olímpicos de Londres 2012.",
+        "table": {
+          "title": "El camino de Dulko y Suárez en Miami 2012",
+          "rows": [
+            [
+              "Primera ronda",
+              "🇨🇿 Květa Peschke\n🇸🇮 Katarina Srebotnik",
+              "Ganó 6-4, 6-4"
+            ],
+            [
+              "Segunda ronda",
+              "🇸🇮 Andreja Klepač\n🇵🇱 Alicja Rosolska",
+              "Ganó por walkover"
+            ],
+            [
+              "Cuartos de final",
+              "🇷🇺 Vera Dushevina\n🇮🇱 Shahar Pe'er",
+              "Ganó 7-6 (2), 6-7 (3),\n[10-6]"
+            ],
+            [
+              "Semifinal",
+              "🇮🇹 Sara Errani\n🇮🇹 Roberta Vinci",
+              "Perdió 5-7, 3-6"
+            ]
+          ]
+        }
       },
       {
         "src": "16.jpg",
