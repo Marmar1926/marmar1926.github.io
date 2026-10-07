@@ -9,6 +9,9 @@
 - #9 Beverly Hills (2013/r4kmmtsn) - 12 fotos
 - #10 Warner Bros. Studios (2013/5ubvwzzk) - 23 fotos (2013) + 19 fotos (2018), pestañas por anio
 - #27 Mount Rushmore Memorial (2018/uye2hff3) - 10 fotos
+- #7 Los Angeles (2013/9y43778h) - 14 fotos (faltaba en esta lista)
+- #14 Yosemite National Park (2013/b3snzzth) - 20 fotos (faltaba en esta lista)
+- #1 Miami (2012md/t42ww8um) - pestañas 2012/2016/2019; 2012 con 21 fotos (Daytona Speedway, Sony Ericsson Open 2012 en Crandon Park, South Beach/Ocean Drive/Marlin Hotel). Fotos 12-14 llevan tabla de resultados (campo 'table' en YEARS: title + rows). 2016 y 2019 pendientes.
 
 ## Resto de los 45 lugares
 Todavia en placeholder ("en construccion"). Revisar manifest.json para la
@@ -47,3 +50,6 @@ Las 41 paginas "en construccion" ahora muestran su hero.jpg en la cabecera (mism
 ## Fix cabecera en pantallas anchas (22/09)
 Se corrigio el CSS .hero en las 45 paginas: antes usaba width:100% + max-height:65vh sin tope de ancho, y en pantallas de escritorio (anchas y no muy altas) el recorte se volvia extremo (relacion de aspecto disparada), mostrando la foto muy pegada/estirada. Ahora .hero tiene max-width:640px y margin:0 auto (igual que el resto del contenido), con max-height:min(65vh,720px). En movil no cambia nada.
 Beverly Hills ademas tiene portada nueva (foto real 3840x2160 provista por el usuario), reemplazando la version de baja resolucion.
+
+## Flujo de fotos via GitHub (07/10)
+El usuario ahora sube las fotos originales directo a la carpeta del lugar con "Add file > Upload files" (nombres 1.JPG, 2.JPG, 6.1.jpg...) y manda los textos por chat. Claude hace pull, las procesa (exif_transpose, 2200px, q87), las renombra 01.jpg.. en orden, borra los originales (git rm) y arma la pagina. Desde Claude Code el push funciona sin token.
