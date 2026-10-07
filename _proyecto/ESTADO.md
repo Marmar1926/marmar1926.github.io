@@ -12,6 +12,7 @@
 - #7 Los Angeles (2013/9y43778h) - 14 fotos (faltaba en esta lista)
 - #14 Yosemite National Park (2013/b3snzzth) - 20 fotos (faltaba en esta lista)
 - #1 Miami (2012md/t42ww8um) - pestañas 2012/2016/2019; 2012 con 21 fotos (Daytona Speedway, Sony Ericsson Open 2012 en Crandon Park, South Beach/Ocean Drive/Marlin Hotel). Fotos 12-14 llevan tabla de resultados (campo 'table' en YEARS: title + rows). 2016 y 2019 pendientes.
+- #18 Key West (trip2/zeusbujg) - 26 fotos con textos (Seven Mile Bridge en Marathon, hotel Fairfield Inn, Duval Street, Mallory Square, Smathers Beach, Truman Annex, casa de Hemingway y gatos polidactilos, Southernmost Point). Plantilla simple (una sola visita).
 
 ## Resto de los 45 lugares
 Todavia en placeholder ("en construccion"). Revisar manifest.json para la

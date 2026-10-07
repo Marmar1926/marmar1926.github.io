@@ -6,30 +6,59 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Key West</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#F7F2E7; --ink:#2B2620; --ink-soft:#6B6255; --accent:#2e7cf6; }
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#2E7CF6; --line:#D9CFB8; }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:'Source Sans 3', sans-serif;
-    text-align:center; min-height:100vh; padding:0 0 70px;
-  }
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; aspect-ratio:4/5; max-height:min(65vh,720px); overflow:hidden; }
   .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .content{ padding:28px 32px 0; }
-  .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; margin-bottom:18px; }
-  h1{ font-family:'Playfair Display', serif; font-size:1.8rem; margin:0 0 10px; }
-  .location{ color:var(--ink-soft); font-size:1rem; margin:0 0 28px; }
-  p.msg{ color:var(--ink-soft); font-size:0.95rem; max-width:32ch; margin:0 auto; line-height:1.5; }
-  footer{ margin-top:36px; color:var(--ink-soft); font-size:0.8rem; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
+    max-width:640px; margin-left:auto; margin-right:auto;
   }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.88rem; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
+  .fact-box strong{ color:var(--accent); }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
@@ -38,20 +67,278 @@
 </head>
 <body>
   <div class="topnav"><a href="/">← Índice</a></div>
+
   <div class="hero">
     <img src="hero.jpg" alt="Key West">
   </div>
-  <div class="content">
-    <span class="dot"></span>
-    <h1>Key West</h1>
-    <p class="location">Florida</p>
-    <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
-      <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
-  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Key West</h1>
+      <p class="location">Cayo Hueso, Florida</p>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#2E7CF6"></span>2016</span></div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> Key West está más cerca de Cuba que de Miami: la costa cubana queda a solo 90 millas (unos 145 km), mientras que Miami está a más de 250 km por la ruta de los cayos. Por eso la famosa boya del Southernmost Point anuncia "90 millas a Cuba".</div>
+    <div class="story">
+      <p>Llegar a Key West ya es parte del viaje: la Overseas Highway salta de cayo en cayo sobre el mar turquesa, y en Marathon nos bajamos a caminar el Old Seven Mile Bridge, el viejo puente del ferrocarril de Henry Flagler que hoy se recorre a pie.</p>
+      <p>En la isla recorrimos Duval Street, con sus bares, negocios y el cruce peatonal de colores del arcoíris; Mallory Square, donde cada atardecer se celebra el famoso Sunset Celebration; Smathers Beach; y las casas coloniales del barrio Truman Annex, donde veraneaba el presidente Harry Truman.</p>
+      <p>No faltaron dos clásicos: la casa museo de Ernest Hemingway, con sus famosos gatos de seis dedos, y la foto obligada en la boya del Southernmost Point, el punto más al sur de Estados Unidos continental.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub">Key West, Florida — 2016</p>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 26</div>
+    </div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
   <div class="prevnext">
     <a class="prev" href="/2013/fef9ux73/">← Grand Canyon West Skywalk</a>
     <a class="next" href="/trip2/4h9u87fr/">Fort Lauderdale →</a>
   </div>
-  <footer>Punto #18 · Mis viajes por USA</footer>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #18 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const PHOTOS = [
+  {
+    "src": "01.jpg",
+    "ratio": 1.5038,
+    "caption": "Cartel informativo que marca el inicio del Old Seven Mile Bridge (el antiguo Puente de las Siete Millas), en Marathon, en los Cayos de Florida."
+  },
+  {
+    "src": "02.jpg",
+    "ratio": 0.665,
+    "caption": "El icónico Old Seven Mile Bridge, un puente histórico hoy peatonal en los Cayos de Florida. Fue construido originalmente entre 1909 y 1912 por la compañía de Henry Flagler, como parte del ambicioso proyecto ferroviario Overseas Railway."
+  },
+  {
+    "src": "03.jpg",
+    "ratio": 0.665,
+    "caption": "El icónico Old Seven Mile Bridge, un puente histórico hoy peatonal en los Cayos de Florida. Fue construido originalmente entre 1909 y 1912 por la compañía de Henry Flagler, como parte del ambicioso proyecto ferroviario Overseas Railway."
+  },
+  {
+    "src": "04.jpg",
+    "ratio": 0.665,
+    "caption": "Hotel Fairfield Inn & Suites by Marriott Key West, en Cayo Hueso (Key West), Florida."
+  },
+  {
+    "src": "05.jpg",
+    "ratio": 0.75,
+    "caption": "Hotel Fairfield Inn & Suites by Marriott Key West, en Cayo Hueso (Key West), Florida."
+  },
+  {
+    "src": "06.jpg",
+    "ratio": 0.5625,
+    "caption": "Hotel Fairfield Inn & Suites by Marriott Key West, en Cayo Hueso (Key West), Florida."
+  },
+  {
+    "src": "07.jpg",
+    "ratio": 0.665,
+    "caption": "Duval Street, en Key West (Cayo Hueso), Florida: la calle principal del centro histórico de la isla."
+  },
+  {
+    "src": "08.jpg",
+    "ratio": 0.665,
+    "caption": "Mallory Square, la famosa plaza y paseo marítimo del centro histórico de Cayo Hueso (Key West). Al fondo se aprecia el hotel frente al mar Opal Key Resort & Marina (antes Margaritaville Key West Resort & Marina), junto a la pasarela peatonal del puerto."
+  },
+  {
+    "src": "09.jpg",
+    "ratio": 0.665,
+    "caption": "Mallory Square, la famosa plaza y paseo marítimo del centro histórico de Cayo Hueso (Key West). Al fondo se aprecia el hotel frente al mar Opal Key Resort & Marina (antes Margaritaville Key West Resort & Marina), junto a la pasarela peatonal del puerto."
+  },
+  {
+    "src": "10.jpg",
+    "ratio": 0.665,
+    "caption": "Mallory Square, la famosa plaza y paseo marítimo del centro histórico de Cayo Hueso (Key West). Al fondo se aprecia el hotel frente al mar Opal Key Resort & Marina (antes Margaritaville Key West Resort & Marina), junto a la pasarela peatonal del puerto."
+  },
+  {
+    "src": "11.jpg",
+    "ratio": 0.665,
+    "caption": "Mallory Square, la famosa plaza y paseo marítimo del centro histórico de Cayo Hueso (Key West). Al fondo se aprecia el hotel frente al mar Opal Key Resort & Marina (antes Margaritaville Key West Resort & Marina), junto a la pasarela peatonal del puerto."
+  },
+  {
+    "src": "12.jpg",
+    "ratio": 0.665,
+    "caption": "La pintoresca Duval Street, en Key West. En la acera derecha, la fachada de Estate Liquidators, un conocido comercio de antigüedades y liquidaciones en el 725 de Duval Street. En primer plano, el cruce peatonal pintado con los colores del arcoíris, que celebra la diversidad y el espíritu inclusivo de la comunidad local."
+  },
+  {
+    "src": "13.jpg",
+    "ratio": 0.665,
+    "caption": "Duval Street, en Key West (Cayo Hueso), Florida: la calle principal del centro histórico de la isla."
+  },
+  {
+    "src": "14.jpg",
+    "ratio": 0.665,
+    "caption": "Smathers Beach, la playa pública más grande y conocida de Key West."
+  },
+  {
+    "src": "15.jpg",
+    "ratio": 1.5038,
+    "caption": "Smathers Beach, la playa pública más grande y conocida de Key West."
+  },
+  {
+    "src": "16.jpg",
+    "ratio": 0.665,
+    "caption": "Smathers Beach, la playa pública más grande y conocida de Key West."
+  },
+  {
+    "src": "17.jpg",
+    "ratio": 0.665,
+    "caption": "Casa de arquitectura colonial tropical en la comunidad residencial histórica de Truman Annex, en Key West (Cayo Hueso): la casa de verano del presidente Harry Truman."
+  },
+  {
+    "src": "18.jpg",
+    "ratio": 0.665,
+    "caption": "Casa de arquitectura colonial tropical en la comunidad residencial histórica de Truman Annex, en Key West (Cayo Hueso): la casa de verano del presidente Harry Truman."
+  },
+  {
+    "src": "19.jpg",
+    "ratio": 0.665,
+    "caption": "Barrio histórico de Truman Annex, en el extremo oeste del casco antiguo (Old Town) de Key West, Florida."
+  },
+  {
+    "src": "20.jpg",
+    "ratio": 0.665,
+    "caption": "Barrio histórico de Truman Annex, en el extremo oeste del casco antiguo (Old Town) de Key West, Florida."
+  },
+  {
+    "src": "21.jpg",
+    "ratio": 1.5038,
+    "caption": "Casa y museo de Ernest Hemingway, Key West, Florida."
+  },
+  {
+    "src": "22.jpg",
+    "ratio": 0.5627,
+    "caption": "Casa y museo de Ernest Hemingway, Key West, Florida."
+  },
+  {
+    "src": "23.jpg",
+    "ratio": 1.5038,
+    "caption": "Casa y museo de Ernest Hemingway, Key West, Florida."
+  },
+  {
+    "src": "24.jpg",
+    "ratio": 0.665,
+    "caption": "Un gato polidáctil: un felino con una mutación genética hereditaria e inofensiva, la polidactilia, que le da dedos de más. Se los conoce como \"gatos de Hemingway\" por la gran población de felinos con esta condición que vivía, y aún vive, en la casa del escritor en Key West."
+  },
+  {
+    "src": "25.jpg",
+    "ratio": 0.665,
+    "caption": "Un gato polidáctil: un felino con una mutación genética hereditaria e inofensiva, la polidactilia, que le da dedos de más. Se los conoce como \"gatos de Hemingway\" por la gran población de felinos con esta condición que vivía, y aún vive, en la casa del escritor en Key West."
+  },
+  {
+    "src": "26.jpg",
+    "ratio": 0.665,
+    "caption": "Southernmost Point Buoy (la Boya del Punto Más Meridional), el famoso monumento con forma de boya que marca el punto más al sur de Estados Unidos continental, en Cayo Hueso (Key West), Florida."
+  }
+];
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  let i = 0;
+
+  function render(){
+    track.innerHTML = '';
+    PHOTOS.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.src; img.alt = 'Foto familiar en Key West, 2016';
+      track.appendChild(img);
+    });
+  }
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
+  }
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ dx > 0 ? go(i-1) : go(i+1); }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  function openLightbox(){
+    lightboxImg.src = PHOTOS[i].src;
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  }
+  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(Math.abs(dx) > 40){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  render();
+  go(0);
+})();
+</script>
 </body>
 </html>
