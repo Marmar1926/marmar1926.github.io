@@ -16,7 +16,8 @@
 - #19 Fort Lauderdale (trip2/4h9u87fr) - 21 fotos con textos (paseo en bote por el Intracostero y Las Olas, Port Everglades, Riverwalk de noche, Fort Lauderdale Beach y Beach Park; incluye fotos de la vecina Hollywood Beach: Broadwalk, Margaritaville, Hollywood Beach Theatre). La foto 22 la elimino el usuario; quedan 21.
 - #20 Kennedy Space Center (trip2/y5ch4w6k) - 18 fotos con textos (mural ISS, Rocket Garden y Saturn IB SA-209, VAB, pasarela Apollo 11, tanque externo y SRB, Atlantis, Orion, capsula Apollo, SLS, rovers de Marte, globo NASA).
 - #24 Covington (trip2/m6kz6xs6) - 19 fotos con textos (locaciones de The Vampire Diaries, In the Heat of the Night, Dukes of Hazzard, Sweet Magnolias; Boar's Nest y Seney Hall en Oxford). El usuario las subio por error a la carpeta de #25 Hollywood of the South (25fr6s4w); se movieron a Covington por pedido suyo. #25 sigue en placeholder.
-- #23 World of Coca-Cola (trip2/vknj9s5j) - 13 fotos con textos (museo + exterior/Pemberton Place), plantilla simple. Las fotos se subieron por error a la carpeta de #22 Atlanta (enbpes64) y se movieron aca. Las fotos de los alrededores del museo van en la pagina de #22 Atlanta (pendiente).
+- #22 Atlanta (trip2/enbpes64) - 16 fotos; textos escritos por Claude a pedido del usuario (centro, Centennial Olympic Park/SkyView, Pemberton Place, Centro de Derechos Civiles, mural ATLANTA, International Blvd, CNN Center, Georgia Aquarium).
+- #23 World of Coca-Cola (trip2/vknj9s5j) - 13 fotos con textos (museo + exterior/Pemberton Place), plantilla simple. Las fotos se subieron por error a la carpeta de #22 Atlanta (enbpes64) y se movieron aca. Las fotos de los alrededores del museo van en la pagina de #22 Atlanta.
 
 ## Resto de los 45 lugares
 Todavia en placeholder ("en construccion"). Revisar manifest.json para la
