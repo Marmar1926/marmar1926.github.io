@@ -12,8 +12,6 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; }
-  .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; aspect-ratio:4/5; max-height:min(65vh,720px); overflow:hidden; }
   .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
   .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
@@ -23,21 +21,18 @@
   .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
   .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
   main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
-  .fact-box{ background:var(--paper-2); border-left:4px solid var(--accent); padding:16px 18px; margin:0 0 30px; border-radius:2px; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-  .fact-box strong{ color:var(--accent); }
   .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  .fact-box strong{ color:var(--accent); }
   .story p:last-child{margin-bottom:0;}
   .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
-  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 16px; }
-  .year-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-  .year-tab{ font-family:'Source Sans 3', sans-serif; font-size:0.95rem; font-weight:600; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
-  .year-tab .dot{ width:8px; height:8px; border-radius:50%; }
-  .year-tab.active{ color:#fff; border-color:transparent; }
-  .year-tab:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
-  .empty-state{ display:none; background:var(--paper-2); border-radius:4px; padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.95rem; }
-  .empty-state.show{ display:block; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
   .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
-  .carousel.hide{ display:none; }
   .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
   .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
   .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
@@ -53,14 +48,21 @@
   @media (orientation: landscape){ .lightbox{ padding:8px; } }
   .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
   .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
+  .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
-  .closing-cta{ display:block; text-align:center; margin:28px 26px 0; padding:14px 20px; border:1.5px solid var(--line); border-radius:24px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem; max-width:640px; margin-left:auto; margin-right:auto; }
-  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
-  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
 </style>
 </head>
 <body>
@@ -74,22 +76,17 @@
     <div class="place-header">
       <h1>World of Coca-Cola</h1>
       <p class="location">Atlanta, Georgia</p>
-      <div class="visit-years">
-        <span class="pill"><span class="dot" style="background:#2E7CF6"></span>2016</span>
-      </div>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#2E7CF6"></span>2016</span></div>
     </div>
 
     <div class="fact-box"><strong>Dato curioso:</strong> la fórmula secreta de Coca-Cola se guarda en una bóveda dentro de este mismo museo, en Atlanta, la ciudad donde el farmacéutico John Pemberton inventó la bebida en 1886. En sus primeros años se vendía en la fuente de soda de una farmacia, a 5 centavos el vaso.</div>
     <div class="story">
       <p>World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta, es el museo dedicado a la historia de la marca, en la misma ciudad donde nació la bebida. Recorrimos sus salas de carteles y objetos antiguos, la vieja fuente de soda, las máquinas expendedoras de todo el mundo y hasta un camión de reparto de la Coca-Cola argentina.</p>
       <p>El final es el clásico "Taste It!", donde se pueden probar decenas de bebidas de la marca de distintos países. Afuera, la torre de cristal con la silueta gigante de la botella y el parque de Pemberton Place.</p>
-      <p>En la pestaña "Alrededores · Atlanta" están las fotos que sacamos en las inmediaciones del museo, en el centro de la ciudad.</p>
     </div>
 
     <p class="section-label">Nuestras fotos</p>
-    <p class="section-sub" id="yearSub">Adentro y afuera del museo — 2016</p>
-
-    <div class="year-tabs" id="yearTabs"></div>
+    <p class="section-sub">World of Coca-Cola, Atlanta — 2016</p>
 
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
@@ -100,7 +97,6 @@
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
       <div class="carousel-count" id="count">1 / 13</div>
     </div>
-    <div class="empty-state" id="emptyState">Todavía no cargamos estas fotos. ¡Volvé a escanear más adelante!</div>
     <p class="photo-caption" id="caption"></p>
   </main>
 
@@ -121,185 +117,118 @@
 
 <script>
 (function(){
-  const YEARS = [
+  const PHOTOS = [
   {
-    "year": "World of Coca-Cola",
-    "color": "#2E7CF6",
-    "sub": "Adentro y afuera del museo — 2016",
-    "photos": [
-      {
-        "src": "01.jpg",
-        "ratio": 1.5038,
-        "caption": "Entrada del famoso museo World of Coca-Cola, en Atlanta, Georgia."
-      },
-      {
-        "src": "02.jpg",
-        "ratio": 0.665,
-        "caption": "Vitrina con carteles publicitarios antiguos y objetos de colección en el museo World of Coca-Cola, Atlanta."
-      },
-      {
-        "src": "03.jpg",
-        "ratio": 0.665,
-        "caption": "La estatua de bronce del fondo representa a un clásico soda jerk, el encargado de servir refrescos y helados en las antiguas fuentes de soda, y recrea la estética vintage de los inicios de la marca."
-      },
-      {
-        "src": "04.jpg",
-        "ratio": 0.665,
-        "caption": "Camión de reparto Chevrolet de 1939 de Coca-Cola de Argentina, con la inscripción de Reginald Lee S.A., exhibido en el museo World of Coca-Cola en Atlanta."
-      },
-      {
-        "src": "05.jpg",
-        "ratio": 0.665,
-        "caption": "The Loft, el área del museo dedicada a los recuerdos de la marca: carteles publicitarios vintage y máquinas expendedoras antiguas de distintas épocas y países del mundo."
-      },
-      {
-        "src": "06.jpg",
-        "ratio": 0.665,
-        "caption": "Museo World of Coca-Cola, Atlanta, Georgia."
-      },
-      {
-        "src": "07.jpg",
-        "ratio": 1.5038,
-        "caption": "Estación de degustación en World of Coca-Cola, Atlanta."
-      },
-      {
-        "src": "08.jpg",
-        "ratio": 1.5038,
-        "caption": "\"Taste It!\", con dispensadores automáticos para probar decenas de bebidas y variantes exclusivas de la marca provenientes de distintas partes del mundo."
-      },
-      {
-        "src": "09.jpg",
-        "ratio": 0.665,
-        "caption": "Pemberton Place, en pleno centro de Atlanta, Georgia."
-      },
-      {
-        "src": "10.jpg",
-        "ratio": 0.665,
-        "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
-      },
-      {
-        "src": "11.jpg",
-        "ratio": 0.665,
-        "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
-      },
-      {
-        "src": "12.jpg",
-        "ratio": 0.665,
-        "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
-      },
-      {
-        "src": "13.jpg",
-        "ratio": 0.665,
-        "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
-      }
-    ]
+    "src": "01.jpg",
+    "ratio": 1.5038,
+    "caption": "Entrada del famoso museo World of Coca-Cola, en Atlanta, Georgia."
   },
   {
-    "year": "Alrededores · Atlanta",
-    "color": "#2E7CF6",
-    "sub": "Fotos sacadas en las inmediaciones de World of Coca-Cola, en el centro de Atlanta — 2016",
-    "photos": []
+    "src": "02.jpg",
+    "ratio": 0.665,
+    "caption": "Vitrina con carteles publicitarios antiguos y objetos de colección en el museo World of Coca-Cola, Atlanta."
+  },
+  {
+    "src": "03.jpg",
+    "ratio": 0.665,
+    "caption": "La estatua de bronce del fondo representa a un clásico soda jerk, el encargado de servir refrescos y helados en las antiguas fuentes de soda, y recrea la estética vintage de los inicios de la marca."
+  },
+  {
+    "src": "04.jpg",
+    "ratio": 0.665,
+    "caption": "Camión de reparto Chevrolet de 1939 de Coca-Cola de Argentina, con la inscripción de Reginald Lee S.A., exhibido en el museo World of Coca-Cola en Atlanta."
+  },
+  {
+    "src": "05.jpg",
+    "ratio": 0.665,
+    "caption": "The Loft, el área del museo dedicada a los recuerdos de la marca: carteles publicitarios vintage y máquinas expendedoras antiguas de distintas épocas y países del mundo."
+  },
+  {
+    "src": "06.jpg",
+    "ratio": 0.665,
+    "caption": "Museo World of Coca-Cola, Atlanta, Georgia."
+  },
+  {
+    "src": "07.jpg",
+    "ratio": 1.5038,
+    "caption": "Estación de degustación en World of Coca-Cola, Atlanta."
+  },
+  {
+    "src": "08.jpg",
+    "ratio": 1.5038,
+    "caption": "\"Taste It!\", con dispensadores automáticos para probar decenas de bebidas y variantes exclusivas de la marca provenientes de distintas partes del mundo."
+  },
+  {
+    "src": "09.jpg",
+    "ratio": 0.665,
+    "caption": "Pemberton Place, en pleno centro de Atlanta, Georgia."
+  },
+  {
+    "src": "10.jpg",
+    "ratio": 0.665,
+    "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
+  },
+  {
+    "src": "11.jpg",
+    "ratio": 0.665,
+    "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
+  },
+  {
+    "src": "12.jpg",
+    "ratio": 0.665,
+    "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
+  },
+  {
+    "src": "13.jpg",
+    "ratio": 0.665,
+    "caption": "Zona exterior y boleterías de World of Coca-Cola, en Pemberton Place, en pleno centro de Atlanta. Al fondo se destaca su icónica torre de cristal, que alberga la silueta gigante de la clásica botella de la marca."
   }
 ];
-
-  let currentYearIdx = 0;
-  let currentPhotoIdx = 0;
-
-  const tabsEl = document.getElementById('yearTabs');
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
-  const emptyState = document.getElementById('emptyState');
-  const yearSub = document.getElementById('yearSub');
+  let i = 0;
 
-  function renderTabs(){
-    tabsEl.innerHTML = '';
-    YEARS.forEach((y, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
-      btn.style.background = idx === currentYearIdx ? y.color : 'transparent';
-      btn.style.borderColor = idx === currentYearIdx ? y.color : '';
-      btn.innerHTML = '<span class="dot" style="background:' + (idx===currentYearIdx ? '#fff' : y.color) + '"></span>' + y.year;
-      btn.addEventListener('click', () => selectYear(idx));
-      tabsEl.appendChild(btn);
-    });
-  }
-
-  function renderPhotos(){
-    const yearObj = YEARS[currentYearIdx];
+  function render(){
     track.innerHTML = '';
-    yearObj.photos.forEach(p => {
+    PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      img.src = p.src;
-      img.alt = 'Foto familiar en World of Coca-Cola, ' + yearObj.year;
+      img.src = p.src; img.alt = 'Foto familiar en World of Coca-Cola, 2016';
       track.appendChild(img);
     });
-    currentPhotoIdx = 0;
-
-    if(yearObj.photos.length === 0){
-      carousel.classList.add('hide');
-      emptyState.classList.add('show');
-      captionEl.textContent = '';
-    } else {
-      carousel.classList.remove('hide');
-      emptyState.classList.remove('show');
-      updatePhotoView();
-    }
   }
-
-  function updatePhotoView(){
-    const yearObj = YEARS[currentYearIdx];
-    const n = yearObj.photos.length;
-    if(n === 0) return;
-    track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
-    countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
-    captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
-    const ratio = yearObj.photos[currentPhotoIdx].ratio;
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
     const w = carousel.clientWidth;
     let h = w * ratio;
     h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
     track.style.height = h + 'px';
   }
-
-  function selectYear(idx){
-    currentYearIdx = idx;
-    yearSub.textContent = YEARS[idx].sub;
-    renderTabs();
-    renderPhotos();
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
   }
-
-  document.getElementById('prevBtn').addEventListener('click', ()=>{
-    const n = YEARS[currentYearIdx].photos.length;
-    if(n === 0) return;
-    currentPhotoIdx = (currentPhotoIdx - 1 + n) % n;
-    updatePhotoView();
-  });
-  document.getElementById('nextBtn').addEventListener('click', ()=>{
-    const n = YEARS[currentYearIdx].photos.length;
-    if(n === 0) return;
-    currentPhotoIdx = (currentPhotoIdx + 1) % n;
-    updatePhotoView();
-  });
-  window.addEventListener('resize', updatePhotoView);
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
 
   let startX = null;
   track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
   track.addEventListener('touchend', e => {
     if(startX === null) return;
-    const n = YEARS[currentYearIdx].photos.length;
-    if(n === 0) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 40){
-      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
-      updatePhotoView();
-    }
+    if(Math.abs(dx) > 40){ dx > 0 ? go(i-1) : go(i+1); }
     startX = null;
   }, {passive:true});
 
   const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  function fitLightboxHeight(){ lightbox.style.height = window.innerHeight + 'px'; }
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
   window.addEventListener('resize', fitLightboxHeight);
   window.addEventListener('orientationchange', () => {
     setTimeout(fitLightboxHeight, 50);
@@ -309,17 +238,14 @@
   if(screen.orientation){
     screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
   }
-  function refreshLightboxImg(){
-    const yearObj = YEARS[currentYearIdx];
-    if(yearObj.photos.length === 0) return;
-    lightboxImg.src = yearObj.photos[currentPhotoIdx].src;
-  }
-  document.getElementById('zoomBtn').addEventListener('click', ()=>{
-    if(YEARS[currentYearIdx].photos.length === 0) return;
-    refreshLightboxImg();
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  function openLightbox(){
+    lightboxImg.src = PHOTOS[i].src;
     fitLightboxHeight();
     lightbox.classList.add('open');
-  });
+  }
+  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
   function closeLightbox(){ lightbox.classList.remove('open'); }
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
@@ -334,20 +260,18 @@
   }, {passive:true});
   lightbox.addEventListener('touchend', e => {
     if(lbStartX === null) return;
-    const n = YEARS[currentYearIdx].photos.length;
     const dx = e.changedTouches[0].clientX - lbStartX;
-    if(n > 0 && Math.abs(dx) > 40){
-      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
-      updatePhotoView();
-      refreshLightboxImg();
+    if(Math.abs(dx) > 40){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
     } else if(!lbMoved && e.target !== lightboxImg){
       closeLightbox();
     }
     lbStartX = null;
   }, {passive:true});
 
-  renderTabs();
-  renderPhotos();
+  render();
+  go(0);
 })();
 </script>
 </body>
