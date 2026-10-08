@@ -6,30 +6,59 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Covington</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#F7F2E7; --ink:#2B2620; --ink-soft:#6B6255; --accent:#2e7cf6; }
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#2E7CF6; --line:#D9CFB8; }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:'Source Sans 3', sans-serif;
-    text-align:center; min-height:100vh; padding:0 0 70px;
-  }
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; aspect-ratio:4/5; max-height:min(65vh,720px); overflow:hidden; }
   .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .content{ padding:28px 32px 0; }
-  .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; margin-bottom:18px; }
-  h1{ font-family:'Playfair Display', serif; font-size:1.8rem; margin:0 0 10px; }
-  .location{ color:var(--ink-soft); font-size:1rem; margin:0 0 28px; }
-  p.msg{ color:var(--ink-soft); font-size:0.95rem; max-width:32ch; margin:0 auto; line-height:1.5; }
-  footer{ margin-top:36px; color:var(--ink-soft); font-size:0.8rem; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
+    max-width:640px; margin-left:auto; margin-right:auto;
   }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.88rem; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
+  .fact-box strong{ color:var(--accent); }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
@@ -38,20 +67,243 @@
 </head>
 <body>
   <div class="topnav"><a href="/">← Índice</a></div>
+
   <div class="hero">
     <img src="hero.jpg" alt="Covington">
   </div>
-  <div class="content">
-    <span class="dot"></span>
-    <h1>Covington</h1>
-    <p class="location">Georgia</p>
-    <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
-      <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
-  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Covington</h1>
+      <p class="location">Georgia</p>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#2E7CF6"></span>2016</span></div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> Covington aparece en tantas series y películas que se ganó el apodo de "Hollywood del Sur". La misma plaza fue Sparta en In the Heat of the Night, Mystic Falls en The Vampire Diaries y Serenity en Sweet Magnolias: el pueblo cambia de nombre cada vez que llega una nueva filmación.</div>
+    <div class="story">
+      <p>A unos 55 km al este de Atlanta, Covington es un pueblo tranquilo del sur de Estados Unidos, con su plaza arbolada, su palacio de justicia de ladrillo rojo y su torre del reloj. Pero para los fanáticos de la televisión es mucho más: es uno de los sets de filmación más famosos del país.</p>
+      <p>Recorrimos la plaza central y el Newton County Courthouse, convertido en Mystic Falls en The Vampire Diaries; el Mystic Grill; la vieja estación de trenes que fue la comisaría de In the Heat of the Night; y la Casa Zachary-Echols.</p>
+      <p>En los alrededores, ya en Oxford, buscamos The Boar's Nest, la taberna de The Dukes of Hazzard, cuyos primeros episodios se filmaron en esta zona, y pasamos por el histórico Seney Hall del Oxford College de la Emory University.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub">Covington, Georgia — 2016</p>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 19</div>
+    </div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
   <div class="prevnext">
     <a class="prev" href="/trip2/vknj9s5j/">← World of Coca-Cola</a>
     <a class="next" href="/trip2/25fr6s4w/">Hollywood of the South →</a>
   </div>
-  <footer>Punto #24 · Mis viajes por USA</footer>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #24 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const PHOTOS = [
+  {
+    "src": "01.jpg",
+    "ratio": 0.5625,
+    "caption": "Elm Street NE, en Covington, Georgia. A la izquierda, la estructura de estacionamiento de la First Baptist Church y las oficinas vecinas, a una cuadra de la plaza histórica de la ciudad, famosa por ser set de filmación de series como The Vampire Diaries e In the Heat of the Night. Aquí también se filmó uno de los saltos más emblemáticos de The Dukes of Hazzard."
+  },
+  {
+    "src": "02.jpg",
+    "ratio": 0.665,
+    "caption": "Cruce ferroviario histórico de Elm Street, en Covington. A la izquierda, la antigua estación de trenes (depot), muy reconocida por los fanáticos de la televisión por haber sido la estación de policía de Sparta a partir de la segunda temporada de la clásica serie In the Heat of the Night."
+  },
+  {
+    "src": "03.jpg",
+    "ratio": 0.665,
+    "caption": "El edificio blanco con techo rojo al fondo es nada menos que The Boar's Nest, la icónica taberna de la primera temporada de The Dukes of Hazzard. Los primeros cinco episodios de la legendaria serie de 1979 se filmaron en locaciones reales de los alrededores de Covington (este, en Oxford, Georgia) antes de que toda la producción se trasladara a los estudios de California."
+  },
+  {
+    "src": "04.jpg",
+    "ratio": 0.665,
+    "caption": "El edificio blanco con techo rojo al fondo es nada menos que The Boar's Nest, la icónica taberna de la primera temporada de The Dukes of Hazzard. Los primeros cinco episodios de la legendaria serie de 1979 se filmaron en locaciones reales de los alrededores de Covington (este, en Oxford, Georgia) antes de que toda la producción se trasladara a los estudios de California."
+  },
+  {
+    "src": "05.jpg",
+    "ratio": 0.665,
+    "caption": "El edificio blanco con techo rojo al fondo es nada menos que The Boar's Nest, la icónica taberna de la primera temporada de The Dukes of Hazzard. Los primeros cinco episodios de la legendaria serie de 1979 se filmaron en locaciones reales de los alrededores de Covington (este, en Oxford, Georgia) antes de que toda la producción se trasladara a los estudios de California."
+  },
+  {
+    "src": "06.jpg",
+    "ratio": 1.5038,
+    "caption": "El Palacio de Justicia del Condado de Newton (Newton County Courthouse), en la plaza central de Covington, Georgia. Su icónica torre del reloj es famosa en todo el mundo por haberse convertido en el set de la ficticia ciudad de Mystic Falls en la serie The Vampire Diaries (Diarios de vampiros)."
+  },
+  {
+    "src": "07.jpg",
+    "ratio": 1.5038,
+    "caption": "El Palacio de Justicia del Condado de Newton (Newton County Courthouse), en la plaza central de Covington, Georgia. Su icónica torre del reloj es famosa en todo el mundo por haberse convertido en el set de la ficticia ciudad de Mystic Falls en la serie The Vampire Diaries (Diarios de vampiros)."
+  },
+  {
+    "src": "08.jpg",
+    "ratio": 1.5038,
+    "caption": "El Palacio de Justicia del Condado de Newton (Newton County Courthouse), en la plaza central de Covington, Georgia. Su icónica torre del reloj es famosa en todo el mundo por haberse convertido en el set de la ficticia ciudad de Mystic Falls en la serie The Vampire Diaries (Diarios de vampiros)."
+  },
+  {
+    "src": "09.jpg",
+    "ratio": 0.665,
+    "caption": "Plaza central de Covington, Georgia."
+  },
+  {
+    "src": "10.jpg",
+    "ratio": 0.665,
+    "caption": "El mismo palacio de justicia y sus alrededores fueron escenario de otras producciones clásicas de la televisión y el cine, como In the Heat of the Night (Al calor de la noche) y The Dukes of Hazzard."
+  },
+  {
+    "src": "11.jpg",
+    "ratio": 0.5625,
+    "caption": "El edificio del centro alberga el famoso Mystic Grill, conocido en todo el mundo por haber sido uno de los sets principales de la serie The Vampire Diaries (Diarios de vampiros). El mismo restaurante apareció también como Sullivan's en la serie Sweet Magnolias."
+  },
+  {
+    "src": "12.jpg",
+    "ratio": 1.3333,
+    "caption": "El edificio del centro alberga el famoso Mystic Grill, conocido en todo el mundo por haber sido uno de los sets principales de la serie The Vampire Diaries (Diarios de vampiros). El mismo restaurante apareció también como Sullivan's en la serie Sweet Magnolias."
+  },
+  {
+    "src": "13.jpg",
+    "ratio": 0.5625,
+    "caption": "Plaza central de Covington, Georgia."
+  },
+  {
+    "src": "14.jpg",
+    "ratio": 0.5625,
+    "caption": "Plaza central de Covington, Georgia."
+  },
+  {
+    "src": "15.jpg",
+    "ratio": 0.5625,
+    "caption": "Plaza central de Covington, Georgia."
+  },
+  {
+    "src": "16.jpg",
+    "ratio": 0.5625,
+    "caption": "Monumento Confederado del Condado de Newton, memorial de la Guerra de Secesión inaugurado el 25 de abril de 1906 en el centro de la plaza histórica de Covington. Su inscripción dice: «A los muertos confederados del condado de Newton. Sus hazañas galantes y heroicas, como fustes monumentales, surgen del cementerio del pasado y marcan las tumbas donde yace el valor»."
+  },
+  {
+    "src": "17.jpg",
+    "ratio": 0.665,
+    "caption": "La Casa Zachary-Echols (Zachary-Echols House), una célebre residencia de estilo antebellum y Renacimiento Griego construida alrededor de 1854. En The Dukes of Hazzard fue el orfanato Sheridan Orphanage, y también formó parte de los escenarios recurrentes de In the Heat of the Night, filmada en gran parte en Covington."
+  },
+  {
+    "src": "18.jpg",
+    "ratio": 0.665,
+    "caption": "El icónico Seney Hall, construido en 1881: el edificio histórico más reconocido del campus de Oxford College, de la Emory University, en Oxford, Georgia."
+  },
+  {
+    "src": "19.jpg",
+    "ratio": 1.5038,
+    "caption": "Cartel \"Welcome to Main Street Covington\", con una ilustración del distintivo palacio de justicia histórico de la ciudad. Covington, Georgia."
+  }
+];
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  let i = 0;
+
+  function render(){
+    track.innerHTML = '';
+    PHOTOS.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.src; img.alt = 'Foto familiar en Covington, 2016';
+      track.appendChild(img);
+    });
+  }
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
+  }
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ dx > 0 ? go(i-1) : go(i+1); }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  function openLightbox(){
+    lightboxImg.src = PHOTOS[i].src;
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  }
+  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(Math.abs(dx) > 40){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  render();
+  go(0);
+})();
+</script>
 </body>
 </html>
