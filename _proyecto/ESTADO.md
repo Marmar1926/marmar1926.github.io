@@ -70,3 +70,5 @@ Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guarda
 - Recuadros: Dato curioso, Datos de interes (unos 300 Chargers, lastre), ¿Quien es quien? (actores, solo texto).
 - Mapa Leaflet con 6 locaciones numeradas (clic -> salta al Then/Now). Leaflet esta vendorizado en /assets/leaflet (no depende de CDN); tiles de OpenStreetMap.
 - Coordenadas (Google Places): Elm&Williams 33.599403,-83.858364; salto Elm St 33.598685,-83.858521; courthouse 33.597110,-83.860183; estacion Emory St 33.604558,-83.863802; Seney Hall 33.619079,-83.871089; Boar's Nest 290 Flat Rock Rd 33.647472,-83.826763. Casa Zachary-Echols sin ubicar (privada).
+
+- #26 Clearwater (trip2/wsgty6hn) - 12 fotos (Pier 60 y la playa de al lado); textos escritos por Claude a pedido del usuario. Dato: TripAdvisor mejor playa de EE.UU. 2016 y 2018.
