@@ -64,3 +64,9 @@ El usuario ahora sube las fotos originales directo a la carpeta del lugar con "A
 
 ## Ojo al procesar fotos (09/10)
 Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guardar las salidas 01.jpg..NN.jpg en la misma carpeta se pueden pisar originales antes de leerlos. Copiar primero los originales a una carpeta temporal y procesar desde ahi.
+
+## Hollywood of the South: mapa y extras (09/10)
+- Carrusel ordenado por episodio (One Armed Bandits, creditos, Repo Men, High Octane, Boar's Nest) con etiqueta 📺 en cada pie.
+- Recuadros: Dato curioso, Datos de interes (unos 300 Chargers, lastre), ¿Quien es quien? (actores, solo texto).
+- Mapa Leaflet con 6 locaciones numeradas (clic -> salta al Then/Now). Leaflet esta vendorizado en /assets/leaflet (no depende de CDN); tiles de OpenStreetMap.
+- Coordenadas (Google Places): Elm&Williams 33.599403,-83.858364; salto Elm St 33.598685,-83.858521; courthouse 33.597110,-83.860183; estacion Emory St 33.604558,-83.863802; Seney Hall 33.619079,-83.871089; Boar's Nest 290 Flat Rock Rd 33.647472,-83.826763. Casa Zachary-Echols sin ubicar (privada).

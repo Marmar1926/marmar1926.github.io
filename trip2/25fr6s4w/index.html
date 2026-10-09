@@ -46,6 +46,16 @@
   .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
   .photo-caption:empty{ display:none; }
   @media (min-width:1000px){ .wide-zone{ width:min(1100px,94vw); position:relative; left:50%; transform:translateX(-50%); } }
+  .who ul{ margin:10px 0 0; padding-left:18px; font-size:1rem; }
+  .who li{ margin:4px 0; }
+  .who strong{ display:block; }
+  #locmap{ height:340px; border-radius:4px; overflow:hidden; box-shadow:0 10px 26px rgba(43,38,32,0.18); background:var(--paper-2); }
+  .loc-list{ margin:14px 0 0; padding:0; list-style:none; font-size:0.95rem; }
+  .loc-list li{ display:flex; gap:10px; align-items:baseline; padding:6px 0; border-top:1px solid var(--line); cursor:pointer; }
+  .loc-list li:hover{ color:var(--accent); }
+  .loc-num{ flex:0 0 24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; font-weight:600; font-size:0.8rem; display:inline-flex; align-items:center; justify-content:center; }
+  .loc-pin{ width:28px; height:28px; border-radius:50%; background:#2E7CF6; color:#fff; font:600 14px 'Source Sans 3',sans-serif; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .photo-caption{ white-space:pre-line; }
   .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
   .lightbox.open{opacity:1; pointer-events:auto;}
   @media (orientation: landscape){ .lightbox{ padding:8px; } }
@@ -67,6 +77,8 @@
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
 </style>
+<link rel="stylesheet" href="/assets/leaflet/leaflet.css">
+<script src="/assets/leaflet/leaflet.js"></script>
 </head>
 <body>
   <div class="topnav"><a href="/">← Índice</a></div>
@@ -78,22 +90,37 @@
   <main>
     <div class="place-header">
       <h1>Hollywood of the South</h1>
-      <p class="location">Covington, Georgia</p>
+      <p class="location">The Dukes of Hazzard en Covington y Oxford, Georgia</p>
       <div class="visit-years"><span class="pill"><span class="dot" style="background:#2E7CF6"></span>2016</span></div>
     </div>
 
     <div class="fact-box"><strong>Dato curioso:</strong> los primeros cinco episodios de The Dukes of Hazzard se filmaron en 1978 en Covington y sus alrededores. Después la producción se mudó a California, pero el pueblo quedó para siempre ligado al General Lee, el famoso Dodge Charger naranja de los primos Duke.</div>
     <div class="fact-box extra-facts"><strong>Datos de interés</strong>
-      <p>🚗 Se estima que durante las siete temporadas y 147 episodios de la serie se destruyeron 317 Dodge Charger. Para lograr los espectaculares saltos, se destrozaban en promedio entre 2 y 3 autos por episodio.</p>
+      <p>🚗 Se estima que a lo largo de las siete temporadas y 147 episodios se usaron unos 300 Dodge Charger como General Lee. Para lograr los espectaculares saltos, se destrozaban en promedio entre 2 y 3 autos por episodio.</p>
       <p>⚖️ En los primeros saltos, los autos tendían a irse de trompa en el aire por el enorme peso del motor V8. Para equilibrar el vuelo y lograr un aterrizaje perfecto, los mecánicos de la producción cargaban entre 200 y 450 kilos de lastre (casi siempre bolsas de arena o cemento) en el baúl antes de cada acrobacia.</p>
+    </div>
+    <div class="fact-box who"><strong>¿Quién es quién?</strong>
+      <ul>
+        <li><b>Bo Duke</b> (el rubio) — John Schneider</li>
+        <li><b>Luke Duke</b> (el de pelo oscuro) — Tom Wopat</li>
+        <li><b>Tío Jesse Duke</b> (barba blanca) — Denver Pyle</li>
+        <li><b>Jefferson Davis "Boss" Hogg</b> (traje blanco) — Sorrell Booke</li>
+        <li><b>Sheriff Rosco P. Coltrane</b> — James Best</li>
+        <li><b>El General Lee</b> — un Dodge Charger 1969 naranja, con el número 01</li>
+      </ul>
     </div>
     <div class="story">
       <p>A Covington le dicen el "Hollywood del Sur": por sus calles pasaron The Dukes of Hazzard, In the Heat of the Night, The Vampire Diaries y Sweet Magnolias, entre muchas otras series y películas.</p>
       <p>Con una captura de la serie en la mano, buscamos la esquina exacta donde el General Lee dobla a toda velocidad perseguido por el sheriff Rosco P. Coltrane, y nos sacamos la foto en el mismo lugar, casi cuarenta años después.</p>
     </div>
 
+    <p class="section-label">Mapa de las locaciones</p>
+    <p class="section-sub">Tocá un punto para ir a su Then / Now. La casa del orfanato (Casa Zachary-Echols) es una residencia privada y no figura en el mapa.</p>
+    <div id="locmap"></div>
+    <ol class="loc-list" id="locList"></ol>
+
     <p class="section-label">Nuestras fotos</p>
-    <p class="section-sub">Then / Now en Covington, Georgia — 2016</p>
+    <p class="section-sub">Then / Now en Covington y Oxford, Georgia — 2016</p>
 
     <div class="wide-zone">
     <div class="carousel" id="carousel">
@@ -130,91 +157,91 @@
   {
     "src": "01.jpg",
     "ratio": 1.5698,
-    "caption": "Then / Now: intersección de Elm Street y Williams Street, en Covington, Georgia. En la toma de la serie se ve al General Lee doblando a gran velocidad mientras escapa de la patrulla del sheriff Rosco P. Coltrane camino al hogar de huérfanos. La escena se filmó a fines de octubre de 1978. Junto a ella, la misma esquina en nuestra visita de junio de 2016.",
+    "caption": "📺 One Armed Bandits · T1 E1\nThen / Now: intersección de Elm Street y Williams Street, en Covington, Georgia. En la toma de la serie se ve al General Lee doblando a gran velocidad mientras escapa de la patrulla del sheriff Rosco P. Coltrane camino al hogar de huérfanos. La escena se filmó a fines de octubre de 1978. Junto a ella, la misma esquina en nuestra visita de junio de 2016.",
     "srcWide": "01w.jpg",
     "ratioWide": 0.4443
   },
   {
     "src": "02.jpg",
     "ratio": 1.5656,
-    "caption": "Then / Now: el salto acrobático real del General Lee en Elm Street, Covington, Georgia, filmado en octubre de 1978 para el primer episodio de la serie, \"One Armed Bandits\", que se emitió en enero de 1979. Junto a ella, la misma calle en nuestra visita de junio de 2016.",
+    "caption": "📺 One Armed Bandits · T1 E1\nThen / Now: el salto acrobático real del General Lee en Elm Street, Covington, Georgia, filmado en octubre de 1978 para el primer episodio de la serie, \"One Armed Bandits\", que se emitió en enero de 1979. Junto a ella, la misma calle en nuestra visita de junio de 2016.",
     "srcWide": "02w.jpg",
     "ratioWide": 0.4427
   },
   {
     "src": "03.jpg",
     "ratio": 1.5734,
-    "caption": "Then / Now: salto acrobático real de la patrulla del sheriff en Elm Street, Covington, Georgia, siguiendo al General Lee en la misma persecución. Se filmó en octubre de 1978 para el primer episodio de la serie, \"One Armed Bandits\", que se emitió en enero de 1979. Junto a ella, la misma calle en nuestra visita de junio de 2016.",
+    "caption": "📺 One Armed Bandits · T1 E1\nThen / Now: salto acrobático real de la patrulla del sheriff en Elm Street, Covington, Georgia, siguiendo al General Lee en la misma persecución. Se filmó en octubre de 1978 para el primer episodio de la serie, \"One Armed Bandits\", que se emitió en enero de 1979. Junto a ella, la misma calle en nuestra visita de junio de 2016.",
     "srcWide": "03w.jpg",
     "ratioWide": 0.4457
   },
   {
     "src": "04.jpg",
     "ratio": 1.6021,
-    "caption": "Then / Now: esta emblemática locación es el orfanato ficticio \"Sheridan Orphans Home\" (también conocido como el orfanato del condado de Hazzard), que aparece de forma destacada en el episodio piloto, \"One Armed Bandits\", estrenado en enero de 1979. En la vida real es la Casa Zachary-Echols, una residencia de estilo antebellum construida alrededor de 1854. Junto a ella, la misma casa en nuestra visita de junio de 2016.",
+    "caption": "📺 One Armed Bandits · T1 E1\nThen / Now: esta emblemática locación es el orfanato ficticio \"Sheridan Orphans Home\" (también conocido como el orfanato del condado de Hazzard), que aparece de forma destacada en el episodio piloto, \"One Armed Bandits\", estrenado en enero de 1979. En la vida real es la Casa Zachary-Echols, una residencia de estilo antebellum construida alrededor de 1854. Junto a ella, la misma casa en nuestra visita de junio de 2016.",
     "srcWide": "04w.jpg",
     "ratioWide": 0.456
   },
   {
     "src": "05.jpg",
     "ratio": 1.6026,
-    "caption": "Then / Now: fotograma del episodio 4 de la primera temporada, \"Repo Men\", emitido en febrero de 1979. Los personajes principales bajan por las escaleras del juzgado del condado: la escena se filmó en los escalones del auténtico palacio de justicia del condado de Newton, en Covington, una de las locaciones de los primeros episodios antes de que el rodaje se trasladara a California. Junto a ella, las mismas escaleras en nuestra visita de junio de 2016.",
+    "caption": "📺 One Armed Bandits · T1 E1\nThen / Now: esta secuencia pertenece al primer episodio de la serie, \"One Armed Bandits\", y se filmó en el cruce ferroviario de Emory Street, en Covington, el pueblo que sirvió como el condado de Hazzard original antes de que la producción se mudara por completo a los sets de California. A la izquierda se ve la antigua estación de trenes. Junto a ella, el mismo cruce en nuestra visita de junio de 2016.",
     "srcWide": "05w.jpg",
     "ratioWide": 0.5417
   },
   {
     "src": "06.jpg",
     "ratio": 1.5578,
-    "caption": "Then / Now: imagen del episodio 4 de la primera temporada, \"Repo Men\". Aunque fue el cuarto episodio en salir al aire (el 16 de febrero de 1979), fue el segundo en filmarse, después del piloto. Esta toma, en la plaza central de Covington, se rodó a fines de noviembre de 1978: los exteriores en Georgia se filmaron en un bloque continuo de pocas semanas para dejar listos los primeros episodios antes de que terminara el año. Junto a ella, el mismo lugar de la plaza en nuestra visita de junio de 2016.",
+    "caption": "📺 Créditos de apertura de la serie\nThen / Now: esta icónica imagen captura el primer gran salto del General Lee en la historia de la televisión. La acrobacia se filmó el 11 de noviembre de 1978 en el campus del Oxford College (Universidad de Emory), en Oxford, Georgia: el auto vuela 16 pies de alto (4,8 metros) y 82 pies de largo (25 metros) por encima de una patrulla, frente al histórico Seney Hall. Esas imágenes se convirtieron al instante en un emblema de la cultura pop y cerraron los créditos de apertura de cada episodio durante las 7 temporadas de la serie. Por el brutal impacto contra el suelo, el auto original quedó completamente destruido. Junto a ella, el Seney Hall en nuestra visita de junio de 2016.",
     "srcWide": "06w.jpg",
     "ratioWide": 0.44
   },
   {
     "src": "07.jpg",
     "ratio": 1.5552,
-    "caption": "Then / Now: fotograma del episodio 5 de la primera temporada, \"High Octane\", filmado en noviembre de 1978 y emitido el 23 de febrero de 1979. En la entrada del tribunal del condado se promociona un concurso de la Federal Energy Commission, con un premio de 20.000 dólares para quien encuentre un sustituto de los combustibles fósiles. Junto a ella, la misma entrada del Newton County Courthouse en nuestra visita de junio de 2016.",
+    "caption": "📺 Repo Men · T1 E4\nThen / Now: fotograma del episodio 4 de la primera temporada, \"Repo Men\", emitido en febrero de 1979. Los personajes principales bajan por las escaleras del juzgado del condado: la escena se filmó en los escalones del auténtico palacio de justicia del condado de Newton, en Covington, una de las locaciones de los primeros episodios antes de que el rodaje se trasladara a California. Junto a ella, las mismas escaleras en nuestra visita de junio de 2016.",
     "srcWide": "07w.jpg",
     "ratioWide": 0.439
   },
   {
     "src": "08.jpg",
     "ratio": 1.5807,
-    "caption": "Then / Now: esta secuencia pertenece al primer episodio de la serie, \"One Armed Bandits\", y se filmó en el cruce ferroviario de Emory Street, en Covington, el pueblo que sirvió como el condado de Hazzard original antes de que la producción se mudara por completo a los sets de California. A la izquierda se ve la antigua estación de trenes. Junto a ella, el mismo cruce en nuestra visita de junio de 2016.",
+    "caption": "📺 Repo Men · T1 E4\nThen / Now: imagen del episodio 4 de la primera temporada, \"Repo Men\". Aunque fue el cuarto episodio en salir al aire (el 16 de febrero de 1979), fue el segundo en filmarse, después del piloto. Esta toma, en la plaza central de Covington, se rodó a fines de noviembre de 1978: los exteriores en Georgia se filmaron en un bloque continuo de pocas semanas para dejar listos los primeros episodios antes de que terminara el año. Junto a ella, el mismo lugar de la plaza en nuestra visita de junio de 2016.",
     "srcWide": "08w.jpg",
     "ratioWide": 0.4483
   },
   {
     "src": "09.jpg",
     "ratio": 1.6042,
-    "caption": "Then / Now: esta icónica imagen captura el primer gran salto del General Lee en la historia de la televisión. La acrobacia se filmó el 11 de noviembre de 1978 en el campus del Oxford College (Universidad de Emory), en Oxford, Georgia: el auto vuela 16 pies de alto (4,8 metros) y 82 pies de largo (25 metros) por encima de una patrulla, frente al histórico Seney Hall. Esas imágenes se convirtieron al instante en un emblema de la cultura pop y cerraron los créditos de apertura de cada episodio durante las 7 temporadas de la serie. Por el brutal impacto contra el suelo, el auto original quedó completamente destruido. Junto a ella, el Seney Hall en nuestra visita de junio de 2016.",
+    "caption": "📺 Repo Men · T1 E4\nThen / Now: escena del cuarto episodio de la primera temporada, \"Repo Men\" (emitido el 16 de febrero de 1979), grabada en la plaza de Covington, Georgia, una de las locaciones reales de los primeros cinco episodios de la serie. Al fondo se ve el edificio blanco de columnas y, a la derecha, el ladrillo rojo del palacio de justicia; en la toma, la plaza todavía tiene los adornos de Navidad. Junto a ella, la misma esquina en nuestra visita de junio de 2016.",
     "srcWide": "09w.jpg",
     "ratioWide": 0.4567
   },
   {
     "src": "10.jpg",
     "ratio": 1.5484,
-    "caption": "Then / Now: el icónico bar y restaurante The Boar's Nest (El Nido del Jabalí). El edificio real que se usó para filmar los exteriores de los primeros cinco episodios de la primera temporada (emitidos en 1979) está en Oxford, Georgia. Cuando la producción se mudó a California, la estructura original sobrevivió y hoy funciona como una iglesia, New Vision Christian. Junto a ella, el mismo edificio en nuestra visita de junio de 2016.",
+    "caption": "📺 High Octane · T1 E5\nThen / Now: fotograma del episodio 5 de la primera temporada, \"High Octane\", filmado en noviembre de 1978 y emitido el 23 de febrero de 1979. En la entrada del tribunal del condado se promociona un concurso de la Federal Energy Commission, con un premio de 20.000 dólares para quien encuentre un sustituto de los combustibles fósiles. Junto a ella, la misma entrada del Newton County Courthouse en nuestra visita de junio de 2016.",
     "srcWide": "10w.jpg",
     "ratioWide": 0.4363
   },
   {
     "src": "11.jpg",
     "ratio": 1.5536,
-    "caption": "Then / Now: otra toma de The Boar's Nest (El Nido del Jabalí), con la patrulla del sheriff frente a la entrada. El edificio real, usado para los exteriores de los primeros cinco episodios de la primera temporada (emitidos en 1979), está en Oxford, Georgia, y hoy funciona como la iglesia New Vision Christian. Junto a ella, la misma entrada en nuestra visita de junio de 2016: todavía se reconoce el pequeño pórtico con techo a dos aguas sobre la puerta.",
+    "caption": "📺 The Boar's Nest · Temporada 1\nThen / Now: el icónico bar y restaurante The Boar's Nest (El Nido del Jabalí). El edificio real que se usó para filmar los exteriores de los primeros cinco episodios de la primera temporada (emitidos en 1979) está en Oxford, Georgia. Cuando la producción se mudó a California, la estructura original sobrevivió y hoy funciona como una iglesia, New Vision Christian. Junto a ella, el mismo edificio en nuestra visita de junio de 2016.",
     "srcWide": "11w.jpg",
     "ratioWide": 0.4383
   },
   {
     "src": "12.jpg",
     "ratio": 1.5594,
-    "caption": "Then / Now: el camino de entrada al edificio que dio vida al Boar's Nest original, la taberna de Boss Hogg, en el 290 de Flat Rock Road, entre Oxford y Covington, Georgia. En la toma, el General Lee sube por la entrada de tierra. Junto a ella, la misma entrada en nuestra visita de junio de 2016, hoy con una tranquera de hierro.",
+    "caption": "📺 The Boar's Nest · Temporada 1\nThen / Now: otra toma de The Boar's Nest (El Nido del Jabalí), con la patrulla del sheriff frente a la entrada. El edificio real, usado para los exteriores de los primeros cinco episodios de la primera temporada (emitidos en 1979), está en Oxford, Georgia, y hoy funciona como la iglesia New Vision Christian. Junto a ella, la misma entrada en nuestra visita de junio de 2016: todavía se reconoce el pequeño pórtico con techo a dos aguas sobre la puerta.",
     "srcWide": "12w.jpg",
     "ratioWide": 0.4407
   },
   {
     "src": "13.jpg",
     "ratio": 1.5807,
-    "caption": "Then / Now: escena del cuarto episodio de la primera temporada, \"Repo Men\" (emitido el 16 de febrero de 1979), grabada en la plaza de Covington, Georgia, una de las locaciones reales de los primeros cinco episodios de la serie. Al fondo se ve el edificio blanco de columnas y, a la derecha, el ladrillo rojo del palacio de justicia; en la toma, la plaza todavía tiene los adornos de Navidad. Junto a ella, la misma esquina en nuestra visita de junio de 2016.",
+    "caption": "📺 The Boar's Nest · Temporada 1\nThen / Now: el camino de entrada al edificio que dio vida al Boar's Nest original, la taberna de Boss Hogg, en el 290 de Flat Rock Road, entre Oxford y Covington, Georgia. En la toma, el General Lee sube por la entrada de tierra. Junto a ella, la misma entrada en nuestra visita de junio de 2016, hoy con una tranquera de hierro.",
     "srcWide": "13w.jpg",
     "ratioWide": 0.4483
   }
@@ -310,6 +337,31 @@
 
   render();
   go(0);
+  // mapa de locaciones
+  window.__goSlide = function(k){ go(k); document.getElementById('carousel').scrollIntoView({behavior:'smooth', block:'center'}); };
+  (function(){
+    const LOCS = [{"n": 1, "name": "Elm St. y Williams St.", "lat": 33.599403, "lng": -83.858364, "slides": [1], "idx": [0]}, {"n": 2, "name": "Los saltos de Elm St.", "lat": 33.598685, "lng": -83.858521, "slides": [2, 3], "idx": [1, 2]}, {"n": 3, "name": "Plaza y Newton County Courthouse", "lat": 33.59711, "lng": -83.860183, "slides": [5, 6, 13, 7], "idx": [6, 7, 8, 9]}, {"n": 4, "name": "Cruce del tren y vieja estación (Emory St.)", "lat": 33.604558, "lng": -83.863802, "slides": [8], "idx": [4]}, {"n": 5, "name": "Seney Hall, Oxford College", "lat": 33.619079, "lng": -83.871089, "slides": [9], "idx": [5]}, {"n": 6, "name": "The Boar's Nest (290 Flat Rock Rd.)", "lat": 33.647472, "lng": -83.826763, "slides": [10, 11, 12], "idx": [10, 11, 12]}];
+    const list = document.getElementById('locList');
+    LOCS.forEach(L => {
+      const li = document.createElement('li');
+      li.innerHTML = '<span class="loc-num">' + L.n + '</span><span>' + L.name + ' <span style="color:var(--ink-soft)">(' + L.idx.length + (L.idx.length > 1 ? ' fotos' : ' foto') + ')</span></span>';
+      li.addEventListener('click', () => window.__goSlide(L.idx[0]));
+      list.appendChild(li);
+    });
+    if(!window.L) { document.getElementById('locmap').style.display = 'none'; return; }
+    const map = L.map('locmap', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+    const pts = [];
+    LOCS.forEach(Lc => {
+      const icon = L.divIcon({ className: '', html: '<div class="loc-pin">' + Lc.n + '</div>', iconSize: [28, 28], iconAnchor: [14, 14] });
+      const m = L.marker([Lc.lat, Lc.lng], { icon }).addTo(map);
+      m.bindTooltip(Lc.name);
+      m.on('click', () => window.__goSlide(Lc.idx[0]));
+      pts.push([Lc.lat, Lc.lng]);
+    });
+    map.fitBounds(pts, { padding: [30, 30] });
+  })();
+
 })();
 </script>
 </body>
