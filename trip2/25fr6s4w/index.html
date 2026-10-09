@@ -97,7 +97,7 @@
         <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
       </div>
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
-      <div class="carousel-count" id="count">1 / 11</div>
+      <div class="carousel-count" id="count">1 / 12</div>
     </div>
     <p class="photo-caption" id="caption"></p>
     </div>
@@ -130,10 +130,10 @@
   },
   {
     "src": "02.jpg",
-    "ratio": 1.6104,
+    "ratio": 1.5656,
     "caption": "Then / Now: el salto acrobático real del General Lee en Elm Street, Covington, Georgia, filmado en octubre de 1978 para el primer episodio de la serie, \"One Armed Bandits\", que se emitió en enero de 1979. Junto a ella, la misma calle en nuestra visita de junio de 2016.",
     "srcWide": "02w.jpg",
-    "ratioWide": 0.4567
+    "ratioWide": 0.4427
   },
   {
     "src": "03.jpg",
@@ -144,17 +144,17 @@
   },
   {
     "src": "04.jpg",
-    "ratio": 1.687,
+    "ratio": 1.6021,
     "caption": "Then / Now: esta emblemática locación es el orfanato ficticio \"Sheridan Orphans Home\" (también conocido como el orfanato del condado de Hazzard), que aparece de forma destacada en el episodio piloto, \"One Armed Bandits\", estrenado en enero de 1979. En la vida real es la Casa Zachary-Echols, una residencia de estilo antebellum construida alrededor de 1854. Junto a ella, la misma casa en nuestra visita de junio de 2016.",
     "srcWide": "04w.jpg",
-    "ratioWide": 0.4833
+    "ratioWide": 0.456
   },
   {
     "src": "05.jpg",
-    "ratio": 1.7589,
+    "ratio": 1.6026,
     "caption": "Then / Now: fotograma del episodio 4 de la primera temporada, \"Repo Men\", emitido en febrero de 1979. Los personajes principales bajan por las escaleras del juzgado del condado: la escena se filmó en los escalones del auténtico palacio de justicia del condado de Newton, en Covington, una de las locaciones de los primeros episodios antes de que el rodaje se trasladara a California. Junto a ella, las mismas escaleras en nuestra visita de junio de 2016.",
     "srcWide": "05w.jpg",
-    "ratioWide": 0.5843
+    "ratioWide": 0.5417
   },
   {
     "src": "06.jpg",
@@ -179,10 +179,10 @@
   },
   {
     "src": "09.jpg",
-    "ratio": 1.6938,
+    "ratio": 1.6042,
     "caption": "Then / Now: esta icónica imagen captura el primer gran salto del General Lee en la historia de la televisión. La acrobacia se filmó el 11 de noviembre de 1978 en el campus del Oxford College (Universidad de Emory), en Oxford, Georgia: el auto vuela 16 pies de alto (4,8 metros) y 82 pies de largo (25 metros) por encima de una patrulla, frente al histórico Seney Hall. Esas imágenes se convirtieron al instante en un emblema de la cultura pop y cerraron los créditos de apertura de cada episodio durante las 7 temporadas de la serie. Por el brutal impacto contra el suelo, el auto original quedó completamente destruido. Junto a ella, el Seney Hall en nuestra visita de junio de 2016.",
     "srcWide": "09w.jpg",
-    "ratioWide": 0.4873
+    "ratioWide": 0.4567
   },
   {
     "src": "10.jpg",
@@ -197,6 +197,13 @@
     "caption": "Then / Now: otra toma de The Boar's Nest (El Nido del Jabalí), con la patrulla del sheriff frente a la entrada. El edificio real, usado para los exteriores de los primeros cinco episodios de la primera temporada (emitidos en 1979), está en Oxford, Georgia, y hoy funciona como la iglesia New Vision Christian. Junto a ella, la misma entrada en nuestra visita de junio de 2016: todavía se reconoce el pequeño pórtico con techo a dos aguas sobre la puerta.",
     "srcWide": "11w.jpg",
     "ratioWide": 0.4383
+  },
+  {
+    "src": "12.jpg",
+    "ratio": 1.5594,
+    "caption": "Then / Now: el camino de entrada al edificio que dio vida al Boar's Nest original, la taberna de Boss Hogg, en el 290 de Flat Rock Road, entre Oxford y Covington, Georgia. En la toma, el General Lee sube por la entrada de tierra. Junto a ella, la misma entrada en nuestra visita de junio de 2016, hoy con una tranquera de hierro.",
+    "srcWide": "12w.jpg",
+    "ratioWide": 0.4407
   }
 ];
   const track = document.getElementById('track');
@@ -220,7 +227,7 @@
     const ratio = RATIO(PHOTOS[idx]);
     const w = carousel.clientWidth;
     let h = w * ratio;
-    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.86));
     track.style.height = h + 'px';
   }
   function go(n){
