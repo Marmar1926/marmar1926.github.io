@@ -72,3 +72,6 @@ Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guarda
 - Coordenadas (Google Places): Elm&Williams 33.599403,-83.858364; salto Elm St 33.598685,-83.858521; courthouse 33.597110,-83.860183; estacion Emory St 33.604558,-83.863802; Seney Hall 33.619079,-83.871089; Boar's Nest 290 Flat Rock Rd 33.647472,-83.826763. Casa Zachary-Echols sin ubicar (privada).
 
 - #26 Clearwater (trip2/wsgty6hn) - 12 fotos (Pier 60 y la playa de al lado); textos escritos por Claude a pedido del usuario. Dato: TripAdvisor mejor playa de EE.UU. 2016 y 2018.
+
+## Indice de impresion (09/10)
+Se reparto el alto: header arriba sin franja blanca y las 15 filas estiradas para ocupar todo el alto (46 x 57,7 cm a 300 dpi, mismo alto que el mapa). Los 45 QR verificados con OpenCV contra manifest.json. Si se agregan viajes, se reimprime.
