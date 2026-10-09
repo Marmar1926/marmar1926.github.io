@@ -43,6 +43,7 @@
   .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
   .photo-caption:empty{ display:none; }
+  @media (min-width:1000px){ .wide-zone{ width:min(1100px,94vw); position:relative; left:50%; transform:translateX(-50%); } }
   .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
   .lightbox.open{opacity:1; pointer-events:auto;}
   @media (orientation: landscape){ .lightbox{ padding:8px; } }
@@ -88,6 +89,7 @@
     <p class="section-label">Nuestras fotos</p>
     <p class="section-sub">Then / Now en Covington, Georgia — 2016</p>
 
+    <div class="wide-zone">
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
       <div class="carousel-controls">
@@ -98,6 +100,7 @@
       <div class="carousel-count" id="count">1 / 1</div>
     </div>
     <p class="photo-caption" id="caption"></p>
+    </div>
   </main>
 
   <div class="prevnext">
@@ -121,7 +124,9 @@
   {
     "src": "01.jpg",
     "ratio": 1.5729,
-    "caption": "Then / Now: intersección de Elm Street y Williams Street, en Covington, Georgia. En la toma de la serie se ve al General Lee doblando a gran velocidad mientras escapa de la patrulla del sheriff Rosco P. Coltrane camino al hogar de huérfanos. La escena se filmó a fines de octubre de 1978. A la derecha, la misma esquina en nuestra visita de junio de 2016."
+    "caption": "Then / Now: intersección de Elm Street y Williams Street, en Covington, Georgia. En la toma de la serie se ve al General Lee doblando a gran velocidad mientras escapa de la patrulla del sheriff Rosco P. Coltrane camino al hogar de huérfanos. La escena se filmó a fines de octubre de 1978. Junto a ella, la misma esquina en nuestra visita de junio de 2016.",
+    "srcWide": "01w.jpg",
+    "ratioWide": 0.4455
   }
 ];
   const track = document.getElementById('track');
@@ -129,17 +134,20 @@
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
   let i = 0;
+  const WIDE = window.matchMedia('(min-width: 1000px)').matches;
+  const SRC = p => (WIDE && p.srcWide) ? p.srcWide : p.src;
+  const RATIO = p => (WIDE && p.ratioWide) ? p.ratioWide : p.ratio;
 
   function render(){
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      img.src = p.src; img.alt = 'Foto familiar en Covington, 2016';
+      img.src = SRC(p); img.alt = 'Foto familiar en Covington, 2016';
       track.appendChild(img);
     });
   }
   function setHeightFor(idx){
-    const ratio = PHOTOS[idx].ratio;
+    const ratio = RATIO(PHOTOS[idx]);
     const w = carousel.clientWidth;
     let h = w * ratio;
     h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
@@ -181,7 +189,7 @@
 
   const lightboxImg = document.getElementById('lightboxImg');
   function openLightbox(){
-    lightboxImg.src = PHOTOS[i].src;
+    lightboxImg.src = SRC(PHOTOS[i]);
     fitLightboxHeight();
     lightbox.classList.add('open');
   }
@@ -203,7 +211,7 @@
     const dx = e.changedTouches[0].clientX - lbStartX;
     if(Math.abs(dx) > 40){
       go(dx > 0 ? i-1 : i+1);
-      lightboxImg.src = PHOTOS[i].src;
+      lightboxImg.src = SRC(PHOTOS[i]);
     } else if(!lbMoved && e.target !== lightboxImg){
       closeLightbox();
     }
