@@ -17,6 +17,7 @@
 - #20 Kennedy Space Center (trip2/y5ch4w6k) - 18 fotos con textos (mural ISS, Rocket Garden y Saturn IB SA-209, VAB, pasarela Apollo 11, tanque externo y SRB, Atlantis, Orion, capsula Apollo, SLS, rovers de Marte, globo NASA).
 - #24 Covington (trip2/m6kz6xs6) - 19 fotos con textos (locaciones de The Vampire Diaries, In the Heat of the Night, Dukes of Hazzard, Sweet Magnolias; Boar's Nest y Seney Hall en Oxford). El usuario las subio por error a la carpeta de #25 Hollywood of the South (25fr6s4w); se movieron a Covington por pedido suyo. #25 sigue en placeholder.
 - #22 Atlanta (trip2/enbpes64) - 16 fotos; textos escritos por Claude a pedido del usuario (centro, Centennial Olympic Park/SkyView, Pemberton Place, Centro de Derechos Civiles, mural ATLANTA, International Blvd, CNN Center, Georgia Aquarium).
+- #21 Saint Augustine (trip2/pwabnjn8) - 16 fotos con textos (Lightner Museum/Hotel Alcazar, Flagler College, Mision Nombre de Dios, Plaza de la Constitucion, Castillo de San Marcos, St. George Street, Kilwin's). Foto 1 original de baja resolucion (750px).
 - #23 World of Coca-Cola (trip2/vknj9s5j) - 13 fotos con textos (museo + exterior/Pemberton Place), plantilla simple. Las fotos se subieron por error a la carpeta de #22 Atlanta (enbpes64) y se movieron aca. Las fotos de los alrededores del museo van en la pagina de #22 Atlanta.
 
 ## Resto de los 45 lugares
@@ -59,3 +60,6 @@ Beverly Hills ademas tiene portada nueva (foto real 3840x2160 provista por el us
 
 ## Flujo de fotos via GitHub (07/10)
 El usuario ahora sube las fotos originales directo a la carpeta del lugar con "Add file > Upload files" (nombres 1.JPG, 2.JPG, 6.1.jpg...) y manda los textos por chat. Claude hace pull, las procesa (exif_transpose, 2200px, q87), las renombra 01.jpg.. en orden, borra los originales (git rm) y arma la pagina. Desde Claude Code el push funciona sin token.
+
+## Ojo al procesar fotos (09/10)
+Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guardar las salidas 01.jpg..NN.jpg en la misma carpeta se pueden pisar originales antes de leerlos. Copiar primero los originales a una carpeta temporal y procesar desde ahi.
