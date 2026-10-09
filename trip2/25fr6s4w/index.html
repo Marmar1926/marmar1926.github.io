@@ -143,7 +143,7 @@
         <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
       </div>
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
-      <div class="carousel-count" id="count">1 / 13</div>
+      <div class="carousel-count" id="count">1 / 14</div>
     </div>
     <p class="photo-caption" id="caption"></p>
     </div>
@@ -257,6 +257,13 @@
     "caption": "📺 The Boar's Nest · Temporada 1\nThen / Now: el camino de entrada al edificio que dio vida al Boar's Nest original, la taberna de Boss Hogg, en el 290 de Flat Rock Road, entre Oxford y Covington, Georgia. En la toma, el General Lee sube por la entrada de tierra. Junto a ella, la misma entrada en nuestra visita de junio de 2016, hoy con una tranquera de hierro.",
     "srcWide": "13w.jpg",
     "ratioWide": 0.4483
+  },
+  {
+    "src": "14.jpg",
+    "ratio": 1.5911,
+    "caption": "📺 Detrás de cámaras · rodaje de 1978\nThen / Now: detrás de cámaras del rodaje de The Dukes of Hazzard en la plaza de Covington. El equipo filma desde una grúa, con un sonidista y su micrófono de caña en plena calle, frente al Newton County Courthouse y su torre del reloj. Las guirnaldas navideñas indican que la toma es de fines de 1978, durante el bloque de rodaje en Georgia. Junto a ella, el mismo courthouse en nuestra visita de junio de 2016.",
+    "srcWide": "14w.jpg",
+    "ratioWide": 0.5675
   }
 ];
   const track = document.getElementById('track');
@@ -353,7 +360,7 @@
   // mapa de locaciones
   window.__goSlide = function(k){ go(k); document.getElementById('carousel').scrollIntoView({behavior:'smooth', block:'center'}); };
   (function(){
-    const LOCS = [{"n": 1, "name": "Elm St. y Williams St.", "lat": 33.599403, "lng": -83.858364, "slides": [1], "idx": [0]}, {"n": 2, "name": "Los saltos de Elm St.", "lat": 33.598685, "lng": -83.858521, "slides": [2, 3], "idx": [1, 2]}, {"n": 3, "name": "Plaza y Newton County Courthouse", "lat": 33.59711, "lng": -83.860183, "slides": [5, 6, 13, 7], "idx": [6, 7, 8, 9]}, {"n": 4, "name": "Cruce del tren y vieja estación (Emory St.)", "lat": 33.604558, "lng": -83.863802, "slides": [8], "idx": [4]}, {"n": 5, "name": "Seney Hall, Oxford College", "lat": 33.619079, "lng": -83.871089, "slides": [9], "idx": [5]}, {"n": 6, "name": "The Boar's Nest (290 Flat Rock Rd.)", "lat": 33.647472, "lng": -83.826763, "slides": [10, 11, 12], "idx": [10, 11, 12]}];
+    const LOCS = [{"n": 1, "name": "Elm St. y Williams St.", "lat": 33.599403, "lng": -83.858364, "slides": [1], "idx": [0]}, {"n": 2, "name": "Los saltos de Elm St.", "lat": 33.598685, "lng": -83.858521, "slides": [2, 3], "idx": [1, 2]}, {"n": 3, "name": "Plaza y Newton County Courthouse", "lat": 33.59711, "lng": -83.860183, "slides": [5, 6, 13, 7, 14], "idx": [6, 7, 8, 9, 13]}, {"n": 4, "name": "Cruce del tren y vieja estación (Emory St.)", "lat": 33.604558, "lng": -83.863802, "slides": [8], "idx": [4]}, {"n": 5, "name": "Seney Hall, Oxford College", "lat": 33.619079, "lng": -83.871089, "slides": [9], "idx": [5]}, {"n": 6, "name": "The Boar's Nest (290 Flat Rock Rd.)", "lat": 33.647472, "lng": -83.826763, "slides": [10, 11, 12], "idx": [10, 11, 12]}];
     const list = document.getElementById('locList');
     LOCS.forEach(L => {
       const li = document.createElement('li');
