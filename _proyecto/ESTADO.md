@@ -82,3 +82,8 @@ Agregado margen blanco de 1 cm a izquierda y derecha para el paspartu (blanco hu
 Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 dedos) o la pantalla esta ampliada (visualViewport.scale>1.02), el deslizamiento NO cambia de foto. Las plantillas (Beverly Hills / Santa Monica) ya lo incluyen.
 - Zoom propio en la vista ampliada (lightbox) de todas las paginas: pellizcar / doble toque para ampliar, arrastrar con un dedo para recorrer, swipe cambia de foto solo sin zoom. En PC: rueda, arrastre y doble clic. Script 'zoom propio dentro de la vista ampliada' al final del body. Plantillas incluidas.
 - Portadas de Kennedy Space Center y Universal Studios: hero con aspect-ratio 4/3 y object-position (100% / 60%) para que el logo no quede cortado en el celular.
+
+## Mapa "Dónde queda" (todas las páginas menos #25, que tiene su mapa de locaciones)
+- `<div class="locmap-box" data-n="NN">` antes de `.prevnext` + leaflet + `/assets/places.js` + `/assets/locmap.js`.
+- Coordenadas y zoom en manifest.json (lat/lng/zoom). Si cambian, regenerar assets/places.js desde el manifest.
+- Botones: El lugar / Todo el viaje / Los 45 lugares + Abrir en Google Maps. En celular, el mapa se mueve con dos dedos.
