@@ -65,6 +65,14 @@
 </style>
 </head>
 <body>
+<script>
+/* evita que al hacer zoom (pellizcar) y moverse por la foto se pase a la siguiente */
+(function(){var multi=false;function z(){return window.visualViewport&&window.visualViewport.scale>1.02;}
+document.addEventListener('touchstart',function(e){if(e.touches.length>1)multi=true;else if(e.touches.length===1&&!z())multi=false;},{passive:true,capture:true});
+document.addEventListener('touchmove',function(e){if(e.touches.length>1)multi=true;},{passive:true,capture:true});
+window.__noSwipe=function(){return multi||z();};})();
+</script>
+
   <div class="topnav"><a href="/">← Índice</a></div>
 
   <div class="hero">
@@ -167,7 +175,7 @@
   track.addEventListener('touchend', e => {
     if(startX === null) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 40){ dx > 0 ? go(i-1) : go(i+1); }
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
     startX = null;
   }, {passive:true});
 
@@ -206,7 +214,7 @@
   lightbox.addEventListener('touchend', e => {
     if(lbStartX === null) return;
     const dx = e.changedTouches[0].clientX - lbStartX;
-    if(Math.abs(dx) > 40){
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
       go(dx > 0 ? i-1 : i+1);
       lightboxImg.src = PHOTOS[i].src;
     } else if(!lbMoved && e.target !== lightboxImg){
