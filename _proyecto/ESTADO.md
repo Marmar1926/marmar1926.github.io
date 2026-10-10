@@ -77,3 +77,6 @@ Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guarda
 Se reparto el alto: header arriba sin franja blanca y las 15 filas estiradas para ocupar todo el alto (46 x 57,7 cm a 300 dpi, mismo alto que el mapa). Los 45 QR verificados con OpenCV contra manifest.json. Si se agregan viajes, se reimprime.
 Agregado margen blanco de 1 cm a izquierda y derecha para el paspartu (blanco hueso, aparte): archivo final 48 x 57,7 cm.
 - Hollywood of the South: cada par tiene ademas NNt.jpg (Then) y NNn.jpg (Now) sueltos para la lupa; botones '🔍 Then' / '🔍 Now' en el carrusel abren cada foto por separado en tamaño completo.
+
+## Zoom con los dedos (10/10)
+Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 dedos) o la pantalla esta ampliada (visualViewport.scale>1.02), el deslizamiento NO cambia de foto. Las plantillas (Beverly Hills / Santa Monica) ya lo incluyen.
