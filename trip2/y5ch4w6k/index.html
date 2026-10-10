@@ -109,6 +109,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     <p class="photo-caption" id="caption"></p>
   </main>
 
+  <div class="locmap-box" data-n="20"></div>
   <div class="prevnext">
     <a class="prev" href="/trip2/4h9u87fr/">← Fort Lauderdale</a>
     <a class="next" href="/trip2/pwabnjn8/">Saint Augustine →</a>
@@ -353,5 +354,9 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   img.addEventListener('click',function(e){ e.stopPropagation(); });
 })();
 </script>
+<link rel="stylesheet" href="/assets/leaflet/leaflet.css">
+<script src="/assets/leaflet/leaflet.js"></script>
+<script src="/assets/places.js"></script>
+<script src="/assets/locmap.js"></script>
 </body>
 </html>

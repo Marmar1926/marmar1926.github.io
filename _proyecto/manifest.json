@@ -82,7 +82,10 @@
             184
           ]
         }
-      ]
+      ],
+      "lat": 25.7743,
+      "lng": -80.1937,
+      "zoom": 11
     },
     {
       "number": 2,
@@ -100,7 +103,10 @@
             184
           ]
         }
-      ]
+      ],
+      "lat": 28.4177,
+      "lng": -81.5812,
+      "zoom": 11
     },
     {
       "number": 3,
@@ -108,7 +114,10 @@
       "name": "New York",
       "sub": "New York",
       "photo": "/mnt/user-data/uploads/1789482071081_image.png",
-      "slug": "n7t349b3"
+      "slug": "n7t349b3",
+      "lat": 40.758,
+      "lng": -73.9855,
+      "zoom": 11
     },
     {
       "number": 4,
@@ -116,7 +125,10 @@
       "name": "Boston",
       "sub": "Massachusetts",
       "photo": "/mnt/user-data/uploads/1789482186780_image.png",
-      "slug": "6c9hd7z5"
+      "slug": "6c9hd7z5",
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "zoom": 11
     },
     {
       "number": 5,
@@ -124,7 +136,10 @@
       "name": "Disneyland",
       "sub": "Anaheim, California",
       "photo": "/mnt/user-data/uploads/1789509673430_image.png",
-      "slug": "yyzr6szr"
+      "slug": "yyzr6szr",
+      "lat": 33.8121,
+      "lng": -117.919,
+      "zoom": 12
     },
     {
       "number": 6,
@@ -132,7 +147,10 @@
       "name": "San Diego",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789509776517_image.png",
-      "slug": "7a2qpwvt"
+      "slug": "7a2qpwvt",
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "zoom": 11
     },
     {
       "number": 7,
@@ -158,7 +176,10 @@
             15
           ]
         }
-      ]
+      ],
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "zoom": 10
     },
     {
       "number": 8,
@@ -184,7 +205,10 @@
             15
           ]
         }
-      ]
+      ],
+      "lat": 34.0094,
+      "lng": -118.4973,
+      "zoom": 12
     },
     {
       "number": 9,
@@ -192,7 +216,10 @@
       "name": "Beverly Hills",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789509972002_image.png",
-      "slug": "r4kmmtsn"
+      "slug": "r4kmmtsn",
+      "lat": 34.0736,
+      "lng": -118.4004,
+      "zoom": 12
     },
     {
       "number": 10,
@@ -210,7 +237,10 @@
             47
           ]
         }
-      ]
+      ],
+      "lat": 34.1486,
+      "lng": -118.3365,
+      "zoom": 12
     },
     {
       "number": 11,
@@ -218,7 +248,10 @@
       "name": "Golden Oak Ranch",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789509834707_block-view-central-circle.jpg",
-      "slug": "h4fruj4d"
+      "slug": "h4fruj4d",
+      "lat": 34.3753,
+      "lng": -118.4863,
+      "zoom": 11
     },
     {
       "number": 12,
@@ -226,7 +259,10 @@
       "name": "Pacific Coast Highway",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789510094163_image.png",
-      "slug": "yptuwrm3"
+      "slug": "yptuwrm3",
+      "lat": 35.663,
+      "lng": -121.258,
+      "zoom": 8
     },
     {
       "number": 13,
@@ -244,7 +280,10 @@
             47
           ]
         }
-      ]
+      ],
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "zoom": 11
     },
     {
       "number": 14,
@@ -252,7 +291,10 @@
       "name": "Yosemite National Park",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789510130251_Yosemite_Valley_c466b706-6bcf-4985-941a-a7abd2d1cd09.jpg",
-      "slug": "b3snzzth"
+      "slug": "b3snzzth",
+      "lat": 37.7456,
+      "lng": -119.5936,
+      "zoom": 9
     },
     {
       "number": 15,
@@ -260,7 +302,10 @@
       "name": "Valley of Fire State Park",
       "sub": "Nevada",
       "photo": "/mnt/user-data/uploads/1789510187563_image.png",
-      "slug": "gkkdjw5g"
+      "slug": "gkkdjw5g",
+      "lat": 36.43,
+      "lng": -114.5138,
+      "zoom": 10
     },
     {
       "number": 16,
@@ -278,7 +323,10 @@
             47
           ]
         }
-      ]
+      ],
+      "lat": 36.1147,
+      "lng": -115.1728,
+      "zoom": 11
     },
     {
       "number": 17,
@@ -286,7 +334,10 @@
       "name": "Grand Canyon West Skywalk",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789510488335_image.png",
-      "slug": "fef9ux73"
+      "slug": "fef9ux73",
+      "lat": 36.0119,
+      "lng": -113.8107,
+      "zoom": 10
     },
     {
       "number": 18,
@@ -294,7 +345,10 @@
       "name": "Key West",
       "sub": "Florida",
       "photo": "/mnt/user-data/uploads/1789426608393_key_west.jpeg",
-      "slug": "zeusbujg"
+      "slug": "zeusbujg",
+      "lat": 24.5551,
+      "lng": -81.78,
+      "zoom": 12
     },
     {
       "number": 19,
@@ -302,7 +356,10 @@
       "name": "Fort Lauderdale",
       "sub": "Florida",
       "photo": "/mnt/user-data/uploads/1789426631935_fort_lauderdale.jpeg",
-      "slug": "4h9u87fr"
+      "slug": "4h9u87fr",
+      "lat": 26.1224,
+      "lng": -80.1373,
+      "zoom": 11
     },
     {
       "number": 20,
@@ -310,7 +367,10 @@
       "name": "Kennedy Space Center",
       "sub": "Florida",
       "photo": "/mnt/user-data/uploads/1789426608392_kennedy_space_center.jpeg",
-      "slug": "y5ch4w6k"
+      "slug": "y5ch4w6k",
+      "lat": 28.5235,
+      "lng": -80.6819,
+      "zoom": 10
     },
     {
       "number": 21,
@@ -318,7 +378,10 @@
       "name": "Saint Augustine",
       "sub": "Florida",
       "photo": "/mnt/user-data/uploads/1789426650109_saint_augustine.jpg",
-      "slug": "pwabnjn8"
+      "slug": "pwabnjn8",
+      "lat": 29.8921,
+      "lng": -81.314,
+      "zoom": 12
     },
     {
       "number": 22,
@@ -326,7 +389,10 @@
       "name": "Atlanta",
       "sub": "Georgia",
       "photo": "/mnt/user-data/uploads/images-14.jpeg",
-      "slug": "enbpes64"
+      "slug": "enbpes64",
+      "lat": 33.749,
+      "lng": -84.388,
+      "zoom": 11
     },
     {
       "number": 23,
@@ -334,7 +400,10 @@
       "name": "World of Coca-Cola",
       "sub": "Atlanta, Georgia",
       "photo": "/mnt/user-data/uploads/1789426509233_6d4d749b-1263-4151-b932-6179d2544682.jpg",
-      "slug": "vknj9s5j"
+      "slug": "vknj9s5j",
+      "lat": 33.7627,
+      "lng": -84.3928,
+      "zoom": 14
     },
     {
       "number": 24,
@@ -342,7 +411,10 @@
       "name": "Covington",
       "sub": "Georgia",
       "photo": "/mnt/user-data/uploads/covington-georgia-usa-4-13-260nw-2288846551.jpg",
-      "slug": "m6kz6xs6"
+      "slug": "m6kz6xs6",
+      "lat": 33.5968,
+      "lng": -83.8602,
+      "zoom": 13
     },
     {
       "number": 25,
@@ -350,7 +422,10 @@
       "name": "Hollywood of the South",
       "sub": "Georgia",
       "photo": "/mnt/user-data/uploads/1789511770184_IMG_5126.jpg",
-      "slug": "25fr6s4w"
+      "slug": "25fr6s4w",
+      "lat": 33.5994,
+      "lng": -83.8584,
+      "zoom": 13
     },
     {
       "number": 26,
@@ -358,7 +433,10 @@
       "name": "Clearwater",
       "sub": "Florida",
       "photo": "/mnt/user-data/uploads/1789426667451_Clearwater-Beach-pier-60.jpg",
-      "slug": "wsgty6hn"
+      "slug": "wsgty6hn",
+      "lat": 27.9772,
+      "lng": -82.8282,
+      "zoom": 12
     },
     {
       "number": 27,
@@ -366,7 +444,10 @@
       "name": "Mount Rushmore Memorial",
       "sub": "Pennington County, South Dakota",
       "photo": "/mnt/user-data/uploads/1789422865052_WhatsApp_Image_2026-09-14_at_18_53_56.jpeg",
-      "slug": "uye2hff3"
+      "slug": "uye2hff3",
+      "lat": 43.8791,
+      "lng": -103.4591,
+      "zoom": 10
     },
     {
       "number": 28,
@@ -374,7 +455,10 @@
       "name": "Crazy Horse Memorial",
       "sub": "Custer, South Dakota",
       "photo": "/mnt/user-data/uploads/crazyhorsememorial05-04-20cc1opt.jpg",
-      "slug": "xqnmjrte"
+      "slug": "xqnmjrte",
+      "lat": 43.8366,
+      "lng": -103.6237,
+      "zoom": 10
     },
     {
       "number": 29,
@@ -382,7 +466,10 @@
       "name": "Cody",
       "sub": "Wyoming",
       "photo": "/mnt/user-data/uploads/1789421306516_image.png",
-      "slug": "ubgnxpzb"
+      "slug": "ubgnxpzb",
+      "lat": 44.5263,
+      "lng": -109.0565,
+      "zoom": 11
     },
     {
       "number": 30,
@@ -390,7 +477,10 @@
       "name": "Yellowstone National Park",
       "sub": "Wyoming",
       "photo": "/mnt/user-data/uploads/GettyImages-1187698526-scaled.jpg",
-      "slug": "hmdsz9xf"
+      "slug": "hmdsz9xf",
+      "lat": 44.4605,
+      "lng": -110.8281,
+      "zoom": 8
     },
     {
       "number": 31,
@@ -398,7 +488,10 @@
       "name": "Seattle",
       "sub": "Washington",
       "photo": "/mnt/user-data/uploads/6936723048_e4dee38d16_b.jpg",
-      "slug": "cmddvkt4"
+      "slug": "cmddvkt4",
+      "lat": 47.6205,
+      "lng": -122.3493,
+      "zoom": 11
     },
     {
       "number": 32,
@@ -406,7 +499,10 @@
       "name": "Olympia",
       "sub": "Washington",
       "photo": "/mnt/user-data/uploads/olympia-washington-scavenger-hunt_large.jpg",
-      "slug": "wvjsnwey"
+      "slug": "wvjsnwey",
+      "lat": 47.0358,
+      "lng": -122.9049,
+      "zoom": 11
     },
     {
       "number": 33,
@@ -414,7 +510,10 @@
       "name": "Big Sur",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/images-13.jpeg",
-      "slug": "naeceaua"
+      "slug": "naeceaua",
+      "lat": 36.3715,
+      "lng": -121.9017,
+      "zoom": 9
     },
     {
       "number": 34,
@@ -422,7 +521,10 @@
       "name": "Solvang",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/caption-1.jpg",
-      "slug": "b55dxwdc"
+      "slug": "b55dxwdc",
+      "lat": 34.5958,
+      "lng": -120.1376,
+      "zoom": 12
     },
     {
       "number": 35,
@@ -440,7 +542,10 @@
             15
           ]
         }
-      ]
+      ],
+      "lat": 34.4208,
+      "lng": -119.6982,
+      "zoom": 11
     },
     {
       "number": 36,
@@ -448,7 +553,10 @@
       "name": "Paramount Ranch",
       "sub": "Agoura Hills, California",
       "photo": "/mnt/user-data/uploads/1789421394658_image.png",
-      "slug": "kv78g638"
+      "slug": "kv78g638",
+      "lat": 34.1162,
+      "lng": -118.7547,
+      "zoom": 11
     },
     {
       "number": 37,
@@ -456,7 +564,10 @@
       "name": "Grand Canyon",
       "sub": "South Rim, Arizona",
       "photo": "/mnt/user-data/uploads/1789506830779_grand_canyon.jpg",
-      "slug": "sf29r4j6"
+      "slug": "sf29r4j6",
+      "lat": 36.0617,
+      "lng": -112.1077,
+      "zoom": 9
     },
     {
       "number": 38,
@@ -464,7 +575,10 @@
       "name": "Antelope Canyon",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789506842810_antylope_canyon.jpg",
-      "slug": "pseyp8vu"
+      "slug": "pseyp8vu",
+      "lat": 36.8619,
+      "lng": -111.3743,
+      "zoom": 10
     },
     {
       "number": 39,
@@ -472,7 +586,10 @@
       "name": "Horseshoe Bend",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789506934425_image.png",
-      "slug": "b4tqncq9"
+      "slug": "b4tqncq9",
+      "lat": 36.8791,
+      "lng": -111.5104,
+      "zoom": 10
     },
     {
       "number": 40,
@@ -480,7 +597,10 @@
       "name": "Monument Valley",
       "sub": "Utah",
       "photo": "/mnt/user-data/uploads/1789506944187_monument_valley.jpg",
-      "slug": "chkhrqx3"
+      "slug": "chkhrqx3",
+      "lat": 36.998,
+      "lng": -110.0985,
+      "zoom": 9
     },
     {
       "number": 41,
@@ -488,7 +608,10 @@
       "name": "Kingman",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789507032093_kingman.jpg",
-      "slug": "e5c72jw2"
+      "slug": "e5c72jw2",
+      "lat": 35.1894,
+      "lng": -114.053,
+      "zoom": 11
     },
     {
       "number": 42,
@@ -496,7 +619,10 @@
       "name": "Seligman",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789508178615_image.png",
-      "slug": "32kch4zp"
+      "slug": "32kch4zp",
+      "lat": 35.3255,
+      "lng": -112.8774,
+      "zoom": 12
     },
     {
       "number": 43,
@@ -504,7 +630,10 @@
       "name": "Flagstaff",
       "sub": "Arizona",
       "photo": "/mnt/user-data/uploads/1789509438425_image.png",
-      "slug": "s8y5zw2w"
+      "slug": "s8y5zw2w",
+      "lat": 35.1983,
+      "lng": -111.6513,
+      "zoom": 11
     },
     {
       "number": 44,
@@ -512,7 +641,10 @@
       "name": "Malibu",
       "sub": "California",
       "photo": "/mnt/user-data/uploads/1789507736594_image.png",
-      "slug": "9hnfu8kc"
+      "slug": "9hnfu8kc",
+      "lat": 34.0259,
+      "lng": -118.7798,
+      "zoom": 11
     },
     {
       "number": 45,
@@ -520,7 +652,10 @@
       "name": "Universal Studios",
       "sub": "Burbank, California",
       "photo": "/mnt/user-data/uploads/1789511988020_image.png",
-      "slug": "t3yh5c8d"
+      "slug": "t3yh5c8d",
+      "lat": 34.1381,
+      "lng": -118.3534,
+      "zoom": 13
     }
   ]
 }
