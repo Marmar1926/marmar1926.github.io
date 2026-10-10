@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Malibu</title>
+<!-- vista previa al compartir (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mis viajes por USA">
+<meta property="og:title" content="Malibu">
+<meta property="og:description" content="California · 2022 · Punto #44 de Mis viajes por USA">
+<meta property="og:url" content="https://marmar1926.github.io/2022/9hnfu8kc/">
+<meta property="og:image" content="https://marmar1926.github.io/2022/9hnfu8kc/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -28,12 +36,16 @@
     :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
   }
   :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.88rem; }
+  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent-ink); text-decoration:none; font-weight:600; font-size:0.88rem; }
   .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
-  .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
+  .prevnext a{ color:var(--accent-ink); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
+  /* amarillo legible: texto en mostaza sobre fondo claro, amarillo pleno en modo oscuro */
+  :root{ --accent-ink:#8A6800; --accent-on:#2B2620; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --accent-ink:#F1C40F; } }
+  :root[data-theme="dark"]{ --accent-ink:#F1C40F; }
 </style>
 </head>
 <body>

@@ -13,13 +13,13 @@
   var css = document.createElement('style');
   css.textContent =
     '.locmap-box{max-width:640px;margin:0 auto;padding:0 26px;text-align:center;}' +
-    '.locmap-box .lm-label{font-family:"Caveat","Playfair Display",cursive;font-size:1.9rem;color:var(--accent);margin:46px 0 4px;}' +
+    '.locmap-box .lm-label{font-family:"Caveat","Playfair Display",cursive;font-size:1.9rem;color:var(--accent-ink,var(--accent));margin:46px 0 4px;}' +
     '.locmap-box .lm-sub{font-size:0.92rem;color:var(--ink-soft);margin:0 0 14px;}' +
     '.locmap-box .lm-map{height:320px;border-radius:4px;overflow:hidden;box-shadow:0 10px 26px rgba(43,38,32,0.18);background:#E8E2D4;}' +
     '.locmap-box .lm-bar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:12px 0 0;}' +
     '.locmap-box .lm-bar button{font:600 0.82rem "Source Sans 3",sans-serif;color:var(--ink);background:transparent;border:1.5px solid var(--ink-soft);border-radius:20px;padding:5px 13px;cursor:pointer;opacity:.75;}' +
-    '.locmap-box .lm-bar button.on{background:var(--accent);border-color:var(--accent);color:#fff;opacity:1;}' +
-    '.locmap-box .lm-bar a{font-size:0.82rem;font-weight:600;color:var(--accent);text-decoration:none;margin-left:4px;}' +
+    '.locmap-box .lm-bar button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-on,#fff);opacity:1;}' +
+    '.locmap-box .lm-bar a{font-size:0.82rem;font-weight:600;color:var(--accent-ink,var(--accent));text-decoration:none;margin-left:4px;}' +
     '.locmap-box .lm-hint{font-size:0.78rem;color:var(--ink-soft);margin:8px 0 0;}' +
     '.lm-tip{font:600 13px "Source Sans 3",sans-serif;}' +
     '.lm-pop{font:14px "Source Sans 3",sans-serif;line-height:1.35;}' +
@@ -54,7 +54,7 @@
     var t = D.trips[p.trip] || {};
     return '<div class="lm-pop"><b>#' + p.n + ' · ' + p.name + '</b><span>' + (p.sub || '') +
       (t.year ? ' — ' + t.year : '') + '</span>' +
-      (p.n === n ? '' : '<br><a style="color:' + t.color + '" href="' + p.url + '">Ir a la página →</a>') + '</div>';
+      (p.n === n ? '' : '<br><a style="color:' + (p.trip === '2022' ? '#8A6800' : t.color) + '" href="' + p.url + '">Ir a la página →</a>') + '</div>';
   }
   var tripPts = [], allPts = [];
   P.forEach(function (p) {
