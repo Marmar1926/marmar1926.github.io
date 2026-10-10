@@ -75,3 +75,4 @@ Si los originales del usuario se llaman 10.jpg, 11.jpg... (minuscula), al guarda
 
 ## Indice de impresion (09/10)
 Se reparto el alto: header arriba sin franja blanca y las 15 filas estiradas para ocupar todo el alto (46 x 57,7 cm a 300 dpi, mismo alto que el mapa). Los 45 QR verificados con OpenCV contra manifest.json. Si se agregan viajes, se reimprime.
+Agregado margen blanco de 1 cm a izquierda y derecha para el paspartu (blanco hueso, aparte): archivo final 48 x 57,7 cm.
