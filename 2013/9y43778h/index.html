@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Los Angeles</title>
+<!-- vista previa al compartir (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mis viajes por USA">
+<meta property="og:title" content="Los Angeles">
+<meta property="og:description" content="California · 2013 / 2018 / 2022 · Punto #7 de Mis viajes por USA">
+<meta property="og:url" content="https://marmar1926.github.io/2013/9y43778h/">
+<meta property="og:image" content="https://marmar1926.github.io/2013/9y43778h/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -142,7 +150,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      img.src = p.src; img.alt = 'Foto familiar en Los Angeles, 2013';
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Los Angeles, 2013';
       track.appendChild(img);
     });
   }

@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Grand Canyon West Skywalk</title>
+<!-- vista previa al compartir (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mis viajes por USA">
+<meta property="og:title" content="Grand Canyon West Skywalk">
+<meta property="og:description" content="Arizona · 2013 · Punto #17 de Mis viajes por USA">
+<meta property="og:url" content="https://marmar1926.github.io/2013/fef9ux73/">
+<meta property="og:image" content="https://marmar1926.github.io/2013/fef9ux73/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -147,7 +155,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      img.src = p.src; img.alt = 'Foto familiar en Grand Canyon West Skywalk, 2013';
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Grand Canyon West Skywalk, 2013';
       track.appendChild(img);
     });
   }

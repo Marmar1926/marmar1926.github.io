@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Hollywood of the South</title>
+<!-- vista previa al compartir (WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mis viajes por USA">
+<meta property="og:title" content="Hollywood of the South">
+<meta property="og:description" content="Georgia · 2016 · Punto #25 de Mis viajes por USA">
+<meta property="og:url" content="https://marmar1926.github.io/trip2/25fr6s4w/">
+<meta property="og:image" content="https://marmar1926.github.io/trip2/25fr6s4w/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -322,7 +330,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      img.src = SRC(p); img.alt = 'Foto familiar en Covington, 2016';
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = SRC(p); }; img.src = 'sm/' + SRC(p); img.alt = 'Foto familiar en Covington, 2016';
       track.appendChild(img);
     });
   }

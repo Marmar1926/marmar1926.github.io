@@ -87,3 +87,10 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - `<div class="locmap-box" data-n="NN">` antes de `.prevnext` + leaflet + `/assets/places.js` + `/assets/locmap.js`.
 - Coordenadas y zoom en manifest.json (lat/lng/zoom). Si cambian, regenerar assets/places.js desde el manifest.
 - Botones: El lugar / Todo el viaje / Los 45 lugares + Abrir en Google Maps. En celular, el mapa se mueve con dos dedos.
+
+## Optimización y extras (oct 2026)
+- Carrusel usa `sm/NN.jpg` (1400 px, q78) con carga diferida; si falta la sm cae a la original. La vista ampliada usa la original (2200 px).
+  DESPUÉS DE AGREGAR FOTOS: correr `python3 _proyecto/herramientas/optimizar_fotos.py` (crea las sm y achica portadas > 260 KB).
+- Índice (index.html): pestaña "Mapa" con los 45 puntos numerados y botones por viaje (usa assets/places.js).
+- Vista previa al compartir: meta og:* en cada página (título, "sub · años · Punto #N", hero.jpg). Si no gusta, borrar el bloque "vista previa al compartir".
+- Páginas 2022: texto en mostaza `--accent-ink:#8A6800` (amarillo pleno en modo oscuro). Al armar una página 2022 desde plantilla, copiar ese bloque y usar color:var(--accent-ink).
