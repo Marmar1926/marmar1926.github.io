@@ -96,3 +96,5 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Páginas 2022: texto en mostaza `--accent-ink:#8A6800` (amarillo pleno en modo oscuro). Al armar una página 2022 desde plantilla, copiar ese bloque y usar color:var(--accent-ink).
 - Yellowstone (#30) armado: 23 fotos con textos del usuario (corregidos) + fact-box y reseña.
 - Portadas: se muestran completas, sin recorte (`.hero img` con height:auto y max-height:min(78vh,760px), centradas). Ya no se usa aspect-ratio/object-position por página.
+- Disney World (#2): página con 4 pestañas por parque (2012). El usuario sube fotos a 1-magic-kingdom/, 2-epcot/, 3-hollywood-studios/, 4-animal-kingdom/.
+  Procesar a archivos planos mk-NN.jpg / ep-NN.jpg / hs-NN.jpg / ak-NN.jpg, textos en JSON {"mk":[...],...} y correr scratch build_dw.py con DW_CAPS=archivo; borrar las carpetas y correr optimizar_fotos.py.
