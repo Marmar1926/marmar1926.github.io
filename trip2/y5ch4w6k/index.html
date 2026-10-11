@@ -20,8 +20,8 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; aspect-ratio:4/5; max-height:min(65vh,720px); overflow:hidden; }
-  .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; overflow:hidden; }
+  .hero img{ display:block; margin:0 auto; width:auto; max-width:100%; height:auto; max-height:min(78vh,760px); } /* portada completa, sin recortes */
   .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
   h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
   .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
@@ -84,8 +84,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 
   <div class="topnav"><a href="/">← Índice</a></div>
 
-  <div class="hero" style="aspect-ratio:4/3">
-    <img src="hero.jpg" alt="Kennedy Space Center" style="object-position:100% center">
+  <div class="hero">
+    <img src="hero.jpg" alt="Kennedy Space Center">
   </div>
 
   <main>

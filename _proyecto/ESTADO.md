@@ -94,3 +94,4 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Índice (index.html): pestaña "Mapa" con los 45 puntos numerados y botones por viaje (usa assets/places.js).
 - Vista previa al compartir: meta og:* en cada página (título, "sub · años · Punto #N", hero.jpg). Si no gusta, borrar el bloque "vista previa al compartir".
 - Páginas 2022: texto en mostaza `--accent-ink:#8A6800` (amarillo pleno en modo oscuro). Al armar una página 2022 desde plantilla, copiar ese bloque y usar color:var(--accent-ink).
+- Portadas: se muestran completas, sin recorte (`.hero img` con height:auto y max-height:min(78vh,760px), centradas). Ya no se usa aspect-ratio/object-position por página.
