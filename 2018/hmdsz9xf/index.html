@@ -14,30 +14,59 @@
 <meta property="og:image" content="https://marmar1926.github.io/2018/hmdsz9xf/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#F7F2E7; --ink:#2B2620; --ink-soft:#6B6255; --accent:#dc322f; }
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#DC3229; --line:#D9CFB8; }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:'Source Sans 3', sans-serif;
-    text-align:center; min-height:100vh; padding:0 0 70px;
-  }
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; overflow:hidden; }
   .hero img{ display:block; margin:0 auto; width:auto; max-width:100%; height:auto; max-height:min(78vh,760px); } /* portada completa, sin recortes */
-  .content{ padding:28px 32px 0; }
-  .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; margin-bottom:18px; }
-  h1{ font-family:'Playfair Display', serif; font-size:1.8rem; margin:0 0 10px; }
-  .location{ color:var(--ink-soft); font-size:1rem; margin:0 0 28px; }
-  p.msg{ color:var(--ink-soft); font-size:0.95rem; max-width:32ch; margin:0 auto; line-height:1.5; }
-  footer{ margin-top:36px; color:var(--ink-soft); font-size:0.8rem; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
+    max-width:640px; margin-left:auto; margin-right:auto;
   }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.88rem; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
+  .fact-box strong{ color:var(--accent); }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
@@ -45,23 +74,319 @@
 </style>
 </head>
 <body>
+<script>
+/* evita que al hacer zoom (pellizcar) y moverse por la foto se pase a la siguiente */
+(function(){var multi=false;function z(){return window.visualViewport&&window.visualViewport.scale>1.02;}
+document.addEventListener('touchstart',function(e){if(e.touches.length>1)multi=true;else if(e.touches.length===1&&!z())multi=false;},{passive:true,capture:true});
+document.addEventListener('touchmove',function(e){if(e.touches.length>1)multi=true;},{passive:true,capture:true});
+window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
+</script>
+
   <div class="topnav"><a href="/">← Índice</a></div>
+
   <div class="hero">
     <img src="hero.jpg" alt="Yellowstone National Park">
   </div>
-  <div class="content">
-    <span class="dot"></span>
-    <h1>Yellowstone National Park</h1>
-    <p class="location">Wyoming</p>
-    <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
-      <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
-  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Yellowstone National Park</h1>
+      <p class="location">Wyoming</p>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#DC3229"></span>2018</span></div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> Yellowstone está sentado arriba de un supervolcán. Su caldera mide unos 70 por 45 km, y el calor del magma que hay debajo alimenta más de 10.000 fuentes termales y unos 500 géiseres: más de la mitad de todos los géiseres activos del planeta.</div>
+    <div class="story">
+      <p>Entramos a Yellowstone por el este, desde Cody, cruzando las montañas por el Sylvan Pass. El primer parque nacional del mundo es un territorio enorme, de casi 9.000 km², donde la tierra literalmente humea: el suelo hierve, burbujea y cambia de color a cada paso.</p>
+      <p>Recorrimos el barro hirviendo de Mud Volcano, la cuenca de Norris con su Porcelain Basin blanca, los anillos de colores de Midway Geyser Basin y la Grand Prismatic Spring, y el Gran Cañón del Yellowstone con sus Lower Falls de 93 metros.</p>
+      <p>En el norte, las terrazas de travertino de Mammoth Hot Springs, que parecen una cascada de piedra congelada, y el Liberty Cap. Hicimos una escapada a West Yellowstone, ya en Montana, y en el Old Faithful Inn consultamos el tablero con los horarios de los géiseres. Salimos por la entrada norte, en Gardiner.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub">Yellowstone National Park, Wyoming — 2018</p>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 23</div>
+    </div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
   <div class="locmap-box" data-n="30"></div>
   <div class="prevnext">
     <a class="prev" href="/2018/ubgnxpzb/">← Cody</a>
     <a class="next" href="/2018/cmddvkt4/">Seattle →</a>
   </div>
-  <footer>Punto #30 · Mis viajes por USA</footer>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #30 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const PHOTOS = [
+  {
+    "src": "01.jpg",
+    "ratio": 0.665,
+    "caption": "Cartel de la entrada este de Yellowstone, sobre la North Fork Highway (US-14/16/20), el camino que llega desde Cody, Wyoming. Yellowstone se creó en 1872 y es el primer parque nacional del mundo. Desde este lado, la única vía de acceso cruza el Sylvan Pass, un paso de montaña a 2.598 metros de altura."
+  },
+  {
+    "src": "02.jpg",
+    "ratio": 0.665,
+    "caption": "Cartel de la entrada este de Yellowstone, sobre la North Fork Highway (US-14/16/20), el camino que llega desde Cody, Wyoming. Yellowstone se creó en 1872 y es el primer parque nacional del mundo. Desde este lado, la única vía de acceso cruza el Sylvan Pass, un paso de montaña a 2.598 metros de altura."
+  },
+  {
+    "src": "03.jpg",
+    "ratio": 0.75,
+    "caption": "Cartel de la entrada este de Yellowstone, sobre la North Fork Highway (US-14/16/20), el camino que llega desde Cody, Wyoming. Yellowstone se creó en 1872 y es el primer parque nacional del mundo. Desde este lado, la única vía de acceso cruza el Sylvan Pass, un paso de montaña a 2.598 metros de altura."
+  },
+  {
+    "src": "04.jpg",
+    "ratio": 0.665,
+    "caption": "Churning Cauldron, en el área de Mud Volcano, una de las zonas termales más ácidas del parque. El agua de este pozo de agua y barro parece hervir todo el tiempo, pero lo que la agita no es solo la temperatura: son los gases volcánicos que suben desde abajo. De ahí su nombre, \"el caldero que se revuelve\"."
+  },
+  {
+    "src": "05.jpg",
+    "ratio": 0.665,
+    "caption": "Churning Cauldron, en el área de Mud Volcano, una de las zonas termales más ácidas del parque. El agua de este pozo de agua y barro parece hervir todo el tiempo, pero lo que la agita no es solo la temperatura: son los gases volcánicos que suben desde abajo. De ahí su nombre, \"el caldero que se revuelve\"."
+  },
+  {
+    "src": "06.jpg",
+    "ratio": 0.665,
+    "caption": "Norris Geyser Basin, en el sector de Porcelain Basin: la cuenca termal más caliente, ácida y antigua de Yellowstone, y una de las que más cambia. Géiseres y piletas aparecen, desaparecen o cambian de color de un año para otro. Porcelain Basin no tiene árboles ni vegetación: está cubierta de sinterita blanca (de ahí el nombre \"porcelana\"), porque el agua hirviendo y ácida no deja crecer nada. Los troncos secos y blanqueados que rodean algunas piletas quedaron así por la sílice del agua termal, que los fue \"petrificando\" a medida que subía el nivel. Acá está también el Steamboat Geyser, el géiser activo más alto del mundo: puede superar los 90 metros, aunque sus grandes erupciones son imposibles de predecir."
+  },
+  {
+    "src": "07.jpg",
+    "ratio": 0.665,
+    "caption": "Norris Geyser Basin, en el sector de Porcelain Basin: la cuenca termal más caliente, ácida y antigua de Yellowstone, y una de las que más cambia. Géiseres y piletas aparecen, desaparecen o cambian de color de un año para otro. Porcelain Basin no tiene árboles ni vegetación: está cubierta de sinterita blanca (de ahí el nombre \"porcelana\"), porque el agua hirviendo y ácida no deja crecer nada. Los troncos secos y blanqueados que rodean algunas piletas quedaron así por la sílice del agua termal, que los fue \"petrificando\" a medida que subía el nivel. Acá está también el Steamboat Geyser, el géiser activo más alto del mundo: puede superar los 90 metros, aunque sus grandes erupciones son imposibles de predecir."
+  },
+  {
+    "src": "08.jpg",
+    "ratio": 0.665,
+    "caption": "Terrazas de Mammoth Hot Springs, en el norte de Yellowstone. Se forman cuando el agua subterránea caliente disuelve la piedra caliza y la vuelve a depositar en capas de travertino al salir a la superficie. Los colores (\"Living Color\", como dice el cartel) no vienen del mineral, porque el travertino es blanco, sino de los termófilos: microorganismos que viven en el agua caliente. Los blancos y amarillos crecen en el agua más caliente, cerca de donde brota; los naranjas, marrones y verdes, en el agua más fría y alejada. Las terrazas cambian de forma y de color todo el tiempo, a veces de un día para otro."
+  },
+  {
+    "src": "09.jpg",
+    "ratio": 0.665,
+    "caption": "Terrazas de Mammoth Hot Springs, en el norte de Yellowstone. Se forman cuando el agua subterránea caliente disuelve la piedra caliza y la vuelve a depositar en capas de travertino al salir a la superficie. Los colores (\"Living Color\", como dice el cartel) no vienen del mineral, porque el travertino es blanco, sino de los termófilos: microorganismos que viven en el agua caliente. Los blancos y amarillos crecen en el agua más caliente, cerca de donde brota; los naranjas, marrones y verdes, en el agua más fría y alejada. Las terrazas cambian de forma y de color todo el tiempo, a veces de un día para otro."
+  },
+  {
+    "src": "10.jpg",
+    "ratio": 0.665,
+    "caption": "West Yellowstone, Montana, justo al cruzar la salida oeste del parque. El pueblo nació en 1908 con la llegada del ferrocarril Union Pacific desde Idaho, que traía turistas a Yellowstone en el tren \"Yellowstone Special\" desde Salt Lake City. Primero se llamó Riverside, después Yellowstone, y recién en 1920 tomó el nombre de West Yellowstone. Tiene poco más de mil habitantes permanentes, pero su entrada es la más transitada del parque."
+  },
+  {
+    "src": "11.jpg",
+    "ratio": 0.665,
+    "caption": "West Yellowstone, Montana, justo al cruzar la salida oeste del parque. El pueblo nació en 1908 con la llegada del ferrocarril Union Pacific desde Idaho, que traía turistas a Yellowstone en el tren \"Yellowstone Special\" desde Salt Lake City. Primero se llamó Riverside, después Yellowstone, y recién en 1920 tomó el nombre de West Yellowstone. Tiene poco más de mil habitantes permanentes, pero su entrada es la más transitada del parque."
+  },
+  {
+    "src": "12.jpg",
+    "ratio": 0.665,
+    "caption": "Midway Geyser Basin, entre las cuencas Upper y Lower Geyser: una zona chica pero muy intensa. Acá está la Grand Prismatic Spring, la fuente termal más grande de Estados Unidos y la tercera del mundo, de unos 60 a 100 metros de diámetro y más de 37 de profundidad. También el Excelsior Geyser, que en la década de 1880 llegó a lanzar agua a 90 metros de altura y hoy es un cráter humeante que vuelca más de 15.000 litros de agua caliente por minuto al río Firehole. Los anillos de colores alrededor de las piletas (naranja, amarillo, verde) son distintas comunidades de termófilos, que se ordenan según la temperatura del agua, cada vez más fría hacia el borde."
+  },
+  {
+    "src": "13.jpg",
+    "ratio": 0.665,
+    "caption": "El Gran Cañón del Yellowstone y, al fondo, las Lower Falls (Cataratas Inferiores) del río Yellowstone, que caen 93 metros (308 pies) hasta el fondo del cañón: casi el doble que las cataratas del Niágara. Las paredes amarillas del cañón deben su color a la roca volcánica alterada por el calor del agua termal."
+  },
+  {
+    "src": "14.jpg",
+    "ratio": 0.75,
+    "caption": "Mammoth Hot Springs, una de las zonas geotermales más famosas de Yellowstone. Atrás se ve una de sus terrazas de travertino, formadas por la acumulación de carbonato de calcio a lo largo de miles de años. Las montañas que la rodean marcan el norte del parque, cerca del límite con Montana."
+  },
+  {
+    "src": "15.jpg",
+    "ratio": 1.5038,
+    "caption": "Detrás, el Liberty Cap (Gorro de la Libertad): un cono de travertino inactivo de unos 11 metros de altura, en Mammoth Hot Springs. Lo formó durante cientos de años una sola fuente termal que fue depositando mineral en el mismo lugar hasta que se apagó. Debe su nombre a su parecido con los gorros frigios, símbolo de la libertad en la Revolución Francesa."
+  },
+  {
+    "src": "16.jpg",
+    "ratio": 0.665,
+    "caption": "Las terrazas de travertino de Mammoth Hot Springs, con sus escalones blancos, naranjas y marrones. Se crean cuando el agua caliente disuelve la piedra caliza bajo tierra y, al enfriarse en la superficie, deposita carbonato de calcio. El tono naranja y rojizo del agua viene de los microorganismos termófilos (bacterias y algas que prosperan a temperaturas extremas). Las pasarelas de madera permiten recorrerlas sin dañarlas. Atrás, el valle y las montañas del norte del parque."
+  },
+  {
+    "src": "17.jpg",
+    "ratio": 0.665,
+    "caption": "Canary Spring, en las terrazas superiores de Mammoth Hot Springs, en el noroeste de Yellowstone. Debe su nombre (\"canario\") al amarillo intenso de las bacterias que viven en su agua."
+  },
+  {
+    "src": "18.jpg",
+    "ratio": 0.665,
+    "caption": "Las terrazas de travertino de Mammoth Hot Springs, en el norte del parque. A diferencia de otras zonas de Yellowstone, donde los géiseres brotan de roca volcánica, acá el agua caliente y ácida disuelve piedra caliza bajo tierra. Al salir a la superficie libera dióxido de carbono y el carbonato de calcio se deposita rápido, en capas, formando este relieve escalonado de terrazas blancas con tonos naranjas de los termófilos. Abajo a la derecha se ven los edificios del distrito histórico de Mammoth Hot Springs, que fue el antiguo fuerte del ejército que custodió el parque entre 1886 y 1918."
+  },
+  {
+    "src": "19.jpg",
+    "ratio": 0.665,
+    "caption": "Las pasarelas de madera atraviesan una de las cuencas termales del parque, con sus mantos naranjas de termófilos y la sinterita blanca alrededor: el mismo paisaje que rodea a la famosa Grand Prismatic Spring."
+  },
+  {
+    "src": "20.jpg",
+    "ratio": 0.665,
+    "caption": "Mammoth Hot Springs, una de las zonas geotermales más famosas de Yellowstone. Los árboles secos quedaron atrapados cuando las terrazas, que crecen y se desplazan con los años, avanzaron sobre el bosque."
+  },
+  {
+    "src": "21.jpg",
+    "ratio": 0.665,
+    "caption": "Midway Geyser Basin, entre las cuencas Upper y Lower Geyser: una zona chica pero muy intensa. Acá está la Grand Prismatic Spring, la fuente termal más grande de Estados Unidos y la tercera del mundo, de unos 60 a 100 metros de diámetro y más de 37 de profundidad. También el Excelsior Geyser, que en la década de 1880 llegó a lanzar agua a 90 metros de altura y hoy es un cráter humeante que vuelca más de 15.000 litros de agua caliente por minuto al río Firehole. Los anillos de colores alrededor de las piletas (naranja, amarillo, verde) son distintas comunidades de termófilos, que se ordenan según la temperatura del agua, cada vez más fría hacia el borde."
+  },
+  {
+    "src": "22.jpg",
+    "ratio": 1.5038,
+    "caption": "El clásico tablero con reloj de la recepción del histórico Old Faithful Inn. Ahí los guardaparques anotan a mano la hora estimada de la próxima erupción de cada géiser: el Old Faithful arriba de todo, y después el Castle, el Grand, el Daisy, el Riverside y el Great Fountain. El Old Faithful se puede predecir con un margen de unos 10 minutos según cuánto duró la erupción anterior."
+  },
+  {
+    "src": "23.jpg",
+    "ratio": 0.665,
+    "caption": "El icónico cartel de la entrada norte de Yellowstone, el parque nacional más antiguo del mundo, ubicado principalmente en Wyoming. Esta entrada está junto al pueblo de Gardiner, Montana, y es la única del parque abierta a los autos todo el año."
+  }
+];
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  let i = 0;
+
+  function render(){
+    track.innerHTML = '';
+    PHOTOS.forEach(p => {
+      const img = document.createElement('img');
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Yellowstone, 2018';
+      track.appendChild(img);
+    });
+  }
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
+  }
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  function openLightbox(){
+    lightboxImg.src = PHOTOS[i].src;
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  }
+  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  render();
+  go(0);
+})();
+</script>
+<script>
+/* zoom propio dentro de la vista ampliada: pellizcar, arrastrar, doble toque; en PC rueda del mouse, arrastre y doble clic */
+(function(){
+  var lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg');
+  if(!lb||!img) return;
+  lb.style.touchAction='none';
+  img.style.transformOrigin='center center'; img.style.willChange='transform'; img.draggable=false;
+  var s=1,tx=0,ty=0,pinch=null,pan=null,lastTap=0,md=null,MAX=5;
+  function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; window.__lbZoom=s>1.01; img.style.cursor=s>1.01?'grab':''; }
+  function clamp(){ var mx=Math.max(0,(img.offsetWidth*s-lb.clientWidth)/2), my=Math.max(0,(img.offsetHeight*s-lb.clientHeight)/2);
+    tx=Math.min(mx,Math.max(-mx,tx)); ty=Math.min(my,Math.max(-my,ty)); }
+  function reset(){ s=1;tx=0;ty=0;apply(); }
+  function zoomAt(ns,cx,cy){ var r=lb.getBoundingClientRect(), ox=cx-(r.left+r.width/2), oy=cy-(r.top+r.height/2);
+    tx=ox-(ox-tx)*ns/s; ty=oy-(oy-ty)*ns/s; s=ns; if(s<=1.01){reset();return;} clamp(); apply(); }
+  new MutationObserver(reset).observe(img,{attributes:true,attributeFilter:['src']});
+  new MutationObserver(function(){ if(!lb.classList.contains('open')) reset(); }).observe(lb,{attributes:true,attributeFilter:['class']});
+  function d2(a,b){ return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY); }
+  lb.addEventListener('touchstart',function(e){
+    if(e.touches.length===2){ pinch={d:d2(e.touches[0],e.touches[1]),s:s}; pan=null; }
+    else if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+  },{passive:true});
+  lb.addEventListener('touchmove',function(e){
+    if(pinch&&e.touches.length===2){ e.preventDefault();
+      var a=e.touches[0],b=e.touches[1], ns=Math.min(MAX,Math.max(1,pinch.s*d2(a,b)/pinch.d));
+      zoomAt(ns,(a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2); }
+    else if(pan&&e.touches.length===1){ e.preventDefault();
+      tx=pan.tx+e.touches[0].clientX-pan.x; ty=pan.ty+e.touches[0].clientY-pan.y; clamp(); apply(); }
+  },{passive:false});
+  lb.addEventListener('touchend',function(e){
+    if(e.touches.length<2) pinch=null;
+    if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+    if(e.touches.length===0){ pan=null;
+      var t=e.changedTouches[0], now=Date.now();
+      if(e.target===img&&now-lastTap<300){ if(s>1.01) reset(); else zoomAt(2.5,t.clientX,t.clientY); lastTap=0; }
+      else lastTap=now; }
+  },{passive:true});
+  lb.addEventListener('wheel',function(e){ if(!lb.classList.contains('open')) return; e.preventDefault();
+    zoomAt(Math.min(MAX,Math.max(1,s*(e.deltaY<0?1.2:1/1.2))),e.clientX,e.clientY); },{passive:false});
+  img.addEventListener('dblclick',function(e){ if(s>1.01) reset(); else zoomAt(2.5,e.clientX,e.clientY); });
+  img.addEventListener('mousedown',function(e){ if(s>1.01){ md={x:e.clientX,y:e.clientY,tx:tx,ty:ty}; img.style.cursor='grabbing'; e.preventDefault(); } });
+  window.addEventListener('mousemove',function(e){ if(md){ tx=md.tx+e.clientX-md.x; ty=md.ty+e.clientY-md.y; clamp(); apply(); } });
+  window.addEventListener('mouseup',function(){ if(md){ md=null; apply(); } });
+  img.addEventListener('click',function(e){ e.stopPropagation(); });
+})();
+</script>
 <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
 <script src="/assets/leaflet/leaflet.js"></script>
 <script src="/assets/places.js"></script>
