@@ -13,8 +13,9 @@ for page in sorted(glob.glob(f'{ROOT}/*/*/index.html')):
     for f in sorted(glob.glob(f'{d}/*.jpg')):
         b = os.path.basename(f)
         if b == 'hero.jpg':
-            if os.path.getsize(f) > 260 * 1024:
-                im = Image.open(f).convert('RGB'); im.thumbnail((1400, 1400), Image.LANCZOS)
+            im = Image.open(f)
+            if os.path.getsize(f) > 260 * 1024 and max(im.size) > 1400:   # no recomprimir las ya achicadas
+                im = im.convert('RGB'); im.thumbnail((1400, 1400), Image.LANCZOS)
                 im.save(f, quality=80, optimize=True, progressive=True); heroes += 1
             continue
         if re.fullmatch(r'\d+[tn]\.jpg', b):   # fotos sueltas Then/Now: solo vista ampliada
