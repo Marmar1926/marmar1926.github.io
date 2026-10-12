@@ -69,6 +69,13 @@
   footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
   :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .tab-intro{ font-size:0.95rem; line-height:1.6; margin:0 0 16px; }
+  .tab-intro:empty{ display:none; }
+  .tab-intro p{ margin:0 0 8px; }
+  .tab-intro details{ background:var(--paper-2); border-radius:6px; padding:10px 14px; }
+  .tab-intro summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .tab-intro ul{ margin:10px 0 2px; padding-left:18px; }
+  .tab-intro li{ margin:0 0 8px; }
 </style>
 </head>
 <body>
@@ -107,6 +114,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     <p class="section-sub" id="yearSub">Magic Kingdom — 2012</p>
 
     <div class="year-tabs" id="yearTabs"></div>
+    <div class="tab-intro" id="tabIntro"></div>
 
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
@@ -144,6 +152,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     "year": "Magic Kingdom",
     "color": "#D81B60",
     "sub": "Magic Kingdom — 22 de marzo de 2012",
+    "intro": "",
     "photos": [
       {
         "src": "mk-01.jpg",
@@ -291,18 +300,27 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     "year": "Epcot",
     "color": "#D81B60",
     "sub": "Epcot — 2012",
+    "intro": "",
     "photos": []
   },
   {
     "year": "Hollywood Studios",
     "color": "#D81B60",
     "sub": "Hollywood Studios — 2012",
-    "photos": []
+    "intro": "<p>En 2012 el parque se llamaba Disney's Hollywood Studios y estaba dedicado al cine y la televisión. Estas eran sus principales atracciones y espectáculos:</p><details><summary>Ver las 17 atracciones de 2012</summary><ul><li><strong>Walt Disney: One Man&#x27;s Dream</strong> — Un homenaje imprescindible para cualquier admirador de la vida y obra de Walt Disney, la persona de cuya imaginación surgió todo.</li><li><strong>The American Idol Experience</strong> — Inaugurado en febrero de 2009 y basado en el programa de televisión American Idol, este show interactivo invitaba al público a participar en un auténtico casting musical: unos minutos de fama para quien se animara a cantar.</li><li><strong>Studio Backlot Tour</strong> — Un recorrido entre bambalinas para conocer de primera mano cómo se hacen las películas, presente en el parque desde su inauguración en 1989. Cerró en 2014.</li><li><strong>Rock &#x27;n&#x27; Roller Coaster Starring Aerosmith</strong> — Una montaña rusa bajo techo, al final de Sunset Boulevard, en un edificio decorado con una gigantesca guitarra Fender Stratocaster. Velocidad extrema y banda sonora de Aerosmith.</li><li><strong>Beauty and the Beast – Live on Stage</strong> — Un musical en vivo con las canciones más conocidas de La Bella y la Bestia: Be Our Guest, Something There, The Mob Song y, por supuesto, Beauty and the Beast.</li><li><strong>Star Tours: The Adventures Continue</strong> — Star Tours fue la primera atracción de los parques Disney basada en un simulador de vuelo. Su nueva versión debutó en mayo de 2011 con imágenes en 3D, escenarios al azar y una simulación con mucho más movimiento.</li><li><strong>Fantasmic!</strong> — El gran espectáculo nocturno del parque, con agua, música, fuegos artificiales, luces y los personajes de Disney liderados por Mickey.</li><li><strong>The Twilight Zone Tower of Terror</strong> — La segunda atracción más alta de los parques de Disney en Orlando, superada solo por Expedition Everest, y una de las más populares. Está basada en la serie The Twilight Zone (La dimensión desconocida), creada y presentada por Rod Serling, que se emitió entre 1959 y 1964: cada visitante protagoniza uno de sus episodios de terror.</li><li><strong>The Great Movie Ride</strong> — Un viaje nostálgico por las películas más grandes de la historia del cine, dentro de una réplica del Grauman&#x27;s Chinese Theatre de Hollywood, al final de Hollywood Boulevard. Cerró en 2017.</li><li><strong>Toy Story Mania!</strong> — Una atracción interactiva en 3D con juegos de puntería a través de una colorida recreación del mundo de Toy Story.</li><li><strong>Honey, I Shrunk the Kids Movie Set Adventure</strong> — Un parque infantil inspirado en Querida, encogí a los niños, donde los chicos se sienten del tamaño de un insecto.</li><li><strong>Voyage of the Little Mermaid</strong> — La historia de Ariel contada con marionetas, actores, escenas de la película y efectos especiales.</li><li><strong>Indiana Jones Epic Stunt Spectacular</strong> — Un show en vivo de dobles de riesgo basado en la primera película de Indiana Jones, con voluntarios del público.</li><li><strong>The Magic of Disney Animation</strong> — Una presentación para conocer cómo los artistas de Disney crean a sus personajes animados. Cerró en 2015.</li><li><strong>Jim Henson&#x27;s Muppet-Vision 3D</strong> — Una película en 3D de los Muppets con chorros de agua, pompas de jabón, explosiones y otros efectos.</li><li><strong>Disney Junior – Live on Stage!</strong> — Un espectáculo con los personajes del canal Disney Junior, como Jake y los piratas de Nunca Jamás y Manny a la obra, y clásicos como Mickey, Minnie, Donald, Daisy y Goofy.</li><li><strong>Lights! Motors! Action! Extreme Stunt Show</strong> — Un show de conducción extrema, con persecuciones, saltos, choques y explosiones en autos y motos, traído del parque Walt Disney Studios de París.</li></ul></details>",
+    "photos": [
+      {
+        "src": "hs-01.jpg",
+        "ratio": 0.4553,
+        "caption": "Mapa oficial en español de Disney's Hollywood Studios de 2012, el año de nuestra visita. En el centro se ve el gigantesco sombrero de Mickey hechicero (de la película Fantasía), que en esa época era el ícono del parque, y arriba, el desfile Pixar Pals Countdown to Fun."
+      }
+    ]
   },
   {
     "year": "Animal Kingdom",
     "color": "#D81B60",
     "sub": "Animal Kingdom — 21 de marzo de 2012",
+    "intro": "",
     "photos": [
       {
         "src": "ak-01.jpg",
@@ -420,7 +438,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 
   function selectYear(idx){
     currentYearIdx = idx;
-    yearSub.textContent = YEARS[idx].sub;
+    yearSub.textContent = YEARS[idx].sub; document.getElementById('tabIntro').innerHTML = YEARS[idx].intro || '';
     renderTabs();
     renderPhotos();
   }
