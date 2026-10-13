@@ -27,13 +27,36 @@
     '.lm-pop a{display:inline-block;margin-top:6px;font-weight:600;text-decoration:none;}';
   document.head.appendChild(css);
 
+  // viajes en los que se visitó este lugar (un lugar puede estar en varios, p. ej. Los Angeles)
+  function tripsOf(p) {
+    var out = [];
+    (p.visits || [{ trip: p.trip }]).forEach(function (v) { if (v.trip && out.indexOf(v.trip) < 0) out.push(v.trip); });
+    return out;
+  }
+  var myTrips = tripsOf(me);
+  function tripButtons() {
+    if (myTrips.length < 2) return '<button type="button" data-v="trip:' + me.trip + '">Todo el viaje</button>';
+    return myTrips.map(function (t) { return '<button type="button" data-v="trip:' + t + '">Viaje ' + D.trips[t].year + '</button>'; }).join('');
+  }
+  function bg(p) {
+    var vs = p.visits || [];
+    if (vs.length < 2) return (D.trips[p.trip] || {}).color || '#888';
+    var k = 360 / vs.length;
+    return 'conic-gradient(' + vs.map(function (v, i) { return v.color + ' ' + (i * k) + 'deg ' + ((i + 1) * k) + 'deg'; }).join(',') + ')';
+  }
+  function years(p) { return (p.visits || []).map(function (v) { return v.year; }).join(' · '); }
+  function dot(size, p, op) {
+    return L.divIcon({ className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2],
+      html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + bg(p) + ';border:' + (size > 14 ? 3 : 1.5) + 'px solid #fff;box-sizing:border-box;box-shadow:0 1px 3px rgba(0,0,0,.35);opacity:' + op + '"></div>' });
+  }
+
   box.innerHTML =
     '<p class="lm-label">Dónde queda</p>' +
     '<p class="lm-sub">' + me.name + (me.sub ? ' · ' + me.sub : '') + '</p>' +
     '<div class="lm-map"></div>' +
     '<div class="lm-bar">' +
       '<button type="button" data-v="here" class="on">El lugar</button>' +
-      '<button type="button" data-v="trip">Todo el viaje</button>' +
+      tripButtons() +
       '<button type="button" data-v="all">Los 45 lugares</button>' +
       '<a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + me.lat + ',' + me.lng + '">Abrir en Google Maps ↗</a>' +
     '</div>' +
@@ -53,24 +76,20 @@
   function popup(p) {
     var t = D.trips[p.trip] || {};
     return '<div class="lm-pop"><b>#' + p.n + ' · ' + p.name + '</b><span>' + (p.sub || '') +
-      (t.year ? ' — ' + t.year : '') + '</span>' +
+      ' — ' + (years(p) || t.year) + '</span>' +
       (p.n === n ? '' : '<br><a style="color:' + (p.trip === '2022' ? '#8A6800' : t.color) + '" href="' + p.url + '">Ir a la página →</a>') + '</div>';
   }
-  var tripPts = [], allPts = [];
+  var tripPts = {}, allPts = [];
   P.forEach(function (p) {
     allPts.push([p.lat, p.lng]);
+    tripsOf(p).forEach(function (t) { (tripPts[t] = tripPts[t] || []).push([p.lat, p.lng]); });
     if (p.n === n) return;
-    var same = p.trip === me.trip, c = (D.trips[p.trip] || {}).color || '#888';
-    if (same) tripPts.push([p.lat, p.lng]);
-    L.circleMarker([p.lat, p.lng], {
-      radius: same ? 6 : 4.5, color: '#fff', weight: 1.5,
-      fillColor: c, fillOpacity: same ? 0.95 : 0.5, opacity: same ? 1 : 0.6
-    }).bindPopup(popup(p)).addTo(map);
+    var same = tripsOf(p).some(function (t) { return myTrips.indexOf(t) >= 0; });
+    L.marker([p.lat, p.lng], { icon: dot(same ? 12 : 9, p, same ? 1 : 0.55) }).bindPopup(popup(p)).addTo(map);
   });
-  tripPts.push([me.lat, me.lng]);
-  // halo + punto principal
+  // halo + punto principal (con los colores de cada visita)
   L.circleMarker([me.lat, me.lng], { radius: 16, stroke: false, fillColor: col, fillOpacity: 0.22, interactive: false }).addTo(map);
-  L.circleMarker([me.lat, me.lng], { radius: 9, color: '#fff', weight: 3, fillColor: col, fillOpacity: 1 })
+  L.marker([me.lat, me.lng], { icon: dot(20, me, 1), zIndexOffset: 1000 })
     .bindPopup(popup(me))
     .bindTooltip(me.name, { permanent: true, direction: 'top', offset: [0, -10], className: 'lm-tip' })
     .addTo(map);
@@ -78,7 +97,7 @@
   function view(v) {
     box.querySelectorAll('.lm-bar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
     if (v === 'here') map.setView([me.lat, me.lng], me.z || 10);
-    else map.fitBounds(v === 'trip' ? tripPts : allPts, { padding: [30, 30], maxZoom: 10 });
+    else map.fitBounds(v.indexOf('trip:') === 0 ? tripPts[v.slice(5)] : allPts, { padding: [30, 30], maxZoom: 10 });
   }
   box.querySelector('.lm-bar').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v'));
