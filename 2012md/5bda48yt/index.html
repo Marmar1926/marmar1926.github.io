@@ -69,6 +69,8 @@
   footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
   :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .group-tabs{ margin-bottom:10px; }
+  .group-tabs .year-tab{ font-size:1rem; }
   .tab-intro{ font-size:0.95rem; line-height:1.6; margin:0 0 16px; }
   .tab-intro:empty{ display:none; }
   .tab-intro p{ margin:0 0 8px; }
@@ -109,12 +111,13 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     <div class="story">
       <p>Walt Disney World, en las afueras de Orlando, abrió en 1971 con Magic Kingdom y fue creciendo hasta convertirse en el complejo de entretenimiento más visitado del mundo, con cuatro parques temáticos, parques acuáticos, hoteles y hasta su propia red de monorrieles.</p>
       <p>En 2012 recorrimos los cuatro parques: Magic Kingdom, con el Castillo de Cenicienta; Epcot, con la gran esfera de Spaceship Earth y los pabellones de países del World Showcase; Hollywood Studios, dedicado al cine y la televisión; y Animal Kingdom, con su Árbol de la Vida y su safari africano.</p>
-      <p>Elegí un parque en las pestañas de abajo para ver sus fotos.</p>
+      <p>En 2019 volvimos, siete años después. Elegí abajo la visita (2012 o 2019) y el parque para ver sus fotos.</p>
     </div>
 
     <p class="section-label">Nuestras fotos</p>
     <p class="section-sub" id="yearSub">Magic Kingdom — 2012</p>
 
+    <div class="year-tabs group-tabs" id="groupTabs"></div>
     <div class="year-tabs" id="yearTabs"></div>
     <div class="tab-intro" id="tabIntro"></div>
 
@@ -153,6 +156,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   {
     "year": "Magic Kingdom",
     "color": "#D81B60",
+    "group": "2012",
     "sub": "Magic Kingdom — 22 de marzo de 2012",
     "intro": "<p>Inaugurado en 1971 y construido a imagen y semejanza de Disneyland en California (aunque a mayor escala), Magic Kingdom llevaba más de cuatro décadas atrayendo a millones de personas cada año.</p><p>En 2011 fue el parque temático más visitado del mundo, con unos 17,1 millones de visitantes; el segundo fue Disneyland, en California, con 16,1 millones.</p><p>Está dividido en cinco áreas temáticas (seis si se cuenta Main Street, U.S.A.), organizadas alrededor del Castillo de Cenicienta, al final de Main Street. Tocá cada una para ver sus atracciones:</p><details><summary>Main Street, U.S.A. (3)</summary><p>Una versión idealizada de un típico pueblo estadounidense de fines del siglo XIX y principios del XX, repleta de detalles y con una ambientación extraordinaria.</p><ul><li><strong>Walt Disney World Railroad</strong> — Walt Disney era un enamorado de los viejos trenes a vapor: llegó a construir uno en miniatura en el jardín de su casa, con ayuda de los técnicos de su estudio. Por eso, la primera atracción que se ve al entrar al parque es su ferrocarril.</li><li><strong>Sorcerers of the Magic Kingdom</strong> — En 2012 era un juego interactivo nuevo: armado con tarjetas de hechizos, uno recorre el parque buscando y enfrentando a los villanos de Disney escondidos en distintos rincones.</li><li><strong>Main Street Vehicles</strong> — Tranvías, ómnibus antiguos y coches tirados por caballos que recorren Main Street, de la entrada del parque al Castillo de Cenicienta.</li></ul></details><details><summary>Tomorrowland (8)</summary><p>Inspirada en la visión del futuro de las películas y los libros de ciencia ficción, es un homenaje a la exploración espacial, el progreso tecnológico y el ingenio humano.</p><ul><li><strong>Astro Orbiter</strong> — Un vuelo a bordo de una colorida nave espacial que gira en lo alto, sobre la tierra del futuro.</li><li><strong>Buzz Lightyear&#x27;s Space Ranger Spin</strong> — Una atracción interactiva, al estilo de un videojuego: uno se achica al tamaño de un juguete y viaja al mundo de Buzz Lightyear disparando a los blancos.</li><li><strong>Tomorrowland Speedway</strong> — Un circuito para manejar autitos descapotables a nafta, que llegan a unos 11 km/h.</li><li><strong>Walt Disney&#x27;s Carousel of Progress</strong> — Un recorrido nostálgico por el progreso de la vida cotidiana en el siglo XX, de unos 20 minutos. En la última escena hay detalles escondidos, como un cascanueces con la cara de Mickey sobre la chimenea y un Mickey de peluche asomando de un regalo bajo el árbol de Navidad.</li><li><strong>Tomorrowland Transit Authority PeopleMover</strong> — Un paseo tranquilo de unos 10 minutos por las alturas de Tomorrowland, en vehículos futuristas para cuatro personas. Un clásico de los parques Disney.</li><li><strong>Stitch&#x27;s Great Escape!</strong> — Uno se convierte en agente de la Federación Galáctica con la misión de custodiar al Experimento 626, más conocido como Stitch.</li><li><strong>Space Mountain</strong> — La montaña rusa clásica de los parques Disney, con dos vías paralelas (Alfa y Omega), que recorre el espacio casi a oscuras, entre planetas, estrellas fugaces y luces fluorescentes.</li><li><strong>Monsters, Inc. Laugh Floor</strong> — Un club de la comedia interactivo, con los monstruos de la película como anfitriones y el público como protagonista.</li></ul></details><details><summary>Fantasyland (9)</summary><p>El corazón del parque, donde uno vuelve a mirar el mundo con ojos de chico. Al pie del Castillo de Cenicienta están las atracciones basadas en los clásicos animados de Disney, como Dumbo y Peter Pan.</p><ul><li><strong>Mad Tea Party</strong> — Vueltas y más vueltas a bordo de las tazas de colores de Alicia en el País de las Maravillas.</li><li><strong>Prince Charming Regal Carrousel</strong> — Una calesita construida en 1917, con 90 caballos tallados a mano y pinturas con escenas de La Cenicienta.</li><li><strong>It&#x27;s a Small World</strong> — Un tranquilo paseo en bote de unos 11 minutos por los países del mundo, con cientos de muñecos vestidos con trajes típicos que cantan la pegadiza canción. Otro clásico de los parques Disney.</li><li><strong>The Many Adventures of Winnie the Pooh</strong> — Un paseo por el Bosque de los Cien Acres a bordo de un tarro de miel gigante, con Winnie the Pooh, Tigger, Eeyore y sus amigos. Un favorito de los más chicos.</li><li><strong>Peter Pan&#x27;s Flight</strong> — Inspirada en el clásico de 1953: a bordo de un barco pirata volador se sobrevuelan los techos de Londres rumbo al País de Nunca Jamás, con Peter Pan, Wendy y sus hermanos.</li><li><strong>Mickey&#x27;s PhilharMagic</strong> — Posiblemente la mejor película 3D de Walt Disney World, con los personajes de Disney, música y efectos especiales.</li><li><strong>Dumbo the Flying Elephant</strong> — Inspirada en la película de 1941 y renovada en 2012 como parte de la ampliación de Fantasyland: ahora con dos carruseles de elefantes voladores y vistas de la nueva zona de Storybook Circus.</li><li><strong>Cinderella Castle</strong> — No es una atracción en sí misma, pero con sus 58 metros es el gran símbolo de los parques de Disney en Orlando y la puerta de entrada a Fantasyland. Adentro están el restaurante Cinderella&#x27;s Royal Table y la Bibbidi Bobbidi Boutique.</li><li><strong>The Barnstormer</strong> — Una montaña rusa para chicos, reabierta en marzo de 2012 como parte de la ampliación de Fantasyland.</li></ul></details><details><summary>Frontierland (5)</summary><p>Un homenaje a los pioneros del Lejano Oeste, coronado por las montañas rojizas de Splash Mountain y Big Thunder Mountain, dos de las atracciones más populares (y rápidas) del parque.</p><ul><li><strong>Big Thunder Mountain Railroad</strong> — «¡Agárrense bien los sombreros, porque este es el viaje más salvaje del Oeste!». Con esa frase arranca un tren sin conductor, a toda velocidad, por una vieja mina de oro abandonada.</li><li><strong>Splash Mountain</strong> — Un paseo en bote por el mundo de los personajes de la película Canción del Sur (1946), que termina con una caída de unos 65 km/h por una empinada cascada. Cerró en 2023 y fue reemplazada por Tiana&#x27;s Bayou Adventure.</li><li><strong>Country Bear Jamboree</strong> — Un show de música country con una banda de osos audio-animatronic llenos de personalidad, y algunos otros animales colgados de las paredes que también se suman.</li><li><strong>Frontierland Shootin&#x27; Arcade</strong> — Una galería de tiro inofensiva: las armas disparan un rayo infrarrojo a más de 100 blancos fijos y móviles.</li><li><strong>Tom Sawyer Island</strong> — Una isla en los Rivers of America, convertida en un gran parque de aventuras inspirado en los libros de Mark Twain.</li></ul></details><details><summary>Liberty Square (3)</summary><p>Ambientada en la época de la independencia de Estados Unidos, reúne a la tenebrosa pero divertidísima Haunted Mansion, el Salón de los Presidentes y un paseo en barco por el río.</p><ul><li><strong>Liberty Square Riverboat</strong> — Una travesía tranquila en un majestuoso barco a vapor por los Rivers of America, con vistas de Frontierland y Liberty Square.</li><li><strong>The Haunted Mansion</strong> — El terror y la comedia se mezclan en esta célebre mansión embrujada, en lo alto de la colina de Liberty Square. Está llena de detalles ingeniosos: hay que ir con los ojos bien abiertos.</li><li><strong>The Hall of Presidents</strong> — Un elegante teatro de estilo colonial donde figuras audio-animatronic de todos los presidentes de Estados Unidos, hasta Barack Obama, cuentan la historia de su país.</li></ul></details><details><summary>Adventureland (5)</summary><p>Un viaje a tierras lejanas de piratas, exploradores y mercados exóticos, envuelto en vegetación de los mares del sur.</p><ul><li><strong>Jungle Cruise</strong> — Un clásico: una travesía en bote por las selvas más «peligrosas» del mundo, famosa por los chistes malos de los guías.</li><li><strong>The Magic Carpets of Aladdin</strong> — Un paseo tranquilo por el aire a bordo de una alfombra mágica, basado en la película Aladdin (1992).</li><li><strong>Swiss Family Treehouse</strong> — Un recorrido a pie por el enorme árbol donde vive la familia Robinson, los náufragos suizos de la película de Disney de 1960.</li><li><strong>Pirates of the Caribbean</strong> — Una de las atracciones más fascinantes de los parques Disney, con la inolvidable canción Yo Ho (A Pirate&#x27;s Life for Me). Su exterior recrea una fortaleza española del Caribe del siglo XVIII, inspirada en el Castillo San Felipe del Morro de Puerto Rico; adentro, en la oscuridad, se escuchan los cañonazos y los gritos de los piratas.</li><li><strong>Walt Disney&#x27;s Enchanted Tiki Room</strong> — Un simpático show musical, con una canción muy pegadiza, en el que unos 200 personajes audio-animatronic, entre aves, flores y tótems, cantan, bailan y cuentan chistes.</li></ul></details>",
     "photos": [
@@ -301,6 +305,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   {
     "year": "Epcot",
     "color": "#D81B60",
+    "group": "2012",
     "sub": "Epcot — 2012",
     "intro": "<p>EPCOT (siglas en inglés de «Prototipo Experimental de la Comunidad del Mañana») se inauguró en 1982 y fue el segundo parque de Disney en Orlando, después de Magic Kingdom.</p><p>Walt Disney lo había imaginado como una verdadera ciudad del futuro, donde vivirían y trabajarían unas 20.000 personas, y donde los visitantes podrían ver los últimos avances científicos y tecnológicos de las empresas más innovadoras de Estados Unidos. Walt murió en 1966 sin verlo, y el proyecto terminó convertido en este parque temático.</p><p>Su construcción llevó tres años, costó mucho más de lo previsto y fue una de las obras más ambiciosas de su época. Con unas 120 hectáreas, es más del doble de grande que Magic Kingdom, y fue el parque más grande de Disney en Orlando hasta que abrió Animal Kingdom, en 1998. En 2011 recibió unos 10,8 millones de visitantes: el tercer parque temático más visitado de Norteamérica y el sexto del mundo.</p><p>En 2012 tenía dos grandes mitades: Future World, dedicada al futuro y la tecnología, y World Showcase, con once países alrededor de un lago. Tocá cada una para ver sus atracciones:</p><details><summary>Future World (12)</summary><p>La mitad del parque dedicada a la ciencia, la tecnología y la naturaleza.</p><ul><li><strong>Spaceship Earth</strong> — La gran esfera, ícono de Epcot y una de las estructuras más reconocibles de los parques Disney. Adentro, un recorrido por la historia de las comunicaciones humanas, de la prehistoria a la era de Internet, narrado por la actriz Judi Dench.</li><li><strong>Universe of Energy: Ellen&#x27;s Energy Adventure</strong> — Un recorrido desde el comienzo de los tiempos hasta el presente para descubrir el origen (y el futuro) de las fuentes de energía del planeta, con la humorista Ellen DeGeneres. Cerró en 2017.</li><li><strong>Soarin&#x27;</strong> — En la planta baja del pabellón The Land: la simulación de un vuelo en ala delta sobre California, muy convincente, con el movimiento del asiento coordinado con imágenes en una pantalla gigante. Una de las atracciones más espectaculares de los parques Disney.</li><li><strong>Living with the Land</strong> — Un paseo en bote para conocer los avances en cultivo y agricultura. Inaugurada en 1982 y renovada varias veces, es un clásico de Epcot.</li><li><strong>The Seas with Nemo &amp; Friends</strong> — Un viaje tranquilo y colorido al mundo submarino de Nemo y sus amigos, a bordo de un «Clamobile» con forma de almeja.</li><li><strong>Turtle Talk with Crush</strong> — Un show interactivo de unos 15 minutos en el que los chicos le hacen preguntas a Crush, la tortuga de Buscando a Nemo, que responde con su humor tan particular. Un favorito de los más chicos.</li><li><strong>Journey into Imagination with Figment</strong> — A bordo de una «máquina de sueños», junto al doctor Nigel Channing, se recorren los laboratorios del ficticio Instituto de la Imaginación, dedicados a los sentidos: vista, oído, gusto, olfato y tacto.</li><li><strong>Mission: Space</strong> — Una simulación de una misión tripulada a Marte, ambientada con el asesoramiento de la NASA y con el actor Gary Sinise como director de vuelo.</li><li><strong>Innoventions</strong> — Un pabellón dividido en dos partes (Innoventions East y West) para descubrir avances tecnológicos con actividades interactivas.</li><li><strong>Captain EO</strong> — Una película en 3D protagonizada por Michael Jackson. Se había retirado en 1994 y volvió a Epcot en 2010, como homenaje tras su muerte.</li><li><strong>Test Track</strong> — Una de las atracciones más rápidas de los parques de Disney en Orlando. En marzo de 2012, cuando fuimos, todavía funcionaba su versión original: cerró el 15 de abril para una reforma profunda y reabrió en diciembre de 2012, con el patrocinio de Chevrolet.</li><li><strong>The Circle of Life</strong> — Una película de unos 20 minutos con Simba, Timón y Pumba de El Rey León, estrenada en 1995, con un mensaje de cuidado del medio ambiente más vigente que nunca.</li></ul></details><details><summary>World Showcase (11)</summary><p>Once países alrededor del lago World Showcase Lagoon. Cada pabellón refleja la arquitectura y la cultura de su país, con tiendas, restaurantes típicos, espectáculos y películas; en 2012 solo México, Estados Unidos y Noruega tenían atracciones propiamente dichas.</p><ul><li><strong>México</strong> — Dominado por una imponente pirámide azteca. Adentro hay una colección de piezas de distintas épocas de la historia mexicana, un mercado de artesanías, el restaurante San Angel Inn y la atracción Gran Fiesta Tour, con el Pato Donald y Los Tres Caballeros.</li><li><strong>Noruega</strong> — En Maelstrom se navegaba en un barco vikingo de madera por la historia, real y mitológica, del país. Cerró en 2014 y en su lugar abrió Frozen Ever After en 2016.</li><li><strong>China</strong> — Jardines tranquilos, espectáculos en vivo y la película Reflections of China, en una sala circular, que recorre la Ciudad Prohibida, la Gran Muralla, las llanuras de Mongolia y Shanghái.</li><li><strong>Alemania</strong> — Un pintoresco pueblo bávaro, con edificios de distintas épocas, una torre con reloj de la que salen figuritas cada hora y una estatua de San Jorge luchando contra el dragón.</li><li><strong>Italia</strong> — Elegancia renacentista, música en vivo y buen café, algo difícil de encontrar en los parques Disney.</li><li><strong>Estados Unidos</strong> — The American Adventure, un emotivo espectáculo con imágenes y figuras audio-animatronic que narra momentos clave de la historia del país. Un clásico de Epcot.</li><li><strong>Japón</strong> — Uno de los pabellones originales del parque: un rincón tranquilo de jardines, templos y tiendas, sin atracciones.</li><li><strong>Marruecos</strong> — Dividido entre la moderna Ville Nouvelle y la tradicional Medina, con exposiciones de arte marroquí, la casa típica de Fez, música en vivo y un bazar de alfombras y artículos de cuero.</li><li><strong>Francia</strong> — Impressions de France, una película en cinco pantallas que casi rodean al espectador, de los acantilados de Normandía a la Torre Eiffel, pasando por los castillos del Loira, los Alpes, Versalles y el Mont Saint-Michel.</li><li><strong>Reino Unido</strong> — Edificios señoriales, calles empedradas, jardines prolijos y un típico pub inglés a orillas del lago, con algunas de las mejores vistas de los fuegos artificiales.</li><li><strong>Canadá</strong> — La película O Canada!, un homenaje a los paisajes y la gente del país, proyectada en una gigantesca pantalla circular.</li></ul></details><details><summary>Fuegos artificiales (1)</summary><ul><li><strong>IllumiNations: Reflections of Earth</strong> — Cada noche, alrededor de las 21, uno de los espectáculos de fuegos artificiales, luz y sonido más impresionantes del mundo: durante unos 15 minutos, más de 1.100 cohetes lanzados desde 34 posiciones alrededor del lago bailan al ritmo de la música. Se despidió en 2019.</li></ul></details>",
     "photos": []
@@ -308,6 +313,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   {
     "year": "Hollywood Studios",
     "color": "#D81B60",
+    "group": "2012",
     "sub": "Hollywood Studios — 2012",
     "intro": "<p>Disney's Hollywood Studios es el parque de Disney dedicado al «Hollywood que nunca fue y siempre será».</p><p>Desde sus inicios se inspiró en la época dorada de Hollywood: la primera mitad del siglo XX, cuando las películas eran en blanco y negro y jóvenes de todo el mundo llegaban a Hollywood en busca de fama y fortuna.</p><p>Es un parque familiar, con atracciones y espectáculos para todos los gustos. Para los más chicos se destacaban Toy Story Mania!, Voyage of the Little Mermaid, Disney Junior – Live on Stage!, Jim Henson's Muppet-Vision 3D y el genial show de La Bella y la Bestia, además del original parque infantil basado en la película Querida, encogí a los niños.</p><p>Estas eran sus principales atracciones y espectáculos en 2012:</p><details><summary>Ver las 17 atracciones de 2012</summary><ul><li><strong>Walt Disney: One Man&#x27;s Dream</strong> — Un homenaje imprescindible para cualquier admirador de la vida y obra de Walt Disney, la persona de cuya imaginación surgió todo.</li><li><strong>The American Idol Experience</strong> — Inaugurado en febrero de 2009 y basado en el programa de televisión American Idol, este show interactivo invitaba al público a participar en un auténtico casting musical: unos minutos de fama para quien se animara a cantar.</li><li><strong>Studio Backlot Tour</strong> — Un recorrido entre bambalinas para conocer de primera mano cómo se hacen las películas, presente en el parque desde su inauguración en 1989. Cerró en 2014.</li><li><strong>Rock &#x27;n&#x27; Roller Coaster Starring Aerosmith</strong> — Una montaña rusa bajo techo, al final de Sunset Boulevard, en un edificio decorado con una gigantesca guitarra Fender Stratocaster. Velocidad extrema y banda sonora de Aerosmith.</li><li><strong>Beauty and the Beast – Live on Stage</strong> — Un musical en vivo con las canciones más conocidas de La Bella y la Bestia: Be Our Guest, Something There, The Mob Song y, por supuesto, Beauty and the Beast.</li><li><strong>Star Tours: The Adventures Continue</strong> — Star Tours fue la primera atracción de los parques Disney basada en un simulador de vuelo. Su nueva versión debutó en mayo de 2011 con imágenes en 3D, escenarios al azar y una simulación con mucho más movimiento.</li><li><strong>Fantasmic!</strong> — El gran espectáculo nocturno del parque, con agua, música, fuegos artificiales, luces y los personajes de Disney liderados por Mickey.</li><li><strong>The Twilight Zone Tower of Terror</strong> — La segunda atracción más alta de los parques de Disney en Orlando, superada solo por Expedition Everest, y una de las más populares. Está basada en la serie The Twilight Zone (La dimensión desconocida), creada y presentada por Rod Serling, que se emitió entre 1959 y 1964: cada visitante protagoniza uno de sus episodios de terror.</li><li><strong>The Great Movie Ride</strong> — Un viaje nostálgico por las películas más grandes de la historia del cine, dentro de una réplica del Grauman&#x27;s Chinese Theatre de Hollywood, al final de Hollywood Boulevard. Cerró en 2017.</li><li><strong>Toy Story Mania!</strong> — Una atracción interactiva en 3D con juegos de puntería a través de una colorida recreación del mundo de Toy Story.</li><li><strong>Honey, I Shrunk the Kids Movie Set Adventure</strong> — Un parque infantil inspirado en Querida, encogí a los niños, donde los chicos se sienten del tamaño de un insecto.</li><li><strong>Voyage of the Little Mermaid</strong> — La historia de Ariel contada con marionetas, actores, escenas de la película y efectos especiales.</li><li><strong>Indiana Jones Epic Stunt Spectacular</strong> — Un show en vivo de dobles de riesgo basado en la primera película de Indiana Jones, con voluntarios del público.</li><li><strong>The Magic of Disney Animation</strong> — Una presentación para conocer cómo los artistas de Disney crean a sus personajes animados. Cerró en 2015.</li><li><strong>Jim Henson&#x27;s Muppet-Vision 3D</strong> — Una película en 3D de los Muppets con chorros de agua, pompas de jabón, explosiones y otros efectos.</li><li><strong>Disney Junior – Live on Stage!</strong> — Un espectáculo con los personajes del canal Disney Junior, como Jake y los piratas de Nunca Jamás y Manny a la obra, y clásicos como Mickey, Minnie, Donald, Daisy y Goofy.</li><li><strong>Lights! Motors! Action! Extreme Stunt Show</strong> — Un show de conducción extrema, con persecuciones, saltos, choques y explosiones en autos y motos, traído del parque Walt Disney Studios de París.</li></ul></details>",
     "photos": [
@@ -321,6 +327,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   {
     "year": "Animal Kingdom",
     "color": "#D81B60",
+    "group": "2012",
     "sub": "Animal Kingdom — 21 de marzo de 2012",
     "intro": "<p>En 1998 Disney inauguró su cuarto parque temático en Orlando: Disney's Animal Kingdom. No es un zoológico convencional, sino un parque temático protagonizado por el mundo natural, repleto de animales reales y plantas exóticas de todos los rincones del planeta.</p><p>En 2011 fue el séptimo parque temático más visitado del mundo, con unos 9,8 millones de visitantes.</p><p>Más de 1.700 animales de unas 250 especies viven en sus unas 230 hectáreas, y a muchos se los ve de cerca en Kilimanjaro Safaris, un recorrido en vehículo todoterreno por una sabana africana fielmente recreada. Aunque no lo parezca, es unas cinco veces más grande que Magic Kingdom y casi el doble que Epcot: por lejos, el parque de Disney más grande de Orlando.</p><p>En 2012 se dividía en estas zonas alrededor del Árbol de la Vida. Tocá cada una para ver sus atracciones:</p><details><summary>Discovery Island (1)</summary><p>El corazón del parque, alrededor del Árbol de la Vida.</p><ul><li><strong>It&#x27;s Tough to Be a Bug!</strong> — Una película en 4D (3D con efectos que se sienten en la butaca) basada en Bichos (A Bug&#x27;s Life), que muestra el mundo desde el punto de vista de los insectos. Funciona dentro del tronco del Árbol de la Vida.</li></ul></details><details><summary>Camp Minnie-Mickey (1)</summary><p>Una zona chica y acogedora donde se concentraban la mayoría de los personajes de Disney para sacarse fotos (con filas que podían ser largas). Cerró en 2014 y en su lugar se construyó Pandora – The World of Avatar.</p><ul><li><strong>Festival of the Lion King</strong> — El «Festival del Rey León», uno de los espectáculos en vivo más populares de todo Walt Disney World, que tiene poco que envidiarles a los grandes musicales de Broadway.</li></ul></details><details><summary>Africa (3)</summary><p>La zona más grande de Animal Kingdom. Alrededor de Harambe, una recreación de una aldea africana, salen el safari, el sendero de los gorilas y el tren a Rafiki&#x27;s Planet Watch, el centro veterinario y educativo del parque.</p><ul><li><strong>Kilimanjaro Safaris</strong> — Un safari por la reserva de Harambe sin salir de Orlando: a bordo de un vehículo todoterreno se ven antílopes, mandriles, rinocerontes blancos y negros, cocodrilos, cebras, jabalíes, okapis, avestruces, leones, hipopótamos, jirafas, gacelas, flamencos y elefantes, que se mueven libremente por unos 400.000 m².</li><li><strong>Pangani Forest Exploration Trail</strong> — Un recorrido a pie por una selva frondosa, con gorilas, hipopótamos (que se ven bajo el agua), suricatas, monos y otros animales en hábitats que recrean los naturales.</li><li><strong>Conservation Station</strong> — En Rafiki&#x27;s Planet Watch: la clínica veterinaria del parque, donde se conocen de cerca los cuidados de los animales y los programas de conservación.</li></ul></details><details><summary>Asia (4)</summary><p>Inaugurada en 1999, un año después que el parque. Acá están el Maharajah Jungle Trek, los rápidos de Kali River Rapids y la estrella del parque: Expedition Everest.</p><ul><li><strong>Maharajah Jungle Trek</strong> — Un sendero a pie entre las ruinas de un templo, con tigres (la gran atracción), gibones, murciélagos, ciervos, tapires, aves exóticas y dragones de Komodo: el lagarto más grande del mundo, de 2 a 3 metros de largo y hasta 70 kilos.</li><li><strong>Flights of Wonder</strong> — Un espectáculo en vivo, varias veces al día, en el que aves de todo tipo, incluidas águilas y halcones, hacen vuelos y acrobacias.</li><li><strong>Expedition Everest</strong> — Inaugurada en abril de 2006: una montaña rusa dentro de una montaña de unos 60 metros, posiblemente la más impactante de Walt Disney World. Uno se convierte en un explorador que viaja a las cumbres del Himalaya y se encuentra cara a cara con el abominable hombre de las nieves (el Yeti).</li><li><strong>Kali River Rapids</strong> — Un descenso en balsa por los rápidos del río Chakranadi, después de recorrer los paisajes y las ruinas de una selva asiática. Se sale completamente empapado.</li></ul></details><details><summary>DinoLand U.S.A. (5)</summary><p>La zona dedicada a los fósiles y los dinosaurios, con aire de excavación paleontológica y de feria de ruta.</p><ul><li><strong>Dinosaur</strong> — En el Dino Institute, un instituto científico ficticio, el doctor Grant Seeker presenta su invento: un vehículo que viaja en el tiempo hasta el final de la era de los dinosaurios, justo cuando una lluvia de meteoritos está por acabar con ellos, para traer de vuelta un iguanodonte. Un viaje muy movido.</li><li><strong>The Boneyard</strong> — Un gran patio de juegos ambientado en una excavación de fósiles, especial para menores de diez años, con cuevas, redes para trepar y toboganes.</li><li><strong>Finding Nemo – The Musical</strong> — Un deslumbrante musical en vivo de Buscando a Nemo, con grandes títeres y canciones originales.</li><li><strong>TriceraTop Spin</strong> — Una atracción sencilla para los más chicos, como el Dumbo de Magic Kingdom, pero con dinosaurios que suben, bajan y giran.</li><li><strong>Primeval Whirl</strong> — Una pequeña montaña rusa con carritos que giran, curvas cerradas y caídas repentinas, también con temática prehistórica.</li></ul></details>",
     "photos": [
@@ -375,6 +382,124 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
         "caption": "La foto oficial con Goofy, con su autógrafo: \"Gawrsh! Luv, Goofy\". \"Gawrsh!\" es su exclamación característica, la que dice cada vez que algo lo sorprende."
       }
     ]
+  },
+  {
+    "year": "Magic Kingdom",
+    "color": "#17A2B8",
+    "group": "2019",
+    "sub": "Magic Kingdom — 31 de mayo y 1 de junio de 2019",
+    "intro": "",
+    "photos": [
+      {
+        "src": "mk19-01.jpg",
+        "ratio": 0.665,
+        "caption": "De vuelta en Walt Disney World siete años después de nuestra primera visita: en el tranvía que recorre el estacionamiento, rumbo a Magic Kingdom."
+      },
+      {
+        "src": "mk19-02.jpg",
+        "ratio": 0.665,
+        "caption": "En Town Square, junto a la estatua «Sharing the Magic» (Compartiendo la magia): Roy O. Disney, hermano de Walt, sentado en un banco de la mano de Minnie. Tras la muerte de Walt, Roy se encargó de terminar Walt Disney World e inauguró el parque en octubre de 1971. La estatua, obra de Blaine Gibson (el mismo escultor de Partners, la de Walt y Mickey frente al castillo), se instaló en 1999 cerca del lugar donde Roy dio el discurso de inauguración."
+      },
+      {
+        "src": "mk19-03.jpg",
+        "ratio": 0.665,
+        "caption": "En Town Square, junto a la estatua «Sharing the Magic» (Compartiendo la magia): Roy O. Disney, hermano de Walt, sentado en un banco de la mano de Minnie. Tras la muerte de Walt, Roy se encargó de terminar Walt Disney World e inauguró el parque en octubre de 1971. La estatua, obra de Blaine Gibson (el mismo escultor de Partners, la de Walt y Mickey frente al castillo), se instaló en 1999 cerca del lugar donde Roy dio el discurso de inauguración."
+      },
+      {
+        "src": "mk19-04.jpg",
+        "ratio": 0.665,
+        "caption": "Main Street, U.S.A. al atardecer, con el Castillo de Cenicienta al fondo y las fachadas adornadas con banderines patrios."
+      },
+      {
+        "src": "mk19-05.jpg",
+        "ratio": 0.665,
+        "caption": "Con la cabeza y las manos en el cepo de Liberty Square: una réplica de los castigos públicos de la época colonial y una de las fotos más divertidas del parque."
+      },
+      {
+        "src": "mk19-06.jpg",
+        "ratio": 0.6641,
+        "caption": "Recuerdo de Pirates of the Caribbean, en Adventureland, con un marco inspirado en la quinta película de la saga, Piratas del Caribe: la venganza de Salazar (Dead Men Tell No Tales, 2017)."
+      },
+      {
+        "src": "mk19-07.jpg",
+        "ratio": 1.5038,
+        "caption": "En Fantasyland, frente a la entrada de Peter Pan's Flight, con el mapa del País de Nunca Jamás pintado en el arco."
+      },
+      {
+        "src": "mk19-08.jpg",
+        "ratio": 1.3333,
+        "caption": "Frente al Castillo de Cenicienta, en el Hub. Detrás, al pie del castillo, se ve la estatua Partners, de Walt Disney de la mano de Mickey."
+      },
+      {
+        "src": "mk19-09.jpg",
+        "ratio": 1.5007,
+        "caption": "Recuerdo de la Haunted Mansion, la mansión embrujada de Liberty Square, rodeados de algunos de sus fantasmas más famosos."
+      },
+      {
+        "src": "mk19-10.jpg",
+        "ratio": 1.4986,
+        "caption": "En el Seven Dwarfs Mine Train, la montaña rusa de los Siete Enanitos en Fantasyland. Abrió en mayo de 2014 y fue la última pieza de New Fantasyland: la misma ampliación que en 2012 veíamos en obra, con las grúas detrás del castillo."
+      },
+      {
+        "src": "mk19-11.jpg",
+        "ratio": 0.6673,
+        "caption": "En el Seven Dwarfs Mine Train, la montaña rusa de los Siete Enanitos en Fantasyland. Abrió en mayo de 2014 y fue la última pieza de New Fantasyland: la misma ampliación que en 2012 veíamos en obra, con las grúas detrás del castillo."
+      },
+      {
+        "src": "mk19-12.jpg",
+        "ratio": 0.75,
+        "caption": "Main Street, U.S.A. iluminada de noche, bajo un cielo de tormenta."
+      },
+      {
+        "src": "mk19-13.jpg",
+        "ratio": 1.3333,
+        "caption": "El Castillo de Cenicienta de noche."
+      },
+      {
+        "src": "mk19-14.jpg",
+        "ratio": 1.5038,
+        "caption": "Frente al Castillo de Cenicienta iluminado de azul, de noche."
+      },
+      {
+        "src": "mk19-15.jpg",
+        "ratio": 0.665,
+        "caption": "El castillo visto desde Fantasyland, del lado de atrás, iluminado de rosa y violeta."
+      },
+      {
+        "src": "mk19-16.jpg",
+        "ratio": 1.5038,
+        "caption": "De vuelta en el Prince Charming Regal Carrousel, la calesita de 1917 detrás del castillo: la misma en la que nos subimos en 2012, siete años antes."
+      },
+      {
+        "src": "mk19-17.jpg",
+        "ratio": 0.665,
+        "caption": "De vuelta en el Prince Charming Regal Carrousel, la calesita de 1917 detrás del castillo: la misma en la que nos subimos en 2012, siete años antes."
+      }
+    ]
+  },
+  {
+    "year": "Epcot",
+    "color": "#17A2B8",
+    "group": "2019",
+    "sub": "Epcot — 2019",
+    "intro": "",
+    "photos": []
+  },
+  {
+    "year": "Hollywood Studios",
+    "color": "#17A2B8",
+    "group": "2019",
+    "sub": "Hollywood Studios — 2019",
+    "intro": "",
+    "photos": []
+  },
+  {
+    "year": "Animal Kingdom",
+    "color": "#17A2B8",
+    "group": "2019",
+    "sub": "Animal Kingdom — 2019",
+    "intro": "",
+    "photos": []
   }
 ];
 
@@ -390,8 +515,22 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   const yearSub = document.getElementById('yearSub');
 
   function renderTabs(){
+    const grp = YEARS[currentYearIdx].group;
+    const gEl = document.getElementById('groupTabs'); gEl.innerHTML = '';
+    [...new Set(YEARS.map(y => y.group))].forEach(g => {
+      const first = YEARS.findIndex(y => y.group === g);
+      const withPh = YEARS.findIndex(y => y.group === g && y.photos.length);
+      const col = YEARS[first].color, on = g === grp;
+      const b = document.createElement('button');
+      b.className = 'year-tab' + (on ? ' active' : '');
+      b.style.background = on ? col : 'transparent'; b.style.borderColor = on ? col : '';
+      b.innerHTML = '<span class="dot" style="background:' + (on ? '#fff' : col) + '"></span>Visita ' + g;
+      b.addEventListener('click', () => { if (!on) selectYear(withPh >= 0 ? withPh : first); });
+      gEl.appendChild(b);
+    });
     tabsEl.innerHTML = '';
     YEARS.forEach((y, idx) => {
+      if (y.group !== grp) return;
       const btn = document.createElement('button');
       btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
       btn.style.background = idx === currentYearIdx ? y.color : 'transparent';

@@ -96,7 +96,7 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Páginas 2022: texto en mostaza `--accent-ink:#8A6800` (amarillo pleno en modo oscuro). Al armar una página 2022 desde plantilla, copiar ese bloque y usar color:var(--accent-ink).
 - Yellowstone (#30) armado: 23 fotos con textos del usuario (corregidos) + fact-box y reseña.
 - Portadas: se muestran completas, sin recorte (`.hero img` con height:auto y max-height:min(78vh,760px), centradas). Ya no se usa aspect-ratio/object-position por página.
-- Disney World (#2): página con 4 pestañas por parque (2012). El usuario sube fotos a 1-magic-kingdom/, 2-epcot/, 3-hollywood-studios/, 4-animal-kingdom/.
+- Disney World (#2): selector "Visita 2012 / Visita 2019" + 4 pestañas por parque. Carpetas de subida: 2012-2-epcot, 2012-3-hollywood-studios, 2019-1..4-*. Archivos: mk/ep/hs/ak-NN.jpg (2012) y mk19/ep19/hs19/ak19-NN.jpg (2019); textos en dw_caps.json (claves mk, mk19, _sub_*, _intro_*).
   Procesar a archivos planos mk-NN.jpg / ep-NN.jpg / hs-NN.jpg / ak-NN.jpg, textos en JSON {"mk":[...],...} y correr scratch build_dw.py con DW_CAPS=archivo; borrar las carpetas y correr optimizar_fotos.py.
 - Visitas múltiples (extra_visits en manifest): el índice web muestra todos los años en color; los mapas (índice y "Dónde queda") pintan el punto con los colores de cada visita y cuentan el lugar en cada viaje; en la página, botones "Viaje AAAA" por visita.
   Si cambian visitas o coordenadas: editar manifest.json y correr `python3 _proyecto/herramientas/gen_places.py`.
