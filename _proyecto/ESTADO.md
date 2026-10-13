@@ -98,3 +98,6 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Portadas: se muestran completas, sin recorte (`.hero img` con height:auto y max-height:min(78vh,760px), centradas). Ya no se usa aspect-ratio/object-position por página.
 - Disney World (#2): página con 4 pestañas por parque (2012). El usuario sube fotos a 1-magic-kingdom/, 2-epcot/, 3-hollywood-studios/, 4-animal-kingdom/.
   Procesar a archivos planos mk-NN.jpg / ep-NN.jpg / hs-NN.jpg / ak-NN.jpg, textos en JSON {"mk":[...],...} y correr scratch build_dw.py con DW_CAPS=archivo; borrar las carpetas y correr optimizar_fotos.py.
+- Visitas múltiples (extra_visits en manifest): el índice web muestra todos los años en color; los mapas (índice y "Dónde queda") pintan el punto con los colores de cada visita y cuentan el lugar en cada viaje; en la página, botones "Viaje AAAA" por visita.
+  Si cambian visitas o coordenadas: editar manifest.json y correr `python3 _proyecto/herramientas/gen_places.py`.
+- Los Angeles (#7) pasó a pestañas 2013 / 2018 / 2022 (ciudad base de las tres giras). Santa Mónica tenía la pestaña 2022 pero no la pastilla: corregido.

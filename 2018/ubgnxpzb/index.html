@@ -42,6 +42,9 @@
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
+  .visit-years{ display:flex; justify-content:center; gap:8px; margin:-14px 0 24px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:rgba(0,0,0,0.06); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pdot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
 </style>
 </head>
 <body>
@@ -53,6 +56,7 @@
     <span class="dot"></span>
     <h1>Cody</h1>
     <p class="location">Wyoming</p>
+    <div class="visit-years"><span class="pill"><span class="pdot" style="background:#DC322F"></span>2018</span></div>
     <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
       <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
   </div>
