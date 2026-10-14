@@ -225,8 +225,10 @@ section[data-n="2"] .ph{{height:44mm}}
 .pp-back .bq .qr{{width:24mm;height:24mm;margin:0}} .pp-back .bq svg{{width:100%;height:100%;display:block}}
 .cover.pp p.bq-t,.pp-back p.bq-t{{font-size:7.5pt;color:#E8CD82;margin:0;letter-spacing:.4px}} .pp-back p.bq-u{{font-size:6.8pt;color:#C9AE6A;margin:1mm 0 0}}
 .pp-back .pp-top{{color:#F0D78C;font-size:11pt}} .pp-back .pp-sub{{color:#C9AE6A}}
+.pp-in{{padding:0!important}}
 </style></head><body>
 <section class="cover pp"><p class="pp-top">PASAPORTE DE VIAJE</p><p class="pp-sub">TRAVEL PASSPORT</p><svg class="pp-emb" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DE9A"/><stop offset=".5" stop-color="#C9A24A"/><stop offset="1" stop-color="#E9CF7E"/></linearGradient></defs><g fill="none" stroke="url(#g)" stroke-width="2.2"><circle cx="100" cy="112" r="46"/><ellipse cx="100" cy="112" rx="20" ry="46"/><ellipse cx="100" cy="112" rx="38" ry="46"/><line x1="54" y1="112" x2="146" y2="112"/><path d="M60 90 Q100 98 140 90"/><path d="M60 134 Q100 126 140 134"/><path d="M38 150 Q100 40 168 88" stroke-dasharray="5 5" stroke-width="1.8"/></g><g fill="url(#g)"><path transform="translate(34.2,76.1) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(49.1,52.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(72.2,35.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(99.9,30.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(127.6,35.7) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(150.8,51.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(165.7,75.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(170,86) rotate(30)" d="M0,-9 L2,-2 9,2 9,4 2,2 1.5,7 4,9 4,10.5 0,9.5 -4,10.5 -4,9 -1.5,7 -2,2 -9,4 -9,2 -2,-2Z"/></g></svg><h1>Mis viajes<br>por USA</h1><p class="pp-yrs">2012 · 2013 · 2016 · 2018 · 2019 · 2022</p><p class="pp-n">45 LUGARES · 7 VIAJES</p><svg class="pp-chip" viewBox="0 0 40 26"><g fill="none" stroke="url(#g2)" stroke-width="1.6"><rect x="1" y="1" width="38" height="24" rx="3"/><circle cx="20" cy="13" r="5"/><line x1="1" y1="13" x2="15" y2="13"/><line x1="25" y1="13" x2="39" y2="13"/></g><defs><linearGradient id="g2"><stop offset="0" stop-color="#E9CF7E"/><stop offset="1" stop-color="#C9A24A"/></linearGradient></defs></svg></section>
+<section class="pp pp-in"></section>
 <section class="intro"><h2>Cómo usar este pasaporte</h2>
 <p>Cada lugar tiene un número (el mismo del mapa) y un código QR. Apuntá la cámara del celular al código y se abre su página, con las fotos, la historia y el lugar en el mapa.</p>
 <p>Los años en color indican cada visita; algunos lugares los visitamos más de una vez.</p>
@@ -235,9 +237,10 @@ section[data-n="2"] .ph{{height:44mm}}
 {STATS}
 {FIRMAS}
 NOTES
+<section class="pp pp-in"></section>
 <section class="back pp pp-back"><p class="pp-top">MIS VIAJES POR USA</p><p class="pp-sub">2012 · 2022</p><div class="bq"><div class="qr">{home}</div></div><p class="bq-t">Índice completo y mapa interactivo</p><p class="bq-u">marmar1926.github.io</p></section>
 <script>
-var _all=document.querySelectorAll('body > section');_all.forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp'); if(i>0 && i<_all.length-1){{var p=document.createElement('div');p.className='pn';p.textContent=i+1;sec.appendChild(p);}}}});
+var _all=document.querySelectorAll('body > section');_all.forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp'); if(i>0 && i<_all.length-1 && !sec.classList.contains('pp')){{var p=document.createElement('div');p.className='pn';p.textContent=i+1;sec.appendChild(p);}}}});
 document.querySelectorAll('.place').forEach(function(pg){{
   var body=pg.querySelector('.body'), foot=pg.querySelector('.foot'), fs=1;
   while(body.getBoundingClientRect().bottom > foot.getBoundingClientRect().top-8 && fs>0.6){{
