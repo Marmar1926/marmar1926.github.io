@@ -101,3 +101,4 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Visitas múltiples (extra_visits en manifest): el índice web muestra todos los años en color; los mapas (índice y "Dónde queda") pintan el punto con los colores de cada visita y cuentan el lugar en cada viaje; en la página, botones "Viaje AAAA" por visita.
   Si cambian visitas o coordenadas: editar manifest.json y correr `python3 _proyecto/herramientas/gen_places.py`.
 - Los Angeles (#7) pasó a pestañas 2013 / 2018 / 2022 (ciudad base de las tres giras). Santa Mónica tenía la pestaña 2022 pero no la pastilla: corregido.
+- Clave liviana (oct 2026): /assets/gate.js se carga en el <head> de todas las páginas; pide la clave una vez por dispositivo (localStorage 'mvk'). Guarda solo el hash sha256("mv-salt:"+clave). Los QR NO llevan la clave (pedido del usuario: que quien tenga los impresos, p. ej. la imprenta, no entre). Las fotos siguen accesibles por URL directa.
