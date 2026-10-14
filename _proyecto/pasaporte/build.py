@@ -27,7 +27,7 @@ def stamps_for(e,vis):
     nm=e['name'].upper().replace('NATIONAL PARK',"NAT'L PARK").replace('STATE PARK','S.P.').replace('MEMORIAL','MEM.')
     SHOW_WDW=False  # sellos propios 'WALT DISNEY WORLD' retirados temporalmente
     if e['number']==5:
-        return [f'<div class="dlimg"><img src="file://{S}/sello_disneyland.png"><span>Diseño original: Joe Flowers · MiceChat</span></div>']
+        return [f'<div class="dlimg"><img src="file://{S}/sello_disneyland.png"></div>']
     if e['number']==2:
         G='#2E7D32'; P=DATES['_parks']['2019']
         def fd(x): dd,mm,yy=x.split('/'); return f"{int(dd):02d} {['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][int(mm)-1]} {yy}"
