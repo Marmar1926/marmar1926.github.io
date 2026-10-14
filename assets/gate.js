@@ -2,7 +2,7 @@
    No es seguridad fuerte: evita que entre quien solo tenga un QR o la dirección.
    Para cambiar la clave: H = sha256("mv-salt:" + CLAVE). */
 (function () {
-  var H = 'db58e3a0d16713ea564e386b6aa983f6df33336aed8f919474f5ab36c9007aee';
+  var H = '89cf0ffde49b52cd21f085f00d541b0b57f9c0b4a03deeda935d9bfac1616ad4';
   try { if (localStorage.getItem('mvk') === H) return; } catch (e) {}
   var d = document.documentElement; d.classList.add('mv-lock');
   var st = document.createElement('style');
