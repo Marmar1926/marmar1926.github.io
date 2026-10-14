@@ -75,11 +75,11 @@ for trip,es in groups:
 <div class="stamps">{ST[0]}</div><div class="body"><h3>{html.escape(e['name'])}</h3><p class="sub">{html.escape(e.get('sub',''))}</p><div class="yrs"{' style="margin-bottom:13mm"' if e["number"]==2 else ""}>{yrs}</div>
 <p class="txt">{html.escape(texts(e)[0])}</p><p class="dato"><b>Dato curioso:</b> {html.escape(texts(e)[1])}</p></div>
 <div class="foot"><div class="qr">{qr(url)}</div>{"" if (len(ST)>2 or e["number"]==2) else "<p>Escaneá el código para ver nuestras fotos y la historia completa.</p>"}{"".join(ST[1:])}</div></section>''')
-TL=[x[1:] for x in sorted([(v['year'],i,v['year'],hexc(v['color']),v['label']) for i,v in enumerate(T.values())]+[(2019,0,2019,'#17A2B8','Viaje 2019 · Florida')])]
+TL=[x[1:] for x in sorted([(v['year'],i,v['year'],hexc(v['color']),v['label']) for i,v in enumerate(T.values())]+[(2019,0,2019,'#17A2B8','Miami - Disney 2019')])]
 
 TRIPS_KM=[('#D81B60','Disney & Miami Vibes','MAR 2012','1.132'),('#2EA043','La Ruta del Este','OCT 2012','865'),
  ('#E67E22','Triángulo Dorado de la Costa Oeste','JUN 2013','1.258'),('#2E7CF6','Palmeras y magnolias','JUN 2016','2.975'),
- ('#DC322F','Ruta de Gigantes y Géiseres','JUN 2018','6.117'),('#17A2B8','Miami · Disney · Bahamas','JUN 2019','427'),
+ ('#DC322F','Ruta de Gigantes y Géiseres','JUN 2018','6.117'),('#17A2B8','Miami - Disney 2019','JUN 2019','427'),
  ('#F1C40F','Ruta de Gigantes: Del Pacífico al Gran Cañón','OCT 2022','2.260')]
 trows=''.join(f'<tr><td><span class="tdot" style="--c:{c}"></span></td><td><b>{html.escape(n)}</b><br><span>{d}</span></td><td class="km">{k}</td></tr>' for c,n,d,k in TRIPS_KM)
 STATS=(f'<section class="stats"><h2>La gira en números</h2><p class="st-sub">Mis viajes por USA · 2012 – 2022</p>'
