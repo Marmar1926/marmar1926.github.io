@@ -163,7 +163,7 @@ section:last-child{{break-after:auto;page-break-after:auto}}
 .foot p{{font-size:7.2pt;color:#6B6255;margin:0;line-height:1.35}}
 
 .pp{{background:radial-gradient(ellipse at 30% 20%,#1f3a6b 0%,#13254a 55%,#0c1934 100%);color:#E3C77A;justify-content:flex-start;padding-top:14mm}}
-.pp::before{{content:"";position:absolute;inset:4mm;border:.35mm solid rgba(227,199,122,.45);border-radius:2mm}}
+.pp::before{{display:none}}
 .pp-top{{font-family:Play;font-weight:700;letter-spacing:2.2px;font-size:12.5pt;color:#E8CD82;margin:0}}
 .pp-sub{{font-size:7pt;letter-spacing:3px;color:#C9AE6A;margin:1mm 0 0}}
 .pp-emb{{width:52mm;height:52mm;margin:6mm auto 3mm}}
