@@ -25,7 +25,8 @@ def ink2(c):
 def stamps_for(e,vis):
     state=e.get('sub','').split(',')[-1].strip(); ab=ABBR.get(state,'')
     nm=e['name'].upper().replace('NATIONAL PARK',"NAT'L PARK").replace('STATE PARK','S.P.').replace('MEMORIAL','MEM.')
-    if e['number']==2: return [f'<img class="stamp-img3" src="file://{S}/sello_magic_kingdom.png">'+f'<img class="stamp-img2" src="file://{S}/sello_epcot.png">'+wdw_stamp(29,'#B0154F',DATES['2-2012']),f'<img class="stamp-img4" src="file://{S}/sello_hollywood_studios.png">'+f'<img class="stamp-img" src="file://{S}/sello_animal_kingdom.png">'+wdw_stamp(31,'#12808F',DATES['2-2019'],rot=10)]
+    SHOW_WDW=False  # sellos propios 'WALT DISNEY WORLD' retirados temporalmente
+    if e['number']==2: return [f'<img class="stamp-img3" src="file://{S}/sello_magic_kingdom.png">'+f'<img class="stamp-img2" src="file://{S}/sello_epcot.png">',f'<img class="stamp-img4" src="file://{S}/sello_hollywood_studios.png">'+f'<img class="stamp-img" src="file://{S}/sello_animal_kingdom.png">']
     out=[]
     for i,(y,cc) in enumerate(vis):
         d=DATES.get(f"{e['number']}-{y}") or str(y); d=d if isinstance(d,str) else str(y); ink=ink2(cc); u=e['number']*10+i
