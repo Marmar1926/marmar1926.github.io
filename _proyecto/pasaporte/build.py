@@ -156,6 +156,9 @@ section:last-child{{break-after:auto;page-break-after:auto}}
 
 /* margen de encuadernacion (lomo): 8 mm extra del lado del pegado */
 section.rp:not(.cover){{padding-left:16mm}} section.lp{{padding-right:16mm}}
+section.rp .ph .num{{left:11mm}} section.lp .stamps{{right:19mm}} section.lp .foot{{right:19.5mm}}
+.pn{{position:absolute;bottom:3.2mm;font-size:6.8pt;color:#9A9080;letter-spacing:.5px}}
+section.rp .pn{{right:8mm}} section.lp .pn{{left:8mm}}
 section.rp .ph{{margin-left:-8mm}} section.lp .ph{{margin-right:-8mm}}
 section.rp .foot{{left:16mm}} section.lp .foot{{right:16mm}}
 section.rp .dband{{left:8mm}} section.lp .dband{{right:8mm}}
@@ -191,7 +194,7 @@ section.rp .dband{{left:8mm}} section.lp .dband{{right:8mm}}
 NOTES
 <section class="back"><div class="qr">{home}</div><p><b>Índice completo y mapa interactivo</b></p><p>marmar1926.github.io</p></section>
 <script>
-document.querySelectorAll('body > section').forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp');}});
+var _all=document.querySelectorAll('body > section');_all.forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp'); if(i>0 && i<_all.length-1){{var p=document.createElement('div');p.className='pn';p.textContent=i+1;sec.appendChild(p);}}}});
 document.querySelectorAll('.place').forEach(function(pg){{
   var body=pg.querySelector('.body'), foot=pg.querySelector('.foot'), fs=1;
   while(body.getBoundingClientRect().bottom > foot.getBoundingClientRect().top-8 && fs>0.72){{
