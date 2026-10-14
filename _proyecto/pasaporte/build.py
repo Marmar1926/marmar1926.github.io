@@ -25,10 +25,10 @@ def ink2(c):
 def stamps_for(e,vis):
     state=e.get('sub','').split(',')[-1].strip(); ab=ABBR.get(state,'')
     nm=e['name'].upper().replace('NATIONAL PARK',"NAT'L PARK").replace('STATE PARK','S.P.').replace('MEMORIAL','MEM.')
-    if e['number']==2: return [wdw_stamp(29,'#B0154F','21 MAR 2012'),f'<img class="stamp-img" src="file://{S}/sello_animal_kingdom.png">'+wdw_stamp(31,'#12808F','31 MAY 2019',rot=10)]
+    if e['number']==2: return [wdw_stamp(29,'#B0154F',DATES['2-2012']),f'<img class="stamp-img" src="file://{S}/sello_animal_kingdom.png">'+wdw_stamp(31,'#12808F',DATES['2-2019'],rot=10)]
     out=[]
     for i,(y,cc) in enumerate(vis):
-        d=DATES.get(f"{e['number']}-{y}") or str(y); ink=ink2(cc); u=e['number']*10+i
+        d=DATES.get(f"{e['number']}-{y}") or str(y); d=d if isinstance(d,str) else str(y); ink=ink2(cc); u=e['number']*10+i
         if i==0: out.append(round_stamp(u,ink,f"{nm} · {state.upper()}",d))
         elif i==1: out.append(rect_stamp(u,ink,f"{nm} · {ab}" if ab else nm,d,'VISITOR · ADMITTED'))
         else: out.append(oval_stamp(u,ink,'',d,f"{nm} · {ab} · USA"))
