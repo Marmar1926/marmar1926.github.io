@@ -13,6 +13,7 @@ async def render(notes):
         await pg.pdf(path=f'{S}/librito-A6.pdf',prefer_css_page_size=True,print_background=True)
         await b.close()
     return len(PdfReader(f'{S}/librito-A6.pdf').pages)
-n=asyncio.run(render(0)); k=(4-n%4)%4
-if k: n=asyncio.run(render(k))
+# A6 hojas sueltas doble faz: al menos 1 hoja de notas y total par (la contratapa queda en el dorso)
+n=asyncio.run(render(1)); k=1+(n%2)
+if k!=1: n=asyncio.run(render(k))
 print('pages',n,'notes',k)

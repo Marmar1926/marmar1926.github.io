@@ -5,4 +5,4 @@ Generador del "Pasaporte de viaje": una página por lugar (foto, años, texto, d
 - Fechas de los sellos: dates.json, clave "NUMERO-AÑO" -> "DD MON YYYY" (o "JUN 2013"). Sin fecha => solo el año.
 Uso (requiere playwright, segno, pypdf, Pillow):
   cd _proyecto/pasaporte && python3 build.py && python3 render.py && python3 impose.py
-Salidas: librito-A6.pdf (páginas en orden) y librito-para-imprimir-A5.pdf (armado para doblar). Margen de lomo 16 mm.
+Salidas: librito-A6.pdf (para imprimir en hojas A6 doble faz y pegar al lomo; total par, contratapa en el dorso). impose.py arma una versión A5 para doblar si hiciera falta.
