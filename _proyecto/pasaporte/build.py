@@ -1,3 +1,4 @@
+import os as _os; _os.makedirs(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)),'img'),exist_ok=True)
 import json, os, io, segno, html
 from PIL import Image
 R='/home/claude/marmar1926.github.io'; S=os.path.dirname(os.path.abspath(__file__))
