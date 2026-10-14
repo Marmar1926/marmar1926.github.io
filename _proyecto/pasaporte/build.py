@@ -238,7 +238,7 @@ section[data-n="2"] .ph{{height:44mm}}
 {FIRMAS}
 NOTES
 <section class="pp pp-in"></section>
-<section class="back pp pp-back"><p class="pp-top">MIS VIAJES POR USA</p><p class="pp-sub">2012 · 2022</p><div class="bq"><div class="qr">{home}</div></div><p class="bq-t">Índice completo y mapa interactivo</p><p class="bq-u">marmar1926.github.io</p></section>
+<section class="back pp pp-back"><p class="pp-top">MIS VIAJES POR USA</p><p class="pp-sub">2012 · 2022</p><div class="bq"><div class="qr">{home}</div></div><p class="bq-t">Índice completo y mapa interactivo</p></section>
 <script>
 var _all=document.querySelectorAll('body > section');_all.forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp'); if(i>0 && i<_all.length-1 && !sec.classList.contains('pp')){{var p=document.createElement('div');p.className='pn';p.textContent=i+1;sec.appendChild(p);}}}});
 document.querySelectorAll('.place').forEach(function(pg){{
