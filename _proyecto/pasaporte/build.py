@@ -26,7 +26,17 @@ def stamps_for(e,vis):
     state=e.get('sub','').split(',')[-1].strip(); ab=ABBR.get(state,'')
     nm=e['name'].upper().replace('NATIONAL PARK',"NAT'L PARK").replace('STATE PARK','S.P.').replace('MEMORIAL','MEM.')
     SHOW_WDW=False  # sellos propios 'WALT DISNEY WORLD' retirados temporalmente
-    if e['number']==2: return [f'<img class="stamp-img3" src="file://{S}/sello_magic_kingdom.png">'+f'<img class="stamp-img2" src="file://{S}/sello_epcot.png">',f'<img class="stamp-img4" src="file://{S}/sello_hollywood_studios.png">'+f'<img class="stamp-img" src="file://{S}/sello_animal_kingdom.png">']
+    if e['number']==2:
+        G='#2E7D32'; P=DATES['_parks']['2019']
+        def fd(x): dd,mm,yy=x.split('/'); return f"{int(dd):02d} {['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][int(mm)-1]} {yy}"
+        def at(x,y,w,inner,rot): return f'<div class="dwi" style="left:{x}mm;top:{y}mm;width:{w}mm;height:{w}mm;transform:rotate({rot}deg)">{inner}</div>'
+        def img(f): return f'<img src="file://{S}/{f}">'
+        def g(park,code,u,rot): return wdw_stamp(u,G,fd(P[code]),park=park,rot=0)
+        ov=(at(50,48,19,img('sello_epcot.png'),8)+at(74,48,21,g('EPCOT','EP',201,0),-9)
+            +at(48,65,25,img('sello_magic_kingdom.png'),-5)+at(75,64,21,g('MAGIC KINGDOM','MK',202,0),11)
+            +at(34,127,16,img('sello_hollywood_studios.png'),7)+at(48,126,18,g('HOLLYWOOD STUDIOS','HS',203,0),-12)
+            +at(63,127,17,img('sello_animal_kingdom.png'),-4)+at(77,125,18,g('ANIMAL KINGDOM','AK',204,0),9))
+        return [f'<div class="dwov">{ov}</div>','']
     out=[]
     for i,(y,cc) in enumerate(vis):
         d=DATES.get(f"{e['number']}-{y}") or str(y); d=d if isinstance(d,str) else str(y); ink=ink2(cc); u=e['number']*10+i
@@ -72,8 +82,8 @@ for trip,es in groups:
         yrs=''.join(f'<span class="yp" style="--yc:{cc};color:{ink(cc)}">{y}</span>' for y,cc in vis)
         url=f"https://marmar1926.github.io/{e['trip']}/{e['slug']}/"
         ST=stamps_for(e,vis)
-        rows.append(f'''<section class="place" style="--c:{c}"><div class="ph"><img src="{fn}"><span class="num">{e['number']}</span></div>
-<div class="stamps">{ST[0]}</div><div class="body"><h3>{html.escape(e['name'])}</h3><p class="sub">{html.escape(e.get('sub',''))}</p><div class="yrs"{' style="margin-bottom:23mm"' if e["number"]==2 else ""}>{yrs}</div>
+        rows.append(f'''<section class="place" data-n="{e['number']}" style="--c:{c}"><div class="ph"><img src="{fn}"><span class="num">{e['number']}</span></div>
+<div class="stamps">{ST[0]}</div><div class="body"><h3>{html.escape(e['name'])}</h3><p class="sub">{html.escape(e.get('sub',''))}</p><div class="yrs"{' style="margin-bottom:25mm"' if e["number"]==2 else ""}>{yrs}</div>
 <p class="txt">{html.escape(texts(e)[0])}</p><p class="dato"><b>Dato curioso:</b> {html.escape(texts(e)[1])}</p></div>
 <div class="foot"><div class="qr">{qr(url)}</div>{"" if (len(ST)>2 or e["number"]==2) else "<p>Escaneá el código para ver nuestras fotos y la historia completa.</p>"}{"".join(ST[1:])}</div></section>''')
 TL=[x[1:] for x in sorted([(v['year'],i,v['year'],hexc(v['color']),v['label']) for i,v in enumerate(T.values())]+[(2019,0,2019,'#17A2B8','Miami - Disney 2019')])]
@@ -189,6 +199,10 @@ section.rp .dband{{left:8mm}} section.lp .dband{{right:8mm}}
 .stamps .stamp-img3{{position:absolute;width:27mm;right:41mm;top:20mm;transform:rotate(-5deg);mix-blend-mode:multiply}}
 .foot .stamp-img4{{position:absolute;width:16mm;right:45.5mm;bottom:0mm;transform:rotate(7deg);mix-blend-mode:multiply}}
 .foot .stamp.wdw{{width:22mm!important;height:22mm!important}}
+section[data-n="2"] .stamps{{left:0;top:0;right:0;bottom:0;width:auto;height:auto;z-index:3}}
+.dwov{{position:absolute;inset:0}} .dwi{{position:absolute;display:flex;align-items:center;justify-content:center;mix-blend-mode:multiply}}
+.dwi img{{max-width:100%;max-height:100%}} .dwi svg.stamp{{position:static;width:100%;height:100%;transform:none}}
+section[data-n="2"] .ph{{height:44mm}}
 </style></head><body>
 <section class="cover pp"><p class="pp-top">PASAPORTE DE VIAJE</p><p class="pp-sub">TRAVEL PASSPORT</p><svg class="pp-emb" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DE9A"/><stop offset=".5" stop-color="#C9A24A"/><stop offset="1" stop-color="#E9CF7E"/></linearGradient></defs><g fill="none" stroke="url(#g)" stroke-width="2.2"><circle cx="100" cy="112" r="46"/><ellipse cx="100" cy="112" rx="20" ry="46"/><ellipse cx="100" cy="112" rx="38" ry="46"/><line x1="54" y1="112" x2="146" y2="112"/><path d="M60 90 Q100 98 140 90"/><path d="M60 134 Q100 126 140 134"/><path d="M38 150 Q100 40 168 88" stroke-dasharray="5 5" stroke-width="1.8"/></g><g fill="url(#g)"><path transform="translate(34.2,76.1) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(49.1,52.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(72.2,35.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(99.9,30.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(127.6,35.7) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(150.8,51.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(165.7,75.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(170,86) rotate(30)" d="M0,-9 L2,-2 9,2 9,4 2,2 1.5,7 4,9 4,10.5 0,9.5 -4,10.5 -4,9 -1.5,7 -2,2 -9,4 -9,2 -2,-2Z"/></g></svg><h1>Mis viajes<br>por USA</h1><p class="pp-yrs">2012 · 2013 · 2016 · 2018 · 2019 · 2022</p><p class="pp-n">45 LUGARES · 7 VIAJES</p><svg class="pp-chip" viewBox="0 0 40 26"><g fill="none" stroke="url(#g2)" stroke-width="1.6"><rect x="1" y="1" width="38" height="24" rx="3"/><circle cx="20" cy="13" r="5"/><line x1="1" y1="13" x2="15" y2="13"/><line x1="25" y1="13" x2="39" y2="13"/></g><defs><linearGradient id="g2"><stop offset="0" stop-color="#E9CF7E"/><stop offset="1" stop-color="#C9A24A"/></linearGradient></defs></svg></section>
 <section class="intro"><h2>Cómo usar este pasaporte</h2>
@@ -203,7 +217,7 @@ NOTES
 var _all=document.querySelectorAll('body > section');_all.forEach(function(sec,i){{sec.classList.add(i%2===0?'rp':'lp'); if(i>0 && i<_all.length-1){{var p=document.createElement('div');p.className='pn';p.textContent=i+1;sec.appendChild(p);}}}});
 document.querySelectorAll('.place').forEach(function(pg){{
   var body=pg.querySelector('.body'), foot=pg.querySelector('.foot'), fs=1;
-  while(body.getBoundingClientRect().bottom > foot.getBoundingClientRect().top-8 && fs>0.72){{
+  while(body.getBoundingClientRect().bottom > foot.getBoundingClientRect().top-8 && fs>0.6){{
     fs-=0.03; body.style.fontSize=''; pg.querySelectorAll('.txt,.dato').forEach(function(el){{el.style.zoom=fs;}});
   }}
   if(fs<1) pg.setAttribute('data-fit',fs.toFixed(2));

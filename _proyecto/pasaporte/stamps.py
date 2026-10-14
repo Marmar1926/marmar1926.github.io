@@ -39,8 +39,13 @@ def anaheim_stamp(u,c,date):
      f'<text x="85" y="66" text-anchor="middle" font-family="Play" font-size="20" letter-spacing="1">{date}</text>'
      f'<text x="85" y="78" text-anchor="middle" font-size="6.5" letter-spacing="2">VISITOR · ADMITTED</text></g></g></svg>')
 
-def wdw_stamp(u,c,d1,d2=None,rot=-8):
-    if d2:
+def wdw_stamp(u,c,d1,d2=None,rot=-8,park=None):
+    if park:
+        fs=13 if len(park)<=6 else (10 if len(park)<=13 else 8.6)
+        center=(f'<text x="110" y="103" text-anchor="middle" font-size="{fs}" letter-spacing="1">{park}</text>'
+                f'<line x1="74" y1="110" x2="146" y2="110" stroke="{c}" stroke-width="1.2"/>'
+                f'<text x="110" y="129" text-anchor="middle" font-size="15">{d1}</text>')
+    elif d2:
         center=(f'<text x="110" y="96" text-anchor="middle" font-size="10" letter-spacing="2">ORLANDO · FL</text>'
                 f'<text x="110" y="114" text-anchor="middle" font-size="15">{d1}</text>'
                 f'<line x1="78" y1="121" x2="142" y2="121" stroke="{c}" stroke-width="1.2"/>'
