@@ -99,6 +99,12 @@ STATS=(f'<section class="stats"><h2>La gira en números</h2><p class="st-sub">Mi
  '<div class="big4"><div><b>7</b><span>viajes</span></div><div><b>45</b><span>lugares</span></div><div><b>15.034</b><span>km</span></div><div><b>15</b><span>estados</span></div></div>'
  f'<table class="trips"><thead><tr><th></th><th>Viaje</th><th>Km</th></tr></thead><tbody>{trows}</tbody><tfoot><tr><td></td><td>Total</td><td class="km">15.034</td></tr></tfoot></table>'
  '<div class="rec"><b>El viaje más largo:</b> Ruta de Gigantes y Géiseres (2018): 6.117 km en 21 días, 31 paradas y 10 estados cruzados (CA · NV · AZ · UT · WY · SD · MT · ID · WA · OR).</div></section>')
+
+FIRMAS=('<section class="firmas"><h2>Viajeros</h2><p class="st-sub">Firmas de los titulares de este pasaporte</p>'
+ +''.join('<div class="sig"><div class="sl"></div><span>Firma</span><div class="sl"></div><span>Nombre</span></div>' for _ in range(4))
+ +'</section><section class="firmas"><h2>Próximos sellos</h2><p class="st-sub">Para los viajes que todavía no hicimos</p><div class="vis">'
+ +''.join('<div class="vb"><span>Lugar</span><div class="vl"></div><span>Fecha</span><div class="vl"></div></div>' for _ in range(6))
+ +'</div></section>')
 legend=''.join(f'<li><span class="tdot" style="--c:{c}"></span>{html.escape(l)} <i>{y}</i></li>' for _,y,c,l in TL)
 home=qr('https://marmar1926.github.io/')
 stripes=''.join(f'<span style="background:{c}"></span>' for _,y,c,l in TL)
@@ -207,6 +213,13 @@ section[data-n="2"] .stamps{{left:0;top:0;right:0;bottom:0;width:auto;height:aut
 section[data-n="2"] .ph{{height:44mm}}
 .stamps .dlimg{{position:absolute;right:-1mm;top:1mm;width:34mm;transform:rotate(-6deg);mix-blend-mode:multiply;text-align:center}}
 .dlimg img{{width:100%;display:block}} .dlimg span{{display:block;font-size:4.6pt;color:#9A9080;margin-top:.3mm}}
+
+.firmas h2{{font-family:Cav;font-size:22pt;color:#1D2B5B;margin:0;line-height:1}} .firmas .h2b{{margin-top:6mm}}
+.sig{{display:grid;grid-template-columns:1fr 1fr;column-gap:5mm;margin:8mm 0 0}}
+.sig .sl{{border-bottom:.3mm solid #8A8070;height:9mm;grid-row:1}} .sig span{{grid-row:2;font-size:6.6pt;color:#9A9080;text-transform:uppercase;letter-spacing:.8px;margin-top:.8mm}}
+.vis{{display:grid;grid-template-columns:1fr 1fr;gap:3mm}}
+.vb{{border:.5mm dashed #B9AE98;border-radius:2mm;height:27mm;padding:2mm 2.5mm;display:flex;flex-direction:column;justify-content:flex-end;gap:.6mm}}
+.vb span{{font-size:6pt;color:#9A9080;text-transform:uppercase;letter-spacing:.8px}} .vb .vl{{border-bottom:.25mm solid #CFC5B0;height:3.5mm}}
 </style></head><body>
 <section class="cover pp"><p class="pp-top">PASAPORTE DE VIAJE</p><p class="pp-sub">TRAVEL PASSPORT</p><svg class="pp-emb" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DE9A"/><stop offset=".5" stop-color="#C9A24A"/><stop offset="1" stop-color="#E9CF7E"/></linearGradient></defs><g fill="none" stroke="url(#g)" stroke-width="2.2"><circle cx="100" cy="112" r="46"/><ellipse cx="100" cy="112" rx="20" ry="46"/><ellipse cx="100" cy="112" rx="38" ry="46"/><line x1="54" y1="112" x2="146" y2="112"/><path d="M60 90 Q100 98 140 90"/><path d="M60 134 Q100 126 140 134"/><path d="M38 150 Q100 40 168 88" stroke-dasharray="5 5" stroke-width="1.8"/></g><g fill="url(#g)"><path transform="translate(34.2,76.1) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(49.1,52.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(72.2,35.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(99.9,30.0) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(127.6,35.7) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(150.8,51.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(165.7,75.8) scale(0.9)" d="M0,-5 L1.5,-1.5 5,-1.5 2.2,0.8 3.2,4.5 0,2.3 -3.2,4.5 -2.2,0.8 -5,-1.5 -1.5,-1.5Z"/><path transform="translate(170,86) rotate(30)" d="M0,-9 L2,-2 9,2 9,4 2,2 1.5,7 4,9 4,10.5 0,9.5 -4,10.5 -4,9 -1.5,7 -2,2 -9,4 -9,2 -2,-2Z"/></g></svg><h1>Mis viajes<br>por USA</h1><p class="pp-yrs">2012 · 2013 · 2016 · 2018 · 2019 · 2022</p><p class="pp-n">45 LUGARES · 7 VIAJES</p><svg class="pp-chip" viewBox="0 0 40 26"><g fill="none" stroke="url(#g2)" stroke-width="1.6"><rect x="1" y="1" width="38" height="24" rx="3"/><circle cx="20" cy="13" r="5"/><line x1="1" y1="13" x2="15" y2="13"/><line x1="25" y1="13" x2="39" y2="13"/></g><defs><linearGradient id="g2"><stop offset="0" stop-color="#E9CF7E"/><stop offset="1" stop-color="#C9A24A"/></linearGradient></defs></svg></section>
 <section class="intro"><h2>Cómo usar este pasaporte</h2>
@@ -215,6 +228,7 @@ section[data-n="2"] .ph{{height:44mm}}
 <ul>{legend}</ul></section>
 {"".join(rows).replace('<div class="trip"','<div class="trip newpage"')}
 {STATS}
+{FIRMAS}
 NOTES
 <section class="back"><div class="qr">{home}</div><p><b>Índice completo y mapa interactivo</b></p><p>marmar1926.github.io</p></section>
 <script>
