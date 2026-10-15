@@ -238,21 +238,26 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 })();
 </script>
 <script>
-/* zoom propio dentro de la vista ampliada: pellizcar, arrastrar, doble toque; en PC rueda del mouse, arrastre y doble clic */
+/* zoom propio dentro de la vista ampliada: pellizcar, arrastrar, doble toque; en PC rueda del mouse, arrastre y doble clic.
+   Al terminar cada gesto la imagen se redibuja a su tamaño real (no se estira un "dibujo" chico), así se ve nítida. */
 (function(){
   var lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg');
   if(!lb||!img) return;
   lb.style.touchAction='none';
-  img.style.transformOrigin='center center'; img.style.willChange='transform'; img.draggable=false;
-  var s=1,tx=0,ty=0,pinch=null,pan=null,lastTap=0,md=null,MAX=5;
-  function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; window.__lbZoom=s>1.01; img.style.cursor=s>1.01?'grab':''; }
-  function clamp(){ var mx=Math.max(0,(img.offsetWidth*s-lb.clientWidth)/2), my=Math.max(0,(img.offsetHeight*s-lb.clientHeight)/2);
+  img.style.transformOrigin='center center'; img.draggable=false;
+  var s=1,c=1,bw=0,bh=0,tx=0,ty=0,pinch=null,pan=null,lastTap=0,md=null,wt=null,MAX=6;
+  function base(){ if(c===1){ bw=img.offsetWidth; bh=img.offsetHeight; } }
+  function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px)'+(Math.abs(s/c-1)>0.001?' scale('+(s/c)+')':''); window.__lbZoom=s>1.01; img.style.cursor=s>1.01?'grab':''; }
+  function commit(){ if(s<=1.01||!bw||Math.abs(s-c)<0.001) return; c=s;
+    img.style.maxWidth='none'; img.style.maxHeight='none'; img.style.width=(bw*c)+'px'; img.style.height=(bh*c)+'px'; apply(); }
+  function clamp(){ var mx=Math.max(0,(bw*s-lb.clientWidth)/2), my=Math.max(0,(bh*s-lb.clientHeight)/2);
     tx=Math.min(mx,Math.max(-mx,tx)); ty=Math.min(my,Math.max(-my,ty)); }
-  function reset(){ s=1;tx=0;ty=0;apply(); }
-  function zoomAt(ns,cx,cy){ var r=lb.getBoundingClientRect(), ox=cx-(r.left+r.width/2), oy=cy-(r.top+r.height/2);
+  function reset(){ s=1;c=1;tx=0;ty=0; img.style.width=img.style.height=img.style.maxWidth=img.style.maxHeight=''; apply(); }
+  function zoomAt(ns,cx,cy){ base(); var r=lb.getBoundingClientRect(), ox=cx-(r.left+r.width/2), oy=cy-(r.top+r.height/2);
     tx=ox-(ox-tx)*ns/s; ty=oy-(oy-ty)*ns/s; s=ns; if(s<=1.01){reset();return;} clamp(); apply(); }
   new MutationObserver(reset).observe(img,{attributes:true,attributeFilter:['src']});
   new MutationObserver(function(){ if(!lb.classList.contains('open')) reset(); }).observe(lb,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',function(){ if(lb.classList.contains('open')) reset(); });
   function d2(a,b){ return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY); }
   lb.addEventListener('touchstart',function(e){
     if(e.touches.length===2){ pinch={d:d2(e.touches[0],e.touches[1]),s:s}; pan=null; }
@@ -271,11 +276,13 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     if(e.touches.length===0){ pan=null;
       var t=e.changedTouches[0], now=Date.now();
       if(e.target===img&&now-lastTap<300){ if(s>1.01) reset(); else zoomAt(2.5,t.clientX,t.clientY); lastTap=0; }
-      else lastTap=now; }
+      else lastTap=now;
+      commit(); }
   },{passive:true});
   lb.addEventListener('wheel',function(e){ if(!lb.classList.contains('open')) return; e.preventDefault();
-    zoomAt(Math.min(MAX,Math.max(1,s*(e.deltaY<0?1.2:1/1.2))),e.clientX,e.clientY); },{passive:false});
-  img.addEventListener('dblclick',function(e){ if(s>1.01) reset(); else zoomAt(2.5,e.clientX,e.clientY); });
+    zoomAt(Math.min(MAX,Math.max(1,s*(e.deltaY<0?1.2:1/1.2))),e.clientX,e.clientY);
+    clearTimeout(wt); wt=setTimeout(commit,150); },{passive:false});
+  img.addEventListener('dblclick',function(e){ if(s>1.01) reset(); else { zoomAt(2.5,e.clientX,e.clientY); commit(); } });
   img.addEventListener('mousedown',function(e){ if(s>1.01){ md={x:e.clientX,y:e.clientY,tx:tx,ty:ty}; img.style.cursor='grabbing'; e.preventDefault(); } });
   window.addEventListener('mousemove',function(e){ if(md){ tx=md.tx+e.clientX-md.x; ty=md.ty+e.clientY-md.y; clamp(); apply(); } });
   window.addEventListener('mouseup',function(){ if(md){ md=null; apply(); } });
