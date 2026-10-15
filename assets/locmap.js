@@ -15,7 +15,7 @@
     '.locmap-box{max-width:640px;margin:0 auto;padding:0 26px;text-align:center;}' +
     '.locmap-box .lm-label{font-family:"Caveat","Playfair Display",cursive;font-size:1.9rem;color:var(--accent-ink,var(--accent));margin:46px 0 4px;}' +
     '.locmap-box .lm-sub{font-size:0.92rem;color:var(--ink-soft);margin:0 0 14px;}' +
-    '.locmap-box .lm-map{height:320px;border-radius:4px;overflow:hidden;box-shadow:0 10px 26px rgba(43,38,32,0.18);background:#E8E2D4;}' +
+    '.locmap-box .lm-map{position:relative;z-index:0;isolation:isolate;height:320px;border-radius:4px;overflow:hidden;box-shadow:0 10px 26px rgba(43,38,32,0.18);background:#E8E2D4;}' +
     '.locmap-box .lm-bar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:12px 0 0;}' +
     '.locmap-box .lm-bar button{font:600 0.82rem "Source Sans 3",sans-serif;color:var(--ink);background:transparent;border:1.5px solid var(--ink-soft);border-radius:20px;padding:5px 13px;cursor:pointer;opacity:.75;}' +
     '.locmap-box .lm-bar button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-on,#fff);opacity:1;}' +
