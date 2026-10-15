@@ -81,6 +81,8 @@
   .tab-intro summary{ cursor:pointer; font-weight:600; color:var(--accent); }
   .tab-intro ul{ margin:10px 0 2px; padding-left:18px; }
   .tab-intro li{ margin:0 0 8px; }
+  .bonus-tab{ text-decoration:none; border-style:dashed !important; border-color:#D81B60 !important; color:#B0174F; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .bonus-tab{ color:#F06292; } }
 </style>
 </head>
 <body>
@@ -954,6 +956,12 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       btn.addEventListener('click', () => selectYear(idx));
       tabsEl.appendChild(btn);
     });
+    if (grp === '2012') {
+      const a = document.createElement('a');
+      a.className = 'year-tab bonus-tab'; a.href = '/2022/t3yh5c8d/#orlando-2012';
+      a.innerHTML = '★ Bonus track: Universal Studios Orlando 2012 →';
+      tabsEl.appendChild(a);
+    }
   }
 
   function renderPhotos(){
