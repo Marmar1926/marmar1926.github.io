@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mis viajes por USA">
 <meta property="og:title" content="San Francisco">
-<meta property="og:description" content="San Francisco, California · 2013 · Punto #13 de Mis viajes por USA">
+<meta property="og:description" content="California · 2013 / 2018 · Punto #13 de Mis viajes por USA">
 <meta property="og:url" content="https://marmar1926.github.io/2013/y9v39ar4/">
 <meta property="og:image" content="https://marmar1926.github.io/2013/y9v39ar4/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,8 +37,16 @@
   .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
   .story p:last-child{margin-bottom:0;}
   .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
-  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 16px; }
+  .year-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .year-tab{ font-family:'Source Sans 3', sans-serif; font-size:0.95rem; font-weight:600; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .year-tab .dot{ width:8px; height:8px; border-radius:50%; }
+  .year-tab.active{ color:#fff; border-color:transparent; }
+  .year-tab:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+  .empty-state{ display:none; background:var(--paper-2); border-radius:4px; padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.95rem; }
+  .empty-state.show{ display:block; }
   .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel.hide{ display:none; }
   .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
   .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
   .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
@@ -83,17 +91,23 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     <div class="place-header">
       <h1>San Francisco</h1>
       <p class="location">California</p>
-      <div class="visit-years"><span class="pill"><span class="dot" style="background:#E67E22"></span>2013</span></div>
+      <div class="visit-years">
+        <span class="pill"><span class="dot" style="background:#E67E22"></span>2013</span>
+        <span class="pill"><span class="dot" style="background:#DC3229"></span>2018</span>
+      </div>
     </div>
 
     <div class="fact-box"><strong>Dato curioso:</strong> los cable cars de San Francisco son el único sistema de tranvías por cable manejados a mano que sigue funcionando en el mundo, y el único «monumento histórico nacional» de Estados Unidos que se mueve.</div>
     <div class="story">
       <p>San Francisco se levanta sobre más de 40 colinas, en la punta de una península entre el océano Pacífico y su enorme bahía. Sus calles empinadas, sus tranvías por cable y la niebla que entra por el estrecho del Golden Gate la convierten en una de las ciudades más fotogénicas de Estados Unidos.</p>
       <p>Recorrimos Russian Hill: la bajada de Hyde Street con Alcatraz al fondo, los cable cars de la línea Powell-Hyde y las curvas floridas de Lombard Street. Después cruzamos a los Marin Headlands, los cerros del otro lado del Golden Gate, para ver el puente y toda la ciudad desde arriba.</p>
+      <p>En 2018 volvimos y cumplimos una deuda pendiente: cruzar en barco a Alcatraz y recorrer la famosa cárcel con el audioguía narrado por sus antiguos guardias y presos. Cerramos el día con las Painted Ladies de Alamo Square y el atardecer en el Golden Gate.</p>
     </div>
 
     <p class="section-label">Nuestras fotos</p>
-    <p class="section-sub">San Francisco, California — 2013</p>
+    <p class="section-sub" id="yearSub">San Francisco, California — 2013</p>
+
+    <div class="year-tabs" id="yearTabs"></div>
 
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
@@ -104,6 +118,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
       <div class="carousel-count" id="count">1 / 21</div>
     </div>
+    <div class="empty-state" id="emptyState">Todavía no cargamos fotos de esta visita. ¡Vuelvan a escanear más adelante!</div>
     <p class="photo-caption" id="caption"></p>
   </main>
 
@@ -125,7 +140,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 
 <script>
 (function(){
-  const PHOTOS = [
+  const YEARS = [
+    { year: 2013, color: '#E67E22', photos: [
       { src:'01.jpg', ratio:0.665, caption:"La cima de Hyde Street, con los rieles del cable car y, al fondo, la isla de Alcatraz en la bahía. En el medio de las vías se ve la ranura por donde corre el cable de acero que arrastra los tranvías: los coches no tienen motor, se «agarran» a ese cable que se mueve sin parar bajo la calle." },
       { src:'02.jpg', ratio:0.665, caption:"Alcatraz de cerca, entre los edificios de Russian Hill. Fue fuerte militar, prisión militar y, entre 1934 y 1963, la cárcel federal de máxima seguridad más famosa de Estados Unidos, donde estuvo Al Capone. Abajo se ven el muelle de Hyde Street y la marina de Aquatic Park." },
       { src:'03.jpg', ratio:0.665, caption:"Un cable car de la línea Powell-Hyde subiendo la cuesta, con la bahía y Alcatraz detrás. San Francisco tiene el último sistema de tranvías por cable manejados a mano del mundo; funciona desde 1873 y en 1964 fue declarado monumento histórico nacional móvil." },
@@ -147,45 +163,133 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       { src:'19.jpg', ratio:0.665, caption:"¡A caballito! Con la torre norte del puente a pocos metros. Muchos miradores de los Marin Headlands quedan casi a la altura de la calzada del puente." },
       { src:'20.jpg', ratio:0.665, caption:"Señalando el puente, con el tránsito de la autopista 101 cruzando la bahía. Por el Golden Gate pasan más de 100.000 vehículos por día, además de peatones y ciclistas por sus veredas." },
       { src:'21.jpg', ratio:0.665, caption:"La última foto en el mirador, con el puente de punta a punta y la ciudad del otro lado de la bahía." }
+    ]},
+    { year: 2018, color: '#DC3229', photos: [
+      { src:'2018-01.jpg', ratio:0.75, caption:"Llegando en barco a Alcatraz, «La Roca», en medio de la bahía de San Francisco. Arriba se ven el faro, el primero de la costa oeste (1854, reconstruido en 1909), y el gran edificio de celdas; abajo, junto al muelle, el antiguo cuartel convertido en departamentos para las familias de los guardias. Lo visitamos el 29 de junio de 2018." },
+      { src:'2018-02.jpg', ratio:0.665, caption:"En la cubierta del barco, con Alcatraz detrás y el Golden Gate asomando a la izquierda. Los únicos barcos autorizados a llevar visitantes salen del muelle 33 (Pier 33) de San Francisco, y las entradas suelen agotarse con semanas de anticipación." },
+      { src:'2018-03.jpg', ratio:0.665, caption:"Dejando atrás la isla. Las aguas que la rodean son heladas (unos 10 a 14 °C) y con corrientes muy fuertes: por eso se decía que era imposible escapar nadando hasta la costa, a unos 2 km." },
+      { src:'2018-04.jpg', ratio:0.665, caption:"El muelle de llegada, con la torre de vigilancia de hierro, la casa del faro, la vieja chimenea de la usina y el gran edificio del cuartel (Building 64). Hoy la isla forma parte del Golden Gate National Recreation Area y la administra el Servicio de Parques Nacionales." },
+      { src:'2018-05.jpg', ratio:0.665, caption:"Junto al cartel de bienvenida de «Alcatraz Island», en el muelle. Desde acá se sube a pie por un camino en zigzag hasta la cárcel, en lo alto de la isla." },
+      { src:'2018-06.jpg', ratio:0.75, caption:"La sala de control de la prisión, con radios, teléfonos de disco, micrófonos y el casillero de llaves. Desde acá los guardias controlaban todo lo que pasaba en la cárcel y se comunicaban con la costa." },
+      { src:'2018-07.jpg', ratio:0.665, caption:"Otra vista de la sala de control, con el tablero de comandos para abrir las puertas y el famoso armario de llaves. Por la ventanilla del fondo se ve a los visitantes recorriendo la cárcel con el audioguía, como hicimos nosotros." },
+      { src:'2018-08.jpg', ratio:0.665, caption:"Del otro lado de la ventanilla de la sala de visitas. Los presos sólo podían recibir una visita al mes, de familiares directos, y hablaban a través de un vidrio blindado con un teléfono, siempre vigilados." },
+      { src:'2018-09.jpg', ratio:0.75, caption:"En el patio de recreo, visto desde arriba. Los fines de semana los presos jugaban al softball, a las bochas, al tejo (las líneas pintadas en el piso) o a las cartas; desde arriba de los muros podían ver San Francisco, tan cerca y tan lejos." },
+      { src:'2018-10.jpg', ratio:0.75, caption:"En el patio de recreo, con el edificio de celdas y la gran escalinata de cemento detrás. El patio está rodeado de muros de hormigón y alambre de púas." },
+      { src:'2018-11.jpg', ratio:0.75, caption:"Selfie en el patio, con los auriculares del audioguía puestos. El recorrido «Cellhouse Audio Tour» está narrado por antiguos guardias y presos de Alcatraz, y es uno de los más premiados del mundo." },
+      { src:'2018-12.jpg', ratio:0.75, caption:"Selfie con la ciudad detrás: desde lo alto de la isla se ven el downtown de San Francisco y el Bay Bridge. Abajo, las ruinas de los talleres y edificios de la isla, hoy refugio de aves marinas." },
+      { src:'2018-13.jpg', ratio:0.75, caption:"Frente al edificio de celdas, con el tanque de agua al fondo y, sobre la bahía, la isla de Angel Island." },
+      { src:'2018-14.jpg', ratio:0.75, caption:"El edificio de celdas (Main Cellhouse) desde abajo, terminado por el ejército en 1912 como prisión militar. Fue uno de los edificios de hormigón armado más grandes del mundo en su época." },
+      { src:'2018-15.jpg', ratio:0.75, caption:"Junto al cartel de los jardines de Alcatraz. La isla era una roca pelada, y en el siglo XIX las familias del ejército trajeron tierra y plantas; luego los mismos presos cuidaron los jardines. Desde 2003 voluntarios los restauran y hoy florecen por toda la isla." },
+      { src:'2018-16.jpg', ratio:1.5038, caption:"La calle que baja junto al edificio de celdas hacia el tanque de agua. En las paredes del tanque todavía se lee el grafiti «Peace and Freedom - Welcome - Home of the Free Indian Land»." },
+      { src:'2018-17.jpg', ratio:0.665, caption:"La misma calle, con la vista de la bahía y Angel Island. Ese grafiti lo pintaron los indígenas que ocuparon Alcatraz entre 1969 y 1971 para reclamar la isla como tierra de los pueblos originarios; fue restaurado en 2012 como parte de la historia del lugar." },
+      { src:'2018-18.jpg', ratio:0.75, caption:"Frente al bloque D, el sector de aislamiento («Isolation»). Allí iban los presos más peligrosos o los que rompían las reglas; las celdas oscuras del fondo eran conocidas como «The Hole» (el agujero)." },
+      { src:'2018-19.jpg', ratio:1.3333, caption:"Una celda recreada tal como era: catre, lavatorio, inodoro, estantes con libros, elementos de afeitar y un tablero de damas. Las celdas medían apenas 1,5 por 2,7 metros, y cada preso tenía una propia." },
+      { src:'2018-20.jpg', ratio:0.75, caption:"Selfie en el bloque principal de celdas, con sus tres pisos de rejas. El pasillo central entre los bloques B y C se llamaba «Broadway», por las luces y el movimiento constante." },
+      { src:'2018-21.jpg', ratio:1.5038, caption:"En el pasillo de celdas, con las rejas originales de 1934. Alcatraz llegó a tener 336 celdas, pero nunca alojó a más de unos 300 presos a la vez." },
+      { src:'2018-22.jpg', ratio:1.5038, caption:"Adentro de una celda, la 147. Por Alcatraz pasaron Al Capone, George «Machine Gun» Kelly, Alvin Karpis y Robert Stroud, «el hombre de los pájaros de Alcatraz»." },
+      { src:'2018-23.jpg', ratio:1.3333, caption:"La celda del famoso escape de junio de 1962: Frank Morris y los hermanos John y Clarence Anglin dejaron en sus camas cabezas falsas hechas de papel maché, jabón y pelo real para engañar a los guardias en la ronda nocturna." },
+      { src:'2018-24.jpg', ratio:1.3333, caption:"El agujero cavado en la pared, debajo del lavatorio. Durante meses agrandaron la rejilla de ventilación con cucharas afiladas y un taladro hecho con el motor de una aspiradora. Escaparon por los conductos hasta el techo y se lanzaron a la bahía en una balsa hecha con impermeables." },
+      { src:'2018-25.jpg', ratio:0.75, caption:"Otra vista de la celda del escape, con la cabeza falsa en la almohada. Nunca se los encontró: el FBI cerró el caso sosteniendo que se ahogaron, pero la historia inspiró la película Fuga de Alcatraz (1979), con Clint Eastwood." },
+      { src:'2018-26.jpg', ratio:0.75, caption:"El cartel de la Lower Military Prison: antes de ser cárcel federal, Alcatraz fue fuerte y prisión militar desde la Guerra Civil. A fines del siglo XIX también estuvieron presos aquí hombres hopi, por negarse a enviar a sus hijos a los internados del gobierno." },
+      { src:'2018-27.jpg', ratio:1.5038, caption:"Un beso al viento frente al tanque de agua con el grafiti de la ocupación indígena. La cárcel federal cerró en 1963 por su alto costo de mantenimiento, y la isla abrió al público como parte de los parques nacionales en 1973." },
+      { src:'2018-28.jpg', ratio:0.665, caption:"Ya de vuelta en la ciudad, en Alamo Square, frente a las «Painted Ladies», las casas victorianas de colores de Steiner Street, famosas por la apertura de la serie Full House (Tres por tres). Detrás se ven la Transamerica Pyramid y la nueva Salesforce Tower, inaugurada ese mismo año 2018." },
+      { src:'2018-29.jpg', ratio:1.5038, caption:"Al atardecer, en el mirador del extremo norte del Golden Gate, con la torre norte del puente detrás." },
+      { src:'2018-30.jpg', ratio:0.75, caption:"Cerrando el día con el Golden Gate de fondo, desde el mirador de piedra del lado de Marin. Cinco años después de la primera visita, el puente nos volvió a recibir." }
+    ]}
   ];
+
+  let currentYearIdx = 0;
+  let currentPhotoIdx = 0;
+
+  const tabsEl = document.getElementById('yearTabs');
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
-  let i = 0;
+  const emptyState = document.getElementById('emptyState');
+  const yearSub = document.getElementById('yearSub');
 
-  function render(){
-    track.innerHTML = '';
-    PHOTOS.forEach(p => {
-      const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en San Francisco, 2013';
-      track.appendChild(img);
+  function renderTabs(){
+    tabsEl.innerHTML = '';
+    YEARS.forEach((y, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
+      btn.style.background = idx === currentYearIdx ? y.color : 'transparent';
+      btn.style.borderColor = idx === currentYearIdx ? y.color : '';
+      btn.innerHTML = '<span class="dot" style="background:' + (idx===currentYearIdx ? '#fff' : y.color) + '"></span>' + y.year;
+      btn.addEventListener('click', () => selectYear(idx));
+      tabsEl.appendChild(btn);
     });
   }
-  function setHeightFor(idx){
-    const ratio = PHOTOS[idx].ratio;
+
+  function renderPhotos(){
+    const yearObj = YEARS[currentYearIdx];
+    track.innerHTML = '';
+    yearObj.photos.forEach(p => {
+      const img = document.createElement('img');
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
+      img.alt = 'Foto familiar en San Francisco, ' + yearObj.year;
+      track.appendChild(img);
+    });
+    currentPhotoIdx = 0;
+
+    if(yearObj.photos.length === 0){
+      carousel.classList.add('hide');
+      emptyState.classList.add('show');
+      captionEl.textContent = '';
+    } else {
+      carousel.classList.remove('hide');
+      emptyState.classList.remove('show');
+      updatePhotoView();
+    }
+  }
+
+  function updatePhotoView(){
+    const yearObj = YEARS[currentYearIdx];
+    const n = yearObj.photos.length;
+    if(n === 0) return;
+    track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
+    countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
+    const ratio = yearObj.photos[currentPhotoIdx].ratio;
     const w = carousel.clientWidth;
     let h = w * ratio;
     h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
     track.style.height = h + 'px';
   }
-  function go(n){
-    i = (n + PHOTOS.length) % PHOTOS.length;
-    track.style.transform = 'translateX(' + (-i*100) + '%)';
-    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
-    captionEl.textContent = PHOTOS[i].caption || '';
-    setHeightFor(i);
+
+  function selectYear(idx){
+    currentYearIdx = idx;
+    yearSub.textContent = 'San Francisco, California — ' + YEARS[idx].year;
+    renderTabs();
+    renderPhotos();
   }
-  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
-  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
-  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx - 1 + n) % n;
+    updatePhotoView();
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx + 1) % n;
+    updatePhotoView();
+  });
+  window.addEventListener('resize', updatePhotoView);
 
   let startX = null;
   track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
   track.addEventListener('touchend', e => {
     if(startX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+    }
     startX = null;
   }, {passive:true});
 
@@ -201,12 +305,17 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   if(screen.orientation){
     screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
   }
-  function openLightbox(){
-    lightboxImg.src = PHOTOS[i].src;
+  function refreshLightboxImg(){
+    const yearObj = YEARS[currentYearIdx];
+    if(yearObj.photos.length === 0) return;
+    lightboxImg.src = yearObj.photos[currentPhotoIdx].src;
+  }
+  document.getElementById('zoomBtn').addEventListener('click', ()=>{
+    if(YEARS[currentYearIdx].photos.length === 0) return;
+    refreshLightboxImg();
     fitLightboxHeight();
     lightbox.classList.add('open');
-  }
-  document.getElementById('zoomBtn').addEventListener('click', openLightbox);
+  });
   function closeLightbox(){ lightbox.classList.remove('open'); }
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
@@ -221,18 +330,20 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   }, {passive:true});
   lightbox.addEventListener('touchend', e => {
     if(lbStartX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
     const dx = e.changedTouches[0].clientX - lbStartX;
-    if(Math.abs(dx) > 40 && !window.__noSwipe()){
-      go(dx > 0 ? i-1 : i+1);
-      lightboxImg.src = PHOTOS[i].src;
+    if(n > 0 && Math.abs(dx) > 40 && !window.__noSwipe()){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+      refreshLightboxImg();
     } else if(!lbMoved && e.target !== lightboxImg){
       closeLightbox();
     }
     lbStartX = null;
   }, {passive:true});
 
-  render();
-  go(0);
+  renderTabs();
+  renderPhotos();
 })();
 </script>
 <script>
