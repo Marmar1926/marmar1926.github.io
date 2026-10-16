@@ -102,3 +102,6 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
   Si cambian visitas o coordenadas: editar manifest.json y correr `python3 _proyecto/herramientas/gen_places.py`.
 - Los Angeles (#7) pasó a pestañas 2013 / 2018 / 2022 (ciudad base de las tres giras). Santa Mónica tenía la pestaña 2022 pero no la pastilla: corregido.
 - Clave liviana (oct 2026): /assets/gate.js se carga en el <head> de todas las páginas; pide la clave una vez por dispositivo (localStorage 'mvk'). Guarda solo el hash sha256("mv-salt:"+clave). Los QR NO llevan la clave (pedido del usuario: que quien tenga los impresos, p. ej. la imprenta, no entre). Las fotos siguen accesibles por URL directa.
+
+## Pendiente para #33 Big Sur (2018)
+La PRIMERA foto de la galería de Big Sur debe ser la del Cadillac amarillo en Walnut Avenue, Santa Cruz (frente a Walnut Avenue Cafe, 106 Walnut Ave, y Fortier's Opticians, 108). Pedida por el usuario el 16/10. Texto: parada en el centro de Santa Cruz camino a Big Sur. Si la imagen ya no está en el entorno, pedírsela de nuevo al usuario.
