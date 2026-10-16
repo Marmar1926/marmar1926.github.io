@@ -34,6 +34,9 @@
     return out;
   }
   var myTrips = tripsOf(me);
+  // puntos extra opcionales de la página (p. ej. el bonus track de Universal Orlando), fuera de los 45 lugares
+  var extras = [];
+  try { extras = JSON.parse(box.getAttribute('data-extra') || '[]'); } catch (e) {}
   function tripButtons() {
     if (myTrips.length < 2) return '<button type="button" data-v="trip:' + me.trip + '">Todo el viaje</button>';
     return myTrips.map(function (t) { return '<button type="button" data-v="trip:' + t + '">Viaje ' + D.trips[t].year + '</button>'; }).join('');
@@ -58,6 +61,7 @@
       '<button type="button" data-v="here" class="on">El lugar</button>' +
       tripButtons() +
       '<button type="button" data-v="all">Los 45 lugares</button>' +
+      extras.map(function (x) { return '<button type="button" data-v="x:' + x.key + '">' + x.label + '</button>'; }).join('') +
       '<a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + me.lat + ',' + me.lng + '">Abrir en Google Maps ↗</a>' +
     '</div>' +
     '<p class="lm-hint">Tocá cualquier punto para ver qué lugar es e ir a su página' + (('ontouchstart' in window) ? ' · con dos dedos acercás y movés el mapa' : '') + '.</p>';
@@ -94,13 +98,29 @@
     .bindTooltip(me.name, { permanent: true, direction: 'top', offset: [0, -10], className: 'lm-tip' })
     .addTo(map);
 
+  var subEl = box.querySelector('.lm-sub'), subTxt = subEl.textContent;
+  var gmA = box.querySelector('.lm-bar a'), gmHref = gmA.href;
+  function gm(lat, lng) { gmA.href = 'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + lng; }
+  extras.forEach(function (x) {
+    x.marker = L.marker([x.lat, x.lng], { icon: L.divIcon({ className: '', iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -10],
+      html: '<div style="width:20px;height:20px;border-radius:50%;background:' + x.color + ';border:3px solid #fff;box-sizing:border-box;box-shadow:0 1px 3px rgba(0,0,0,.35);color:#fff;font:700 11px/14px sans-serif;text-align:center">★</div>' }), zIndexOffset: 900 })
+      .bindPopup('<div class="lm-pop"><b>★ ' + x.name + '</b><span>' + x.sub + '</span></div>')
+      .bindTooltip(x.name, { direction: 'top', offset: [0, -10], className: 'lm-tip' }).addTo(map);
+  });
   function view(v) {
     box.querySelectorAll('.lm-bar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
+    subEl.textContent = subTxt; gmA.href = gmHref;
+    if (v.indexOf('x:') === 0) {
+      var x = extras.filter(function (e) { return e.key === v.slice(2); })[0];
+      if (x) { subEl.textContent = x.name + ' · ' + x.sub; gm(x.lat, x.lng); map.setView([x.lat, x.lng], x.z || 12); x.marker.openTooltip(); }
+      return;
+    }
     if (v === 'here') map.setView([me.lat, me.lng], me.z || 10);
     else map.fitBounds(v.indexOf('trip:') === 0 ? tripPts[v.slice(5)] : allPts, { padding: [30, 30], maxZoom: 10 });
   }
   box.querySelector('.lm-bar').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v'));
   });
+  window.locmapView = function (v) { view(v); };
   view('here');
 })();

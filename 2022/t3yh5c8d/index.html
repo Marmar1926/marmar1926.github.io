@@ -120,7 +120,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     <p class="photo-caption" id="caption"></p>
   </main>
 
-  <div class="locmap-box" data-n="45"></div>
+  <div class="locmap-box" data-n="45" data-extra='[{"key":"orlando-2012","label":"★ Orlando 2012","name":"Universal Studios Florida","sub":"Orlando, Florida · bonus track 2012","lat":28.4747,"lng":-81.4686,"z":13,"color":"#D81B60"}]'></div>
   <div class="prevnext">
     <a class="prev" href="/2022/9hnfu8kc/">← Malibu</a>
     <a class="next" href="/2012md/t42ww8um/">Miami →</a>
@@ -245,6 +245,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     currentYearIdx = idx;
     yearSub.textContent = YEARS[idx].sub;
     if (YEARS[idx].hash) history.replaceState(null, '', '#' + YEARS[idx].hash);
+    if (window.locmapView) window.locmapView(YEARS[idx].hash === 'orlando-2012' ? 'x:orlando-2012' : 'here');
     renderTabs();
     renderPhotos();
   }
@@ -388,5 +389,6 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 <script src="/assets/leaflet/leaflet.js"></script>
 <script src="/assets/places.js"></script>
 <script src="/assets/locmap.js"></script>
+<script>if(location.hash==='#orlando-2012'&&window.locmapView)window.locmapView('x:orlando-2012');</script>
 </body>
 </html>
