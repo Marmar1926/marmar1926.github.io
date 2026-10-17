@@ -15,62 +15,274 @@
 <meta property="og:image" content="https://marmar1926.github.io/2022/32kch4zp/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#F7F2E7; --ink:#2B2620; --ink-soft:#6B6255; --accent:#f1c40f; }
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#B08600; --line:#D9CFB8; }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:'Source Sans 3', sans-serif;
-    text-align:center; min-height:100vh; padding:0 0 70px;
-  }
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; overflow:hidden; }
   .hero img{ display:block; margin:0 auto; width:auto; max-width:100%; height:auto; max-height:min(78vh,760px); } /* portada completa, sin recortes */
-  .content{ padding:28px 32px 0; }
-  .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; margin-bottom:18px; }
-  h1{ font-family:'Playfair Display', serif; font-size:1.8rem; margin:0 0 10px; }
-  .location{ color:var(--ink-soft); font-size:1rem; margin:0 0 28px; }
-  p.msg{ color:var(--ink-soft); font-size:0.95rem; max-width:32ch; margin:0 auto; line-height:1.5; }
-  footer{ margin-top:36px; color:var(--ink-soft); font-size:0.8rem; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
   }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent-ink); text-decoration:none; font-weight:600; font-size:0.88rem; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
+  .fact-box strong{ color:var(--accent); }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
-  .prevnext a{ color:var(--accent-ink); text-decoration:none; font-weight:600; }
+  .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
-  /* amarillo legible: texto en mostaza sobre fondo claro, amarillo pleno en modo oscuro */
-  :root{ --accent-ink:#8A6800; --accent-on:#2B2620; }
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --accent-ink:#F1C40F; } }
-  :root[data-theme="dark"]{ --accent-ink:#F1C40F; }
-  .visit-years{ display:flex; justify-content:center; gap:8px; margin:-14px 0 24px; }
-  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:rgba(0,0,0,0.06); padding:4px 10px 4px 8px; border-radius:20px; }
-  .visit-years .pdot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
 </style>
 </head>
 <body>
+<script>
+/* evita que al hacer zoom (pellizcar) y moverse por la foto se pase a la siguiente */
+(function(){var multi=false;function z(){return window.visualViewport&&window.visualViewport.scale>1.02;}
+document.addEventListener('touchstart',function(e){if(e.touches.length>1)multi=true;else if(e.touches.length===1&&!z())multi=false;},{passive:true,capture:true});
+document.addEventListener('touchmove',function(e){if(e.touches.length>1)multi=true;},{passive:true,capture:true});
+window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
+</script>
+
   <div class="topnav"><a href="/">← Índice</a></div>
+
   <div class="hero">
     <img src="hero.jpg" alt="Seligman">
   </div>
-  <div class="content">
-    <span class="dot"></span>
-    <h1>Seligman</h1>
-    <p class="location">Arizona</p>
-    <div class="visit-years"><span class="pill"><span class="pdot" style="background:#F1C40F"></span>2022</span></div>
-    <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
-      <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
-  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Seligman</h1>
+      <p class="location">Arizona · Ruta 66</p>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#F1C40F"></span>2022</span></div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> Seligman inspiró a Radiator Springs, el pueblo de la película Cars (2006) de Pixar: el equipo de John Lasseter recorrió la Ruta 66 y conoció a Angel Delgadillo, cuya historia de un pueblo olvidado por la autopista se convirtió en el corazón de la película.</div>
+    <div class="story">
+      <p>Seligman es un pequeño pueblo del norte de Arizona, de menos de 500 habitantes, conocido como el «lugar de nacimiento de la Ruta 66 histórica». Nació en 1886 junto a las vías del ferrocarril y durante décadas vivió de los viajeros que recorrían la Ruta 66 entre Chicago y Los Ángeles.</p>
+      <p>Cuando la autopista interestatal 40 lo dejó de lado en 1978, el pueblo casi desaparece. Los vecinos, encabezados por el peluquero Angel Delgadillo, lograron que el tramo fuera declarado ruta histórica en 1987, y hoy Seligman es una parada obligada: autos antiguos, carteles de neón, tiendas de recuerdos y el famoso Snow Cap Drive-In.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub">Seligman, Arizona — 2022</p>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 6</div>
+    </div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
   <div class="locmap-box" data-n="42"></div>
   <div class="prevnext">
     <a class="prev" href="/2022/e5c72jw2/">← Kingman</a>
     <a class="next" href="/2022/s8y5zw2w/">Flagstaff →</a>
   </div>
-  <footer>Punto #42 · Mis viajes por USA</footer>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #42 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const PHOTOS = [
+      { src:'01.jpg', ratio:0.5625, caption:"¡Llegamos a Seligman! Nuestra sombra con los brazos en alto sobre la Ruta 66, la vieja «Calle Principal de América». A la izquierda, el cartel de Texaco y los autos antiguos frente a los locales de recuerdos del pueblo." },
+      { src:'02.jpg', ratio:0.5625, caption:"La Ruta 66 atravesando Seligman, con sus construcciones de los años 30 a 50 y el escudo de la «66» en el poste. Cuando en 1978 la autopista interestatal 40 pasó de largo, el pueblo casi desaparece; el peluquero Angel Delgadillo fundó en 1987 la Historic Route 66 Association of Arizona, que logró que el tramo fuera declarado «Historic Route 66». Así nació el renacimiento de la ruta y Seligman se convirtió en su «lugar de nacimiento»." },
+      { src:'03.jpg', ratio:0.4509, caption:"Al amanecer, en el estacionamiento del motel, con una tienda de recuerdos de la Ruta 66 enfrente: los escudos de las rutas 40, 66 y 40, la gran patente «Arizona RT 66», autos antiguos y un Volkswagen Escarabajo. Así se ve casi todo el pueblo: cada local es una pequeña exposición de la historia de la ruta." },
+      { src:'04.jpg', ratio:0.45, caption:"El Supai Motel, donde pasamos la noche, con su gran cartel de neón de los años 50 en forma de flecha. Los moteles de una sola planta, con el auto estacionado frente a la puerta de la habitación, nacieron justamente en la época dorada de la Ruta 66." },
+      { src:'05.jpg', ratio:0.45, caption:"El patio del motel a la mañana, listos para seguir viaje. El nombre Supai viene del pueblo de los havasupai, el pueblo originario que vive en el fondo del Gran Cañón, en la aldea de Supai." },
+      { src:'06.jpg', ratio:0.4509, caption:"Camino a la recepción del Supai Motel, con la Ruta 66 y las tiendas de recuerdos del otro lado de la calle, iluminadas por el sol de la mañana." }
+  ];
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  let i = 0;
+
+  function render(){
+    track.innerHTML = '';
+    PHOTOS.forEach(p => {
+      const img = document.createElement('img');
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto del viaje en Seligman, 2022';
+      track.appendChild(img);
+    });
+  }
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
+  }
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.getElementById('zoomBtn').addEventListener('click', ()=>{
+    lightboxImg.src = PHOTOS[i].src;
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  });
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  render();
+  go(0);
+})();
+</script>
+<script>
+/* zoom propio dentro de la vista ampliada: pellizcar, arrastrar, doble toque; en PC rueda del mouse, arrastre y doble clic.
+   Al terminar cada gesto la imagen se redibuja a su tamaño real (no se estira un "dibujo" chico), así se ve nítida. */
+(function(){
+  var lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg');
+  if(!lb||!img) return;
+  lb.style.touchAction='none';
+  img.style.transformOrigin='center center'; img.draggable=false;
+  var s=1,c=1,bw=0,bh=0,tx=0,ty=0,pinch=null,pan=null,lastTap=0,md=null,wt=null,MAX=6;
+  function base(){ if(c===1){ bw=img.offsetWidth; bh=img.offsetHeight; } }
+  function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px)'+(Math.abs(s/c-1)>0.001?' scale('+(s/c)+')':''); window.__lbZoom=s>1.01; img.style.cursor=s>1.01?'grab':''; }
+  function commit(){ if(s<=1.01||!bw||Math.abs(s-c)<0.001) return; c=s;
+    img.style.maxWidth='none'; img.style.maxHeight='none'; img.style.width=(bw*c)+'px'; img.style.height=(bh*c)+'px'; apply(); }
+  function clamp(){ var mx=Math.max(0,(bw*s-lb.clientWidth)/2), my=Math.max(0,(bh*s-lb.clientHeight)/2);
+    tx=Math.min(mx,Math.max(-mx,tx)); ty=Math.min(my,Math.max(-my,ty)); }
+  function reset(){ s=1;c=1;tx=0;ty=0; img.style.width=img.style.height=img.style.maxWidth=img.style.maxHeight=''; apply(); }
+  function zoomAt(ns,cx,cy){ base(); var r=lb.getBoundingClientRect(), ox=cx-(r.left+r.width/2), oy=cy-(r.top+r.height/2);
+    tx=ox-(ox-tx)*ns/s; ty=oy-(oy-ty)*ns/s; s=ns; if(s<=1.01){reset();return;} clamp(); apply(); }
+  new MutationObserver(reset).observe(img,{attributes:true,attributeFilter:['src']});
+  new MutationObserver(function(){ if(!lb.classList.contains('open')) reset(); }).observe(lb,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',function(){ if(lb.classList.contains('open')) reset(); });
+  function d2(a,b){ return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY); }
+  lb.addEventListener('touchstart',function(e){
+    if(e.touches.length===2){ pinch={d:d2(e.touches[0],e.touches[1]),s:s}; pan=null; }
+    else if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+  },{passive:true});
+  lb.addEventListener('touchmove',function(e){
+    if(pinch&&e.touches.length===2){ e.preventDefault();
+      var a=e.touches[0],b=e.touches[1], ns=Math.min(MAX,Math.max(1,pinch.s*d2(a,b)/pinch.d));
+      zoomAt(ns,(a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2); }
+    else if(pan&&e.touches.length===1){ e.preventDefault();
+      tx=pan.tx+e.touches[0].clientX-pan.x; ty=pan.ty+e.touches[0].clientY-pan.y; clamp(); apply(); }
+  },{passive:false});
+  lb.addEventListener('touchend',function(e){
+    if(e.touches.length<2) pinch=null;
+    if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+    if(e.touches.length===0){ pan=null;
+      var t=e.changedTouches[0], now=Date.now();
+      if(e.target===img&&now-lastTap<300){ if(s>1.01) reset(); else zoomAt(2.5,t.clientX,t.clientY); lastTap=0; }
+      else lastTap=now;
+      commit(); }
+  },{passive:true});
+  lb.addEventListener('wheel',function(e){ if(!lb.classList.contains('open')) return; e.preventDefault();
+    zoomAt(Math.min(MAX,Math.max(1,s*(e.deltaY<0?1.2:1/1.2))),e.clientX,e.clientY);
+    clearTimeout(wt); wt=setTimeout(commit,150); },{passive:false});
+  img.addEventListener('dblclick',function(e){ if(s>1.01) reset(); else { zoomAt(2.5,e.clientX,e.clientY); commit(); } });
+  img.addEventListener('mousedown',function(e){ if(s>1.01){ md={x:e.clientX,y:e.clientY,tx:tx,ty:ty}; img.style.cursor='grabbing'; e.preventDefault(); } });
+  window.addEventListener('mousemove',function(e){ if(md){ tx=md.tx+e.clientX-md.x; ty=md.ty+e.clientY-md.y; clamp(); apply(); } });
+  window.addEventListener('mouseup',function(){ if(md){ md=null; apply(); } });
+  img.addEventListener('click',function(e){ e.stopPropagation(); });
+})();
+</script>
 <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
 <script src="/assets/leaflet/leaflet.js"></script>
 <script src="/assets/places.js"></script>
