@@ -111,7 +111,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
         <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
       </div>
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
-      <div class="carousel-count" id="count">1 / 2</div>
+      <div class="carousel-count" id="count">1 / 6</div>
     </div>
     <p class="photo-caption" id="caption"></p>
   </main>
@@ -136,7 +136,11 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 (function(){
   const PHOTOS = [
       { src:'01.jpg', ratio:0.666, caption:"El Holiday Inn Express de Flagstaff, nuestro hotel para descansar en esta parte del viaje. Flagstaff está a más de 2.100 metros de altura, al pie de los San Francisco Peaks, y es la gran ciudad base para visitar el Gran Cañón, a unos 120 km al norte." },
-      { src:'02.jpg', ratio:0.666, caption:"El lobby del hotel, decorado con murales del Gran Cañón y colores del desierto de Arizona. Después de los días de ruta, un buen lugar para recargar energías antes de seguir viaje." }
+      { src:'02.jpg', ratio:0.666, caption:"El lobby del hotel, decorado con murales del Gran Cañón y colores del desierto de Arizona. Después de los días de ruta, un buen lugar para recargar energías antes de seguir viaje." },
+      { src:'03.jpg', ratio:0.667, caption:"El campus de Northern Arizona University (NAU), con sus banderas azules y doradas. Fundada en 1899, la universidad le da a Flagstaff su ambiente joven: tiene más de 20.000 estudiantes y es famosa por su centro de entrenamiento en altura, al que vienen atletas olímpicos de todo el mundo." },
+      { src:'04.jpg', ratio:0.6667, caption:"Estudiantes cruzando McCreary Drive, en el campus de NAU. Al fondo, el estacionamiento San Francisco, que lleva el nombre de los San Francisco Peaks, las montañas que dominan la ciudad." },
+      { src:'05.jpg', ratio:1.3691, caption:"El edificio de los Babbitt Brothers, en el centro histórico de Flagstaff, con el reloj de la ciudad («Flagstaff, Arizona, Est. 1882»). Construido en 1888 con piedra arenisca roja de la zona, fue el almacén de los hermanos Babbitt, «rancheros, comerciantes y comerciantes con los indígenas», que llegaron a tener uno de los mayores negocios de ganado y comercio del suroeste." },
+      { src:'06.jpg', ratio:0.6673, caption:"La esquina de Aspen Avenue y San Francisco Street, con el edificio Babbitt y las fachadas de piedra de fines del siglo XIX. El centro de Flagstaff está a pocas cuadras de la Ruta 66 y de las vías del tren, que pasan por la ciudad desde 1882." }
   ];
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
