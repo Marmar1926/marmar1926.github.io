@@ -71,6 +71,15 @@
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
+  .year-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .year-tab{ font-family:'Source Sans 3', sans-serif; font-size:0.95rem; font-weight:600; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .year-tab .dot{ width:8px; height:8px; border-radius:50%; }
+  .year-tab.active{ color:#fff; border-color:transparent; }
+  .year-tab:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+  .empty-state{ display:none; background:var(--paper-2); border-radius:4px; padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.95rem; }
+  .empty-state.show{ display:block; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel.hide{ display:none; }
 </style>
 </head>
 <body>
@@ -103,7 +112,9 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     </div>
 
     <p class="section-label">Nuestras fotos</p>
-    <p class="section-sub">Seattle, Washington — 2018</p>
+    <p class="section-sub" id="yearSub">Seattle, Washington — 2018</p>
+
+    <div class="year-tabs" id="yearTabs"></div>
 
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="track"></div>
@@ -112,9 +123,11 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
         <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
       </div>
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
-      <div class="carousel-count" id="count">1 / 26</div>
+      <div class="carousel-count" id="count">1 / 25</div>
     </div>
+    <div class="empty-state" id="emptyState">Todavía no cargamos las fotos de esta visita. ¡Volvé a escanear más adelante!</div>
     <p class="photo-caption" id="caption"></p>
+  </main>
   </main>
 
   <div class="locmap-box" data-n="31"></div>
@@ -135,7 +148,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 
 <script>
 (function(){
-  const PHOTOS = [
+  const YEARS = [
+    { year: 'Seattle 2018', sub: 'Seattle, Washington — 2018', color: '#DC322F', hash: 'seattle-2018', photos: [
       { src:'01.jpg', ratio:1.5038, caption:"¡Un salto frente al Space Needle! La «aguja espacial» se construyó para la Feria Mundial de 1962, cuyo lema era «el siglo XXI», y se levantó en apenas 400 días. Mide 184 metros y por el centro sube el ascensor dorado que se ve en la foto: llega al mirador, a 160 metros, en unos 40 segundos." },
       { src:'02.jpg', ratio:1.5038, caption:"Al pie del Space Needle, en el Seattle Center, el predio que quedó de la Feria Mundial de 1962. Su silueta, con el «platillo volador» arriba, se inspiró en un dibujo hecho en una servilleta y se convirtió en el símbolo de la ciudad." },
       { src:'02b-brazos.jpg', ratio:1.5038, caption:"¡Brazos arriba al pie de la aguja! El Space Needle fue durante años la estructura más alta al oeste del Mississippi y resiste vientos de más de 300 km/h y terremotos fuertes: sus cimientos pesan casi lo mismo que la torre entera." },
@@ -144,7 +158,6 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       { src:'03c-skyriser.jpg', ratio:0.6650, caption:"Sentada en uno de los «Skyrisers», los bancos de vidrio inclinados hacia afuera que se sumaron en la renovación de 2018: uno se apoya y queda como flotando sobre la ciudad, con el centro, la bahía Elliott y el puerto a los pies." },
       { src:'03d-pulgares.jpg', ratio:1.5038, caption:"¡Pulgares arriba en lo alto del Space Needle! Detrás, los rascacielos del centro, las grúas de la ciudad en plena construcción y el puerto de contenedores sobre la bahía." },
       { src:'03e-seattle-center.jpg', ratio:0.6650, caption:"El Seattle Center visto desde arriba: los arcos blancos del Pacific Science Center, diseñado por Minoru Yamasaki, el arquitecto de las Torres Gemelas de Nueva York; las flores gigantes rojas de la escultura «Sonic Bloom», que funcionan con energía solar; y abajo a la derecha el jardín de Chihuly, con sus vidrios azules. Al fondo, el estrecho de Puget Sound y las montañas Olímpicas." },
-      { src:'04.jpg', ratio:0.6650, caption:"En el jardín de Chihuly Garden and Glass, al lado del Space Needle: estas «cañas» y esferas rojas y naranjas no son plantas, son de vidrio soplado. Son obra de Dale Chihuly, artista nacido en Tacoma, muy cerca de Seattle, famoso en el mundo por sus esculturas de vidrio." },
       { src:'05.jpg', ratio:1.5038, caption:"El Space Needle asomando detrás de un taller de autos alemanes, Fat City, en las calles que rodean el Seattle Center. Desde casi cualquier punto de esta zona se ve la aguja." },
       { src:'06.jpg', ratio:1.5038, caption:"Caminando por el centro de Seattle, entre edificios de ladrillo de principios del siglo XX y torres de vidrio nuevas. A la derecha, la ciclovía protegida: Seattle es una de las ciudades más amigables con la bicicleta de Estados Unidos, a pesar de sus lomas." },
       { src:'07.jpg', ratio:0.6650, caption:"En la esquina de 2nd Avenue y Pine Street, en pleno centro, con las sendas verdes de la ciclovía pintadas en el asfalto. Seattle crecía a toda velocidad en esos años, de la mano de Amazon y Microsoft, y se veían grúas y torres nuevas por todas partes." },
@@ -162,52 +175,112 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       { src:'18.jpg', ratio:0.6650, caption:"Un callejón de Pioneer Square, entre edificios de ladrillo con escaleras de incendio y canastas de flores colgantes. Después del Gran Incendio de 1889, que destruyó el centro, el barrio se reconstruyó en ladrillo y piedra, y las calles se elevaron un piso: por eso hoy existe la «Seattle subterránea», que se recorre en visitas guiadas." },
       { src:'19.jpg', ratio:0.6650, caption:"Recorriendo en auto las calles del sur del centro, rumbo a la estación de tren King Street, la de Amtrak, y a los estadios, cuyo techo verde asoma al fondo." },
       { src:'20.jpg', ratio:1.5038, caption:"La Garfield High School, en 23rd Avenue, en el barrio Central District. Por sus aulas pasaron Jimi Hendrix, el guitarrista nacido en Seattle, y el músico y productor Quincy Jones, que se graduó acá en 1951." }
+    ]},
+    { year: '★ Chihuly Garden and Glass', sub: 'Seattle Center, al pie del Space Needle — 2018', color: '#7B3FA0', hash: 'chihuly', photos: [
+      { src:'04.jpg', ratio:0.6650, caption:"En el jardín de Chihuly Garden and Glass, al lado del Space Needle: estas «cañas» y esferas rojas y naranjas no son plantas, son de vidrio soplado. Son obra de Dale Chihuly, artista nacido en Tacoma, muy cerca de Seattle, famoso en el mundo por sus esculturas de vidrio." }
+    ]}
   ];
+
+  let currentYearIdx = 0;
+  let currentPhotoIdx = 0;
+
+  const tabsEl = document.getElementById('yearTabs');
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
-  let i = 0;
+  const emptyState = document.getElementById('emptyState');
+  const yearSub = document.getElementById('yearSub');
 
-  function render(){
-    track.innerHTML = '';
-    PHOTOS.forEach(p => {
-      const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Seattle, 2018';
-      track.appendChild(img);
+  function renderTabs(){
+    tabsEl.innerHTML = '';
+    YEARS.forEach((y, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'year-tab' + (idx === currentYearIdx ? ' active' : '');
+      btn.style.background = idx === currentYearIdx ? y.color : 'transparent';
+      btn.style.borderColor = idx === currentYearIdx ? y.color : '';
+      btn.innerHTML = '<span class="dot" style="background:' + (idx===currentYearIdx ? (y.ink||'#fff') : y.color) + '"></span>' + y.year;
+      if (idx === currentYearIdx && y.ink) btn.style.color = y.ink;
+      btn.addEventListener('click', () => selectYear(idx));
+      tabsEl.appendChild(btn);
     });
   }
-  function setHeightFor(idx){
-    const ratio = PHOTOS[idx].ratio;
+
+  function renderPhotos(){
+    const yearObj = YEARS[currentYearIdx];
+    track.innerHTML = '';
+    yearObj.photos.forEach(p => {
+      const img = document.createElement('img');
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
+      img.alt = 'Foto familiar en ' + yearObj.year;
+      track.appendChild(img);
+    });
+    currentPhotoIdx = 0;
+
+    if(yearObj.photos.length === 0){
+      carousel.classList.add('hide');
+      emptyState.classList.add('show');
+      captionEl.textContent = '';
+    } else {
+      carousel.classList.remove('hide');
+      emptyState.classList.remove('show');
+      updatePhotoView();
+    }
+  }
+
+  function updatePhotoView(){
+    const yearObj = YEARS[currentYearIdx];
+    const n = yearObj.photos.length;
+    if(n === 0) return;
+    track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
+    countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
+    const ratio = yearObj.photos[currentPhotoIdx].ratio;
     const w = carousel.clientWidth;
     let h = w * ratio;
     h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
     track.style.height = h + 'px';
   }
-  function go(n){
-    i = (n + PHOTOS.length) % PHOTOS.length;
-    track.style.transform = 'translateX(' + (-i*100) + '%)';
-    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
-    captionEl.textContent = PHOTOS[i].caption || '';
-    setHeightFor(i);
+
+  function selectYear(idx){
+    currentYearIdx = idx;
+    yearSub.textContent = YEARS[idx].sub;
+    if (YEARS[idx].hash) history.replaceState(null, '', '#' + YEARS[idx].hash);
+    renderTabs();
+    renderPhotos();
   }
-  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
-  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
-  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx - 1 + n) % n;
+    updatePhotoView();
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
+    currentPhotoIdx = (currentPhotoIdx + 1) % n;
+    updatePhotoView();
+  });
+  window.addEventListener('resize', updatePhotoView);
 
   let startX = null;
   track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
   track.addEventListener('touchend', e => {
     if(startX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
+    if(n === 0) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+    }
     startX = null;
   }, {passive:true});
 
   const lightbox = document.getElementById('lightbox');
-  function fitLightboxHeight(){
-    lightbox.style.height = window.innerHeight + 'px';
-  }
+  const lightboxImg = document.getElementById('lightboxImg');
+  function fitLightboxHeight(){ lightbox.style.height = window.innerHeight + 'px'; }
   window.addEventListener('resize', fitLightboxHeight);
   window.addEventListener('orientationchange', () => {
     setTimeout(fitLightboxHeight, 50);
@@ -217,10 +290,14 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   if(screen.orientation){
     screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
   }
-
-  const lightboxImg = document.getElementById('lightboxImg');
+  function refreshLightboxImg(){
+    const yearObj = YEARS[currentYearIdx];
+    if(yearObj.photos.length === 0) return;
+    lightboxImg.src = yearObj.photos[currentPhotoIdx].src;
+  }
   document.getElementById('zoomBtn').addEventListener('click', ()=>{
-    lightboxImg.src = PHOTOS[i].src;
+    if(YEARS[currentYearIdx].photos.length === 0) return;
+    refreshLightboxImg();
     fitLightboxHeight();
     lightbox.classList.add('open');
   });
@@ -238,18 +315,22 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   }, {passive:true});
   lightbox.addEventListener('touchend', e => {
     if(lbStartX === null) return;
+    const n = YEARS[currentYearIdx].photos.length;
     const dx = e.changedTouches[0].clientX - lbStartX;
-    if(Math.abs(dx) > 40 && !window.__noSwipe()){
-      go(dx > 0 ? i-1 : i+1);
-      lightboxImg.src = PHOTOS[i].src;
+    if(n > 0 && Math.abs(dx) > 40 && !window.__noSwipe()){
+      currentPhotoIdx = dx > 0 ? (currentPhotoIdx - 1 + n) % n : (currentPhotoIdx + 1) % n;
+      updatePhotoView();
+      refreshLightboxImg();
     } else if(!lbMoved && e.target !== lightboxImg){
       closeLightbox();
     }
     lbStartX = null;
   }, {passive:true});
 
-  render();
-  go(0);
+  { const hi = YEARS.findIndex(y => '#' + y.hash === location.hash); if (hi > 0) currentYearIdx = hi; }
+  yearSub.textContent = YEARS[currentYearIdx].sub;
+  renderTabs();
+  renderPhotos();
 })();
 </script>
 <script>
