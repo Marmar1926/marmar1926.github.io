@@ -112,7 +112,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
         <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
       </div>
       <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
-      <div class="carousel-count" id="count">1 / 2</div>
+      <div class="carousel-count" id="count">1 / 22</div>
     </div>
     <p class="photo-caption" id="caption"></p>
   </main>
@@ -137,7 +137,27 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
 (function(){
   const PHOTOS = [
       { video:'video-01.mp4', poster:'video-01b.jpg', src:'video-01b.jpg', ratio:0.5625, caption:"Video: el amanecer del cumpleaños de ella, desde el balcón frente a los Mittens y Merrick Butte. El sol sale detrás de las mesas de roca y el valle se tiñe de rojo." },
-      { video:'video-02.mp4', poster:'video-02.jpg', src:'video-02.jpg', ratio:0.5625, caption:"Video: ella saludando con el palito de selfie el día de su cumpleaños, con el sol saliendo sobre Monument Valley. Al fondo, los Mittens y Merrick Butte." }
+      { video:'video-02.mp4', poster:'video-02.jpg', src:'video-02.jpg', ratio:0.5625, caption:"Video: ella saludando con el palito de selfie el día de su cumpleaños, con el sol saliendo sobre Monument Valley. Al fondo, los Mittens y Merrick Butte." },
+      { src:'01.jpg', ratio:0.4507, caption:"ella con un café para arrancar el día de su cumpleaños, en el mirador junto al centro de visitantes, frente al West Mitten, el East Mitten y Merrick Butte. Las tres formaciones están del lado de Arizona; el valle entero queda dentro del Monument Valley Navajo Tribal Park." },
+      { src:'02.jpg', ratio:0.4507, caption:"La cumpleañera, con los primeros rayos de sol entrando por la derecha. Los dos Mittens («mitones») se llaman así porque, vistos desde acá, parecen dos manos con guantes con el pulgar hacia afuera." },
+      { src:'03.jpg', ratio:0.7500, caption:"Selfie de los dos en el mirador, con Merrick Butte, el East Mitten y el West Mitten detrás." },
+      { src:'04.jpg', ratio:0.4507, caption:"La vista clásica de Monument Valley a primera hora: las mesas de arenisca de unos 300 metros de alto, restos de una antigua meseta que la erosión fue desgastando durante millones de años. Abajo se ve el camino de tierra del Valley Drive, el circuito de 27 km que recorre el valle." },
+      { src:'05.jpg', ratio:0.7500, caption:"Selfie con los Mittens y Merrick Butte, ya con el sol alto." },
+      { src:'06.jpg', ratio:0.4499, caption:"Panorámica desde el mirador: a la izquierda los Mittens y Merrick Butte, y a la derecha las mesas lejanas del valle, a contraluz." },
+      { src:'07.jpg', ratio:0.4499, caption:"Hacia el otro lado: Merrick Butte a la izquierda y la gran pared de Sentinel Mesa a la derecha, con el sol de la mañana." },
+      { src:'08.jpg', ratio:0.4507, caption:"El West Mitten, el East Mitten y Merrick Butte con el cielo totalmente despejado. Merrick Butte lleva el nombre de un buscador de plata que, según la historia, fue asesinado cerca de acá en el siglo XIX." },
+      { src:'09.jpg', ratio:0.4507, caption:"La misma vista, con los autos recorriendo el Valley Drive, que se ven diminutos al pie de las formaciones." },
+      { src:'10.jpg', ratio:0.4507, caption:"Sentinel Mesa a la izquierda, el Castle Butte a lo lejos y el West Mitten a la derecha, ya bajando al valle." },
+      { src:'11.jpg', ratio:0.6650, caption:"Uno de los Mittens visto de cerca desde el Valley Drive, junto al cartel «East Mitten» que pide no salirse de los caminos: el valle es tierra navajo y solo se puede recorrer por el circuito o con guías locales." },
+      { src:'12.jpg', ratio:0.4507, caption:"¡La cumpleañera arriba del auto! Detrás, Merrick Butte y el East Mitten, en pleno recorrido por el Valley Drive." },
+      { src:'13.jpg', ratio:0.4507, caption:"Las Three Sisters, «las tres hermanas»: tres agujas de roca que, según los navajos, representan a una monja católica con dos de sus alumnas." },
+      { src:'14.jpg', ratio:0.6650, caption:"Un salto de cumpleaños frente a las Three Sisters." },
+      { src:'15.jpg', ratio:0.6650, caption:"En John Ford's Point, la roca que sobresale sobre el valle, con Merrick Butte detrás. Lleva el nombre del director John Ford, que filmó acá westerns como «La diligencia» y «Más corazón que odio», con John Wayne." },
+      { src:'16.jpg', ratio:0.6650, caption:"¡Otro salto de festejo en el valle!" },
+      { src:'17.jpg', ratio:0.4507, caption:"El Totem Pole, la aguja de unos 120 metros de alto y apenas unos metros de ancho, junto a las agujas Yei Bi Chei, que los navajos comparan con bailarines de una ceremonia." },
+      { src:'18.jpg', ratio:0.5730, caption:"En el mirador de Artist's Point, con todo el valle abierto adelante: las mesas, los Mittens y Merrick Butte a lo lejos." },
+      { src:'19.jpg', ratio:1.5038, caption:"En Forrest Gump Point, sobre la ruta 163, en Utah: la recta que lleva directo a Monument Valley. En este punto Forrest deja de correr después de más de tres años cruzando el país y dice: «Estoy bastante cansado… creo que me voy a ir a casa»." },
+      { src:'20.jpg', ratio:0.6650, caption:"¡Y el corredor final! En la misma ruta 163, con las formaciones de Monument Valley a lo lejos. Es uno de los puntos más fotografiados del oeste, y hay que tener cuidado: es una ruta en uso." }
   ];
   const track = document.getElementById('track');
   const countEl = document.getElementById('count');
