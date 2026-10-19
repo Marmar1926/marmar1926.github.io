@@ -10,63 +10,294 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mis viajes por USA">
 <meta property="og:title" content="Paramount Ranch">
-<meta property="og:description" content="Agoura Hills, California · 2018 · Punto #36 de Mis viajes por USA">
+<meta property="og:description" content="California · 2018 · Punto #36 de Mis viajes por USA">
 <meta property="og:url" content="https://marmar1926.github.io/2018/kv78g638/">
 <meta property="og:image" content="https://marmar1926.github.io/2018/kv78g638/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#F7F2E7; --ink:#2B2620; --ink-soft:#6B6255; --accent:#dc322f; }
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --accent:#C7392E; --line:#D9CFB8; }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:'Source Sans 3', sans-serif;
-    text-align:center; min-height:100vh; padding:0 0 70px;
-  }
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .hero{ position:relative; width:100%; max-width:640px; margin:0 auto; overflow:hidden; }
   .hero img{ display:block; margin:0 auto; width:auto; max-width:100%; height:auto; max-height:min(78vh,760px); } /* portada completa, sin recortes */
-  .content{ padding:28px 32px 0; }
-  .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; margin-bottom:18px; }
-  h1{ font-family:'Playfair Display', serif; font-size:1.8rem; margin:0 0 10px; }
-  .location{ color:var(--ink-soft); font-size:1rem; margin:0 0 28px; }
-  p.msg{ color:var(--ink-soft); font-size:0.95rem; max-width:32ch; margin:0 auto; line-height:1.5; }
-  footer{ margin-top:36px; color:var(--ink-soft); font-size:0.8rem; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
+  .place-header{ padding:24px 26px 4px; max-width:640px; margin:0 auto; }
+  h1{ font-family:'Playfair Display', serif; font-weight:700; font-size:2.1rem; line-height:1.08; margin:0 0 6px; color:var(--ink); }
+  .location{ font-size:1rem; color:var(--ink-soft); margin:0; }
+  .fact-box{
+    background:var(--paper-2); border-left:4px solid var(--accent);
+    padding:16px 18px; margin:0 0 30px; border-radius:2px;
+    font-size:1.05rem; line-height:1.5; color:var(--ink);
   }
-  :root[data-theme="dark"]{ --paper:#1E1A14; --ink:#EDE6D8; --ink-soft:#B9AF9D; }
-  .closing-cta{ display:inline-block; margin-top:26px; padding:10px 18px; border:1.5px solid var(--ink-soft); border-radius:20px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.88rem; }
-  .topnav{ padding:14px 20px; font-size:0.85rem; text-align:left; }
+  .fact-box strong{ color:var(--accent); }
+  .closing-cta{
+    display:block; text-align:center; margin:40px 26px 0;
+    padding:14px 20px; border:1.5px solid var(--line); border-radius:24px;
+    color:var(--accent); text-decoration:none; font-weight:600; font-size:0.95rem;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  .visit-years{ display:flex; gap:8px; margin-top:10px; }
+  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:var(--paper-2); padding:4px 10px 4px 8px; border-radius:20px; }
+  .visit-years .pill .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  main{ max-width:640px; margin:0 auto; padding:34px 26px 60px; }
+  .story p{ font-size:1.08rem; line-height:1.68; color:var(--ink); max-width:64ch; margin:0 0 18px; }
+  .story p:last-child{margin-bottom:0;}
+  .section-label{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--accent); margin:46px 0 4px; }
+  .section-sub{ font-size:0.92rem; color:var(--ink-soft); margin:0 0 18px; }
+  .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
+  .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
+  .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
+  .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
+  .carousel-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .carousel-count{ position:absolute; bottom:12px; right:14px; background:rgba(20,15,10,0.55); color:#fff; font-size:0.8rem; padding:4px 10px; border-radius:20px; letter-spacing:0.3px; }
+  .zoom-btn{ position:absolute; bottom:12px; left:14px; width:34px; height:34px; border-radius:50%; background:rgba(20,15,10,0.55); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:15px; }
+  .zoom-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .photo-caption{ font-size:0.92rem; font-style:italic; color:var(--ink-soft); margin:10px 4px 0; line-height:1.5; }
+  .photo-caption:empty{ display:none; }
+  .lightbox{ position:fixed; inset:0; width:100%; height:100vh; height:100dvh; background:rgba(15,12,9,0.94); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:50; padding:44px 8px; touch-action:pan-y; box-sizing:border-box; }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  @media (orientation: landscape){ .lightbox{ padding:8px; } }
+  .lightbox img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:2px; -webkit-user-select:none; user-select:none; }
+  .lightbox-close{ position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  footer{ max-width:640px; margin:0 auto; padding:0 26px 48px; display:flex; align-items:center; gap:10px; color:var(--ink-soft); font-size:0.85rem; }
+  footer .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  .topnav{ padding:14px 20px; font-size:0.85rem; }
   .topnav a{ color:var(--ink-soft); text-decoration:none; font-weight:600; }
   .prevnext{ display:flex; justify-content:space-between; gap:14px; max-width:640px; margin:28px auto 0; padding:0 26px; font-size:0.85rem; }
   .prevnext a{ color:var(--accent); text-decoration:none; font-weight:600; }
   .prevnext a.next{ text-align:right; }
-  .visit-years{ display:flex; justify-content:center; gap:8px; margin:-14px 0 24px; }
-  .visit-years .pill{ display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600; color:var(--ink); background:rgba(0,0,0,0.06); padding:4px 10px 4px 8px; border-radius:20px; }
-  .visit-years .pdot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
 </style>
 </head>
 <body>
+<script>
+/* evita que al hacer zoom (pellizcar) y moverse por la foto se pase a la siguiente */
+(function(){var multi=false;function z(){return window.visualViewport&&window.visualViewport.scale>1.02;}
+document.addEventListener('touchstart',function(e){if(e.touches.length>1)multi=true;else if(e.touches.length===1&&!z())multi=false;},{passive:true,capture:true});
+document.addEventListener('touchmove',function(e){if(e.touches.length>1)multi=true;},{passive:true,capture:true});
+window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
+</script>
+
   <div class="topnav"><a href="/">← Índice</a></div>
+
   <div class="hero">
     <img src="hero.jpg" alt="Paramount Ranch">
   </div>
-  <div class="content">
-    <span class="dot"></span>
-    <h1>Paramount Ranch</h1>
-    <p class="location">Agoura Hills, California</p>
-    <div class="visit-years"><span class="pill"><span class="pdot" style="background:#DC322F"></span>2018</span></div>
-    <p class="msg">Estamos preparando las fotos y la historia de este lugar. Volvé a escanear más adelante.</p>
-      <a class="closing-cta" href="/">Seguí explorando el mapa →</a>
-  </div>
+
+  <main>
+    <div class="place-header">
+      <h1>Paramount Ranch</h1>
+      <p class="location">Agoura Hills, California</p>
+      <div class="visit-years"><span class="pill"><span class="dot" style="background:#C7392E"></span>2018</span></div>
+    </div>
+
+    <div class="fact-box"><strong>Dato curioso:</strong> las fachadas del pueblo son como buenos actores de reparto: cambian de cartel según la película. En la serie «Dr. Quinn, la mujer que cura» fueron Colorado Springs, y en «Westworld» de HBO, parte del parque de diversiones del lejano oeste.</div>
+    <div class="story">
+      <p>Paramount Ranch está en Agoura Hills, en las montañas de Santa Mónica, a unos 50 km del centro de Los Ángeles. En 1927 el estudio Paramount compró más de mil hectáreas de colinas, robles y praderas para filmar en exteriores: el paisaje podía pasar por el oeste norteamericano, por la China antigua o por el desierto del Sahara. Entre los años 20 y 50 se rodaron acá decenas de películas, como «Las aventuras de Marco Polo» (1938) y «Beau Geste» (1939).</p>
+      <p>En los años 50 el estudio vendió parte del terreno y se construyó el pueblo del oeste que se conserva hoy, usado en westerns de televisión como «Bat Masterson» y «Have Gun – Will Travel». Desde 1980 es un parque del Servicio de Parques Nacionales que se sigue alquilando para filmaciones: «Dr. Quinn, la mujer que cura» (1993-1998), «Carnivàle», «Los expedientes X», «El mentalista» y «Westworld» (2016-2018), entre muchas otras.</p>
+      <p>En noviembre de 2018, cuatro meses después de nuestra visita, el incendio Woolsey destruyó casi todo el pueblo; sólo se salvaron la iglesia y la estación de tren. Por eso estas fotos muestran un Paramount Ranch que ya no existe tal como lo conocimos.</p>
+    </div>
+
+    <p class="section-label">Nuestras fotos</p>
+    <p class="section-sub">Paramount Ranch, Agoura Hills — 3 de julio de 2018</p>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn" id="nextBtn" aria-label="Foto siguiente">&#8250;</button>
+      </div>
+      <button class="zoom-btn" id="zoomBtn" aria-label="Ampliar foto">&#128269;</button>
+      <div class="carousel-count" id="count">1 / 20</div>
+    </div>
+    <p class="photo-caption" id="caption"></p>
+  </main>
+
   <div class="locmap-box" data-n="36"></div>
   <div class="prevnext">
     <a class="prev" href="/2018/xhqeq3hg/">← Santa Barbara</a>
     <a class="next" href="/2022/sf29r4j6/">Grand Canyon →</a>
   </div>
-  <footer>Punto #36 · Mis viajes por USA</footer>
+  <a class="closing-cta" href="/">Seguí explorando el mapa — quedan 44 lugares más →</a>
+
+  <footer>
+    <span class="dot"></span> Punto #36 · Mis viajes por USA
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&#10005;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function(){
+  const PHOTOS = [
+      { src:'01.jpg', ratio:0.7500, caption:"El cartel del Servicio de Parques Nacionales con el mapa del pueblo del oeste: el establo, la estación de tren, el almacén (General Store), la cárcel, el hotel, la barbería, el banco y el saloon. Como explica el cartel, casi nada es histórico ni es un edificio de verdad: son simples galpones con fachadas falsas que cada equipo de filmación transforma, y el almacén de hoy puede ser mañana el saloon o la cárcel. Abajo, algunas producciones filmadas acá: Dr. Quinn, la mujer que cura; Carnivàle; Los expedientes X y Family Tree." },
+      { src:'02.jpg', ratio:0.6650, caption:"La calle principal del pueblo, de tierra, con el almacén a la izquierda, el Hotel Mud Bug a la derecha y al fondo la pequeña iglesia blanca, con las montañas de Santa Mónica detrás." },
+      { src:'03.jpg', ratio:0.7500, caption:"Frente al gran establo de chapa, el «Stable» del mapa, a la sombra de los robles centenarios que rodean el pueblo." },
+      { src:'04.jpg', ratio:0.7500, caption:"En la oficina del sheriff, la cárcel del pueblo, el 3 de julio de 2018. En cientos de westerns, el sheriff y los forajidos se cruzaron frente a puertas como ésta." },
+      { src:'05.jpg', ratio:0.6650, caption:"El Hotel Mud Bug, una de las fachadas más fotografiadas del rancho, con su doble galería de madera. Al fondo de la calle asoman el saloon y los demás frentes del pueblo." },
+      { src:'06.jpg', ratio:0.6650, caption:"En la galería del Hotel Mud Bug. Las escaleras exteriores y los balcones permitían filmar escenas en dos niveles, un recurso clásico de los westerns." },
+      { src:'07.jpg', ratio:0.7500, caption:"Selfie frente a la pequeña construcción blanca pegada al hotel, la barbería del mapa." },
+      { src:'08.jpg', ratio:0.6650, caption:"Caminando entre la barbería y el hotel. El rancho se recorre libremente y gratis, como cualquier parque nacional." },
+      { src:'09.jpg', ratio:0.6650, caption:"¡Saludo desde el oeste, con la filmadora en la mano! Detrás, una fachada de madera rojiza con el cartel vacío, lista para que la próxima producción le ponga el nombre que necesite." },
+      { src:'10.jpg', ratio:0.7500, caption:"Las fachadas de madera desde la vereda: la barbería blanca, el hotel y, al fondo, el saloon de dos plantas." },
+      { src:'11.jpg', ratio:0.7500, caption:"Otra vista de la calle principal, con el saloon al fondo y el almacén a la derecha. Las calles anchas de tierra estaban pensadas para que pasaran caballos, carretas y diligencias." },
+      { src:'12.jpg', ratio:0.7500, caption:"El almacén, «General Store: dry goods, groceries, clothing» (mercería, almacén y ropa), con el edificio de dos plantas y balcón que tiene al lado." },
+      { src:'13.jpg', ratio:0.6650, caption:"El frente del almacén y su vecino de balcón, con fachadas de madera más gastadas a la derecha. En la serie «Dr. Quinn, la mujer que cura» (1993-1998), este pueblo era Colorado Springs." },
+      { src:'14.jpg', ratio:0.7500, caption:"El almacén y la calle que sale del pueblo hacia las colinas secas de las montañas de Santa Mónica, el paisaje que hizo famoso a este rancho en el cine." },
+      { src:'15.jpg', ratio:0.6650, caption:"La hilera de fachadas del lado del saloon, con su galería de hierro y las balas de paja en la vereda." },
+      { src:'16.jpg', ratio:0.6650, caption:"Frente al saloon de dos plantas, el edificio más grande del pueblo." },
+      { src:'17.jpg', ratio:0.7500, caption:"Selfie frente al saloon, con la glorieta del pueblo a la derecha." },
+      { src:'18.jpg', ratio:0.6650, caption:"La estación de tren, el «Train Depot» del mapa, en las afueras del pueblo. Fue una de las pocas construcciones que se salvaron del incendio Woolsey de noviembre de 2018." },
+      { src:'19.jpg', ratio:0.7500, caption:"La pequeña iglesia de madera blanca, que aparece en muchas producciones, entre ellas «Dr. Quinn» y la serie «Westworld» de HBO. También sobrevivió al incendio de 2018." },
+      { src:'20.jpg', ratio:0.6650, caption:"Junto a la iglesia, con las montañas de Santa Mónica de fondo. Cuatro meses después de nuestra visita, el incendio Woolsey quemó casi todo el pueblo del oeste; el Servicio de Parques Nacionales lo fue reconstruyendo en los años siguientes." }
+  ];
+  const track = document.getElementById('track');
+  const countEl = document.getElementById('count');
+  const carousel = document.getElementById('carousel');
+  const captionEl = document.getElementById('caption');
+  let i = 0;
+
+  function render(){
+    track.innerHTML = '';
+    PHOTOS.forEach(p => {
+      const img = document.createElement('img');
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Paramount Ranch, 2018';
+      track.appendChild(img);
+    });
+  }
+  function setHeightFor(idx){
+    const ratio = PHOTOS[idx].ratio;
+    const w = carousel.clientWidth;
+    let h = w * ratio;
+    h = Math.max(280, Math.min(h, window.innerHeight * 0.72));
+    track.style.height = h + 'px';
+  }
+  function go(n){
+    i = (n + PHOTOS.length) % PHOTOS.length;
+    track.style.transform = 'translateX(' + (-i*100) + '%)';
+    countEl.textContent = (i+1) + ' / ' + PHOTOS.length;
+    captionEl.textContent = PHOTOS[i].caption || '';
+    setHeightFor(i);
+  }
+  document.getElementById('prevBtn').addEventListener('click', ()=>go(i-1));
+  document.getElementById('nextBtn').addEventListener('click', ()=>go(i+1));
+  window.addEventListener('resize', ()=>setHeightFor(i));
+
+  let startX = null;
+  track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){ dx > 0 ? go(i-1) : go(i+1); }
+    startX = null;
+  }, {passive:true});
+
+  const lightbox = document.getElementById('lightbox');
+  function fitLightboxHeight(){
+    lightbox.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitLightboxHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitLightboxHeight, 50);
+    setTimeout(fitLightboxHeight, 200);
+    setTimeout(fitLightboxHeight, 500);
+  });
+  if(screen.orientation){
+    screen.orientation.addEventListener('change', () => setTimeout(fitLightboxHeight, 100));
+  }
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.getElementById('zoomBtn').addEventListener('click', ()=>{
+    lightboxImg.src = PHOTOS[i].src;
+    fitLightboxHeight();
+    lightbox.classList.add('open');
+  });
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  let lbStartX = null, lbStartY = null, lbMoved = false;
+  lightbox.addEventListener('touchstart', e => {
+    lbStartX = e.touches[0].clientX; lbStartY = e.touches[0].clientY; lbMoved = false;
+  }, {passive:true});
+  lightbox.addEventListener('touchmove', e => {
+    if(lbStartX === null) return;
+    if(Math.abs(e.touches[0].clientX - lbStartX) > 10 || Math.abs(e.touches[0].clientY - lbStartY) > 10) lbMoved = true;
+  }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(lbStartX === null) return;
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if(Math.abs(dx) > 40 && !window.__noSwipe()){
+      go(dx > 0 ? i-1 : i+1);
+      lightboxImg.src = PHOTOS[i].src;
+    } else if(!lbMoved && e.target !== lightboxImg){
+      closeLightbox();
+    }
+    lbStartX = null;
+  }, {passive:true});
+
+  render();
+  go(0);
+})();
+</script>
+<script>
+/* zoom propio dentro de la vista ampliada: pellizcar, arrastrar, doble toque; en PC rueda del mouse, arrastre y doble clic.
+   Al terminar cada gesto la imagen se redibuja a su tamaño real (no se estira un "dibujo" chico), así se ve nítida. */
+(function(){
+  var lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg');
+  if(!lb||!img) return;
+  lb.style.touchAction='none';
+  img.style.transformOrigin='center center'; img.draggable=false;
+  var s=1,c=1,bw=0,bh=0,tx=0,ty=0,pinch=null,pan=null,lastTap=0,md=null,wt=null,MAX=6;
+  function base(){ if(c===1){ bw=img.offsetWidth; bh=img.offsetHeight; } }
+  function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px)'+(Math.abs(s/c-1)>0.001?' scale('+(s/c)+')':''); window.__lbZoom=s>1.01; img.style.cursor=s>1.01?'grab':''; }
+  function commit(){ if(s<=1.01||!bw||Math.abs(s-c)<0.001) return; c=s;
+    img.style.maxWidth='none'; img.style.maxHeight='none'; img.style.width=(bw*c)+'px'; img.style.height=(bh*c)+'px'; apply(); }
+  function clamp(){ var mx=Math.max(0,(bw*s-lb.clientWidth)/2), my=Math.max(0,(bh*s-lb.clientHeight)/2);
+    tx=Math.min(mx,Math.max(-mx,tx)); ty=Math.min(my,Math.max(-my,ty)); }
+  function reset(){ s=1;c=1;tx=0;ty=0; img.style.width=img.style.height=img.style.maxWidth=img.style.maxHeight=''; apply(); }
+  function zoomAt(ns,cx,cy){ base(); var r=lb.getBoundingClientRect(), ox=cx-(r.left+r.width/2), oy=cy-(r.top+r.height/2);
+    tx=ox-(ox-tx)*ns/s; ty=oy-(oy-ty)*ns/s; s=ns; if(s<=1.01){reset();return;} clamp(); apply(); }
+  new MutationObserver(reset).observe(img,{attributes:true,attributeFilter:['src']});
+  new MutationObserver(function(){ if(!lb.classList.contains('open')) reset(); }).observe(lb,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',function(){ if(lb.classList.contains('open')) reset(); });
+  function d2(a,b){ return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY); }
+  lb.addEventListener('touchstart',function(e){
+    if(e.touches.length===2){ pinch={d:d2(e.touches[0],e.touches[1]),s:s}; pan=null; }
+    else if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+  },{passive:true});
+  lb.addEventListener('touchmove',function(e){
+    if(pinch&&e.touches.length===2){ e.preventDefault();
+      var a=e.touches[0],b=e.touches[1], ns=Math.min(MAX,Math.max(1,pinch.s*d2(a,b)/pinch.d));
+      zoomAt(ns,(a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2); }
+    else if(pan&&e.touches.length===1){ e.preventDefault();
+      tx=pan.tx+e.touches[0].clientX-pan.x; ty=pan.ty+e.touches[0].clientY-pan.y; clamp(); apply(); }
+  },{passive:false});
+  lb.addEventListener('touchend',function(e){
+    if(e.touches.length<2) pinch=null;
+    if(e.touches.length===1&&s>1.01){ pan={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:tx,ty:ty}; }
+    if(e.touches.length===0){ pan=null;
+      var t=e.changedTouches[0], now=Date.now();
+      if(e.target===img&&now-lastTap<300){ if(s>1.01) reset(); else zoomAt(2.5,t.clientX,t.clientY); lastTap=0; }
+      else lastTap=now;
+      commit(); }
+  },{passive:true});
+  lb.addEventListener('wheel',function(e){ if(!lb.classList.contains('open')) return; e.preventDefault();
+    zoomAt(Math.min(MAX,Math.max(1,s*(e.deltaY<0?1.2:1/1.2))),e.clientX,e.clientY);
+    clearTimeout(wt); wt=setTimeout(commit,150); },{passive:false});
+  img.addEventListener('dblclick',function(e){ if(s>1.01) reset(); else { zoomAt(2.5,e.clientX,e.clientY); commit(); } });
+  img.addEventListener('mousedown',function(e){ if(s>1.01){ md={x:e.clientX,y:e.clientY,tx:tx,ty:ty}; img.style.cursor='grabbing'; e.preventDefault(); } });
+  window.addEventListener('mousemove',function(e){ if(md){ tx=md.tx+e.clientX-md.x; ty=md.ty+e.clientY-md.y; clamp(); apply(); } });
+  window.addEventListener('mouseup',function(){ if(md){ md=null; apply(); } });
+  img.addEventListener('click',function(e){ e.stopPropagation(); });
+})();
+</script>
 <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
 <script src="/assets/leaflet/leaflet.js"></script>
 <script src="/assets/places.js"></script>
