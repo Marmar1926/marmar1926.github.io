@@ -53,14 +53,32 @@
   .hm-pop{ font:14px 'Source Sans 3',sans-serif; line-height:1.35; }
   .hm-pop b{ display:block; font-size:15px; } .hm-pop span{ color:#6B6255; font-size:12.5px; }
   .hm-pop a{ display:inline-block; margin-top:6px; font-weight:600; text-decoration:none; }
+  .cover{ position:relative; overflow:hidden; height:360px; background:#E9DFCB; }
+  .cover .pl{ position:absolute; width:34%; background:#fff; padding:6px 6px 18px; box-shadow:0 4px 12px rgba(0,0,0,.25); }
+  .cover .pl img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+  .cover header{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:rgba(247,242,231,.96); padding:18px 26px; border-radius:4px; box-shadow:0 6px 20px rgba(0,0,0,.2); width:min(86%,460px); }
+  @media (min-width:700px){ .cover{ height:420px; } .cover .pl{ width:19%; } }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .cover{ background:#2A241C; } :root:not([data-theme="light"]) .cover header{ background:rgba(30,26,20,.94); } }
+  :root[data-theme="dark"] .cover{ background:#2A241C; } :root[data-theme="dark"] .cover header{ background:rgba(30,26,20,.94); }
 </style>
 <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
 </head>
 <body>
+<div class="cover" id="cover">
   <header>
     <h1>Mis viajes por USA</h1>
     <p>45 lugares · elegí cómo quer&eacute;s explorarlos</p>
   </header>
+  </div>
+<script>
+(function(){var c=document.getElementById('cover');if(!c)return;var n=45,ids=[];for(var i=0;i<n;i++)ids.push(i);
+for(i=n-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=ids[i];ids[i]=ids[j];ids[j]=t;}
+var wide=window.innerWidth>=700;
+var S=wide?[[-3,-8],[17,-12],[37,-6],[60,-10],[80,-6],[-4,56],[16,62],[40,64],[62,58],[82,60]]:[[-4,-6],[22,-10],[48,-8],[74,-6],[-6,62],[20,66],[52,64],[76,62],[88,24],[-12,26]];
+var R=[-7,4,-3,6,-5,3,-6,5,-2,7];var hd=c.querySelector('header');
+S.forEach(function(p,k){var d=document.createElement('div');d.className='pl';d.style.left=p[0]+'%';d.style.top=p[1]+'%';d.style.transform='rotate('+R[k]+'deg)';
+var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]<10?'0':'')+ids[k]+'.jpg';d.appendChild(im);c.insertBefore(d,hd);});})();
+</script>
 
   <div class="tabs">
     <button class="tab active" id="tabYear">Por año</button>
