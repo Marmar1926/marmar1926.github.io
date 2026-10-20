@@ -48,6 +48,7 @@
   .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
   .carousel.hide{ display:none; }
   .carousel-track{ display:flex; transition:transform 0.4s cubic-bezier(.4,0,.2,1), height 0.35s ease; align-items:center; }
+  .carousel-track video.gvideo{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:#000; }
   .carousel-track img{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:var(--paper-2); }
   .carousel-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); padding:0 10px; pointer-events:none; }
   .carousel-btn{ width:38px; height:38px; border-radius:50%; background:rgba(247,242,231,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); font-size:18px; box-shadow:0 2px 8px rgba(0,0,0,0.2); pointer-events:auto; }
@@ -668,6 +669,12 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
         "src": "mk19-28.jpg",
         "ratio": 1.5007,
         "caption": "El abrazo con Elena de Avalor. Fue un encuentro breve en el parque: Elena recibió visitantes en Magic Kingdom solo durante los años de la serie."
+      },
+      {
+        "video": "mk19-video.mp4",
+        "src": "mk19-video.jpg",
+        "ratio": 0.5625,
+        "caption": "Video PhotoPass: a bordo del Seven Dwarfs Mine Train, la montaña rusa de los Siete Enanitos inaugurada en 2014 en la zona de Fantasyland. Los carritos se balancean de lado a lado como vagonetas de mina, pasan por el interior de la mina de diamantes donde trabajan los enanitos cantando «Heigh-Ho» y terminan junto a la casita de Blancanieves, con el castillo iluminado de fondo."
       }
     ]
   },
@@ -968,6 +975,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     const yearObj = YEARS[currentYearIdx];
     track.innerHTML = '';
     yearObj.photos.forEach(p => {
+      if (p.video){ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; v.poster='sm/'+p.src; v.src=p.video; v.className='gvideo'; track.appendChild(v); return; }
       const img = document.createElement('img');
       if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
       img.alt = 'Foto familiar en Disney World, ' + yearObj.year;
@@ -992,6 +1000,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     if(n === 0) return;
     track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
     countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    track.querySelectorAll('video').forEach(v => v.pause());
+    document.getElementById('zoomBtn').style.display = yearObj.photos[currentPhotoIdx].video ? 'none' : '';
     captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
     const ratio = yearObj.photos[currentPhotoIdx].ratio;
     const w = carousel.clientWidth;
