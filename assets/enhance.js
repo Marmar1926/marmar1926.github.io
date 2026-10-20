@@ -16,6 +16,8 @@
   + '.hero-ov h1{color:#fff!important;margin:0!important;text-shadow:0 2px 10px rgba(0,0,0,.5);}'
   + '.hero-ov .location{color:rgba(255,255,255,.92)!important;margin:2px 0 0!important;}'
   + '.stamp{position:absolute;top:12px;right:12px;width:96px;height:96px;border-radius:50%;border:3px solid var(--st);outline:1.5px dashed var(--st);outline-offset:-9px;background:rgba(247,242,231,.9);color:var(--st);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:700 .58rem "Source Sans 3",sans-serif;letter-spacing:.8px;text-transform:uppercase;line-height:1.15;padding:0 10px;transform:rotate(-12deg);animation:stampIn .5s ease-out 1s both;pointer-events:none;}'
+  + '.stamp.st2{right:auto;left:12px;transform:rotate(9deg);animation-name:stampIn2;animation-delay:1.35s;}'
+  + '@keyframes stampIn2{from{transform:rotate(9deg) scale(2.2);opacity:0}to{transform:rotate(9deg) scale(1);opacity:1}}'
   + '.stamp b{font-size:1.15rem;letter-spacing:0;line-height:1.1;margin:1px 0;}'
   + '.stamp b.sm{font-size:.82rem;}'
   + '.stamp b.xs{font-size:.66rem;max-width:72px;line-height:1.15;}'
@@ -55,7 +57,18 @@
     var s = document.createElement('div'); s.className = 'stamp';
     s.innerHTML = '<span' + (name.length > 11 ? ' class="lg"' : '') + '></span><b' + (years.length > 2 ? ' class="xs"' : years.length > 1 ? ' class="sm"' : '') + '></b><span></span>';
     s.children[0].textContent = name; years.forEach(function(y, k){ if (k) s.children[1].appendChild(document.createTextNode(years.length > 2 ? ' ' : ' · ')); var e = document.createElement('i'); e.textContent = y; e.style.color = dark(ycol[y]) || ''; e.style.fontStyle = 'normal'; s.children[1].appendChild(e); }); s.children[2].textContent = state;
-    wrap.appendChild(s);
+    var custom = hero.getAttribute('data-stamps');
+    if (custom) {
+      try {
+        JSON.parse(custom).forEach(function(c, k){
+          var e = document.createElement('div'); e.className = 'stamp' + (k ? ' st' + (k + 1) : '');
+          e.style.setProperty('--st', dark(c.color));
+          e.innerHTML = '<span' + (c.name.length > 11 ? ' class="lg"' : '') + '></span><b></b><span></span>';
+          e.children[0].textContent = c.name; e.children[1].textContent = c.year; e.children[2].textContent = c.sub || '';
+          wrap.appendChild(e);
+        });
+      } catch (err) { wrap.appendChild(s); }
+    } else wrap.appendChild(s);
   }
 
   // aparición suave de las fotos de la galería
