@@ -18,6 +18,7 @@
   + '.stamp{position:absolute;top:12px;right:12px;width:96px;height:96px;border-radius:50%;border:3px solid var(--st);outline:1.5px dashed var(--st);outline-offset:-9px;background:rgba(247,242,231,.9);color:var(--st);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:700 .58rem "Source Sans 3",sans-serif;letter-spacing:.8px;text-transform:uppercase;line-height:1.15;padding:0 10px;transform:rotate(-12deg);animation:stampIn .5s ease-out 1s both;pointer-events:none;}'
   + '.stamp b{font-size:1.15rem;letter-spacing:0;line-height:1.1;margin:1px 0;}'
   + '.stamp b.sm{font-size:.82rem;}'
+  + '.stamp b.xs{font-size:.66rem;max-width:72px;line-height:1.15;}'
   + '.stamp span.lg{font-size:.5rem;letter-spacing:.4px;max-width:70px;}'
   + '@keyframes stampIn{from{transform:rotate(-12deg) scale(2.2);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:1}}'
   + '.carousel-track img.fx{opacity:0;transition:opacity .5s ease;}'
@@ -32,7 +33,8 @@
 
   // color y años del viaje, tomados de las pastillas de la página
   var pills = [].slice.call(document.querySelectorAll('.visit-years .pill'));
-  var years = []; pills.forEach(function(p){ var m = (p.textContent || '').match(/\d{4}/); if (m && years.indexOf(m[0]) < 0) years.push(m[0]); }); years.sort();
+  var years = [], ycol = {}; pills.forEach(function(p){ var m = (p.textContent || '').match(/\d{4}/), d = p.querySelector('span'); if (m && years.indexOf(m[0]) < 0) { years.push(m[0]); ycol[m[0]] = (d && d.style.background) || ''; } }); years.sort();
+  function dark(c){ return /241,\s*196,\s*15|f1c40f/i.test(c) ? '#B08600' : c; }
   var dot = pills.length && pills[0].querySelector('span');
   var color = (dot && dot.style.background) || '#8A6800';
   if (/241,\s*196,\s*15|f1c40f/i.test(color)) color = '#B08600'; // amarillo 2022: más oscuro para leerse
@@ -51,9 +53,8 @@
     var name = h1.textContent.trim();
     var state = loc ? loc.textContent.split('·')[0].split(',').pop().trim() : '';
     var s = document.createElement('div'); s.className = 'stamp';
-    var yt = years.length > 2 ? years[0] + '–' + years[years.length - 1] : years.join(' · ');
-    s.innerHTML = '<span' + (name.length > 11 ? ' class="lg"' : '') + '></span><b' + (yt.length > 5 ? ' class="sm"' : '') + '></b><span></span>';
-    s.children[0].textContent = name; s.children[1].textContent = yt || ''; s.children[2].textContent = state;
+    s.innerHTML = '<span' + (name.length > 11 ? ' class="lg"' : '') + '></span><b' + (years.length > 2 ? ' class="xs"' : years.length > 1 ? ' class="sm"' : '') + '></b><span></span>';
+    s.children[0].textContent = name; years.forEach(function(y, k){ if (k) s.children[1].appendChild(document.createTextNode(years.length > 2 ? ' ' : ' · ')); var e = document.createElement('i'); e.textContent = y; e.style.color = dark(ycol[y]) || ''; e.style.fontStyle = 'normal'; s.children[1].appendChild(e); }); s.children[2].textContent = state;
     wrap.appendChild(s);
   }
 
