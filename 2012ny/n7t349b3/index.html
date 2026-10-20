@@ -80,6 +80,7 @@
   .empty-state.show{ display:block; }
   .carousel{ position:relative; border-radius:4px; overflow:hidden; background:var(--paper-2); box-shadow:0 10px 26px rgba(43,38,32,0.18); }
   .carousel.hide{ display:none; }
+  .carousel-track video.gvideo{ width:100%; flex:0 0 100%; display:block; height:100%; object-fit:contain; background:#000; }
 </style>
 </head>
 <body>
@@ -222,7 +223,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
       { src:'cpk-34.jpg', ratio:0.7500, caption:"La pista Wollman Rink de noche, con los rascacielos iluminados de Central Park South y los reflectores sobre el hielo." },
       { src:'cpk-35.jpg', ratio:0.7500, caption:"Apoyado en la baranda de la pista, de noche: el cierre del cumpleaños fue patinando sobre hielo en Central Park." },
       { src:'cpk-36.jpg', ratio:0.7500, caption:"¡Ángel en el hielo! Acostada sobre la pista, con los brazos abiertos." },
-      { src:'cpk-37.jpg', ratio:0.7500, caption:"La cumpleañera patinando en Wollman Rink, bajo los reflectores y las luces de la ciudad: un cierre perfecto para un día inolvidable." }
+      { src:'cpk-37.jpg', ratio:0.7500, caption:"La cumpleañera patinando en Wollman Rink, bajo los reflectores y las luces de la ciudad: un cierre perfecto para un día inolvidable." },
+      { video:'cp-video.mp4', src:'cp-video.jpg', ratio:0.5625, caption:"Video: patinando de noche en Wollman Rink, el cierre del día de cumpleaños, con los rascacielos de Central Park South iluminados detrás." }
     ]},
     { year: "Rockefeller Center", sub: "Midtown Manhattan, Nueva York — 2012", color: '#B8860B', hash: 'rockefeller', map:'x:rockefeller', photos: [
       { src:'rock-01.jpg', ratio:0.7500, caption:"La famosa pista de patinaje del Rockefeller Center de noche, a la altura del Channel Gardens, con los árboles iluminados y la estatua dorada de Prometeo, de Paul Manship (1934), que lleva el fuego robado a los dioses. La pista funciona desde 1936, y en Navidad se coloca detrás el gigantesco árbol que se enciende cada año desde 1933." },
@@ -313,6 +315,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     const yearObj = YEARS[currentYearIdx];
     track.innerHTML = '';
     yearObj.photos.forEach(p => {
+      if (p.video){ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; v.poster='sm/'+p.src; v.src=p.video; v.className='gvideo'; track.appendChild(v); return; }
       const img = document.createElement('img');
       if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
       img.alt = 'Foto familiar en ' + yearObj.year;
@@ -337,6 +340,8 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     if(n === 0) return;
     track.style.transform = 'translateX(' + (-currentPhotoIdx*100) + '%)';
     countEl.textContent = (currentPhotoIdx+1) + ' / ' + n;
+    track.querySelectorAll('video').forEach(v => v.pause());
+    document.getElementById('zoomBtn').style.display = yearObj.photos[currentPhotoIdx].video ? 'none' : '';
     captionEl.textContent = yearObj.photos[currentPhotoIdx].caption || '';
     const ratio = yearObj.photos[currentPhotoIdx].ratio;
     const w = carousel.clientWidth;
