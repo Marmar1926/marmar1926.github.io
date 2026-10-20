@@ -105,3 +105,72 @@
   new MutationObserver(mark).observe(carousel, { attributes: true, attributeFilter: ['class'] });
   build();
 })();
+
+/* Cierre de página: "Dónde queda", anterior/siguiente, botón al índice y pie */
+(function(){
+  var css = ''
+  + '.locmap-box{margin-top:10px!important;}'
+  + '.locmap-box .lm-label{font-family:"Playfair Display",serif!important;font-size:1.45rem!important;color:var(--ink)!important;margin:40px 0 2px!important;}'
+  + '.locmap-box .lm-label::before{content:"";display:block;width:44px;height:3px;border-radius:2px;background:var(--st);margin:0 auto 14px;}'
+  + '.locmap-box .lm-map{border-radius:10px!important;}'
+  + '.locmap-box .lm-hint{opacity:.85;}'
+  + '.pn2{max-width:640px;margin:34px auto 0;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}'
+  + '.pn2 a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--paper-2,#EFE7D6);text-decoration:none;color:var(--ink);box-shadow:0 2px 8px rgba(43,38,32,.08);min-width:0;}'
+  + '.pn2 a.nx{flex-direction:row-reverse;text-align:right;}'
+  + '.pn2 img{width:54px;height:54px;object-fit:cover;border-radius:7px;flex-shrink:0;}'
+  + '.pn2 .tx{display:flex;flex-direction:column;min-width:0;}'
+  + '.pn2 small{font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-soft);}'
+  + '.pn2 b{font-size:.92rem;line-height:1.2;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}'
+  + '.pn2 i{font-style:normal;font-size:.75rem;font-weight:700;}'
+  + '.closing-cta{display:flex!important;align-items:center;justify-content:center;gap:8px;width:fit-content;max-width:calc(100% - 40px);margin:26px auto 0!important;padding:12px 22px!important;border:none!important;border-radius:30px!important;background:var(--ink,#2B2620)!important;color:#fff!important;font-size:.92rem!important;box-shadow:0 6px 16px rgba(43,38,32,.2);}'
+  + '.foot2{display:block!important;max-width:640px;margin:44px auto 0;padding:22px 20px 40px;border-top:1px solid var(--line,#D9CFB8);text-align:center;color:var(--ink-soft);}'
+  + '.foot2 .t{font-family:"Playfair Display",serif;font-size:1.15rem;color:var(--ink);margin:0 0 6px;}'
+  + '.foot2 .m{font-size:.82rem;margin:0;}'
+  + '.foot2 .y{display:flex;justify-content:center;gap:5px;margin:12px 0 0;}'
+  + '.foot2 .y span{width:9px;height:9px;border-radius:50%;}';
+  var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
+  var D = window.PLACES, places = (D && D.places) || [];
+  var urls = places.map(function(p){ return p.url; }).slice().sort();
+  function byUrl(u){ for (var i = 0; i < places.length; i++) if (places[i].url === u) return places[i]; return null; }
+  function thumb(u){ var k = urls.indexOf(u); return k < 0 ? '' : '/assets/cover/' + (k < 10 ? '0' : '') + k + '.jpg'; }
+  function col(c){ return /241,\s*196,\s*15|f1c40f/i.test(c || '') ? '#B08600' : c; }
+  var here = byUrl(location.pathname.replace(/index\.html$/, ''));
+
+  // anterior / siguiente como tarjetas
+  var pn = document.querySelector('.prevnext');
+  if (pn) {
+    var box = document.createElement('nav'); box.className = 'pn2';
+    [['prev','Anterior','pv'],['next','Siguiente','nx']].forEach(function(t){
+      var a = pn.querySelector('a.' + t[0]); if (!a) { box.appendChild(document.createElement('span')); return; }
+      var u = a.getAttribute('href'), p = byUrl(u);
+      var name = p ? p.name : a.textContent.replace(/[←→]/g, '').trim();
+      var c = p ? col((p.visits && p.visits[0] && p.visits[0].color) || ((D.trips[p.trip] || {}).color)) : '';
+      var yrs = p && p.visits ? p.visits.map(function(v){ return '<span style="color:' + col(v.color) + '">' + v.year + '</span>'; }).join(' · ') : '';
+      var n = document.createElement('a'); n.href = u; n.className = t[2];
+      n.innerHTML = (thumb(u) ? '<img loading="lazy" alt="" src="' + thumb(u) + '">' : '') +
+        '<span class="tx"><small>' + (t[0] === 'prev' ? '← ' : '') + t[1] + (t[0] === 'next' ? ' →' : '') + '</small><b></b><i>' + yrs + '</i></span>';
+      n.querySelector('b').textContent = name;
+      box.appendChild(n);
+    });
+    pn.parentNode.replaceChild(box, pn);
+  }
+
+  // botón al índice
+  var cta = document.querySelector('.closing-cta');
+  if (cta) cta.textContent = 'Ver los 45 lugares en el índice →';
+
+  // pie de página
+  var ft = document.querySelector('body > footer');
+  if (ft) {
+    var num = (ft.textContent.match(/#\s*(\d+)/) || [])[1] || (here ? here.n : '');
+    var f = document.createElement('footer'); f.className = 'foot2';
+    var tr = D && D.trips ? Object.keys(D.trips).map(function(k){ return D.trips[k]; }) : [];
+    if (!tr.some(function(t){ return t.year == 2019; })) tr.push({ year: 2019, color: '#17A2B8' });
+    tr.sort(function(a, b){ return a.year - b.year; });
+    f.innerHTML = '<p class="t">Mis viajes por USA</p>' +
+      '<p class="m">' + (num ? 'Lugar #' + num + ' de 45 · ' : '') + '7 viajes · 15 estados · 15.034 km</p>' +
+      '<div class="y">' + tr.map(function(t){ return '<span title="' + t.year + '" style="background:' + t.color + '"></span>'; }).join('') + '</div>';
+    ft.parentNode.replaceChild(f, ft);
+  }
+})();
