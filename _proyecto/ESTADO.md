@@ -104,3 +104,11 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Clave liviana (oct 2026): /assets/gate.js se carga en el <head> de todas las páginas; pide la clave una vez por dispositivo (localStorage 'mvk'). Guarda solo el hash sha256("mv-salt:"+clave). Los QR NO llevan la clave (pedido del usuario: que quien tenga los impresos, p. ej. la imprenta, no entre). Las fotos siguen accesibles por URL directa.
 
 ## #33 Big Sur (2018/naeceaua) - 22 fotos (1-3 Santa Cruz: Cadillac Walnut Ave, helado, selfie; luego Bixby Bridge, Rocky Point, Point Sur, atardeceres).
+
+## Fechas de visita (21/10)
+- Cada lugar tiene `date` (dd/mm/aaaa) en manifest.json, y cada `extra_visits` tiene su propia fecha. gen_places.py las pasa a assets/places.js.
+- locmap.js las muestra en «Dónde queda», al lado del nombre, cada fecha en el color de su viaje.
+- Los puntos ★ de data-extra llevan `date` (y `dcolor` opcional).
+- Lugares con pestañas: la fecha principal es la de llegada a la ciudad.
+- enhance.js?v=7: la animación de portada se muestra aunque la PC tenga los efectos visuales desactivados.
+- Pendiente opcional: poner la fecha en los sellos (muestrario de 6 estilos ya presentado).
