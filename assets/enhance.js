@@ -11,7 +11,7 @@
   + '.hero-ov h1,.hero-ov .location{transform-origin:left bottom;animation:titleIn .55s cubic-bezier(.3,.7,.4,1) both;}'
   + '.hero-ov h1{animation-delay:.3s}.hero-ov .location{animation-delay:.5s}'
   + '@keyframes titleIn{0%{transform:scale(1.9);opacity:0}60%{transform:scale(.96);opacity:1}80%{transform:scale(1.02)}100%{transform:none;opacity:1}}'
-  + '@media (prefers-reduced-motion:reduce){.hero-in,.hero-ov h1,.hero-ov .location,.stamp{animation:none!important}}'
+  // la animación de portada se muestra siempre, aunque la PC tenga los efectos de Windows desactivados
   + '.hero-ov{position:absolute;left:0;right:0;bottom:0;padding:70px 22px 16px;background:linear-gradient(180deg,rgba(20,15,10,0),rgba(20,15,10,.78));color:#fff;}'
   + '.hero-ov h1{color:#fff!important;margin:0!important;text-shadow:0 2px 10px rgba(0,0,0,.5);}'
   + '.hero-ov .location{color:rgba(255,255,255,.92)!important;margin:2px 0 0!important;}'
