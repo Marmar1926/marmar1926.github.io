@@ -15,6 +15,7 @@
     '.locmap-box{max-width:640px;margin:0 auto;padding:0 26px;text-align:center;}' +
     '.locmap-box .lm-label{font-family:"Caveat","Playfair Display",cursive;font-size:1.9rem;color:var(--accent-ink,var(--accent));margin:46px 0 4px;}' +
     '.locmap-box .lm-sub{font-size:0.92rem;color:var(--ink-soft);margin:0 0 14px;}' +
+    '.locmap-box .lm-dates{white-space:nowrap;}.locmap-box .lm-dates b{font-weight:700;font-variant-numeric:tabular-nums;}' +
     '.locmap-box .lm-map{position:relative;z-index:0;isolation:isolate;height:320px;border-radius:4px;overflow:hidden;box-shadow:0 10px 26px rgba(43,38,32,0.18);background:#E8E2D4;}' +
     '.locmap-box .lm-bar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:12px 0 0;}' +
     '.locmap-box .lm-bar button{font:600 0.82rem "Source Sans 3",sans-serif;color:var(--ink);background:transparent;border:1.5px solid var(--ink-soft);border-radius:20px;padding:5px 13px;cursor:pointer;opacity:.75;}' +
@@ -53,9 +54,15 @@
       html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + bg(p) + ';border:' + (size > 14 ? 3 : 1.5) + 'px solid #fff;box-sizing:border-box;box-shadow:0 1px 3px rgba(0,0,0,.35);opacity:' + op + '"></div>' });
   }
 
+  function ink(c) { return /f1c40f/i.test(c || '') ? '#B08600' : c; }
+  function dates(vs) {
+    vs = (vs || []).filter(function (v) { return v.date; });
+    if (!vs.length) return '';
+    return ' <span class="lm-dates">— ' + vs.map(function (v) { return '<b style="color:' + ink(v.color) + '">' + v.date + '</b>'; }).join(' · ') + '</span>';
+  }
   box.innerHTML =
     '<p class="lm-label">Dónde queda</p>' +
-    '<p class="lm-sub">' + me.name + (me.sub ? ' · ' + me.sub : '') + '</p>' +
+    '<p class="lm-sub">' + me.name + (me.sub ? ' · ' + me.sub : '') + dates(me.visits) + '</p>' +
     '<div class="lm-map"></div>' +
     '<div class="lm-bar">' +
       '<button type="button" data-v="here" class="on">El lugar</button>' +
@@ -98,7 +105,7 @@
     .bindTooltip(me.name, { permanent: true, direction: 'top', offset: [0, -10], className: 'lm-tip' })
     .addTo(map);
 
-  var subEl = box.querySelector('.lm-sub'), subTxt = subEl.textContent;
+  var subEl = box.querySelector('.lm-sub'), subTxt = subEl.innerHTML;
   var gmA = box.querySelector('.lm-bar a'), gmHref = gmA.href;
   function gm(lat, lng) { gmA.href = 'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + lng; }
   extras.forEach(function (x) {
@@ -109,10 +116,10 @@
   });
   function view(v) {
     box.querySelectorAll('.lm-bar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
-    subEl.textContent = subTxt; gmA.href = gmHref;
+    subEl.innerHTML = subTxt; gmA.href = gmHref;
     if (v.indexOf('x:') === 0) {
       var x = extras.filter(function (e) { return e.key === v.slice(2); })[0];
-      if (x) { subEl.textContent = x.name + ' · ' + x.sub; gm(x.lat, x.lng); map.setView([x.lat, x.lng], x.z || 12); x.marker.openTooltip(); }
+      if (x) { subEl.textContent = x.name + ' · ' + x.sub; if (x.date) subEl.innerHTML += dates([{ date: x.date, color: x.dcolor || ((me.visits || [])[0] || {}).color }]); gm(x.lat, x.lng); map.setView([x.lat, x.lng], x.z || 12); x.marker.openTooltip(); }
       return;
     }
     if (v === 'here') map.setView([me.lat, me.lng], me.z || 10);

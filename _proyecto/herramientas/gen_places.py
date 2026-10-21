@@ -10,10 +10,10 @@ for k, v in m['trips'].items():
     year2trip.setdefault(v['year'], k)
 places = []
 for e in m['entries']:
-    visits = [{'year': m['trips'][e['trip']]['year'], 'color': trips[e['trip']]['color'], 'trip': e['trip']}]
+    visits = [{'year': m['trips'][e['trip']]['year'], 'color': trips[e['trip']]['color'], 'trip': e['trip'], 'date': e.get('date', '')}]
     for v in e.get('extra_visits', []):
         t = year2trip.get(v['year'])
-        visits.append({'year': v['year'], 'color': trips[t]['color'] if t else hexc(v['color']), 'trip': t})
+        visits.append({'year': v['year'], 'color': trips[t]['color'] if t else hexc(v['color']), 'trip': t, 'date': v.get('date', '')})
     places.append({'n': e['number'], 'trip': e['trip'], 'name': e['name'], 'sub': e.get('sub', ''),
                    'url': f"/{e['trip']}/{e['slug']}/", 'lat': e['lat'], 'lng': e['lng'], 'z': e['zoom'],
                    'visits': visits})
