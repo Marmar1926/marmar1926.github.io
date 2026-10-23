@@ -1,0 +1,86 @@
+{
+ "viaje": "2016",
+ "color": "#2E7CF6",
+ "paradas": [
+  {
+   "name": "Miami",
+   "lat": 25.7743,
+   "lng": -80.1937
+  },
+  {
+   "name": "Key West",
+   "lat": 24.5551,
+   "lng": -81.78
+  },
+  {
+   "name": "Fort Lauderdale",
+   "lat": 26.1224,
+   "lng": -80.1373
+  },
+  {
+   "name": "Delray Beach",
+   "lat": 26.4615,
+   "lng": -80.0728
+  },
+  {
+   "name": "Kennedy Space Center",
+   "lat": 28.5729,
+   "lng": -80.649
+  },
+  {
+   "name": "Saint Augustine",
+   "lat": 29.8946,
+   "lng": -81.3145
+  },
+  {
+   "name": "Atlanta",
+   "lat": 33.749,
+   "lng": -84.388
+  },
+  {
+   "name": "World of Coca-Cola",
+   "lat": 33.7626,
+   "lng": -84.3927
+  },
+  {
+   "name": "Georgia Aquarium",
+   "lat": 33.7634,
+   "lng": -84.3951
+  },
+  {
+   "name": "Covington",
+   "lat": 33.5968,
+   "lng": -83.8602
+  },
+  {
+   "name": "Conyers",
+   "lat": 33.6676,
+   "lng": -84.0177
+  },
+  {
+   "name": "Tampa",
+   "lat": 27.9506,
+   "lng": -82.4572
+  },
+  {
+   "name": "Clearwater",
+   "lat": 27.9659,
+   "lng": -82.8001
+  },
+  {
+   "name": "Sarasota",
+   "lat": 27.3364,
+   "lng": -82.5307
+  },
+  {
+   "name": "Naples",
+   "lat": 26.142,
+   "lng": -81.7948
+  },
+  {
+   "name": "Miami",
+   "lat": 25.7743,
+   "lng": -80.1937
+  }
+ ]
+}
