@@ -66,8 +66,14 @@ S = [
  ('Casper', (42.8501, -106.3252), 'r'),
  ('Lusk', (42.7625, -104.4522), 'r'),
  ('Custer', (43.7666, -103.5988), 'r'),
- ('Crazy Horse', (43.8366, -103.6236), 'r'),
- ('Mount Rushmore', (43.8791, -103.4591), 'r'),
+ # US-385/US-16 al norte, pasando por Crazy Horse, y SD-244 hasta Rushmore
+ ('US-385 (norte de Custer)', (43.8010, -103.6080), 'm'),
+ ('Crazy Horse', (43.8366, -103.6236), 'm'),
+ ('US-385/16', (43.8850, -103.6000), 'm'),
+ ('Hill City', (43.9325, -103.5752), 'm'),
+ ('Empalme SD-244', (43.9560, -103.5260), 'm'),
+ ('Horsethief Lake', (43.8960, -103.4880), 'm'),
+ ('Mount Rushmore', (43.8791, -103.4591), 'm'),
  ('Sheridan', (44.7972, -106.9562), 'r'),
  ('Cody', (44.5263, -109.0565), 'r'),
  # Yellowstone: entrada este y lazo por el parque hasta la salida oeste
