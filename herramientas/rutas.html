@@ -50,6 +50,17 @@
       .then(function(j){ if (j.code !== 'Ok') throw new Error(j.code); return j.routes[0]; })
       .catch(function(e){ if (k + 1 < SERVERS.length) return req(pts, k + 1); throw e; });
   }
+  // si un bloque falla, lo pide parada por parada para saber cuál es el tramo con problemas
+  function byLegs(c) {
+    var out = { geometry: { coordinates: [] }, legs: [] }, q = Promise.resolve();
+    c.slice(0, -1).forEach(function(a, i){
+      q = q.then(function(){ return wait(700).then(function(){ return req([a, c[i + 1]], 0); }); })
+        .then(function(r){ var g = r.geometry.coordinates; if (out.geometry.coordinates.length) g = g.slice(1);
+          out.geometry.coordinates = out.geometry.coordinates.concat(g); out.legs.push(r.legs[0]); })
+        .catch(function(e){ throw new Error('tramo ' + a.name + ' → ' + c[i + 1].name + ': ' + e.message); });
+    });
+    return q.then(function(){ return out; });
+  }
   function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 
   fetch('paradas-' + viaje + '.json?t=' + Date.now()).then(function(r){ return r.json(); }).then(function(d){
@@ -63,7 +74,8 @@
     for (var i = 0; i < paradas.length - 1; i += CHUNK - 1) chunks.push(paradas.slice(i, i + CHUNK));
     var n = 0, p = Promise.resolve();
     chunks.forEach(function(c, ci){
-      p = p.then(function(){ st.textContent = 'Calculando tramo ' + (ci + 1) + ' de ' + chunks.length + '…'; return req(c, 0); })
+      p = p.then(function(){ st.textContent = 'Calculando tramo ' + (ci + 1) + ' de ' + chunks.length + '…'; return req(c, 0)
+          .catch(function(){ return byLegs(c); }); })
         .then(function(route){
           var g = route.geometry.coordinates.map(function(x){ return [x[1], x[0]]; });
           if (result.length) g.shift();
@@ -79,7 +91,7 @@
       legsEl.innerHTML = legs.map(function(l){ return '<li><span>' + l.a + ' → ' + l.b + '</span><b>' + Math.round(l.km) + ' km</b></li>'; }).join('');
       dl.disabled = false;
     }).catch(function(e){
-      st.textContent = 'No se pudo calcular (' + e.message + '). Esperá un minuto y recargá la página.';
+      st.textContent = 'No se pudo calcular (' + e.message + '). Esperá un par de minutos y recargá la página; si se repite, mandame este mensaje.';
     });
   });
 
