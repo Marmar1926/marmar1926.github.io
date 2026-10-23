@@ -115,7 +115,7 @@
       .bindTooltip(x.name, { direction: 'top', offset: [0, -10], className: 'lm-tip' }).addTo(map);
   });
   // recorrido completo de la gira (trazado por rutas, guardado en /assets/routes/<viaje>.json)
-  var ROUTES = ['2018'], route = null, routeCache = {}, want = null;
+  var ROUTES = ['2018', 'trip2'], route = null, routeCache = {}, want = null;
   function showRoute(t) {
     want = t;
     function draw(pts) {
