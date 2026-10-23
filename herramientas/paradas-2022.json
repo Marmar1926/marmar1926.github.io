@@ -68,9 +68,29 @@
    "lng": -112.8741
   },
   {
+   "name": "Grand Canyon Caverns (Ruta 66)",
+   "lat": 35.5283,
+   "lng": -113.2296
+  },
+  {
    "name": "Peach Springs",
    "lat": 35.5297,
    "lng": -113.4252
+  },
+  {
+   "name": "Truxton (Ruta 66)",
+   "lat": 35.4878,
+   "lng": -113.5633
+  },
+  {
+   "name": "Valentine (Ruta 66)",
+   "lat": 35.388,
+   "lng": -113.6655
+  },
+  {
+   "name": "Hackberry (Ruta 66)",
+   "lat": 35.3706,
+   "lng": -113.7245
   },
   {
    "name": "Kingman",
