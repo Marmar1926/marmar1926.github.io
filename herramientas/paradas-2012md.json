@@ -1,0 +1,51 @@
+{
+ "viaje": "2012md",
+ "color": "#D81B60",
+ "paradas": [
+  {
+   "name": "Miami",
+   "lat": 25.7743,
+   "lng": -80.1937
+  },
+  {
+   "name": "Fort Lauderdale",
+   "lat": 26.1224,
+   "lng": -80.1373
+  },
+  {
+   "name": "Daytona Beach (Speedway)",
+   "lat": 29.1852,
+   "lng": -81.0705
+  },
+  {
+   "name": "Orlando (Disney World)",
+   "lat": 28.3852,
+   "lng": -81.5639
+  },
+  {
+   "name": "Tampa",
+   "lat": 27.9506,
+   "lng": -82.4572
+  },
+  {
+   "name": "St. Petersburg",
+   "lat": 27.7676,
+   "lng": -82.6403
+  },
+  {
+   "name": "Venice",
+   "lat": 27.0998,
+   "lng": -82.4543
+  },
+  {
+   "name": "Naples",
+   "lat": 26.142,
+   "lng": -81.7948
+  },
+  {
+   "name": "Miami",
+   "lat": 25.7743,
+   "lng": -80.1937
+  }
+ ]
+}
