@@ -98,11 +98,14 @@
       var t = i / 40, u = 1 - t;
       pts.push([u * u * lat1 + 2 * u * t * c[0] + t * t * lat2, u * u * lng1 + 2 * u * t * c[1] + t * t * lng2]);
     }
-    var mid = pts[20], nx = pts[21];
-    var ang = Math.atan2(-(nx[0] - mid[0]), (nx[1] - mid[1]) * Math.cos(mid[0] * Math.PI / 180)) * 180 / Math.PI;
-    var plane = L.marker(mid, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11],
-      html: '<div style="width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center">' +
-        '<span style="display:block;color:' + color + ';font:16px/1 sans-serif;transform:rotate(' + ang + 'deg)">✈</span></div>' }) });
+    // rumbo en pantalla (Mercator): 0° = hacia arriba, sentido horario; el avión mira hacia donde va
+    var mid = pts[20], pv = pts[19], nx = pts[21];
+    var east = nx[1] - pv[1], north = (nx[0] - pv[0]) / Math.cos(mid[0] * Math.PI / 180);
+    var ang = Math.atan2(east, north) * 180 / Math.PI;
+    var svg = '<svg viewBox="0 0 24 24" width="16" height="16" style="display:block;transform:rotate(' + ang.toFixed(1) + 'deg)">' +
+      '<path fill="' + color + '" d="M12 1.5c.9 0 1.5 1 1.5 2.2V9l8 4.6v2.1l-8-2.4v5.1l2.4 1.8v1.7L12 21l-3.9.9v-1.7l2.4-1.8v-5.1l-8 2.4v-2.1l8-4.6V3.7c0-1.2.6-2.2 1.5-2.2z"/></svg>';
+    var plane = L.marker(mid, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', iconSize: [24, 24], iconAnchor: [12, 12],
+      html: '<div style="width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center">' + svg + '</div>' }) });
     return { line: L.polyline(pts, { color: color, weight: Math.max(2, weight - 0.5), opacity: 0.9, dashArray: '2 7', lineCap: 'round', interactive: false }),
              casing: L.polyline(pts, { color: '#fff', weight: weight + 1.5, opacity: 0.55, dashArray: '2 7', lineCap: 'round', interactive: false }),
              plane: plane, pts: pts };
@@ -147,5 +150,5 @@
       return { group: g, pts: pts };
     });
   }
-  window.MVRoutes = { get: get, drawAll: drawAll, tripLayer: tripLayer };
+  window.MVRoutes = { get: get, drawAll: drawAll, tripLayer: tripLayer, flight: flight };
 })();

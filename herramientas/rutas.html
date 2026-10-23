@@ -33,6 +33,7 @@
 </div>
 <ol id="legs"></ol>
 <script src="/assets/leaflet/leaflet.js"></script>
+<script src="/assets/rutas.js?v=6"></script>
 <script>
 (function(){
   var viaje = (location.search.match(/viaje=([\w-]+)/) || [])[1] || '2018';
@@ -76,7 +77,9 @@
       var prev = paradas[i];
       if (q.avion) {
         flights.push([[prev.lat, prev.lng], [q.lat, q.lng]]);
-        L.polyline([[prev.lat, prev.lng], [q.lat, q.lng]], { color: d.color || '#C00', weight: 3, dashArray: '3 8' }).addTo(map);
+        var fl = window.MVRoutes && MVRoutes.flight([prev.lat, prev.lng], [q.lat, q.lng], d.color || '#C00', 4);
+        if (fl) { fl.casing.addTo(map); fl.line.addTo(map); fl.plane.addTo(map); }
+        else L.polyline([[prev.lat, prev.lng], [q.lat, q.lng]], { color: d.color || '#C00', weight: 3, dashArray: '3 8' }).addTo(map);
         legs.push({ a: prev.name, b: q.name, km: 0, avion: true });
         sections.push([q]);
       } else sections[sections.length - 1].push(q);
