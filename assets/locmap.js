@@ -128,7 +128,7 @@
   }
   function getRoute(t) {
     if (routeCache[t]) return Promise.resolve(routeCache[t]);
-    return fetch('/assets/routes/' + t + '.json?v=5').then(function (r) { return r.json(); })
+    return fetch('/assets/routes/' + t + '.json?v=6').then(function (r) { return r.json(); })
       .then(function (pts) { routeCache[t] = pts; return pts; });
   }
   function routeLine(t, pts, w) {
@@ -139,13 +139,13 @@
   // todas las giras a la vez (se mantiene al cambiar de vista)
   function toggleAll(btn) {
     if (allRoutes) { map.removeLayer(allRoutes); allRoutes = null; btn.classList.remove('on'); btn.textContent = 'Ver todas las rutas'; return; }
-    allRoutes = L.layerGroup().addTo(map); btn.classList.add('on'); btn.textContent = 'Ocultar las rutas';
-    var g = allRoutes;
-    Promise.all(ROUTES.map(function (t) { return getRoute(t).then(function (pts) { if (allRoutes === g) routeLine(t, pts, 2.5).forEach(function (l) { g.addLayer(l); }); return pts; }).catch(function () { return []; }); }))
-      .then(function (list) {
-        var all = [].concat.apply([], list);
-        if (allRoutes === g && all.length) map.fitBounds(L.latLngBounds(all), { padding: [20, 20] });
-      });
+    if (!window.MVRoutes) return;
+    var tok = allRoutes = L.layerGroup().addTo(map); btn.classList.add('on'); btn.textContent = 'Ocultar las rutas';
+    MVRoutes.drawAll(map, D, 2.5).then(function (r) {
+      if (allRoutes !== tok) return;
+      r.group.eachLayer(function (l) { tok.addLayer(l); });
+      if (r.pts.length) map.fitBounds(L.latLngBounds(r.pts), { padding: [20, 20] });
+    });
   }
   function view(v) {
     want = null;

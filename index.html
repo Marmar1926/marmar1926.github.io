@@ -581,7 +581,8 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
   </main>
 
 <script src="/assets/leaflet/leaflet.js"></script>
-<script src="/assets/places.js?v=5"></script>
+<script src="/assets/places.js?v=6"></script>
+<script src="/assets/rutas.js?v=1"></script>
 <script>
   const TABS = { tabYear: 'viewYear', tabAlpha: 'viewAlpha', tabMap: 'viewMap' };
   let homeMap = null;
@@ -622,7 +623,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
     // recorridos de las giras (archivos en /assets/routes)
     const ROUTES = D.routes || [], cache = {};
     const getRoute = t => cache[t] ? Promise.resolve(cache[t]) :
-      fetch('/assets/routes/' + t + '.json?v=5').then(r => r.json()).then(p => (cache[t] = p));
+      fetch('/assets/routes/' + t + '.json?v=6').then(r => r.json()).then(p => (cache[t] = p));
     const line = (t, pts) => L.layerGroup([
       L.polyline(pts, { color: '#fff', weight: 5, opacity: .7, interactive: false }),
       L.polyline(pts, { color: (D.trips[t] || {}).color || '#888', weight: 3, opacity: .95, interactive: false })]);
@@ -650,7 +651,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
         if (allOn) { homeMap.removeLayer(allOn); allOn = null; rb.classList.remove('on'); rb.textContent = 'Ver todas las rutas'; return; }
         if (one) { homeMap.removeLayer(one); one = null; }
         const g = allOn = L.layerGroup().addTo(homeMap); rb.classList.add('on'); rb.textContent = 'Ocultar las rutas';
-        ROUTES.forEach(t => getRoute(t).then(p => { if (allOn === g) g.addLayer(line(t, p)); }).catch(() => {}));
+        if (window.MVRoutes) MVRoutes.drawAll(homeMap, D, 3).then(r => { if (allOn === g) r.group.eachLayer(l => g.addLayer(l)); });
       });
       leg.appendChild(rb);
     }
