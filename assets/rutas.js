@@ -5,6 +5,8 @@
   var TOL = 0.0025;   // ~250 m: distancia para considerar que dos giras van por la misma ruta
   var STEP = 0.01;    // los tramos se parten cada ~1 km para comparar
   var DASH = 9;       // largo de cada trazo de color, en píxeles
+  // estilo de los tramos compartidos: 'lado' (líneas paralelas) o 'trazos' (colores alternados)
+  var SIDE = (window.MV_SHARED_STYLE || 'lado') === 'lado' && !!(window.L && L.PolylineOffset);
 
   function densify(pts) {
     var out = [pts[0]];
@@ -53,17 +55,32 @@
         }
         sets.push(Object.keys(found).map(Number).sort(function (x, y) { return x - y; }).join('|'));
       }
+      // suavizar: un tramo corto (menos de ~4 km) distinto entre dos iguales toma el valor del anterior
+      for (var pass = 0; pass < 2; pass++) {
+        var k0 = 0;
+        for (var k1 = 1; k1 <= sets.length; k1++) {
+          if (k1 < sets.length && sets[k1] === sets[k0]) continue;
+          if (k0 > 0 && k1 - k0 < 4) for (var z = k0; z < k1; z++) sets[z] = sets[k0 - 1];
+          k0 = k1;
+        }
+      }
       // agrupar tramos seguidos con las mismas giras
       var start = 0;
       for (var s2 = 1; s2 <= sets.length; s2++) {
         if (s2 < sets.length && sets[s2] === sets[start]) continue;
         var who = sets[start].split('|').map(Number), seg = r.pts.slice(start, s2 + 1);
-        var opt = { color: r.color, weight: weight, opacity: 0.95, interactive: false, lineCap: 'butt' };
-        if (who.length > 1) {
+        var opt = { color: r.color, weight: weight, opacity: 0.95, interactive: false, lineCap: 'butt' }, cw = weight + 2.5;
+        if (who.length > 1 && SIDE) {
+          // una al lado de la otra: todas las giras orientan el tramo igual, así el desplazamiento cae del mismo lado
+          var A = seg[0], B = seg[seg.length - 1];
+          if (A[1] > B[1] || (A[1] === B[1] && A[0] > B[0])) seg = seg.slice().reverse();
+          opt.offset = (who.indexOf(ri) - (who.length - 1) / 2) * weight;
+          cw = weight * who.length + 2.5;
+        } else if (who.length > 1) {
           opt.dashArray = DASH + ' ' + (DASH * (who.length - 1));
           opt.dashOffset = String(DASH * who.indexOf(ri));
         } else opt.lineCap = 'round';
-        out.push({ casing: L.polyline(seg, { color: '#fff', weight: weight + 2.5, opacity: 0.75, interactive: false }), line: L.polyline(seg, opt) });
+        out.push({ casing: L.polyline(seg, { color: '#fff', weight: cw, opacity: 0.75, interactive: false }), line: L.polyline(seg, opt) });
         start = s2;
       }
     });
