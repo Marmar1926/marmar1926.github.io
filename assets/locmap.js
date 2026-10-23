@@ -68,6 +68,7 @@
       '<button type="button" data-v="here" class="on">El lugar</button>' +
       tripButtons() +
       '<button type="button" data-v="all">Los 45 lugares</button>' +
+      ((D.routes || []).length ? '<button type="button" class="lm-routes">Ver todas las rutas</button>' : '') +
       extras.map(function (x) { return '<button type="button" data-v="x:' + x.key + '">' + x.label + '</button>'; }).join('') +
       '<a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + me.lat + ',' + me.lng + '">Abrir en Google Maps ↗</a>' +
     '</div>' +
@@ -115,26 +116,41 @@
       .bindTooltip(x.name, { direction: 'top', offset: [0, -10], className: 'lm-tip' }).addTo(map);
   });
   // recorrido completo de la gira (trazado por rutas, guardado en /assets/routes/<viaje>.json)
-  var ROUTES = ['2018', 'trip2'], route = null, routeCache = {}, want = null;
+  var ROUTES = D.routes || ['2018', 'trip2'], route = null, routeCache = {}, want = null, allRoutes = null;
   function showRoute(t) {
     want = t;
     function draw(pts) {
       if (want !== t) return;
-      var c = (D.trips[t] || {}).color || '#888';
-      route = L.layerGroup([
-        L.polyline(pts, { color: '#fff', weight: 6, opacity: 0.7, interactive: false }),
-        L.polyline(pts, { color: c, weight: 3.5, opacity: 0.95, interactive: false })
-      ]).addTo(map);
+      route = L.layerGroup(routeLine(t, pts, 3.5)).addTo(map);
       map.fitBounds(L.latLngBounds(pts), { padding: [24, 24], maxZoom: 10 });
     }
-    if (routeCache[t]) return draw(routeCache[t]);
-    fetch('/assets/routes/' + t + '.json?v=4').then(function (r) { return r.json(); })
-      .then(function (pts) { routeCache[t] = pts; draw(pts); }).catch(function () {});
+    getRoute(t).then(draw).catch(function () {});
+  }
+  function getRoute(t) {
+    if (routeCache[t]) return Promise.resolve(routeCache[t]);
+    return fetch('/assets/routes/' + t + '.json?v=5').then(function (r) { return r.json(); })
+      .then(function (pts) { routeCache[t] = pts; return pts; });
+  }
+  function routeLine(t, pts, w) {
+    var c = (D.trips[t] || {}).color || '#888';
+    return [L.polyline(pts, { color: '#fff', weight: w + 2.5, opacity: 0.7, interactive: false }),
+            L.polyline(pts, { color: c, weight: w, opacity: 0.95, interactive: false })];
+  }
+  // todas las giras a la vez (se mantiene al cambiar de vista)
+  function toggleAll(btn) {
+    if (allRoutes) { map.removeLayer(allRoutes); allRoutes = null; btn.classList.remove('on'); btn.textContent = 'Ver todas las rutas'; return; }
+    allRoutes = L.layerGroup().addTo(map); btn.classList.add('on'); btn.textContent = 'Ocultar las rutas';
+    var g = allRoutes;
+    Promise.all(ROUTES.map(function (t) { return getRoute(t).then(function (pts) { if (allRoutes === g) routeLine(t, pts, 2.5).forEach(function (l) { g.addLayer(l); }); return pts; }).catch(function () { return []; }); }))
+      .then(function (list) {
+        var all = [].concat.apply([], list);
+        if (allRoutes === g && all.length) map.fitBounds(L.latLngBounds(all), { padding: [20, 20] });
+      });
   }
   function view(v) {
     want = null;
     if (route) { map.removeLayer(route); route = null; }
-    box.querySelectorAll('.lm-bar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
+    box.querySelectorAll('.lm-bar button[data-v]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
     subEl.innerHTML = subTxt; gmA.href = gmHref;
     if (v.indexOf('x:') === 0) {
       var x = extras.filter(function (e) { return e.key === v.slice(2); })[0];
@@ -146,7 +162,8 @@
     if (v.indexOf('trip:') === 0 && ROUTES.indexOf(v.slice(5)) >= 0) showRoute(v.slice(5));
   }
   box.querySelector('.lm-bar').addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v'));
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.classList.contains('lm-routes')) toggleAll(b); else view(b.getAttribute('data-v'));
   });
   window.locmapView = function (v) { view(v); };
   view('here');

@@ -17,7 +17,9 @@ for e in m['entries']:
     places.append({'n': e['number'], 'trip': e['trip'], 'name': e['name'], 'sub': e.get('sub', ''),
                    'url': f"/{e['trip']}/{e['slug']}/", 'lat': e['lat'], 'lng': e['lng'], 'z': e['zoom'],
                    'visits': visits})
+import glob
+routes = sorted(os.path.basename(f)[:-5] for f in glob.glob(f'{ROOT}/assets/routes/*.json'))
 open(f'{ROOT}/assets/places.js', 'w', encoding='utf-8').write(
     '// Generado por _proyecto/herramientas/gen_places.py desde _proyecto/manifest.json\nwindow.PLACES = '
-    + json.dumps({'trips': trips, 'places': places}, ensure_ascii=False) + ';\n')
+    + json.dumps({'trips': trips, 'places': places, 'routes': routes}, ensure_ascii=False) + ';\n')
 print(len(places))
