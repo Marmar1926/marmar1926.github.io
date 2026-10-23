@@ -119,10 +119,11 @@
   var ROUTES = D.routes || ['2018', 'trip2'], route = null, routeCache = {}, want = null, allRoutes = null;
   function showRoute(t) {
     want = t;
-    function draw(pts) {
-      if (want !== t) return;
-      route = L.layerGroup(routeLine(t, pts, 3.5)).addTo(map);
-      map.fitBounds(L.latLngBounds(pts), { padding: [24, 24], maxZoom: 10 });
+    function draw(data) {
+      if (want !== t || !window.MVRoutes) return;
+      var r = MVRoutes.tripLayer(t, data, (D.trips[t] || {}).color || '#888', 3.5);
+      route = r.group.addTo(map);
+      if (r.pts.length) map.fitBounds(L.latLngBounds(r.pts), { padding: [24, 24], maxZoom: 10 });
     }
     getRoute(t).then(draw).catch(function () {});
   }

@@ -1,6 +1,7 @@
 /* Dibuja los recorridos de las giras en un mapa Leaflet.
-   Donde dos o más giras usaron la misma ruta, la línea se dibuja con trazos
-   alternados de cada color, para que se vean todas. */
+   Donde dos o más giras usaron la misma ruta, las líneas van una al lado de la otra
+   (o con trazos alternados), para que se vean todos los colores.
+   Los tramos en avión se dibujan como una curva punteada con un avioncito. */
 (function () {
   var TOL = 0.0025;   // ~250 m: distancia para considerar que dos giras van por la misma ruta
   var STEP = 0.01;    // los tramos se parten cada ~1 km para comparar
@@ -27,9 +28,9 @@
   }
   function key(i, j) { return i + ',' + j; }
 
-  // routes: [{t: 'clave', color: '#hex', pts: [[lat,lng],...]}] en el orden en que se reparten los trazos
+  // routes: [{t: 'clave', ti: nº de gira, color: '#hex', pts: [[lat,lng],...]}]; una gira puede tener varios tramos en auto
   function layers(routes, weight) {
-    var grid = {}, R = routes.map(function (r) { return { t: r.t, color: r.color, pts: densify(r.pts) }; });
+    var grid = {}, R = routes.map(function (r) { return { t: r.t, ti: r.ti, color: r.color, pts: densify(r.pts) }; });
     R.forEach(function (r, ri) {
       for (var s = 0; s < r.pts.length - 1; s++) {
         var a = r.pts[s], b = r.pts[s + 1];
@@ -44,13 +45,13 @@
       var sets = [];
       for (var s = 0; s < r.pts.length - 1; s++) {
         var a = r.pts[s], b = r.pts[s + 1], m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], found = {};
-        found[ri] = 1;
+        found[r.ti] = 1;
         var ci = Math.floor(m[0] / STEP), cj = Math.floor(m[1] / STEP);
         for (var di = -1; di <= 1; di++) for (var dj = -1; dj <= 1; dj++) {
           (grid[key(ci + di, cj + dj)] || []).forEach(function (e) {
-            if (found[e[0]]) return;
+            var oti = R[e[0]].ti; if (found[oti]) return;
             var o = R[e[0]].pts;
-            if (segDist(m, o[e[1]], o[e[1] + 1]) < TOL) found[e[0]] = 1;
+            if (segDist(m, o[e[1]], o[e[1] + 1]) < TOL) found[oti] = 1;
           });
         }
         sets.push(Object.keys(found).map(Number).sort(function (x, y) { return x - y; }).join('|'));
@@ -74,11 +75,11 @@
           // una al lado de la otra: todas las giras orientan el tramo igual, así el desplazamiento cae del mismo lado
           var A = seg[0], B = seg[seg.length - 1];
           if (A[1] > B[1] || (A[1] === B[1] && A[0] > B[0])) seg = seg.slice().reverse();
-          opt.offset = (who.indexOf(ri) - (who.length - 1) / 2) * weight;
+          opt.offset = (who.indexOf(r.ti) - (who.length - 1) / 2) * weight;
           cw = weight * who.length + 2.5;
         } else if (who.length > 1) {
           opt.dashArray = DASH + ' ' + (DASH * (who.length - 1));
-          opt.dashOffset = String(DASH * who.indexOf(ri));
+          opt.dashOffset = String(DASH * who.indexOf(r.ti));
         } else opt.lineCap = 'round';
         out.push({ casing: L.polyline(seg, { color: '#fff', weight: cw, opacity: 0.75, interactive: false }), line: L.polyline(seg, opt) });
         start = s2;
@@ -86,6 +87,41 @@
     });
     // primero todos los bordes blancos, después los colores
     return L.layerGroup(out.map(function (o) { return o.casing; }).concat(out.map(function (o) { return o.line; })));
+  }
+
+  // tramo en avión: curva punteada con un avioncito en el medio
+  function flight(a, b, color, weight) {
+    var lat1 = a[0], lng1 = a[1], lat2 = b[0], lng2 = b[1];
+    var mx = (lat1 + lat2) / 2, my = (lng1 + lng2) / 2, dx = lat2 - lat1, dy = lng2 - lng1;
+    var c = [mx + dy * 0.18, my - dx * 0.18], pts = [];   // punto de control, desplazado hacia un costado
+    for (var i = 0; i <= 40; i++) {
+      var t = i / 40, u = 1 - t;
+      pts.push([u * u * lat1 + 2 * u * t * c[0] + t * t * lat2, u * u * lng1 + 2 * u * t * c[1] + t * t * lng2]);
+    }
+    var mid = pts[20], nx = pts[21];
+    var ang = Math.atan2(-(nx[0] - mid[0]), (nx[1] - mid[1]) * Math.cos(mid[0] * Math.PI / 180)) * 180 / Math.PI;
+    var plane = L.marker(mid, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11],
+      html: '<div style="width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center">' +
+        '<span style="display:block;color:' + color + ';font:16px/1 sans-serif;transform:rotate(' + ang + 'deg)">✈</span></div>' }) });
+    return { line: L.polyline(pts, { color: color, weight: Math.max(2, weight - 0.5), opacity: 0.9, dashArray: '2 7', lineCap: 'round', interactive: false }),
+             casing: L.polyline(pts, { color: '#fff', weight: weight + 1.5, opacity: 0.55, dashArray: '2 7', lineCap: 'round', interactive: false }),
+             plane: plane, pts: pts };
+  }
+  // un archivo de recorrido puede ser una lista de puntos (todo en auto) o {auto: [[...],...], avion: [[a,b],...]}
+  function parts(data) {
+    if (Array.isArray(data)) return { auto: [data], avion: [] };
+    return { auto: data.auto || [], avion: data.avion || [] };
+  }
+  // una sola gira (botón «Viaje AAAA»)
+  function tripLayer(t, data, color, weight) {
+    var p = parts(data), g = L.layerGroup(), all = [];
+    p.auto.forEach(function (pts) {
+      g.addLayer(L.polyline(pts, { color: '#fff', weight: weight + 2.5, opacity: 0.7, interactive: false }));
+      all = all.concat(pts);
+    });
+    p.auto.forEach(function (pts) { g.addLayer(L.polyline(pts, { color: color, weight: weight, opacity: 0.95, interactive: false })); });
+    p.avion.forEach(function (ab) { var f = flight(ab[0], ab[1], color, weight); g.addLayer(f.casing); g.addLayer(f.line); g.addLayer(f.plane); all = all.concat(f.pts); });
+    return { group: g, pts: all };
   }
 
   var cache = {};
@@ -98,10 +134,18 @@
   function drawAll(map, D, weight) {
     var keys = (D.routes || []).slice().sort(function (a, b) { return (D.trips[a] || {}).year - (D.trips[b] || {}).year; });
     return Promise.all(keys.map(function (t) { return get(t).catch(function () { return null; }); })).then(function (list) {
-      var routes = [];
-      list.forEach(function (p, i) { if (p) routes.push({ t: keys[i], color: (D.trips[keys[i]] || {}).color || '#888', pts: p }); });
-      return { group: layers(routes, weight || 3), pts: [].concat.apply([], routes.map(function (r) { return r.pts; })) };
+      var routes = [], flights = [], w = weight || 3;
+      list.forEach(function (d, i) {
+        if (!d) return;
+        var c = (D.trips[keys[i]] || {}).color || '#888', p = parts(d);
+        p.auto.forEach(function (pts) { routes.push({ t: keys[i], ti: i, color: c, pts: pts }); });
+        p.avion.forEach(function (ab) { flights.push(flight(ab[0], ab[1], c, w)); });
+      });
+      var g = layers(routes, w);
+      flights.forEach(function (f) { g.addLayer(f.casing); g.addLayer(f.line); g.addLayer(f.plane); });
+      var pts = [].concat.apply([], routes.map(function (r) { return r.pts; }).concat(flights.map(function (f) { return f.pts; })));
+      return { group: g, pts: pts };
     });
   }
-  window.MVRoutes = { get: get, drawAll: drawAll };
+  window.MVRoutes = { get: get, drawAll: drawAll, tripLayer: tripLayer };
 })();

@@ -41,7 +41,7 @@
   var map = L.map('map');
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap' }).addTo(map);
   var SERVERS = ['https://router.project-osrm.org/route/v1/driving/', 'https://routing.openstreetmap.de/routed-car/route/v1/driving/'];
-  var CHUNK = 20, result = [], legs = [], paradas;
+  var CHUNK = 20, autos = {}, flights = [], legs = [], paradas;
 
   function req(pts, k) {
     var coords = pts.map(function(p){ return p.lng.toFixed(5) + ',' + p.lat.toFixed(5); }).join(';');
@@ -70,25 +70,50 @@
         .bindTooltip((i + 1) + '. ' + p.name).addTo(map);
     });
     map.fitBounds(paradas.map(function(p){ return [p.lat, p.lng]; }), { padding: [20, 20] });
+    // una parada con "avion": true llega en avión desde la anterior; el resto se calcula por ruta
+    var sections = [[paradas[0]]];
+    paradas.slice(1).forEach(function(q, i){
+      var prev = paradas[i];
+      if (q.avion) {
+        flights.push([[prev.lat, prev.lng], [q.lat, q.lng]]);
+        L.polyline([[prev.lat, prev.lng], [q.lat, q.lng]], { color: d.color || '#C00', weight: 3, dashArray: '3 8' }).addTo(map);
+        legs.push({ a: prev.name, b: q.name, km: 0, avion: true });
+        sections.push([q]);
+      } else sections[sections.length - 1].push(q);
+    });
     var chunks = [];
-    for (var i = 0; i < paradas.length - 1; i += CHUNK - 1) chunks.push(paradas.slice(i, i + CHUNK));
-    var n = 0, p = Promise.resolve();
-    chunks.forEach(function(c, ci){
+    sections.forEach(function(sec, si){
+      if (sec.length < 2) return;
+      autos[si] = [];
+      for (var i = 0; i < sec.length - 1; i += CHUNK - 1) chunks.push({ si: si, c: sec.slice(i, i + CHUNK) });
+    });
+    var p = Promise.resolve(), legsAuto = [];
+    chunks.forEach(function(ch, ci){
+      var c = ch.c;
       p = p.then(function(){ st.textContent = 'Calculando tramo ' + (ci + 1) + ' de ' + chunks.length + '…'; return req(c, 0)
           .catch(function(){ return byLegs(c); }); })
         .then(function(route){
           var g = route.geometry.coordinates.map(function(x){ return [x[1], x[0]]; });
-          if (result.length) g.shift();
-          result = result.concat(g);
+          if (autos[ch.si].length) g.shift();
+          autos[ch.si] = autos[ch.si].concat(g);
           L.polyline(g, { color: d.color || '#C00', weight: 4, opacity: .9 }).addTo(map);
-          route.legs.forEach(function(l, li){ legs.push({ a: c[li].name, b: c[li + 1].name, km: l.distance / 1000 }); });
+          route.legs.forEach(function(l, li){ legsAuto.push({ a: c[li].name, b: c[li + 1].name, km: l.distance / 1000 }); });
           return wait(1200); // pausa para no saturar el servidor gratuito
         });
     });
+    p = p.then(function(){
+      // ordenar los tramos como en la lista de paradas
+      var all = [], ia = 0;
+      paradas.slice(1).forEach(function(q, i){
+        var f = legs.filter(function(l){ return l.avion && l.b === q.name && l.a === paradas[i].name; })[0];
+        all.push(q.avion && f ? f : legsAuto[ia++]);
+      });
+      legs = all.filter(Boolean);
+    });
     p.then(function(){
       var tot = legs.reduce(function(s, l){ return s + l.km; }, 0);
-      st.textContent = 'Listo: ' + Math.round(tot).toLocaleString('es-AR') + ' km en total.';
-      legsEl.innerHTML = legs.map(function(l){ return '<li><span>' + l.a + ' → ' + l.b + '</span><b>' + Math.round(l.km) + ' km</b></li>'; }).join('');
+      st.textContent = 'Listo: ' + Math.round(tot).toLocaleString('es-AR') + ' km en auto' + (flights.length ? ' (más ' + flights.length + ' tramo' + (flights.length > 1 ? 's' : '') + ' en avión)' : '') + '.';
+      legsEl.innerHTML = legs.map(function(l){ return '<li><span>' + (l.avion ? '✈ ' : '') + l.a + ' → ' + l.b + '</span><b>' + (l.avion ? 'avión' : Math.round(l.km) + ' km') + '</b></li>'; }).join('');
       dl.disabled = false;
     }).catch(function(e){
       st.textContent = 'No se pudo calcular (' + e.message + '). Esperá un par de minutos y recargá la página; si se repite, mandame este mensaje.';
@@ -110,7 +135,9 @@
     return P.filter(function(_, i){ return keep[i]; }).map(function(p){ return [+p[0].toFixed(5), +p[1].toFixed(5)]; });
   }
   dl.addEventListener('click', function(){
-    var out = simplify(result, 0.0002);
+    var lines = Object.keys(autos).sort(function(x, y){ return x - y; }).map(function(k){ return simplify(autos[k], 0.0002); });
+    var out = flights.length ? { auto: lines, avion: flights } : lines[0];
+    var npts = lines.reduce(function(n, l){ return n + l.length; }, 0);
     var blob = new Blob([JSON.stringify(out)], { type: 'application/json' });
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'recorrido-' + viaje + '.json';
     document.body.appendChild(a); a.click(); a.remove();

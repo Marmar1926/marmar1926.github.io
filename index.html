@@ -583,7 +583,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 <script src="/assets/leaflet/leaflet.js"></script>
 <script src="/assets/places.js?v=6"></script>
 <script src="/assets/leaflet/leaflet.polylineoffset.js"></script>
-<script src="/assets/rutas.js?v=3"></script>
+<script src="/assets/rutas.js?v=4"></script>
 <script>
   const TABS = { tabYear: 'viewYear', tabAlpha: 'viewAlpha', tabMap: 'viewMap' };
   let homeMap = null;
@@ -632,7 +632,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
     const showOne = t => {
       if (one) { homeMap.removeLayer(one); one = null; }
       if (!t || ROUTES.indexOf(t) < 0 || allOn) return;
-      getRoute(t).then(p => { one = line(t, p).addTo(homeMap); one.eachLayer(l => l.bringToBack()); }).catch(() => {});
+      getRoute(t).then(p => { if (!window.MVRoutes) return; one = MVRoutes.tripLayer(t, p, (D.trips[t] || {}).color || '#888', 3).group.addTo(homeMap); }).catch(() => {});
     };
     const mk = (label, color, pts, t) => {
       const b = document.createElement('button'); b.type = 'button';
