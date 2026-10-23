@@ -57,7 +57,7 @@
       q = q.then(function(){ return wait(700).then(function(){ return req([a, c[i + 1]], 0); }); })
         .then(function(r){ var g = r.geometry.coordinates; if (out.geometry.coordinates.length) g = g.slice(1);
           out.geometry.coordinates = out.geometry.coordinates.concat(g); out.legs.push(r.legs[0]); })
-        .catch(function(e){ throw new Error('tramo ' + a.name + ' → ' + c[i + 1].name + ': ' + e.message); });
+        .catch(function(e){ if (e.leg) throw e; var x = new Error('tramo ' + a.name + ' → ' + c[i + 1].name + ': ' + e.message); x.leg = 1; throw x; });
     });
     return q.then(function(){ return out; });
   }
