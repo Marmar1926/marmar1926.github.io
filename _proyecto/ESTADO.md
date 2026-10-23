@@ -112,3 +112,8 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Lugares con pestañas: la fecha principal es la de llegada a la ciudad.
 - enhance.js?v=7: la animación de portada se muestra aunque la PC tenga los efectos visuales desactivados.
 - Pendiente opcional: poner la fecha en los sellos (muestrario de 6 estilos ya presentado).
+
+## Recorrido de giras en el mapa (23/10)
+- `assets/routes/<viaje>.json` guarda el trazado simplificado como lista de [lat,lng]. locmap.js lo carga al tocar «Viaje AAAA» (la lista ROUTES de locmap.js dice qué viajes lo tienen).
+- 2018: armado con _proyecto/herramientas/rutas/build_2018.py sobre la red de rutas de Natural Earth 10m (ne_10m_roads.geojson, de GitHub nvkelso/natural-earth-vector).
+- El tramo Big Sur → Gorda → Los Burros Rd → South Coast Ridge Rd → Jolon → Bradley (101) y el parque Yellowstone se dibujan a mano con puntos fijos.

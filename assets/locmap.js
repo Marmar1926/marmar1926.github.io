@@ -114,7 +114,26 @@
       .bindPopup('<div class="lm-pop"><b>★ ' + x.name + '</b><span>' + x.sub + '</span></div>')
       .bindTooltip(x.name, { direction: 'top', offset: [0, -10], className: 'lm-tip' }).addTo(map);
   });
+  // recorrido completo de la gira (trazado por rutas, guardado en /assets/routes/<viaje>.json)
+  var ROUTES = ['2018'], route = null, routeCache = {}, want = null;
+  function showRoute(t) {
+    want = t;
+    function draw(pts) {
+      if (want !== t) return;
+      var c = (D.trips[t] || {}).color || '#888';
+      route = L.layerGroup([
+        L.polyline(pts, { color: '#fff', weight: 6, opacity: 0.7, interactive: false }),
+        L.polyline(pts, { color: c, weight: 3.5, opacity: 0.95, interactive: false })
+      ]).addTo(map);
+      map.fitBounds(L.latLngBounds(pts), { padding: [24, 24], maxZoom: 10 });
+    }
+    if (routeCache[t]) return draw(routeCache[t]);
+    fetch('/assets/routes/' + t + '.json?v=1').then(function (r) { return r.json(); })
+      .then(function (pts) { routeCache[t] = pts; draw(pts); }).catch(function () {});
+  }
   function view(v) {
+    want = null;
+    if (route) { map.removeLayer(route); route = null; }
     box.querySelectorAll('.lm-bar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
     subEl.innerHTML = subTxt; gmA.href = gmHref;
     if (v.indexOf('x:') === 0) {
@@ -124,6 +143,7 @@
     }
     if (v === 'here') map.setView([me.lat, me.lng], me.z || 10);
     else map.fitBounds(v.indexOf('trip:') === 0 ? tripPts[v.slice(5)] : allPts, { padding: [30, 30], maxZoom: 10 });
+    if (v.indexOf('trip:') === 0 && ROUTES.indexOf(v.slice(5)) >= 0) showRoute(v.slice(5));
   }
   box.querySelector('.lm-bar').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (b) view(b.getAttribute('data-v'));
