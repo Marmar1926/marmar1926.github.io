@@ -48,14 +48,34 @@
    "lng": -84.3951
   },
   {
+   "name": "Conyers",
+   "lat": 33.6676,
+   "lng": -84.0177
+  },
+  {
    "name": "Covington",
    "lat": 33.5968,
    "lng": -83.8602
   },
   {
-   "name": "Conyers",
-   "lat": 33.6676,
-   "lng": -84.0177
+   "name": "I-20 / US-129 (Madison)",
+   "lat": 33.559,
+   "lng": -83.469
+  },
+  {
+   "name": "Eatonton",
+   "lat": 33.3268,
+   "lng": -83.3885
+  },
+  {
+   "name": "Gray",
+   "lat": 33.0096,
+   "lng": -83.5338
+  },
+  {
+   "name": "Macon",
+   "lat": 32.8407,
+   "lng": -83.6324
   },
   {
    "name": "Tampa",
