@@ -123,3 +123,4 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - 23/10: assets/rutas.js (MVRoutes.drawAll) dibuja todas las giras; donde dos giras comparten ruta (a menos de ~250 m) la línea se ve con trazos alternados de cada color. Lo usan el índice y locmap. Recorrido 2012md cargado.
 - 23/10: los tramos compartidos se dibujan uno al lado del otro con assets/leaflet/leaflet.polylineoffset.js (MIT). Para volver a los trazos alternados: window.MV_SHARED_STYLE='trazos' antes de rutas.js.
 - 23/10: 2013 cargado con formato {auto:[...], avion:[[a,b],...]} (paradas con "avion": true en paradas-AAAA.json). Faltaría 2019 si se quiere.
+- 23/10: 2019 agregado como viaje en manifest.trips (color 17A2B8) y con su recorrido. Las 7 giras tienen ruta.
