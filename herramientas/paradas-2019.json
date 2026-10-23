@@ -1,0 +1,26 @@
+{
+ "viaje": "2019",
+ "color": "#17A2B8",
+ "paradas": [
+  {
+   "name": "Orlando (Disney World)",
+   "lat": 28.3852,
+   "lng": -81.5639
+  },
+  {
+   "name": "Florida's Turnpike (Yeehaw Junction)",
+   "lat": 27.6995,
+   "lng": -80.9037
+  },
+  {
+   "name": "Miami",
+   "lat": 25.7743,
+   "lng": -80.1937
+  },
+  {
+   "name": "Fort Lauderdale",
+   "lat": 26.1224,
+   "lng": -80.1373
+  }
+ ]
+}
