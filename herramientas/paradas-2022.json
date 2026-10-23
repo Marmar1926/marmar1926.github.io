@@ -1,0 +1,101 @@
+{
+ "viaje": "2022",
+ "color": "#F1C40F",
+ "paradas": [
+  {
+   "name": "Los Ángeles",
+   "lat": 34.0522,
+   "lng": -118.2437
+  },
+  {
+   "name": "Barstow",
+   "lat": 34.8958,
+   "lng": -117.0173
+  },
+  {
+   "name": "Williams",
+   "lat": 35.2495,
+   "lng": -112.191
+  },
+  {
+   "name": "Grand Canyon Village",
+   "lat": 36.0544,
+   "lng": -112.1401
+  },
+  {
+   "name": "Desert View",
+   "lat": 36.0441,
+   "lng": -111.826
+  },
+  {
+   "name": "Horseshoe Bend",
+   "lat": 36.8791,
+   "lng": -111.5104
+  },
+  {
+   "name": "Page",
+   "lat": 36.9147,
+   "lng": -111.4558
+  },
+  {
+   "name": "Upper Antelope Canyon",
+   "lat": 36.8619,
+   "lng": -111.3743
+  },
+  {
+   "name": "Monument Valley",
+   "lat": 36.9831,
+   "lng": -110.1123
+  },
+  {
+   "name": "Forrest Gump Point",
+   "lat": 37.1017,
+   "lng": -109.9906
+  },
+  {
+   "name": "Flagstaff",
+   "lat": 35.1983,
+   "lng": -111.6513
+  },
+  {
+   "name": "Seligman",
+   "lat": 35.3256,
+   "lng": -112.8741
+  },
+  {
+   "name": "Peach Springs",
+   "lat": 35.5297,
+   "lng": -113.4252
+  },
+  {
+   "name": "Kingman",
+   "lat": 35.1894,
+   "lng": -114.053
+  },
+  {
+   "name": "Oatman",
+   "lat": 35.0264,
+   "lng": -114.3836
+  },
+  {
+   "name": "Needles",
+   "lat": 34.8481,
+   "lng": -114.6141
+  },
+  {
+   "name": "Blythe (I-10)",
+   "lat": 33.6103,
+   "lng": -114.5964
+  },
+  {
+   "name": "Palm Springs",
+   "lat": 33.8303,
+   "lng": -116.5453
+  },
+  {
+   "name": "Hawthorne",
+   "lat": 33.9164,
+   "lng": -118.3526
+  }
+ ]
+}
