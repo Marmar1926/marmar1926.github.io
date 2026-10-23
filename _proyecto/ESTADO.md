@@ -124,3 +124,4 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - 23/10: los tramos compartidos se dibujan uno al lado del otro con assets/leaflet/leaflet.polylineoffset.js (MIT). Para volver a los trazos alternados: window.MV_SHARED_STYLE='trazos' antes de rutas.js.
 - 23/10: 2013 cargado con formato {auto:[...], avion:[[a,b],...]} (paradas con "avion": true en paradas-AAAA.json). Faltaría 2019 si se quiere.
 - 23/10: 2019 agregado como viaje en manifest.trips (color 17A2B8) y con su recorrido. Las 7 giras tienen ruta.
+- 23/10: botón de pantalla completa (⤢) en los mapas, con MVRoutes.fullscreen en rutas.js. En pantalla completa se puede arrastrar con un dedo y el «atrás» del teléfono la cierra.

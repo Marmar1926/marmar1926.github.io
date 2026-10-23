@@ -166,6 +166,7 @@
     var b = e.target.closest('button'); if (!b) return;
     if (b.classList.contains('lm-routes')) toggleAll(b); else view(b.getAttribute('data-v'));
   });
+  if (window.MVRoutes && MVRoutes.fullscreen) MVRoutes.fullscreen(map, box, box.querySelector('.lm-map'), touch);
   window.locmapView = function (v) { view(v); };
   view('here');
 })();

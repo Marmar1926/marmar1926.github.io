@@ -150,5 +150,62 @@
       return { group: g, pts: pts };
     });
   }
-  window.MVRoutes = { get: get, drawAll: drawAll, tripLayer: tripLayer, flight: flight };
+
+  // ---- mapa a pantalla completa (botón ⤢ en la esquina del mapa) ----
+  var fsCss = false;
+  function fsStyles() {
+    if (fsCss) return; fsCss = true;
+    var st = document.createElement('style');
+    st.textContent =
+      'html.mv-fs-on,html.mv-fs-on body{overflow:hidden!important;}' +
+      '.mv-fs.mv-fs{position:fixed!important;inset:0!important;z-index:9000!important;margin:0!important;max-width:none!important;width:auto!important;' +
+        'display:flex!important;flex-direction:column;background:#F6F1E7;' +
+        'padding:calc(6px + env(safe-area-inset-top,0px)) max(8px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))!important;}' +
+      '.mv-fs > *{flex-shrink:0;}' +
+      '.mv-fs .mv-fs-map{flex:1 1 auto!important;height:auto!important;min-height:0;border-radius:6px!important;}' +
+      '.mv-fs .lm-label,.mv-fs .lm-hint,.mv-fs .map-hint{display:none!important;}' +
+      '.mv-fs .lm-sub{margin:0 0 6px!important;font-size:.85rem!important;}' +
+      '.mv-fs .lm-bar,.mv-fs .map-legend{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;padding-bottom:2px;margin-top:8px!important;scrollbar-width:none;}' +
+      '.mv-fs .lm-bar > *,.mv-fs .map-legend > *{flex-shrink:0;}' +
+      '.mv-fsbtn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:none;cursor:pointer;color:#2B2620;}' +
+      '.mv-fsbtn svg{width:18px;height:18px;}';
+    document.head.appendChild(st);
+  }
+  var ICON_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // box: el bloque que pasa a ocupar toda la pantalla (mapa + botones); mapEl: el div del mapa
+  function fullscreen(map, box, mapEl, touch) {
+    fsStyles();
+    mapEl.classList.add('mv-fs-map');
+    var on = false, btn;
+    var Ctl = L.Control.extend({ options: { position: 'topright' }, onAdd: function () {
+      var d = L.DomUtil.create('div', 'leaflet-bar');
+      btn = L.DomUtil.create('button', 'mv-fsbtn', d); btn.type = 'button';
+      btn.title = 'Ver el mapa en pantalla completa'; btn.setAttribute('aria-label', btn.title); btn.innerHTML = ICON_OPEN;
+      L.DomEvent.disableClickPropagation(d);
+      L.DomEvent.on(btn, 'click', function () { on ? close(true) : open(); });
+      return d;
+    } });
+    map.addControl(new Ctl());
+    var ph = null;
+    function set(v) {
+      on = v;
+      // se mueve al final de la página mientras está a pantalla completa, para quedar por encima de todo
+      if (v) { ph = document.createComment('mapa'); box.parentNode.insertBefore(ph, box); document.body.appendChild(box); }
+      else if (ph) { ph.parentNode.insertBefore(box, ph); ph.remove(); ph = null; }
+      box.classList.toggle('mv-fs', v);
+      if (v) box.style.setProperty('margin', '0', 'important'); else box.style.removeProperty('margin'); document.documentElement.classList.toggle('mv-fs-on', v);
+      btn.innerHTML = v ? ICON_CLOSE : ICON_OPEN;
+      btn.title = v ? 'Cerrar pantalla completa' : 'Ver el mapa en pantalla completa'; btn.setAttribute('aria-label', btn.title);
+      if (touch) { if (v) map.dragging.enable(); else map.dragging.disable(); }
+      var c = map.getCenter(), z = map.getZoom();
+      setTimeout(function () { map.invalidateSize(); map.setView(c, z, { animate: false }); }, 60);
+    }
+    function open() { set(true); try { history.pushState({ mvfs: 1 }, ''); } catch (e) {} }
+    function close(fromBtn) { if (!on) return; set(false); if (fromBtn) { try { if (history.state && history.state.mvfs) history.back(); } catch (e) {} } }
+    // el botón «atrás» del teléfono cierra la pantalla completa en vez de salir de la página
+    window.addEventListener('popstate', function () { if (on) close(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && on) close(true); });
+  }
+  window.MVRoutes = { get: get, drawAll: drawAll, tripLayer: tripLayer, flight: flight, fullscreen: fullscreen };
 })();
