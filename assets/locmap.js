@@ -128,7 +128,7 @@
       map.fitBounds(L.latLngBounds(pts), { padding: [24, 24], maxZoom: 10 });
     }
     if (routeCache[t]) return draw(routeCache[t]);
-    fetch('/assets/routes/' + t + '.json?v=3').then(function (r) { return r.json(); })
+    fetch('/assets/routes/' + t + '.json?v=4').then(function (r) { return r.json(); })
       .then(function (pts) { routeCache[t] = pts; draw(pts); }).catch(function () {});
   }
   function view(v) {
