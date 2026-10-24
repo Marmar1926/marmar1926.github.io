@@ -98,7 +98,8 @@
   .bar{ position:absolute; left:0; bottom:0; height:4px; background:#DC322F; width:0; z-index:600; opacity:.85; transition:width .6s ease; }
   .ctrl{ position:absolute; left:50%; bottom:5vh; transform:translateX(-50%); display:flex; gap:1.4vw; z-index:700; opacity:0; pointer-events:none; transition:opacity .4s; background:rgba(0,0,0,.55); padding:1.6vh; border-radius:6vh; }
   #stage.ui .ctrl{ opacity:1; pointer-events:auto; }
-  #stage.ui .cap{ opacity:0; }
+  #stage.ui .cap{ padding-bottom:21vh; }
+  #stage.notxt .cap{ display:none; }
   .ctrl button{ min-width:10vh; height:10vh; border-radius:5vh; border:3px solid transparent; background:rgba(255,255,255,.14); color:#fff; font-size:4vh; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:0 1.6vw; line-height:1; }
   .ctrl button small{ font-size:1.6vh; font-weight:600; opacity:.85; }
   .ctrl button:hover, .ctrl button:focus{ background:rgba(255,255,255,.3); border-color:#FCDE5A; outline:none; }
@@ -134,6 +135,10 @@
       <button class="opt on" data-v="7">Normal</button>
       <button class="opt" data-v="5">Rápida</button>
     </fieldset>
+    <fieldset id="txt"><legend>Textos</legend>
+      <button class="opt on" data-v="1">Visibles</button>
+      <button class="opt" data-v="0">Ocultos</button>
+    </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
   <p class="tips"><b>Versión 7.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
@@ -153,6 +158,7 @@
     <button id="bnext" aria-label="Siguiente">⏭<small>Siguiente</small></button>
     <button id="bslow" aria-label="Más lento">🐢<small>Más lento</small></button>
     <button id="bfast" aria-label="Más rápido">🐇<small>Más rápido</small></button>
+    <button id="btxt" aria-label="Mostrar u ocultar textos">Aa<small id="btxtt">Ocultar texto</small></button>
     <button id="bexit" aria-label="Salir">✕<small>Salir</small></button>
   </div>
   <div class="toast" id="toast"></div>
@@ -196,6 +202,16 @@
   });
   function pick(k){ sel = k; each('.trip', function(b){ b.classList.toggle('on', b.dataset.k === k); }); estimate(); }
   each('#mode .opt', function(b){ b.onclick = function(){ mode = b.dataset.v; on('#mode', b); estimate(); }; });
+  // textos de las fotos: visibles u ocultos (se recuerda en este aparato)
+  function setTxt(v, msg){
+    $('#stage').classList.toggle('notxt', !v);
+    each('#txt .opt', function(b){ b.classList.toggle('on', b.dataset.v === (v ? '1' : '0')); });
+    $('#btxtt').textContent = v ? 'Ocultar texto' : 'Mostrar texto';
+    try { localStorage.setItem('mvtxt', v ? '1' : '0'); } catch (e) {}
+    if (msg) toast(v ? 'Textos visibles' : 'Textos ocultos');
+  }
+  each('#txt .opt', function(b){ b.onclick = function(){ setTxt(b.dataset.v === '1'); }; });
+  (function(){ var v = '1'; try { v = localStorage.getItem('mvtxt') || '1'; } catch (e) {} setTxt(v === '1'); })();
   each('#speed .opt', function(b){ b.onclick = function(){ speed = +b.dataset.v; on('#speed', b); estimate(); }; });
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
@@ -551,6 +567,7 @@
   $('#stage').addEventListener('mouseup', stageTap);
   act('#bslow', function(){ setSpeed(1); });
   act('#bfast', function(){ setSpeed(-1); });
+  act('#btxt', function(){ setTxt($('#stage').classList.contains('notxt'), true); });
   var lastAct = 0;
   function act(id, fn){
     var b = $(id);
