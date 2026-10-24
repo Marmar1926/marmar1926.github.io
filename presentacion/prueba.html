@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Prueba del control remoto</title>
+<style>
+  html,body{ margin:0; height:100%; background:#14110E; color:#F4EEE3; font-family:system-ui,sans-serif; }
+  body{ display:flex; flex-direction:column; padding:3vh 4vw; box-sizing:border-box; gap:2vh; }
+  h1{ margin:0; font-size:4vh; }
+  p{ margin:0; font-size:2.6vh; color:#C9C0AF; }
+  .row{ display:flex; gap:2vw; }
+  button{ font-size:3.5vh; padding:2vh 4vw; border-radius:2vh; border:4px solid #555; background:#2B2620; color:#fff; }
+  button:hover, button:focus{ border-color:#FCDE5A; }
+  #log{ flex:1; overflow:hidden; background:#000; border-radius:1.5vh; padding:2vh; font:3vh/1.4 monospace; }
+  #log div:first-child{ color:#FCDE5A; }
+  #ua{ font-size:1.8vh; color:#8F8676; }
+</style>
+</head>
+<body>
+  <h1>Prueba del control remoto · v1</h1>
+  <p>Apretá las flechas, OK, ▶/⏸ y «Volver» del control, y también hacé clic con la flecha en los botones y en la zona negra. Después sacale una foto a la pantalla y mandala por el chat.</p>
+  <div class="row"><button id="b1">Botón A</button><button id="b2">Botón B</button></div>
+  <div id="log"></div>
+  <div id="ua"></div>
+<script>
+  var log = document.getElementById('log'), n = 0;
+  function add(t){ n++; var d = document.createElement('div'); d.textContent = n + '. ' + t; log.insertBefore(d, log.firstChild); while (log.children.length > 14) log.removeChild(log.lastChild); }
+  document.getElementById('ua').textContent = navigator.userAgent + ' · táctil: ' + ('ontouchstart' in window) + ' · puntos: ' + (navigator.maxTouchPoints || 0);
+  window.addEventListener('keydown', function(e){ add('tecla: key=' + e.key + ' code=' + e.code + ' keyCode=' + e.keyCode); }, true);
+  ['click', 'mousedown', 'mouseup', 'pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(function(ev){
+    window.addEventListener(ev, function(e){ var t = e.target; add(ev + ' en ' + (t.id || t.tagName) + (e.pointerType ? ' (' + e.pointerType + ')' : '')); }, true);
+  });
+  var lastMove = 0;
+  window.addEventListener('mousemove', function(){ if (Date.now() - lastMove > 1500){ lastMove = Date.now(); add('mousemove (el puntero se mueve)'); } }, true);
+  // registrar teclas especiales de Samsung, si el navegador lo permite
+  try { if (window.tizen && tizen.tvinputdevice) ['MediaPlayPause','MediaPlay','MediaPause','MediaFastForward','MediaRewind'].forEach(function(k){ try { tizen.tvinputdevice.registerKey(k); } catch (e) {} }); } catch (e) {}
+</script>
+</body>
+</html>

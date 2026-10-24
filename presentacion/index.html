@@ -128,7 +128,7 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 4.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -502,18 +502,28 @@
     else { if ($('#stage').classList.contains('ui')) togglePause(); ui(); }
   });
   $('#stage').addEventListener('mousemove', ui);
-  $('#stage').addEventListener('click', function(e){
+  function stageTap(e){
     if (Date.now() - lastTouch < 800) return;              // ese toque ya lo manejó touchend
-    if (e.target.closest('.ctrl')) return;
+    if (e.target.closest && e.target.closest('.ctrl')) return;
+    if (Date.now() - lastAct < 400) return; lastAct = Date.now();
     if ($('#stage').classList.contains('ui')) togglePause();
     ui();
-  });
-  $('#bslow').onclick = function(){ setSpeed(1); ui(); };
-  $('#bfast').onclick = function(){ setSpeed(-1); ui(); };
-  $('#bprev').onclick = function(){ show(cur - 1); ui(); };
-  $('#bnext').onclick = function(){ show(cur + 1); ui(); };
-  $('#bplay').onclick = function(){ togglePause(); ui(); };
-  $('#bexit').onclick = exit;
+  }
+  $('#stage').addEventListener('click', stageTap);
+  $('#stage').addEventListener('mouseup', stageTap);
+  act('#bslow', function(){ setSpeed(1); });
+  act('#bfast', function(){ setSpeed(-1); });
+  var lastAct = 0;
+  function act(id, fn){
+    var b = $(id);
+    ['click', 'mouseup', 'pointerup'].forEach(function(ev){
+      b.addEventListener(ev, function(e){ e.stopPropagation(); if (Date.now() - lastAct < 400) return; lastAct = Date.now(); fn(); ui(); });
+    });
+  }
+  act('#bprev', function(){ show(cur - 1); });
+  act('#bnext', function(){ show(cur + 1); });
+  act('#bplay', togglePause);
+  act('#bexit', exit);
 })();
 </script>
 </body>
