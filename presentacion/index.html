@@ -492,9 +492,10 @@
     else if (a === 'back') exit();
   }, true);
   // tocar y deslizar
-  var tx = null, ty = null;
+  var tx = null, ty = null, lastTouch = 0;
   $('#stage').addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
   $('#stage').addEventListener('touchend', function(e){
+    lastTouch = Date.now();
     if (tx == null || e.target.closest('.ctrl')) return;
     var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){ show(cur + (dx < 0 ? 1 : -1)); ui(); }
@@ -502,7 +503,7 @@
   });
   $('#stage').addEventListener('mousemove', ui);
   $('#stage').addEventListener('click', function(e){
-    if (('ontouchstart' in window) && e.pointerType !== 'mouse') return;
+    if (Date.now() - lastTouch < 800) return;              // ese toque ya lo manejó touchend
     if (e.target.closest('.ctrl')) return;
     if ($('#stage').classList.contains('ui')) togglePause();
     ui();
