@@ -65,6 +65,11 @@
   .stats b{ color:var(--ink); font-size:.92rem; }
   .map-legend .routes-btn{font-weight:700;border:1.5px dashed var(--ink-soft);padding:5px 11px;}
   .map-legend .routes-btn.on{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);}
+  a.trip-head{ text-decoration:none; color:var(--ink); }
+  .trip-head .go{ margin-left:auto; font-size:.78rem; font-weight:600; color:var(--ink-soft); white-space:nowrap; }
+  .tripchips{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:12px 0 0; }
+  .tripchips a{ display:inline-flex; align-items:center; gap:5px; font-size:.8rem; font-weight:600; color:var(--ink); text-decoration:none; background:var(--paper-2); border-radius:14px; padding:4px 10px 4px 8px; }
+  .tripchips i{ width:8px; height:8px; border-radius:50%; }
 </style>
 <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
 </head>
@@ -74,6 +79,7 @@
     <h1>Mis viajes por USA</h1>
     <p>45 lugares · elegí cómo quer&eacute;s explorarlos</p>
     <div class="stats"><span><b>7</b> viajes</span><span><b>15</b> estados</span><span><b>45</b> lugares</span><span><b>15.034</b> km</span></div>
+    <nav class="tripchips" aria-label="Los 7 viajes"><a href="/viajes/2012-miami-disney/"><i style="background:#d81b60"></i>2012</a><a href="/viajes/2012-nueva-york-boston/"><i style="background:#2ea043"></i>2012</a><a href="/viajes/2013-triangulo-dorado/"><i style="background:#e67e22"></i>2013</a><a href="/viajes/2016-palmeras-y-magnolias/"><i style="background:#2e7cf6"></i>2016</a><a href="/viajes/2018-gigantes-y-geiseres/"><i style="background:#dc322f"></i>2018</a><a href="/viajes/2019-miami-disney/"><i style="background:#17a2b8"></i>2019</a><a href="/viajes/2022-del-pacifico-al-gran-canon/"><i style="background:#f1c40f"></i>2022</a></nav>
   </header>
   </div>
 <script>
@@ -95,7 +101,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
   <main>
     <div class="view active" id="viewYear">
       <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#d81b60"></span>Disney & Miami Vibes <span class="yr">2012</span></div>
+      <a class="trip-head" href="/viajes/2012-miami-disney/"><span class="dot" style="background:#d81b60"></span>Disney & Miami Vibes <span class="yr">2012</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/2012md/t42ww8um/">
           <span class="num">1</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/01.jpg" alt="">
@@ -109,7 +115,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 
     </div>
 <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#2ea043"></span>La Ruta del Este <span class="yr">2012</span></div>
+      <a class="trip-head" href="/viajes/2012-nueva-york-boston/"><span class="dot" style="background:#2ea043"></span>La Ruta del Este <span class="yr">2012</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/2012ny/n7t349b3/">
           <span class="num">3</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/03.jpg" alt="">
@@ -123,7 +129,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 
     </div>
 <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#e67e22"></span>Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS <span class="yr">2013</span></div>
+      <a class="trip-head" href="/viajes/2013-triangulo-dorado/"><span class="dot" style="background:#e67e22"></span>Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS <span class="yr">2013</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/2013/yyzr6szr/">
           <span class="num">5</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/16.jpg" alt="">
@@ -192,7 +198,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 
     </div>
 <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#2e7cf6"></span>Palmeras y magnolias <span class="yr">2016</span></div>
+      <a class="trip-head" href="/viajes/2016-palmeras-y-magnolias/"><span class="dot" style="background:#2e7cf6"></span>Palmeras y magnolias <span class="yr">2016</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/trip2/zeusbujg/">
           <span class="num">18</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/44.jpg" alt="">
@@ -241,7 +247,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 
     </div>
 <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#dc322f"></span>Ruta de Gigantes y Géiseres, del Granito al Evergreen <span class="yr">2018</span></div>
+      <a class="trip-head" href="/viajes/2018-gigantes-y-geiseres/"><span class="dot" style="background:#dc322f"></span>Ruta de Gigantes y Géiseres, del Granito al Evergreen <span class="yr">2018</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/2018/uye2hff3/">
           <span class="num">27</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/23.jpg" alt="">
@@ -295,7 +301,7 @@ var im=new Image();im.alt='';im.decoding='async';im.src='/assets/cover/'+(ids[k]
 
     </div>
 <div class="trip-group">
-      <div class="trip-head"><span class="dot" style="background:#f1c40f"></span>Ruta de Gigantes: Del Pacífico al Gran Cañón <span class="yr">2022</span></div>
+      <a class="trip-head" href="/viajes/2022-del-pacifico-al-gran-canon/"><span class="dot" style="background:#f1c40f"></span>Ruta de Gigantes: Del Pacífico al Gran Cañón <span class="yr">2022</span><span class="go">Ver el viaje →</span></a>
       <a class="row" href="/2022/sf29r4j6/">
           <span class="num">37</span>
           <img class="th" loading="lazy" decoding="async" src="/assets/cover/34.jpg" alt="">

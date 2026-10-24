@@ -125,3 +125,5 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - 23/10: 2013 cargado con formato {auto:[...], avion:[[a,b],...]} (paradas con "avion": true en paradas-AAAA.json). Faltaría 2019 si se quiere.
 - 23/10: 2019 agregado como viaje en manifest.trips (color 17A2B8) y con su recorrido. Las 7 giras tienen ruta.
 - 23/10: botón de pantalla completa (⤢) en los mapas, con MVRoutes.fullscreen en rutas.js. En pantalla completa se puede arrastrar con un dedo y el «atrás» del teléfono la cierra.
+- 24/10: las fotos de galería pasaron a sm/*.webp (q82) y se borraron los sm/*.jpg. Las páginas piden la versión .webp y, si falla, usan el JPEG grande. El zoom sigue usando el JPEG de 2200 px. Para revertir, hacer git revert del commit «Fotos de galería en WebP».
+- 24/10: páginas por viaje en /viajes/<slug>/, generadas con _proyecto/herramientas/gen_viajes.py y la plantilla viaje.tpl.html. Los textos, km y estados están en META; las pestañas con fecha en SUBS; el orden dentro de un mismo día en TIE. El índice enlaza cada viaje desde «Ver el viaje →» y desde los chips de años.

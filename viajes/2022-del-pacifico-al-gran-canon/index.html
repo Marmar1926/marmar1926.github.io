@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/gate.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Ruta de Gigantes: Del Pacífico al Gran Cañón · 2022 — Mis viajes por USA</title>
+<meta property="og:title" content="Ruta de Gigantes: Del Pacífico al Gran Cañón · 2022">
+<meta property="og:description" content="Del Pacífico al desierto: el Gran Cañón, Horseshoe Bend, Antelope Canyon y Monument Valley, la Ruta 66 histórica por Williams, Seligman, Kingman y Oatman, Palm Springs, y el regreso a la costa con Malibú, Santa Bárbara y Universal Studios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/leaflet/leaflet.css">
+<style>
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --line:#D9CFB8; --c:#F1C40F; --ci:#B08600; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; } }
+  :root[data-theme="dark"]{ --paper:#1E1A14; --paper-2:#26211A; --ink:#EDE6D8; --ink-soft:#B9AF9D; --line:#3A3327; }
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3',sans-serif; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; }
+  .top{ max-width:640px; margin:0 auto; padding:14px 20px 0; }
+  .top a{ font-size:.85rem; font-weight:600; color:var(--ink-soft); text-decoration:none; }
+  .strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:3px; max-width:640px; margin:12px auto 0; }
+  .strip img{ width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+  .strip img:first-child{ border-radius:8px 0 0 8px; } .strip img:last-child{ border-radius:0 8px 8px 0; }
+  header{ max-width:640px; margin:0 auto; padding:22px 20px 0; }
+  .kicker{ display:flex; align-items:center; gap:8px; font-size:.78rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ci); margin:0 0 6px; }
+  .kicker i{ width:10px; height:10px; border-radius:50%; background:var(--c); }
+  h1{ font-family:'Playfair Display',serif; font-size:clamp(1.6rem,6vw,2.2rem); line-height:1.15; margin:0; text-wrap:balance; }
+  .when{ color:var(--ink-soft); margin:6px 0 0; font-size:.95rem; }
+  .intro{ font-size:1.05rem; line-height:1.65; margin:16px 0 0; }
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:20px 0 0; }
+  .stats div{ background:var(--paper-2); border-radius:8px; padding:10px 12px; }
+  .stats b{ display:block; font-size:1.35rem; font-variant-numeric:tabular-nums; color:var(--ci); }
+  .stats span{ font-size:.78rem; color:var(--ink-soft); }
+  .states{ font-size:.85rem; color:var(--ink-soft); margin:10px 0 0; }
+  section{ max-width:640px; margin:0 auto; padding:0 20px; }
+  h2{ font-family:'Caveat',cursive; font-size:1.9rem; font-weight:600; color:var(--ci); margin:34px 0 10px; }
+  #tmap{ height:min(60vh,440px); border-radius:8px; overflow:hidden; box-shadow:0 10px 26px rgba(43,38,32,.18); background:#E8E2D4; position:relative; z-index:0; }
+  .hm-pin{ width:24px; height:24px; border-radius:50%; color:#fff; font:700 11.5px 'Source Sans 3',sans-serif; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.4); }
+  .hm-pop{ font:14px 'Source Sans 3',sans-serif; line-height:1.35; } .hm-pop b{ display:block; } .hm-pop a{ font-weight:600; color:var(--ci); }
+  ol.tl{ list-style:none; margin:0; padding:0; position:relative; }
+  ol.tl::before{ content:""; position:absolute; left:23px; top:8px; bottom:8px; width:2px; background:var(--c); opacity:.45; }
+  ol.tl li a{ display:flex; align-items:center; gap:12px; padding:9px 0; text-decoration:none; position:relative; }
+  ol.tl .when{ width:48px; flex-shrink:0; margin:0; font-size:.78rem; font-weight:700; color:var(--ink); background:var(--paper); border:2px solid var(--c); border-radius:12px; text-align:center; padding:2px 0; position:relative; font-variant-numeric:tabular-nums; }
+  ol.tl img{ width:64px; height:48px; object-fit:cover; border-radius:5px; flex-shrink:0; box-shadow:0 1px 4px rgba(0,0,0,.18); background:var(--paper-2); }
+  ol.tl .tx{ display:flex; flex-direction:column; min-width:0; }
+  ol.tl b{ font-size:.98rem; } ol.tl small{ font-size:.8rem; color:var(--ink-soft); }
+  .pn{ max-width:640px; margin:36px auto 0; padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .pn a{ display:flex; flex-direction:column; gap:2px; padding:12px; border-radius:10px; background:var(--paper-2); text-decoration:none; min-width:0; }
+  .pn a.nx{ text-align:right; align-items:flex-end; }
+  .pn small{ font-size:.7rem; letter-spacing:.8px; text-transform:uppercase; color:var(--ink-soft); }
+  .pn b{ display:flex; align-items:center; gap:6px; font-size:.92rem; } .pn i{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .pn span{ font-size:.8rem; color:var(--ink-soft); }
+  footer{ max-width:640px; margin:40px auto 0; padding:20px 20px 40px; border-top:1px solid var(--line); text-align:center; color:var(--ink-soft); font-size:.82rem; }
+  footer a{ font-weight:600; }
+</style>
+</head>
+<body>
+<div class="top"><a href="/">← Índice</a></div>
+<div class="strip"><img src="/assets/cover/34.jpg" alt=""><img src="/assets/cover/29.jpg" alt=""><img src="/assets/cover/32.jpg" alt=""><img src="/assets/cover/30.jpg" alt=""></div>
+<header>
+  <p class="kicker"><i></i>Viaje 7 de 7 · 2022</p>
+  <h1>Ruta de Gigantes: Del Pacífico al Gran Cañón</h1>
+  <p class="when">Octubre y noviembre de 2022 · Del 24 de octubre al 9 de noviembre de 2022</p>
+  <p class="intro">Del Pacífico al desierto: el Gran Cañón, Horseshoe Bend, Antelope Canyon y Monument Valley, la Ruta 66 histórica por Williams, Seligman, Kingman y Oatman, Palm Springs, y el regreso a la costa con Malibú, Santa Bárbara y Universal Studios.</p>
+  <div class="stats">
+    <div><b>2.260</b><span>km recorridos</span></div>
+    <div><b>12</b><span>lugares del mural</span></div>
+    <div><b>3</b><span>estados</span></div>
+  </div>
+  <p class="states">California · Arizona · Utah</p>
+</header>
+<section>
+  <h2>El recorrido</h2>
+  <div id="tmap"></div>
+  <h2>Día por día</h2>
+  <ol class="tl">
+<li><a href="/2022/sf29r4j6/"><span class="when">24/10</span><img loading="lazy" src="/assets/cover/34.jpg" alt=""><span class="tx"><b>Grand Canyon</b><small>South Rim, Arizona · #37</small></span></a></li>
+<li><a href="/2022/b4tqncq9/"><span class="when">25/10</span><img loading="lazy" src="/assets/cover/29.jpg" alt=""><span class="tx"><b>Horseshoe Bend</b><small>Arizona · #39</small></span></a></li>
+<li><a href="/2022/pseyp8vu/"><span class="when">25/10</span><img loading="lazy" src="/assets/cover/32.jpg" alt=""><span class="tx"><b>Antelope Canyon</b><small>Arizona · #38</small></span></a></li>
+<li><a href="/2022/chkhrqx3/"><span class="when">26/10</span><img loading="lazy" src="/assets/cover/30.jpg" alt=""><span class="tx"><b>Monument Valley</b><small>Utah · #40</small></span></a></li>
+<li><a href="/2022/s8y5zw2w/"><span class="when">27/10</span><img loading="lazy" src="/assets/cover/33.jpg" alt=""><span class="tx"><b>Flagstaff</b><small>Arizona · #43</small></span></a></li>
+<li><a href="/2022/s8y5zw2w/"><span class="when">27/10</span><img loading="lazy" src="/assets/cover/33.jpg" alt=""><span class="tx"><b>★ Williams</b><small>Arizona, Ruta 66 · #43</small></span></a></li>
+<li><a href="/2022/32kch4zp/"><span class="when">28/10</span><img loading="lazy" src="/assets/cover/27.jpg" alt=""><span class="tx"><b>Seligman</b><small>Arizona · #42</small></span></a></li>
+<li><a href="/2022/e5c72jw2/"><span class="when">28/10</span><img loading="lazy" src="/assets/cover/31.jpg" alt=""><span class="tx"><b>Kingman</b><small>Arizona · #41</small></span></a></li>
+<li><a href="/2022/e5c72jw2/"><span class="when">28/10</span><img loading="lazy" src="/assets/cover/31.jpg" alt=""><span class="tx"><b>★ Oatman</b><small>Arizona, Ruta 66 · #41</small></span></a></li>
+<li><a href="/2013/fprphxqb/"><span class="when">05/11</span><img loading="lazy" src="/assets/cover/10.jpg" alt=""><span class="tx"><b>Santa Mónica</b><small>California · #8</small></span></a></li>
+<li><a href="/2022/9hnfu8kc/"><span class="when">05/11</span><img loading="lazy" src="/assets/cover/28.jpg" alt=""><span class="tx"><b>Malibu</b><small>California · #44</small></span></a></li>
+<li><a href="/2018/xhqeq3hg/"><span class="when">06/11</span><img loading="lazy" src="/assets/cover/25.jpg" alt=""><span class="tx"><b>Santa Barbara</b><small>California · #35</small></span></a></li>
+<li><a href="/2022/t3yh5c8d/"><span class="when">07/11</span><img loading="lazy" src="/assets/cover/35.jpg" alt=""><span class="tx"><b>Universal Studios</b><small>Burbank, California · #45</small></span></a></li>
+<li><a href="/2013/9y43778h/"><span class="when">09/11</span><img loading="lazy" src="/assets/cover/07.jpg" alt=""><span class="tx"><b>Los Angeles</b><small>California · #7</small></span></a></li>
+  </ol>
+</section>
+<nav class="pn"><a class="pv" href="/viajes/2019-miami-disney/"><small>← Viaje anterior</small><b><i style="background:#17A2B8"></i>Miami - Disney</b><span>2019</span></a><span></span></nav>
+<footer>Mis viajes por USA · <a href="/">Ver los 45 lugares en el índice</a></footer>
+<script src="/assets/leaflet/leaflet.js"></script>
+<script src="/assets/leaflet/leaflet.polylineoffset.js"></script>
+<script src="/assets/places.js?v=10"></script>
+<script src="/assets/rutas.js?v=10"></script>
+<script>
+(function(){
+  var K = '2022', D = window.PLACES;
+  if (!window.L || !D) return;
+  var touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  var map = L.map('tmap', { scrollWheelZoom: false, dragging: !touch, tap: false, zoomSnap: 0.5 });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap' }).addTo(map);
+  var c = (D.trips[K] || {}).color || '#888', pts = [];
+  D.places.forEach(function(p){
+    var v = (p.visits || []).filter(function(v){ return v.trip === K; })[0];
+    if (!v) return;
+    pts.push([p.lat, p.lng]);
+    var dark = /f1c40f/i.test(c);
+    L.marker([p.lat, p.lng], { icon: L.divIcon({ className: '', iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [0, -12],
+      html: '<div class="hm-pin" style="background:' + c + (dark ? ';color:#2B2620' : '') + '">' + p.n + '</div>' }) })
+      .bindPopup('<div class="hm-pop"><b>#' + p.n + ' · ' + p.name + '</b>' + (v.date || '') + '<br><a href="' + p.url + '">Ver la página →</a></div>')
+      .addTo(map);
+  });
+  map.invalidateSize();
+  if (pts.length) map.fitBounds(pts, { padding: [30, 30], maxZoom: 9 }); else map.setView([38, -97], 4);
+  if (window.MVRoutes) {
+    MVRoutes.get(K).then(function(data){
+      var r = MVRoutes.tripLayer(K, data, c, 3.5); r.group.addTo(map);
+      if (r.pts.length) { map.invalidateSize(); map.fitBounds(L.latLngBounds(r.pts), { padding: [28, 28] }); }
+    }).catch(function(){});
+    if (MVRoutes.fullscreen) MVRoutes.fullscreen(map, document.getElementById('tmap'), document.getElementById('tmap'), touch);
+  }
+})();
+</script>
+</body>
+</html>
