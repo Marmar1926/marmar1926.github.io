@@ -141,7 +141,7 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 7.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 8.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -388,13 +388,13 @@
     return el;
   }
   // ubica la foto centrada, entera (o llenando la pantalla si su forma es parecida), sin deformarla
-  // horizontales: llenan toda la pantalla; verticales: enteras, con el fondo difuminado a los costados
+  // las fotos se ven siempre enteras, sobre el fondo difuminado de la misma foto
   function fitMedia(el, ratio){
     var st = $('#stage'), W = st.clientWidth || window.innerWidth, H = st.clientHeight || window.innerHeight;
-    var cover = ratio < 1, w = W, h = W * ratio;
-    if (cover ? h < H : h > H){ h = H; w = H / ratio; }
-    var bl = el.parentNode && el.parentNode.querySelector('.blur');
-    if (bl) bl.style.visibility = cover ? 'hidden' : 'visible';
+    // horizontales: enteras, con un margen alrededor (el acercamiento lento no llega a cortarlas)
+    var m = ratio < 1 ? 0.86 : 1, w = W * m, h = w * ratio;
+    if (h > H * m){ h = H * m; w = h / ratio; }
+    el.style.boxShadow = m < 1 ? '0 1vh 5vh rgba(0,0,0,.6)' : 'none';
     el.style.width = Math.round(w) + 'px'; el.style.height = Math.round(h) + 'px';
     el.style.left = Math.round((W - w) / 2) + 'px'; el.style.top = Math.round((H - h) / 2) + 'px';
   }
