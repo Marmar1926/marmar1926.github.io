@@ -365,7 +365,7 @@
     L1.querySelector('.blur').style.backgroundImage = 'url("' + p.src + '")';
     var el;
     if (p.video){
-      el = document.createElement('video'); el.src = p.video; el.poster = p.src; el.muted = true; el.playsInline = true; el.autoplay = true;
+      el = document.createElement('video'); el.src = p.video; el.poster = p.src; el.muted = false; el.volume = 1; el.playsInline = true; el.autoplay = true; el.preload = 'auto';
     } else {
       el = document.createElement('img'); el.src = p.src; el.alt = '';
       // movimiento lento de cámara: acercamiento o desplazamiento suave (con transición, funciona en navegadores viejos)
@@ -431,6 +431,7 @@
     if (i < 0) i = 0;
     if (i >= S.length){ exit(); return; }
     cur = i; clearTimeout(timer);
+    each('.layer video', function(v){ try { v.pause(); v.muted = true; } catch (e) {} });
     var sl = S[i], t = sl.trip, c = ink(t.color), dur = speed * 1000;
     paint(c);
     $('#hudt').textContent = t.label.split(',')[0] + ' · ' + t.year + (sl.stop ? ' · ' + sl.stop.name : '');
@@ -461,8 +462,18 @@
       hideCard();
       var el = photoLayer(sl.p); caption(sl);
       if (sl.t === 'video'){
-        dur = 45000;
-        el.addEventListener('ended', function(){ if (S[cur] === sl && !paused) show(cur + 1); });
+        // el video se ve completo y con sonido: se pasa a la foto siguiente cuando termina
+        dur = 0;
+        var mine = function(){ return S[cur] === sl; };
+        el.addEventListener('ended', function(){ if (mine() && !paused) show(cur + 1); });
+        el.addEventListener('error', function(){ if (mine() && !paused){ clearTimeout(timer); timer = setTimeout(function(){ show(cur + 1); }, 2500); } });
+        // por si el video se traba: se espera lo que dura más un margen
+        el.addEventListener('loadedmetadata', function(){ if (mine() && !paused && el.duration > 0 && isFinite(el.duration)){ clearTimeout(timer); timer = setTimeout(function(){ if (mine() && !paused) show(cur + 1); }, el.duration * 1000 + 15000); } });
+        try {
+          var pr = el.play();
+          // navegadores que no dejan arrancar con sonido: se arranca sin sonido y se avisa
+          if (pr && pr.catch) pr.catch(function(){ el.muted = true; try { var p2 = el.play(); if (p2 && p2.catch) p2.catch(function(){}); } catch (e) {} toast('🔇 Tocá ⏸ y ▶ para activar el sonido'); });
+        } catch (e) {}
       }
       preload(i);
     } else if (sl.t === 'end'){
@@ -473,7 +484,7 @@
         '<p class="txt">' + (nxt ? 'A continuación: ' + esc(nxt.trip.label) + ' · ' + nxt.trip.year : 'Gracias por mirar · Mis viajes por USA') + '</p></div>', lastP, t.color);
       dur = 8000;
     }
-    if (!paused) timer = setTimeout(function(){ show(cur + 1); }, dur);
+    if (!paused && dur) timer = setTimeout(function(){ show(cur + 1); }, dur);
   }
   function preload(i){
     S.slice(i + 1, i + 4).forEach(function(x){ if (x.p && !x.p.video){ var im = new Image(); im.src = x.p.src; } });
@@ -488,6 +499,7 @@
   }
   function exit(){
     clearTimeout(timer); S = []; cur = -1;
+    each('.layer video', function(v){ try { v.pause(); } catch (e) {} });
     $('#stage').classList.remove('on'); hidePhotos(); hideCard(); caption(null); $('#map').classList.remove('show');
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
     if (wake){ try { wake.release(); } catch (e) {} wake = null; }
@@ -501,8 +513,13 @@
     var im = document.querySelector('.layer.show img');
     if (im && paused){ var tf = getComputedStyle(im).transform || getComputedStyle(im).webkitTransform; im.style.webkitTransition = im.style.transition = 'none'; im.style.webkitTransform = im.style.transform = tf; }
     var v = document.querySelector('.layer.show video');
-    if (v){ paused ? v.pause() : v.play(); }
     toast(paused ? '⏸ En pausa' : '▶ Continúa');
+    if (v){
+      // con un video, la pausa lo detiene y al seguir continúa desde donde estaba (y con sonido)
+      clearTimeout(timer);
+      if (paused) v.pause(); else { v.muted = false; try { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {} }
+      return;
+    }
     if (paused) clearTimeout(timer); else show(cur + 1);
   }
   function setSpeed(d){
