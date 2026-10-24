@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/gate.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Presentación — Mis viajes por USA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Caveat:wght@600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/leaflet/leaflet.css">
+<style>
+  :root{ --paper:#F7F2E7; --paper-2:#EFE7D6; --ink:#2B2620; --ink-soft:#6B6255; --line:#D9CFB8; --c:#DC322F; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{ background:#0E0C0A; color:#F4EEE3; font-family:'Source Sans 3',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  button{ font:inherit; color:inherit; }
+
+  /* ---------- pantalla de inicio ---------- */
+  #start{ min-height:100%; padding:max(28px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 40px max(20px,env(safe-area-inset-left)); max-width:1180px; margin:0 auto; }
+  #start .back{ color:#B9AF9D; text-decoration:none; font-weight:600; font-size:.95rem; }
+  #start h1{ font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(2rem,5vw,3.4rem); margin:18px 0 4px; }
+  #start .lead{ color:#B9AF9D; font-size:clamp(1rem,1.8vw,1.25rem); margin:0 0 22px; max-width:60ch; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+  .trip{ position:relative; display:block; border:3px solid transparent; border-radius:14px; overflow:hidden; aspect-ratio:16/10; background:#26211A; cursor:pointer; padding:0; text-align:left; }
+  .trip img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.75; transition:transform .4s, opacity .3s; }
+  .trip span{ position:absolute; left:0; right:0; bottom:0; padding:30px 14px 12px; background:linear-gradient(transparent,rgba(0,0,0,.85)); }
+  .trip b{ display:block; font-size:1.15rem; line-height:1.2; }
+  .trip small{ display:flex; align-items:center; gap:6px; font-size:.85rem; color:#E2D9C9; margin-top:2px; }
+  .trip i{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .trip.on{ border-color:#fff; } .trip.on img{ opacity:1; }
+  .trip:focus-visible, .opt:focus-visible, #go:focus-visible{ outline:4px solid #FCDE5A; outline-offset:3px; }
+  .trip:hover img, .trip:focus img{ transform:scale(1.05); opacity:1; }
+  .opts{ display:flex; flex-wrap:wrap; gap:22px; margin:26px 0 0; align-items:flex-end; }
+  .opts fieldset{ border:none; margin:0; padding:0; }
+  .opts legend{ font-size:.85rem; color:#B9AF9D; margin-bottom:6px; letter-spacing:.6px; text-transform:uppercase; }
+  .opt{ background:#26211A; border:2px solid #3A3327; border-radius:22px; padding:9px 16px; cursor:pointer; font-weight:600; }
+  .opt.on{ background:#F4EEE3; color:#2B2620; border-color:#F4EEE3; }
+  #go{ margin-left:auto; background:#FCDE5A; color:#2B2620; border:none; border-radius:30px; padding:14px 30px; font-size:1.25rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  #go small{ font-weight:600; font-size:.85rem; opacity:.75; }
+  .tips{ color:#8F8676; font-size:.9rem; margin-top:26px; line-height:1.6; }
+  .tips b{ color:#C9C0AF; }
+
+  /* ---------- escenario ---------- */
+  #stage{ position:fixed; inset:0; background:#000; overflow:hidden; display:none; cursor:none; }
+  #stage.on{ display:block; }
+  #stage.ui{ cursor:default; }
+  .layer{ position:absolute; inset:0; opacity:0; transition:opacity 1.1s ease; }
+  .layer.show{ opacity:1; }
+  .layer .blur{ position:absolute; inset:-40px; background-size:cover; background-position:center; filter:blur(28px) brightness(.45) saturate(1.2); transform:scale(1.1); }
+  .layer img, .layer video{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; transform-origin:center; }
+  .layer img.cover{ object-fit:cover; }
+  @keyframes kb{ from{ transform:scale(var(--s0)) translate(var(--x0),var(--y0)); } to{ transform:scale(var(--s1)) translate(var(--x1),var(--y1)); } }
+  .layer img.kb{ animation:kb var(--d) linear both; }
+  #stage.paused .layer img.kb{ animation-play-state:paused; }
+
+  .cap{ position:absolute; left:0; right:0; bottom:0; padding:12vh max(5vw,env(safe-area-inset-left)) max(5.5vh,env(safe-area-inset-bottom)); background:linear-gradient(transparent,rgba(0,0,0,.78) 45%); opacity:0; transform:translateY(14px); transition:opacity .8s ease .5s, transform .8s ease .5s; pointer-events:none; }
+  .cap.show{ opacity:1; transform:none; }
+  .cap p{ margin:0; max-width:78ch; font-size:clamp(15px,3vh,36px); line-height:1.38; text-shadow:0 2px 10px rgba(0,0,0,.6); }
+  .cap.long p{ font-size:clamp(14px,2.45vh,30px); }
+  .cap .where{ display:flex; align-items:center; gap:10px; font-size:clamp(12px,1.9vh,22px); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#FCDE5A; margin:0 0 .6vh; }
+  .cap .where i{ width:1.4vh; height:1.4vh; min-width:9px; min-height:9px; border-radius:50%; background:var(--c); }
+
+  .card{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:6vh 7vw; opacity:0; transition:opacity .9s ease; pointer-events:none; }
+  .card.show{ opacity:1; }
+  .card .bgc{ position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(.32) saturate(1.1); transform:scale(1.08); animation:kb2 14s ease-out both; }
+  @keyframes kb2{ from{ transform:scale(1.18); } to{ transform:scale(1.04); } }
+  .card .in{ position:relative; max-width:1100px; }
+  .card .kick{ display:flex; align-items:center; gap:1.2vh; font-weight:700; letter-spacing:.35vh; text-transform:uppercase; color:var(--c); font-size:clamp(12px,2.2vh,26px); }
+  .card .kick i{ width:1.8vh; height:1.8vh; min-width:10px; min-height:10px; border-radius:50%; background:var(--c); }
+  .card h2{ font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(34px,10vh,130px); line-height:1.02; margin:1.4vh 0 1.6vh; text-wrap:balance; }
+  .card .meta{ font-size:clamp(15px,3.2vh,38px); color:#E8DFCF; margin:0; }
+  .card .txt{ font-size:clamp(14px,2.7vh,32px); line-height:1.5; color:#E8DFCF; max-width:62ch; margin:2.4vh 0 0; }
+  .card .chips{ display:flex; flex-wrap:wrap; gap:1.6vh; margin-top:3.4vh; }
+  .card .chips div{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:1.4vh; padding:1.4vh 2.2vh; }
+  .card .chips b{ display:block; font-size:clamp(20px,5.2vh,62px); line-height:1; color:#FCDE5A; font-variant-numeric:tabular-nums; }
+  .card .chips span{ font-size:clamp(11px,1.9vh,22px); color:#D7CDBB; }
+  .card.show h2{ animation:drop .9s cubic-bezier(.3,.7,.4,1) .25s both; }
+  .card.show .kick{ animation:fade .8s ease .1s both; }
+  .card.show .meta, .card.show .txt, .card.show .chips{ animation:fade .9s ease .9s both; }
+  @keyframes drop{ 0%{ transform:scale(1.6); opacity:0; } 60%{ transform:scale(.97); opacity:1; } 100%{ transform:none; opacity:1; } }
+  @keyframes fade{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+  .stamp{ position:absolute; right:7vw; top:9vh; width:22vh; height:22vh; min-width:110px; min-height:110px; border-radius:50%; border:.6vh solid var(--c); outline:.3vh dashed var(--c); outline-offset:-1.6vh; color:var(--c); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-weight:700; text-transform:uppercase; letter-spacing:.2vh; background:rgba(247,242,231,.92); transform:rotate(-12deg); }
+  .stamp b{ font-size:clamp(16px,4.2vh,50px); letter-spacing:0; line-height:1.05; } .stamp span{ font-size:clamp(9px,1.6vh,18px); max-width:80%; line-height:1.15; }
+  .card.show .stamp{ animation:stampIn .6s ease-out 1.4s both; }
+  @keyframes stampIn{ from{ transform:rotate(-12deg) scale(2.4); opacity:0; } to{ transform:rotate(-12deg) scale(1); opacity:1; } }
+
+  #map{ position:absolute; inset:0; opacity:0; transition:opacity .9s ease; background:#E8E2D4; }
+  #map.show{ opacity:1; }
+  #map .leaflet-control-attribution{ font-size:10px; }
+  .mlabel{ position:absolute; left:50%; top:max(5vh,env(safe-area-inset-top)); transform:translateX(-50%); z-index:500; background:rgba(14,12,10,.82); color:#fff; border-radius:3vh; padding:1.2vh 3vh; font-size:clamp(14px,3vh,34px); font-weight:700; white-space:nowrap; display:flex; align-items:center; gap:1.4vh; opacity:0; transition:opacity .6s; }
+  #map.show .mlabel{ opacity:1; }
+  .mlabel i{ width:1.6vh; height:1.6vh; min-width:9px; min-height:9px; border-radius:50%; background:var(--c); }
+  .pulse{ width:22px; height:22px; border-radius:50%; background:var(--c); border:3px solid #fff; box-shadow:0 0 0 0 var(--c); animation:pulse 1.4s ease-out infinite; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(255,255,255,.9); } 100%{ box-shadow:0 0 0 26px rgba(255,255,255,0); } }
+  .dotm{ width:12px; height:12px; border-radius:50%; background:var(--c); border:2px solid #fff; }
+
+  .hud{ position:absolute; left:max(3vw,env(safe-area-inset-left)); top:max(3vh,env(safe-area-inset-top)); display:flex; align-items:center; gap:10px; background:rgba(0,0,0,.45); border-radius:20px; padding:6px 14px; font-size:clamp(11px,1.8vh,20px); font-weight:600; opacity:0; transition:opacity .5s; z-index:600; }
+  .hud i{ width:10px; height:10px; border-radius:50%; background:var(--c); }
+  #stage.ui .hud{ opacity:1; }
+  .bar{ position:absolute; left:0; bottom:0; height:4px; background:var(--c); width:0; z-index:600; opacity:.85; transition:width .6s ease; }
+  .ctrl{ position:absolute; right:max(3vw,env(safe-area-inset-right)); top:max(3vh,env(safe-area-inset-top)); display:flex; gap:12px; z-index:700; opacity:0; pointer-events:none; transition:opacity .4s; }
+  #stage.ui .ctrl{ opacity:1; pointer-events:auto; }
+  .ctrl button{ width:clamp(46px,8vh,84px); height:clamp(46px,8vh,84px); border-radius:50%; border:none; background:rgba(255,255,255,.16); backdrop-filter:blur(6px); color:#fff; font-size:clamp(18px,3.4vh,36px); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .ctrl button:focus-visible{ outline:3px solid #FCDE5A; }
+  .toast{ position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); background:rgba(0,0,0,.72); border-radius:2vh; padding:2vh 4vh; font-size:clamp(16px,3.4vh,40px); font-weight:700; opacity:0; transition:opacity .3s; z-index:800; pointer-events:none; }
+  .toast.show{ opacity:1; }
+  @media (prefers-reduced-motion: reduce){ .layer img.kb, .card .bgc, .pulse{ animation:none!important; } }
+</style>
+</head>
+<body>
+<div id="start">
+  <a class="back" href="/">← Volver al sitio</a>
+  <h1>Presentación de los viajes</h1>
+  <p class="lead">Elegí un viaje y mirá el recorrido día por día: el mapa, cada lugar y sus fotos, pasando solos. Ideal para el televisor.</p>
+  <div class="grid" id="trips"></div>
+  <div class="opts">
+    <fieldset id="mode"><legend>Duración</legend>
+      <button class="opt on" data-v="corta">Resumida</button>
+      <button class="opt" data-v="larga">Completa</button>
+    </fieldset>
+    <fieldset id="speed"><legend>Velocidad</legend>
+      <button class="opt" data-v="10">Lenta</button>
+      <button class="opt on" data-v="7">Normal</button>
+      <button class="opt" data-v="5">Rápida</button>
+    </fieldset>
+    <button id="go">▶ Comenzar <small id="dur"></small></button>
+  </div>
+  <p class="tips"><b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
+</div>
+
+<div id="stage" aria-live="polite">
+  <div class="layer" id="la"><div class="blur"></div></div>
+  <div class="layer" id="lb"><div class="blur"></div></div>
+  <div id="map"><div class="mlabel"><i></i><span></span></div></div>
+  <div class="card" id="card"></div>
+  <div class="cap" id="cap"><div class="where"><i></i><span></span></div><p></p></div>
+  <div class="hud"><i></i><span id="hudt"></span></div>
+  <div class="ctrl">
+    <button id="bprev" aria-label="Anterior">⏮</button>
+    <button id="bplay" aria-label="Pausar">⏸</button>
+    <button id="bnext" aria-label="Siguiente">⏭</button>
+    <button id="bexit" aria-label="Salir">✕</button>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="bar" id="bar"></div>
+</div>
+
+<script src="/assets/leaflet/leaflet.js"></script>
+<script src="/assets/rutas.js?v=10"></script>
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  function fecha(d){ var p = d.split('/'); return (+p[0]) + ' de ' + MESES[+p[1] - 1] + ' de ' + p[2]; }
+  function ink(c){ return /f1c40f/i.test(c) ? '#E8B400' : c; }
+  var qs = new URLSearchParams(location.search);
+  var INDEX = [], sel = qs.get('viaje') || '', mode = 'corta', speed = 7, LUGAR = qs.get('lugar');
+
+  /* ---------- inicio ---------- */
+  fetch('data/index.json').then(function(r){ return r.json(); }).then(function(list){
+    INDEX = list;
+    var g = $('#trips');
+    var all = { key: 'todos', slug: 'todos', label: 'Todos los viajes', year: '2012 – 2022', color: '#FCDE5A', cover: list[list.length - 1].cover, fotos: list.reduce(function(s, t){ return s + t.fotos; }, 0) };
+    list.concat([all]).forEach(function(t){
+      var b = document.createElement('button'); b.className = 'trip'; b.dataset.k = t.key;
+      b.innerHTML = '<img alt="" loading="lazy" src="' + t.cover.replace(/([^/]+)\.jpe?g$/i, 'sm/$1.webp') + '"><span><b></b><small><i style="background:' + t.color + '"></i>' + t.year + ' · ' + t.fotos + ' fotos</small></span>';
+      b.querySelector('b').textContent = t.label.split(',')[0];
+      b.onclick = function(){ pick(t.key); };
+      g.appendChild(b);
+    });
+    var bySlug = list.filter(function(t){ return t.slug === sel || t.key === sel; })[0];
+    pick(bySlug ? bySlug.key : list[list.length - 1].key);
+    if (LUGAR) { $('#start').style.display = 'none'; startLugar(LUGAR); }
+    else setTimeout(function(){ $('#go').focus(); }, 50);
+  });
+  function pick(k){ sel = k; document.querySelectorAll('.trip').forEach(function(b){ b.classList.toggle('on', b.dataset.k === k); }); estimate(); }
+  document.querySelectorAll('#mode .opt').forEach(function(b){ b.onclick = function(){ mode = b.dataset.v; on('#mode', b); estimate(); }; });
+  document.querySelectorAll('#speed .opt').forEach(function(b){ b.onclick = function(){ speed = +b.dataset.v; on('#speed', b); estimate(); }; });
+  function on(fs, b){ document.querySelectorAll(fs + ' .opt').forEach(function(x){ x.classList.toggle('on', x === b); }); }
+  function estimate(){
+    var ts = sel === 'todos' ? INDEX : INDEX.filter(function(t){ return t.key === sel; });
+    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 8.5 + 19; }, 0);
+    $('#dur').textContent = '· unos ' + Math.max(1, Math.round(secs / 60)) + ' min';
+  }
+  $('#go').onclick = function(){ startTrips(sel === 'todos' ? INDEX.map(function(t){ return t.key; }) : [sel]); };
+
+  // flechas del control remoto en la pantalla de inicio
+  document.addEventListener('keydown', function(e){
+    if ($('#stage').classList.contains('on')) return;
+    var f = Array.prototype.slice.call(document.querySelectorAll('#start .trip, #start .opt, #go'));
+    var i = f.indexOf(document.activeElement);
+    if (['ArrowRight','ArrowDown'].indexOf(e.key) >= 0){ e.preventDefault(); f[(i + 1 + f.length) % f.length].focus(); }
+    if (['ArrowLeft','ArrowUp'].indexOf(e.key) >= 0){ e.preventDefault(); f[(i - 1 + f.length) % f.length].focus(); }
+  });
+
+  /* ---------- armado de la secuencia ---------- */
+  var S = [], cur = -1, timer = null, paused = false, wake = null, TR = {}, maps = {};
+  function load(k){ return fetch('data/' + k + '.json').then(function(r){ return r.json(); }); }
+  function pickPhotos(ph){
+    if (mode !== 'corta' || ph.length <= 6) return ph;
+    var out = [], step = ph.length / 6;
+    for (var i = 0; i < 6; i++) out.push(ph[Math.floor(i * step)]);
+    return out;
+  }
+  function build(trips){
+    var seq = [];
+    trips.forEach(function(t){
+      seq.push({ t: 'intro', trip: t });
+      var prev = null;
+      t.stops.forEach(function(s, i){
+        if (!prev || d2([prev.lat, prev.lng], [s.lat, s.lng]) > 0.08) seq.push({ t: 'hop', trip: t, i: i });   // solo si hay más de ~30 km
+        seq.push({ t: 'place', trip: t, stop: s });
+        pickPhotos(s.photos).forEach(function(p){ seq.push({ t: p.video ? 'video' : 'photo', trip: t, stop: s, p: p }); });
+        prev = s;
+      });
+      seq.push({ t: 'end', trip: t });
+    });
+    return seq;
+  }
+  function startTrips(keys){
+    Promise.all(keys.map(load)).then(function(trips){
+      trips.forEach(function(t){ TR[t.key] = t; });
+      Promise.all(trips.map(prepRoute)).then(function(){ window.__mvTrips = trips; run(build(trips)); });
+    });
+  }
+  function startLugar(url){
+    Promise.all(INDEX.map(function(t){ return load(t.key); })).then(function(trips){
+      var seq = [];
+      trips.forEach(function(t){
+        t.stops.forEach(function(s){
+          if (s.url.split('#')[0] !== url) return;
+          seq.push({ t: 'place', trip: t, stop: s });
+          s.photos.forEach(function(p){ seq.push({ t: p.video ? 'video' : 'photo', trip: t, stop: s, p: p }); });
+        });
+      });
+      mode = 'larga';
+      if (seq.length) run(seq); else location.href = url;
+    });
+  }
+
+  /* ---------- recorrido en el mapa ---------- */
+  var MAP = null, drawn = null, pulse = null;
+  function d2(a, b){ var x = (a[1] - b[1]) * Math.cos(a[0] * Math.PI / 180), y = a[0] - b[0]; return x * x + y * y; }
+  function prepRoute(t){
+    if (!window.MVRoutes) return Promise.resolve();
+    return MVRoutes.get(t.key).then(function(data){
+      var segs = [];
+      if (Array.isArray(data)) segs.push({ pts: data, fly: false });
+      else {
+        var A = data.auto || [], F = data.avion || [];
+        for (var i = 0; i < Math.max(A.length, F.length); i++){
+          if (A[i]) segs.push({ pts: A[i], fly: false });
+          if (F[i]) segs.push({ pts: MVRoutes.flight(F[i][0], F[i][1], t.color, 3).pts, fly: true });
+        }
+      }
+      var all = [], kind = [];
+      segs.forEach(function(s){ s.pts.forEach(function(p){ all.push(p); kind.push(s.fly); }); });
+      // índice del recorrido donde queda cada parada, avanzando siempre hacia adelante
+      var last = 0;
+      t.stops.forEach(function(s){
+        var p = [s.lat, s.lng], best = -1;
+        for (var i = last; i < all.length; i++){
+          if (d2(all[i], p) < 0.005){                      // primera pasada a menos de ~8 km...
+            while (i + 1 < all.length && d2(all[i + 1], p) <= d2(all[i], p)) i++;   // ...hasta el punto más cercano
+            best = i; break;
+          }
+        }
+        if (best < 0){                                     // si no pasa tan cerca, el punto más cercano a menos de ~30 km
+          for (var j = last; j < all.length; j++){
+            if (d2(all[j], p) < 0.09){ while (j + 1 < all.length && d2(all[j + 1], p) <= d2(all[j], p)) j++; best = j; break; }
+          }
+        }
+        // si el recorrido no pasa cerca (por ejemplo, un lugar visitado a pie), no se avanza
+        s._ri = best < 0 ? last : best; last = s._ri;
+      });
+      t._route = { all: all, fly: kind };
+    }).catch(function(){});
+  }
+  function ensureMap(){
+    if (MAP) return;
+    MAP = L.map('map', { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, touchZoom: false, zoomSnap: 0.25, fadeAnimation: true });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap' }).addTo(MAP);
+  }
+  function drawUpTo(t, upto, color){
+    var R = t._route; if (!R) return;
+    if (drawn) MAP.removeLayer(drawn);
+    drawn = L.layerGroup().addTo(MAP);
+    var run = [], fly = R.fly[0];
+    function flush(){ if (run.length > 1){
+      drawn.addLayer(L.polyline(run, { color: '#fff', weight: 9, opacity: .8, dashArray: fly ? '2 10' : null, lineCap: 'round' }));
+      drawn.addLayer(L.polyline(run, { color: color, weight: 5, opacity: 1, dashArray: fly ? '2 10' : null, lineCap: 'round' })); } }
+    for (var i = 0; i <= upto && i < R.all.length; i++){
+      if (R.fly[i] !== fly){ flush(); run = run.length ? [run[run.length - 1]] : []; fly = R.fly[i]; }
+      run.push(R.all[i]);
+    }
+    flush();
+  }
+  function hop(sl, dur){
+    ensureMap();
+    var t = sl.trip, s = t.stops[sl.i], R = t._route, c = ink(t.color);
+    $('#map').style.setProperty('--c', c);
+    $('#map .mlabel span').textContent = s.name;
+    var prevI = 0;
+    for (var k = sl.i - 1; k >= 0; k--){ if (t.stops[k]._ri != null){ prevI = t.stops[k]._ri; break; } }
+    var target = Math.max(s._ri != null ? s._ri : prevI, sl.i === 0 ? 0 : prevI);
+    var from = sl.i === 0 ? 0 : prevI;
+    var pts = R ? R.all.slice(Math.min(from, target), Math.max(from, target) + 1) : [];
+    pts.push([s.lat, s.lng]);
+    setTimeout(function(){ MAP.invalidateSize(); MAP.fitBounds(L.latLngBounds(pts), { padding: [80, 80], maxZoom: 9, animate: false }); }, 30);
+    if (pulse) MAP.removeLayer(pulse);
+    pulse = L.marker([s.lat, s.lng], { icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11], html: '<div class="pulse" style="background:' + c + '"></div>' }) }).addTo(MAP);
+    if (!R){ return; }
+    var t0 = performance.now(), D = Math.max(800, dur - 900);
+    (function step(now){
+      if (S[cur] !== sl) return;
+      var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      drawUpTo(t, Math.round(from + (target - from) * e), c);
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  /* ---------- reproducción ---------- */
+  var flip = false;
+  function photoLayer(p){
+    flip = !flip;
+    var L1 = flip ? $('#la') : $('#lb'), L2 = flip ? $('#lb') : $('#la');
+    var old = L1.querySelector('img,video'); if (old) old.remove();
+    L1.querySelector('.blur').style.backgroundImage = 'url("' + p.src + '")';
+    var el;
+    if (p.video){
+      el = document.createElement('video'); el.src = p.video; el.poster = p.src; el.muted = true; el.playsInline = true; el.autoplay = true;
+    } else {
+      el = document.createElement('img'); el.src = p.src; el.alt = '';
+      var sa = innerHeight / innerWidth, r = p.ratio || 0.66;
+      if (Math.abs(r - sa) < 0.16) el.classList.add('cover');
+      var z = Math.random() < .5, dx = (Math.random() * 4 - 2).toFixed(1) + '%', dy = (Math.random() * 3 - 1.5).toFixed(1) + '%';
+      el.style.setProperty('--s0', z ? 1 : 1.1); el.style.setProperty('--s1', z ? 1.1 : 1);
+      el.style.setProperty('--x0', z ? '0%' : dx); el.style.setProperty('--y0', z ? '0%' : dy);
+      el.style.setProperty('--x1', z ? dx : '0%'); el.style.setProperty('--y1', z ? dy : '0%');
+      el.style.setProperty('--d', (speed + 2) + 's'); el.classList.add('kb');
+    }
+    L1.appendChild(el);
+    L1.classList.add('show'); L2.classList.remove('show');
+    return el;
+  }
+  function hidePhotos(){ $('#la').classList.remove('show'); $('#lb').classList.remove('show'); }
+  function caption(sl){
+    var cap = $('#cap');
+    cap.classList.remove('show');
+    if (!sl || !sl.p || !sl.p.caption){ return; }
+    cap.style.setProperty('--c', ink(sl.trip.color));
+    cap.querySelector('.where span').textContent = sl.stop.name + ' · ' + fecha(sl.stop.date);
+    cap.querySelector('p').textContent = sl.p.caption;
+    cap.classList.toggle('long', sl.p.caption.length > 230);
+    void cap.offsetWidth; cap.classList.add('show');
+  }
+  function card(html, bg, color){
+    var c = $('#card'); c.classList.remove('show');
+    c.style.setProperty('--c', ink(color));
+    c.innerHTML = (bg ? '<div class="bgc" style="background-image:url(\'' + bg + '\')"></div>' : '') + html;
+    void c.offsetWidth; c.classList.add('show');
+  }
+  function hideCard(){ $('#card').classList.remove('show'); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function countUp(){
+    document.querySelectorAll('#card [data-n]').forEach(function(b){
+      var n = +b.dataset.n, t0 = performance.now();
+      (function f(now){ var k = Math.min(1, (now - t0) / 1800); b.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))).toLocaleString('es-AR'); if (k < 1) requestAnimationFrame(f); })(t0);
+    });
+  }
+  function show(i){
+    if (i < 0) i = 0;
+    if (i >= S.length){ exit(); return; }
+    cur = i; clearTimeout(timer);
+    var sl = S[i], t = sl.trip, c = ink(t.color), dur = speed * 1000;
+    $('#stage').style.setProperty('--c', c);
+    $('#hudt').textContent = t.label.split(',')[0] + ' · ' + t.year + (sl.stop ? ' · ' + sl.stop.name : '');
+    $('#bar').style.width = (100 * (i + 1) / S.length) + '%';
+    if (sl.t !== 'hop') $('#map').classList.remove('show');
+    if (sl.t === 'intro'){
+      hidePhotos(); caption(null);
+      var first = (t.stops[0].photos[0] || {}).src;
+      var nf = t.stops.reduce(function(s, x){ return s + x.photos.length; }, 0);
+      var nl = {}; t.stops.forEach(function(x){ nl[x.n] = 1; });
+      card('<div class="in"><div class="kick"><i></i>' + esc(t.meses) + '</div><h2>' + esc(t.label) + '</h2>' +
+        '<p class="txt">' + esc(t.intro) + '</p><div class="chips"><div><b data-n="' + t.km + '">0</b><span>km recorridos</span></div>' +
+        '<div><b data-n="' + Object.keys(nl).length + '">0</b><span>lugares</span></div><div><b data-n="' + t.estados.length + '">0</b><span>' + (t.estados.length > 1 ? 'estados' : 'estado') + '</span></div>' +
+        '<div><b data-n="' + nf + '">0</b><span>fotos</span></div></div></div>', first, t.color);
+      setTimeout(countUp, 1200);
+      dur = 11000;
+    } else if (sl.t === 'hop'){
+      hidePhotos(); caption(null); hideCard();
+      $('#map').classList.add('show');
+      dur = 3800; hop(sl, dur);
+    } else if (sl.t === 'place'){
+      hidePhotos(); caption(null);
+      var s = sl.stop, bg = (s.photos[0] || {}).src;
+      card('<div class="in"><div class="kick"><i></i>' + esc(s.state) + (s.star ? '' : ' · Lugar #' + s.n) + '</div><h2>' + esc(s.name) + '</h2>' +
+        '<p class="meta">' + fecha(s.date) + '</p></div><div class="stamp"><span>' + esc(s.name) + '</span><b>' + s.date.slice(6) + '</b><span>' + esc(s.date.slice(0, 5)) + '</span></div>', bg, t.color);
+      dur = 4800;
+    } else if (sl.t === 'photo' || sl.t === 'video'){
+      hideCard();
+      var el = photoLayer(sl.p); caption(sl);
+      if (sl.t === 'video'){
+        dur = 45000;
+        el.addEventListener('ended', function(){ if (S[cur] === sl && !paused) show(cur + 1); });
+      }
+      preload(i);
+    } else if (sl.t === 'end'){
+      hidePhotos(); caption(null);
+      var lastP = null; t.stops.forEach(function(x){ if (x.photos.length) lastP = x.photos[x.photos.length - 1].src; });
+      var nxt = S.slice(i + 1).filter(function(x){ return x.t === 'intro'; })[0];
+      card('<div class="in"><div class="kick"><i></i>' + t.year + '</div><h2>Fin del viaje</h2><p class="meta">' + esc(t.label) + '</p>' +
+        '<p class="txt">' + (nxt ? 'A continuación: ' + esc(nxt.trip.label) + ' · ' + nxt.trip.year : 'Gracias por mirar · Mis viajes por USA') + '</p></div>', lastP, t.color);
+      dur = 8000;
+    }
+    if (!paused) timer = setTimeout(function(){ show(cur + 1); }, dur);
+  }
+  function preload(i){
+    S.slice(i + 1, i + 4).forEach(function(x){ if (x.p && !x.p.video){ var im = new Image(); im.src = x.p.src; } });
+  }
+  function run(seq){
+    S = seq; paused = false;
+    $('#start').style.display = 'none';
+    $('#stage').classList.add('on');
+    try { var fp = (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen || function(){}).call(document.documentElement); if (fp && fp.catch) fp.catch(function(){}); } catch (e) {}
+    lockWake();
+    ui(); show(0);
+  }
+  function exit(){
+    clearTimeout(timer); S = []; cur = -1;
+    $('#stage').classList.remove('on'); hidePhotos(); hideCard(); caption(null); $('#map').classList.remove('show');
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+    if (wake){ try { wake.release(); } catch (e) {} wake = null; }
+    if (LUGAR){ location.href = LUGAR; return; }
+    $('#start').style.display = ''; $('#go').focus();
+  }
+  function togglePause(){
+    paused = !paused;
+    $('#stage').classList.toggle('paused', paused);
+    $('#bplay').textContent = paused ? '▶' : '⏸';
+    var v = document.querySelector('.layer.show video');
+    if (v){ paused ? v.pause() : v.play(); }
+    toast(paused ? '⏸ En pausa' : '▶ Continúa');
+    if (paused) clearTimeout(timer); else show(cur + 1);
+  }
+  function setSpeed(d){
+    var opts = [5, 7, 10, 14], k = opts.indexOf(speed); k = Math.max(0, Math.min(opts.length - 1, (k < 0 ? 1 : k) + d)); speed = opts[k];
+    toast('Velocidad: ' + speed + ' s por foto');
+  }
+  var tt = null;
+  function toast(s){ var t = $('#toast'); t.textContent = s; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 1300); }
+  var uit = null;
+  function ui(){ $('#stage').classList.add('ui'); clearTimeout(uit); uit = setTimeout(function(){ $('#stage').classList.remove('ui'); }, 3500); }
+  function lockWake(){
+    if (!('wakeLock' in navigator)) return;
+    navigator.wakeLock.request('screen').then(function(w){ wake = w; }).catch(function(){});
+  }
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden && $('#stage').classList.contains('on')) lockWake(); });
+
+  // control remoto y teclado
+  document.addEventListener('keydown', function(e){
+    if (!$('#stage').classList.contains('on')) return;
+    var k = e.key, c = e.keyCode;
+    ui();
+    if (k === 'ArrowRight' || k === 'MediaTrackNext' || c === 417){ e.preventDefault(); show(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'MediaTrackPrevious' || c === 412){ e.preventDefault(); show(cur - 1); }
+    else if (k === 'Enter' || k === ' ' || k === 'MediaPlayPause' || c === 10252 || c === 415 || c === 19){
+      if (document.activeElement && document.activeElement.closest && document.activeElement.closest('.ctrl')) return;
+      e.preventDefault(); togglePause();
+    }
+    else if (k === 'ArrowUp'){ e.preventDefault(); setSpeed(-1); }
+    else if (k === 'ArrowDown'){ e.preventDefault(); setSpeed(1); }
+    else if (k === 'Escape' || k === 'Backspace' || k === 'GoBack' || c === 10009 || c === 461){ e.preventDefault(); exit(); }
+  });
+  // tocar y deslizar
+  var tx = null, ty = null;
+  $('#stage').addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  $('#stage').addEventListener('touchend', function(e){
+    if (tx == null || e.target.closest('.ctrl')) return;
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){ show(cur + (dx < 0 ? 1 : -1)); ui(); }
+    else { if ($('#stage').classList.contains('ui')) togglePause(); ui(); }
+  });
+  $('#stage').addEventListener('mousemove', ui);
+  $('#stage').addEventListener('click', function(e){ if (!('ontouchstart' in window) && !e.target.closest('.ctrl')) { ui(); } });
+  $('#bprev').onclick = function(){ show(cur - 1); ui(); };
+  $('#bnext').onclick = function(){ show(cur + 1); ui(); };
+  $('#bplay').onclick = function(){ togglePause(); ui(); };
+  $('#bexit').onclick = exit;
+})();
+</script>
+</body>
+</html>

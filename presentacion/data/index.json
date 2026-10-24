@@ -1,0 +1,79 @@
+[
+{
+"key": "2012md",
+"slug": "2012-miami-disney",
+"label": "Disney & Miami Vibes",
+"year": 2012,
+"color": "#D81B60",
+"fotos": 104,
+"corta": 36,
+"paradas": 6,
+"cover": "/2012md/t42ww8um/01.jpg"
+},
+{
+"key": "2012ny",
+"slug": "2012-nueva-york-boston",
+"label": "La Ruta del Este",
+"year": 2012,
+"color": "#2EA043",
+"fotos": 156,
+"corta": 54,
+"paradas": 9,
+"cover": "/2012ny/n7t349b3/tsq-01.jpg"
+},
+{
+"key": "2013",
+"slug": "2013-triangulo-dorado",
+"label": "Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS",
+"year": 2013,
+"color": "#E67E22",
+"fotos": 233,
+"corta": 78,
+"paradas": 13,
+"cover": "/2013/9y43778h/01.jpg"
+},
+{
+"key": "trip2",
+"slug": "2016-palmeras-y-magnolias",
+"label": "Palmeras y magnolias",
+"year": 2016,
+"color": "#2E7CF6",
+"fotos": 163,
+"corta": 60,
+"paradas": 10,
+"cover": "/trip2/zeusbujg/01.jpg"
+},
+{
+"key": "2018",
+"slug": "2018-gigantes-y-geiseres",
+"label": "Ruta de Gigantes y Géiseres, del Granito al Evergreen",
+"year": 2018,
+"color": "#DC322F",
+"fotos": 286,
+"corta": 89,
+"paradas": 15,
+"cover": "/2013/95a7284c/2018-01.jpg"
+},
+{
+"key": "2019",
+"slug": "2019-miami-disney",
+"label": "Miami - Disney",
+"year": 2019,
+"color": "#17A2B8",
+"fotos": 83,
+"corta": 30,
+"paradas": 5,
+"cover": "/2012md/5bda48yt/mk19-01.jpg"
+},
+{
+"key": "2022",
+"slug": "2022-del-pacifico-al-gran-canon",
+"label": "Ruta de Gigantes: Del Pacífico al Gran Cañón",
+"year": 2022,
+"color": "#F1C40F",
+"fotos": 176,
+"corta": 78,
+"paradas": 14,
+"cover": "/2022/sf29r4j6/gc-01.jpg"
+}
+]

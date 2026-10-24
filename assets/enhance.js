@@ -30,6 +30,7 @@
   + '.thumbs img{width:62px;height:46px;object-fit:cover;border-radius:3px;flex-shrink:0;opacity:.55;cursor:pointer;border:2px solid transparent;background:var(--paper-2,#EFE7D6);}'
   + '.thumbs img.on{opacity:1;border-color:var(--st);}'
   + '.thumbs.hide{display:none;}'
+  + '.mvplay{display:table;margin:10px auto 0;background:var(--ink,#2B2620);color:var(--paper,#F7F2E7)!important;text-decoration:none;font-weight:700;font-size:.88rem;padding:9px 18px;border-radius:22px;}'
   + '.hero-in~*{}.place-header{padding-top:14px!important;}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
@@ -87,6 +88,11 @@
   if (!track || !count || !next || !prev || !carousel) return;
   var tb = document.createElement('div'); tb.className = 'thumbs';
   carousel.parentNode.insertBefore(tb, carousel.nextSibling);
+  // botón de presentación a pantalla completa (sirve para el televisor)
+  var pl = document.createElement('a'); pl.className = 'mvplay';
+  pl.href = '/presentacion/?lugar=' + encodeURIComponent(location.pathname.replace(/index\.html$/, ''));
+  pl.textContent = '▶ Ver como presentación';
+  tb.parentNode.insertBefore(pl, tb.nextSibling);
   function cur(){ var m = (count.textContent || '').match(/(\d+)\s*\/\s*(\d+)/); return m ? [+m[1] - 1, +m[2]] : [0, 0]; }
   function build(){
     tb.innerHTML = '';

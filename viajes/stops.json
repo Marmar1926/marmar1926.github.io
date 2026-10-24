@@ -1,0 +1,692 @@
+{
+"2012md": {
+"slug": "2012-miami-disney",
+"label": "Disney & Miami Vibes",
+"year": 2012,
+"color": "#D81B60",
+"intro": "El primer viaje y el primer lugar que pisamos en Estados Unidos: Miami. De ahí, la costa atlántica hasta Daytona, los parques de Disney y Universal en Orlando, y la vuelta por el golfo de México pasando por Tampa, St. Petersburg, Venice y Naples.",
+"km": 1132,
+"estados": [
+"Florida"
+],
+"meses": "Marzo de 2012",
+"stops": [
+{
+"n": 1,
+"name": "Miami",
+"sub": "Florida",
+"url": "/2012md/t42ww8um/",
+"date": "16/03/2012",
+"star": false
+},
+{
+"n": 2,
+"name": "Animal Kingdom",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "21/03/2012",
+"star": false
+},
+{
+"n": 2,
+"name": "Magic Kingdom",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "22/03/2012",
+"star": false
+},
+{
+"n": 2,
+"name": "Hollywood Studios",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "24/03/2012",
+"star": false
+},
+{
+"n": 2,
+"name": "Epcot",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "25/03/2012",
+"star": false
+},
+{
+"n": 45,
+"name": "Universal Studios Florida",
+"sub": "Orlando, Florida",
+"url": "/2022/t3yh5c8d/#orlando-2012",
+"date": "27/03/2012",
+"star": true
+}
+]
+},
+"2012ny": {
+"slug": "2012-nueva-york-boston",
+"label": "La Ruta del Este",
+"year": 2012,
+"color": "#2EA043",
+"intro": "Una semana en Manhattan, con el huracán Sandy como compañero de toda la estadía y un cumpleaños festejado en Central Park. Después, la ruta hacia Boston, Harvard, Fenway Park y la costa de Salem y Swampscott, y la vuelta por el mismo camino.",
+"km": 865,
+"estados": [
+"Nueva York",
+"Connecticut",
+"Massachusetts"
+],
+"meses": "Octubre y noviembre de 2012",
+"stops": [
+{
+"n": 3,
+"name": "Times Square",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#timessquare",
+"date": "24/10/2012",
+"star": false
+},
+{
+"n": 3,
+"name": "Estatua de la Libertad y Ellis Island",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#liberty",
+"date": "25/10/2012",
+"star": false
+},
+{
+"n": 3,
+"name": "Memorial 9/11",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#911",
+"date": "25/10/2012",
+"star": false
+},
+{
+"n": 3,
+"name": "Rockefeller Center",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#rockefeller",
+"date": "25/10/2012",
+"star": false
+},
+{
+"n": 3,
+"name": "Central Park",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#centralpark",
+"date": "26/10/2012",
+"star": false
+},
+{
+"n": 3,
+"name": "Empire State",
+"sub": "New York",
+"url": "/2012ny/n7t349b3/#empire",
+"date": "27/10/2012",
+"star": false
+},
+{
+"n": 4,
+"name": "Harvard University",
+"sub": "Boston",
+"url": "/2012ny/6c9hd7z5/#harvard",
+"date": "02/11/2012",
+"star": false
+},
+{
+"n": 4,
+"name": "Boston y alrededores",
+"sub": "Boston",
+"url": "/2012ny/6c9hd7z5/#boston",
+"date": "03/11/2012",
+"star": false
+},
+{
+"n": 4,
+"name": "Fenway Park",
+"sub": "Boston",
+"url": "/2012ny/6c9hd7z5/#fenway",
+"date": "03/11/2012",
+"star": false
+}
+]
+},
+"2013": {
+"slug": "2013-triangulo-dorado",
+"label": "Triángulo Dorado de la Costa Oeste, LAX - SFO - LAS",
+"year": 2013,
+"color": "#E67E22",
+"intro": "Los Ángeles y sus estudios de cine, San Diego, la Pacific Coast Highway por Big Sur y Monterey, Yosemite y San Francisco. Un vuelo a Las Vegas para cerrar con el Skywalk del Gran Cañón y el Valley of Fire, y otro de regreso a Los Ángeles.",
+"km": 1258,
+"estados": [
+"California",
+"Nevada",
+"Arizona"
+],
+"meses": "Junio de 2013",
+"stops": [
+{
+"n": 7,
+"name": "Los Angeles",
+"sub": "California",
+"url": "/2013/9y43778h/",
+"date": "07/06/2013",
+"star": false
+},
+{
+"n": 8,
+"name": "Santa Mónica",
+"sub": "California",
+"url": "/2013/fprphxqb/",
+"date": "07/06/2013",
+"star": false
+},
+{
+"n": 5,
+"name": "Disneyland",
+"sub": "Anaheim, California",
+"url": "/2013/yyzr6szr/",
+"date": "08/06/2013",
+"star": false
+},
+{
+"n": 6,
+"name": "San Diego",
+"sub": "California",
+"url": "/2013/7a2qpwvt/",
+"date": "09/06/2013",
+"star": false
+},
+{
+"n": 10,
+"name": "Warner Bros. Studios",
+"sub": "Burbank, California",
+"url": "/2013/5ubvwzzk/",
+"date": "10/06/2013",
+"star": false
+},
+{
+"n": 11,
+"name": "Golden Oak Ranch",
+"sub": "California",
+"url": "/2013/h4fruj4d/",
+"date": "10/06/2013",
+"star": false
+},
+{
+"n": 9,
+"name": "Beverly Hills",
+"sub": "California",
+"url": "/2013/r4kmmtsn/",
+"date": "12/06/2013",
+"star": false
+},
+{
+"n": 12,
+"name": "Pacific Coast Highway",
+"sub": "California",
+"url": "/2013/yptuwrm3/",
+"date": "13/06/2013",
+"star": false
+},
+{
+"n": 14,
+"name": "Yosemite National Park",
+"sub": "California",
+"url": "/2013/b3snzzth/",
+"date": "14/06/2013",
+"star": false
+},
+{
+"n": 13,
+"name": "San Francisco",
+"sub": "California",
+"url": "/2013/y9v39ar4/",
+"date": "15/06/2013",
+"star": false
+},
+{
+"n": 16,
+"name": "Las Vegas",
+"sub": "Nevada",
+"url": "/2013/95a7284c/",
+"date": "18/06/2013",
+"star": false
+},
+{
+"n": 15,
+"name": "Valley of Fire State Park",
+"sub": "Nevada",
+"url": "/2013/gkkdjw5g/",
+"date": "20/06/2013",
+"star": false
+},
+{
+"n": 17,
+"name": "Grand Canyon West Skywalk",
+"sub": "Arizona",
+"url": "/2013/fef9ux73/",
+"date": "21/06/2013",
+"star": false
+}
+]
+},
+"trip2": {
+"slug": "2016-palmeras-y-magnolias",
+"label": "Palmeras y magnolias",
+"year": 2016,
+"color": "#2E7CF6",
+"intro": "Florida de punta a punta y una escapada a Georgia: Key West, la costa atlántica hasta el Kennedy Space Center y Saint Augustine, Atlanta y Covington, el «Hollywood del Sur» de The Dukes of Hazzard, y la vuelta por la costa del golfo con Sanibel y Captiva.",
+"km": 2975,
+"estados": [
+"Florida",
+"Georgia"
+],
+"meses": "Junio de 2016",
+"stops": [
+{
+"n": 18,
+"name": "Key West",
+"sub": "Florida",
+"url": "/trip2/zeusbujg/",
+"date": "30/05/2016",
+"star": false
+},
+{
+"n": 19,
+"name": "Fort Lauderdale",
+"sub": "Florida",
+"url": "/trip2/4h9u87fr/",
+"date": "01/06/2016",
+"star": false
+},
+{
+"n": 20,
+"name": "Kennedy Space Center",
+"sub": "Florida",
+"url": "/trip2/y5ch4w6k/",
+"date": "03/06/2016",
+"star": false
+},
+{
+"n": 21,
+"name": "Saint Augustine",
+"sub": "Florida",
+"url": "/trip2/pwabnjn8/",
+"date": "04/06/2016",
+"star": false
+},
+{
+"n": 22,
+"name": "Atlanta",
+"sub": "Georgia",
+"url": "/trip2/enbpes64/",
+"date": "05/06/2016",
+"star": false
+},
+{
+"n": 23,
+"name": "World of Coca-Cola",
+"sub": "Atlanta, Georgia",
+"url": "/trip2/vknj9s5j/",
+"date": "06/06/2016",
+"star": false
+},
+{
+"n": 24,
+"name": "Covington",
+"sub": "Georgia",
+"url": "/trip2/m6kz6xs6/",
+"date": "07/06/2016",
+"star": false
+},
+{
+"n": 25,
+"name": "Hollywood of the South",
+"sub": "Georgia",
+"url": "/trip2/25fr6s4w/",
+"date": "07/06/2016",
+"star": false
+},
+{
+"n": 26,
+"name": "Clearwater",
+"sub": "Florida",
+"url": "/trip2/wsgty6hn/",
+"date": "08/06/2016",
+"star": false
+},
+{
+"n": 1,
+"name": "Miami",
+"sub": "Florida",
+"url": "/2012md/t42ww8um/",
+"date": "10/06/2016",
+"star": false
+}
+]
+},
+"2018": {
+"slug": "2018-gigantes-y-geiseres",
+"label": "Ruta de Gigantes y Géiseres, del Granito al Evergreen",
+"year": 2018,
+"color": "#DC322F",
+"intro": "El gran loop: 21 días y más de 6.000 km desde Los Ángeles, cruzando el desierto y las Rocosas hasta Mount Rushmore y Crazy Horse, Yellowstone, Seattle y la costa del Pacífico, con el desvío inesperado por los caminos de tierra de Big Sur.",
+"km": 6117,
+"estados": [
+"California",
+"Nevada",
+"Utah",
+"Wyoming",
+"Dakota del Sur",
+"Montana",
+"Idaho",
+"Washington",
+"Oregón",
+"Arizona"
+],
+"meses": "Junio y julio de 2018",
+"stops": [
+{
+"n": 16,
+"name": "Las Vegas",
+"sub": "Nevada",
+"url": "/2013/95a7284c/",
+"date": "20/06/2018",
+"star": false
+},
+{
+"n": 28,
+"name": "Crazy Horse Memorial",
+"sub": "Custer, South Dakota",
+"url": "/2018/xqnmjrte/",
+"date": "23/06/2018",
+"star": false
+},
+{
+"n": 27,
+"name": "Mount Rushmore Memorial",
+"sub": "Pennington County, South Dakota",
+"url": "/2018/uye2hff3/",
+"date": "23/06/2018",
+"star": false
+},
+{
+"n": 29,
+"name": "Cody",
+"sub": "Wyoming",
+"url": "/2018/ubgnxpzb/",
+"date": "24/06/2018",
+"star": false
+},
+{
+"n": 30,
+"name": "Yellowstone National Park",
+"sub": "Wyoming",
+"url": "/2018/hmdsz9xf/",
+"date": "24/06/2018",
+"star": false
+},
+{
+"n": 31,
+"name": "Seattle",
+"sub": "Washington",
+"url": "/2018/cmddvkt4/",
+"date": "27/06/2018",
+"star": false
+},
+{
+"n": 32,
+"name": "Olympia",
+"sub": "Washington",
+"url": "/2018/wvjsnwey/",
+"date": "27/06/2018",
+"star": false
+},
+{
+"n": 13,
+"name": "San Francisco",
+"sub": "California",
+"url": "/2013/y9v39ar4/",
+"date": "29/06/2018",
+"star": false
+},
+{
+"n": 33,
+"name": "Big Sur",
+"sub": "California",
+"url": "/2018/naeceaua/",
+"date": "30/06/2018",
+"star": false
+},
+{
+"n": 34,
+"name": "Solvang",
+"sub": "California",
+"url": "/2018/b55dxwdc/",
+"date": "01/07/2018",
+"star": false
+},
+{
+"n": 10,
+"name": "Warner Bros. Studios",
+"sub": "Burbank, California",
+"url": "/2013/5ubvwzzk/",
+"date": "02/07/2018",
+"star": false
+},
+{
+"n": 36,
+"name": "Paramount Ranch",
+"sub": "Agoura Hills, California",
+"url": "/2018/kv78g638/",
+"date": "03/07/2018",
+"star": false
+},
+{
+"n": 7,
+"name": "Los Angeles",
+"sub": "California",
+"url": "/2013/9y43778h/",
+"date": "04/07/2018",
+"star": false
+},
+{
+"n": 35,
+"name": "Santa Barbara",
+"sub": "California",
+"url": "/2018/xhqeq3hg/",
+"date": "05/07/2018",
+"star": false
+},
+{
+"n": 8,
+"name": "Santa Mónica",
+"sub": "California",
+"url": "/2013/fprphxqb/",
+"date": "08/07/2018",
+"star": false
+}
+]
+},
+"2019": {
+"slug": "2019-miami-disney",
+"label": "Miami - Disney",
+"year": 2019,
+"color": "#17A2B8",
+"intro": "La vuelta a Florida: varios días en los parques de Disney, el Florida's Turnpike hacia Miami y un crucero en el MSC Seaside hasta San Juan de Puerto Rico (el tramo en barco no está dibujado en el mapa).",
+"km": 427,
+"estados": [
+"Florida"
+],
+"meses": "Mayo y junio de 2019",
+"stops": [
+{
+"n": 2,
+"name": "Magic Kingdom",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "31/05/2019",
+"star": false
+},
+{
+"n": 2,
+"name": "Hollywood Studios",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "02/06/2019",
+"star": false
+},
+{
+"n": 2,
+"name": "Animal Kingdom",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "03/06/2019",
+"star": false
+},
+{
+"n": 2,
+"name": "Epcot",
+"sub": "Disney World",
+"url": "/2012md/5bda48yt/",
+"date": "05/06/2019",
+"star": false
+},
+{
+"n": 1,
+"name": "Miami",
+"sub": "Florida",
+"url": "/2012md/t42ww8um/",
+"date": "08/06/2019",
+"star": false
+}
+]
+},
+"2022": {
+"slug": "2022-del-pacifico-al-gran-canon",
+"label": "Ruta de Gigantes: Del Pacífico al Gran Cañón",
+"year": 2022,
+"color": "#F1C40F",
+"intro": "Del Pacífico al desierto: el Gran Cañón, Horseshoe Bend, Antelope Canyon y Monument Valley, la Ruta 66 histórica por Williams, Seligman, Kingman y Oatman, Palm Springs, y el regreso a la costa con Malibú, Santa Bárbara y Universal Studios.",
+"km": 2260,
+"estados": [
+"California",
+"Arizona",
+"Utah"
+],
+"meses": "Octubre y noviembre de 2022",
+"stops": [
+{
+"n": 37,
+"name": "Grand Canyon",
+"sub": "South Rim, Arizona",
+"url": "/2022/sf29r4j6/",
+"date": "24/10/2022",
+"star": false
+},
+{
+"n": 39,
+"name": "Horseshoe Bend",
+"sub": "Arizona",
+"url": "/2022/b4tqncq9/",
+"date": "25/10/2022",
+"star": false
+},
+{
+"n": 38,
+"name": "Antelope Canyon",
+"sub": "Arizona",
+"url": "/2022/pseyp8vu/",
+"date": "25/10/2022",
+"star": false
+},
+{
+"n": 40,
+"name": "Monument Valley",
+"sub": "Utah",
+"url": "/2022/chkhrqx3/",
+"date": "26/10/2022",
+"star": false
+},
+{
+"n": 43,
+"name": "Flagstaff",
+"sub": "Arizona",
+"url": "/2022/s8y5zw2w/",
+"date": "27/10/2022",
+"star": false
+},
+{
+"n": 43,
+"name": "Williams",
+"sub": "Arizona, Ruta 66",
+"url": "/2022/s8y5zw2w/",
+"date": "27/10/2022",
+"star": true
+},
+{
+"n": 42,
+"name": "Seligman",
+"sub": "Arizona",
+"url": "/2022/32kch4zp/",
+"date": "28/10/2022",
+"star": false
+},
+{
+"n": 41,
+"name": "Kingman",
+"sub": "Arizona",
+"url": "/2022/e5c72jw2/",
+"date": "28/10/2022",
+"star": false
+},
+{
+"n": 41,
+"name": "Oatman",
+"sub": "Arizona, Ruta 66",
+"url": "/2022/e5c72jw2/",
+"date": "28/10/2022",
+"star": true
+},
+{
+"n": 8,
+"name": "Santa Mónica",
+"sub": "California",
+"url": "/2013/fprphxqb/",
+"date": "05/11/2022",
+"star": false
+},
+{
+"n": 44,
+"name": "Malibu",
+"sub": "California",
+"url": "/2022/9hnfu8kc/",
+"date": "05/11/2022",
+"star": false
+},
+{
+"n": 35,
+"name": "Santa Barbara",
+"sub": "California",
+"url": "/2018/xhqeq3hg/",
+"date": "06/11/2022",
+"star": false
+},
+{
+"n": 45,
+"name": "Universal Studios",
+"sub": "Burbank, California",
+"url": "/2022/t3yh5c8d/",
+"date": "07/11/2022",
+"star": false
+},
+{
+"n": 7,
+"name": "Los Angeles",
+"sub": "California",
+"url": "/2013/9y43778h/",
+"date": "09/11/2022",
+"star": false
+}
+]
+}
+}

@@ -114,3 +114,8 @@ for i, k in enumerate(ORDER):
     open(f'{ROOT}/viajes/{me["slug"]}/index.html', 'w', encoding='utf-8').write(out)
     print(me['slug'], lugares, rango)
 json.dump({k: dict(slug=META[k]['slug']) for k in ORDER}, open(f'{ROOT}/viajes/viajes.json', 'w'), ensure_ascii=False)
+# paradas de cada viaje en orden, para la presentación (gen_presentacion.py)
+json.dump({k: dict(slug=META[k]['slug'], label=m['trips'][k]['label'], year=m['trips'][k]['year'], color=hexc(m['trips'][k]['color']),
+                   intro=META[k]['intro'], km=META[k]['km'], estados=META[k]['estados'], meses=META[k]['meses'],
+                   stops=[dict(n=s['n'], name=s['name'], sub=s['sub'], url=s['url'], date=s['date'], star=bool(s.get('star'))) for s in stops[k]])
+           for k in ORDER}, open(f'{ROOT}/viajes/stops.json', 'w'), ensure_ascii=False, indent=0)
