@@ -99,10 +99,12 @@
   .hud i{ width:10px; height:10px; border-radius:50%; background:var(--c); }
   #stage.ui .hud{ opacity:1; }
   .bar{ position:absolute; left:0; bottom:0; height:4px; background:var(--c); width:0; z-index:600; opacity:.85; transition:width .6s ease; }
-  .ctrl{ position:absolute; right:max(3vw,env(safe-area-inset-right)); top:max(3vh,env(safe-area-inset-top)); display:flex; gap:12px; z-index:700; opacity:0; pointer-events:none; transition:opacity .4s; }
+  .ctrl{ position:absolute; left:50%; bottom:max(5vh,env(safe-area-inset-bottom)); transform:translateX(-50%); display:flex; gap:clamp(8px,1.4vw,18px); z-index:700; opacity:0; pointer-events:none; transition:opacity .4s; background:rgba(0,0,0,.55); padding:clamp(8px,1.6vh,16px); border-radius:clamp(20px,6vh,60px); }
   #stage.ui .ctrl{ opacity:1; pointer-events:auto; }
-  .ctrl button{ width:clamp(46px,8vh,84px); height:clamp(46px,8vh,84px); border-radius:50%; border:none; background:rgba(255,255,255,.16); backdrop-filter:blur(6px); color:#fff; font-size:clamp(18px,3.4vh,36px); cursor:pointer; display:flex; align-items:center; justify-content:center; }
-  .ctrl button:focus-visible{ outline:3px solid #FCDE5A; }
+  #stage.ui .cap{ opacity:0; }
+  .ctrl button{ min-width:clamp(58px,10vh,120px); height:clamp(58px,10vh,120px); border-radius:clamp(29px,5vh,60px); border:3px solid transparent; background:rgba(255,255,255,.14); color:#fff; font-size:clamp(20px,4vh,46px); cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:0 clamp(10px,1.6vw,22px); line-height:1; }
+  .ctrl button small{ font-size:clamp(10px,1.6vh,18px); font-weight:600; opacity:.85; }
+  .ctrl button:hover, .ctrl button:focus{ background:rgba(255,255,255,.3); border-color:#FCDE5A; outline:none; }
   .toast{ position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); background:rgba(0,0,0,.72); border-radius:2vh; padding:2vh 4vh; font-size:clamp(16px,3.4vh,40px); font-weight:700; opacity:0; transition:opacity .3s; z-index:800; pointer-events:none; }
   .toast.show{ opacity:1; }
   @media (prefers-reduced-motion: reduce){ .layer img.kb, .card .bgc, .pulse{ animation:none!important; } }
@@ -138,10 +140,12 @@
   <div class="cap" id="cap"><div class="where"><i></i><span></span></div><p></p></div>
   <div class="hud"><i></i><span id="hudt"></span></div>
   <div class="ctrl">
-    <button id="bprev" aria-label="Anterior">⏮</button>
-    <button id="bplay" aria-label="Pausar">⏸</button>
-    <button id="bnext" aria-label="Siguiente">⏭</button>
-    <button id="bexit" aria-label="Salir">✕</button>
+    <button id="bprev" aria-label="Anterior">⏮<small>Anterior</small></button>
+    <button id="bplay" aria-label="Pausar"><span id="bplayi">⏸</span><small id="bplayt">Pausa</small></button>
+    <button id="bnext" aria-label="Siguiente">⏭<small>Siguiente</small></button>
+    <button id="bslow" aria-label="Más lento">🐢<small>Más lento</small></button>
+    <button id="bfast" aria-label="Más rápido">🐇<small>Más rápido</small></button>
+    <button id="bexit" aria-label="Salir">✕<small>Salir</small></button>
   </div>
   <div class="toast" id="toast"></div>
   <div class="bar" id="bar"></div>
@@ -191,8 +195,9 @@
     if ($('#stage').classList.contains('on')) return;
     var f = Array.prototype.slice.call(document.querySelectorAll('#start .trip, #start .opt, #go'));
     var i = f.indexOf(document.activeElement);
-    if (['ArrowRight','ArrowDown'].indexOf(e.key) >= 0){ e.preventDefault(); f[(i + 1 + f.length) % f.length].focus(); }
-    if (['ArrowLeft','ArrowUp'].indexOf(e.key) >= 0){ e.preventDefault(); f[(i - 1 + f.length) % f.length].focus(); }
+    var c = e.keyCode;
+    if (['ArrowRight','ArrowDown'].indexOf(e.key) >= 0 || c === 39 || c === 40){ e.preventDefault(); f[(i + 1 + f.length) % f.length].focus(); }
+    if (['ArrowLeft','ArrowUp'].indexOf(e.key) >= 0 || c === 37 || c === 38){ e.preventDefault(); f[(i - 1 + f.length) % f.length].focus(); }
   });
 
   /* ---------- armado de la secuencia ---------- */
@@ -440,7 +445,7 @@
   function togglePause(){
     paused = !paused;
     $('#stage').classList.toggle('paused', paused);
-    $('#bplay').textContent = paused ? '▶' : '⏸';
+    $('#bplayi').textContent = paused ? '▶' : '⏸'; $('#bplayt').textContent = paused ? 'Seguir' : 'Pausa';
     var v = document.querySelector('.layer.show video');
     if (v){ paused ? v.pause() : v.play(); }
     toast(paused ? '⏸ En pausa' : '▶ Continúa');
@@ -453,28 +458,39 @@
   var tt = null;
   function toast(s){ var t = $('#toast'); t.textContent = s; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 1300); }
   var uit = null;
-  function ui(){ $('#stage').classList.add('ui'); clearTimeout(uit); uit = setTimeout(function(){ $('#stage').classList.remove('ui'); }, 3500); }
+  function ui(){ $('#stage').classList.add('ui'); clearTimeout(uit); uit = setTimeout(function(){ $('#stage').classList.remove('ui'); }, paused ? 9000 : 5000); }
   function lockWake(){
     if (!('wakeLock' in navigator)) return;
     navigator.wakeLock.request('screen').then(function(w){ wake = w; }).catch(function(){});
   }
   document.addEventListener('visibilitychange', function(){ if (!document.hidden && $('#stage').classList.contains('on')) lockWake(); });
 
-  // control remoto y teclado
-  document.addEventListener('keydown', function(e){
+  // control remoto y teclado (se usan los códigos numéricos, que es lo que mandan los televisores)
+  var K = { next: [39, 417, 228, 176], prev: [37, 412, 227, 177], play: [13, 32, 415, 19, 10252, 179], up: [38], down: [40], back: [27, 8, 10009, 461, 166] };
+  function kind(e){
+    var c = e.keyCode || e.which, k = e.key;
+    for (var n in K) if (K[n].indexOf(c) >= 0) return n;
+    if (k === 'ArrowRight' || k === 'MediaTrackNext' || k === 'MediaFastForward') return 'next';
+    if (k === 'ArrowLeft' || k === 'MediaTrackPrevious' || k === 'MediaRewind') return 'prev';
+    if (k === 'Enter' || k === ' ' || k === 'MediaPlayPause' || k === 'MediaPlay' || k === 'MediaPause') return 'play';
+    if (k === 'ArrowUp') return 'up'; if (k === 'ArrowDown') return 'down';
+    if (k === 'Escape' || k === 'Backspace' || k === 'GoBack' || k === 'BrowserBack') return 'back';
+    return null;
+  }
+  window.addEventListener('keydown', function(e){
     if (!$('#stage').classList.contains('on')) return;
-    var k = e.key, c = e.keyCode;
-    ui();
-    if (k === 'ArrowRight' || k === 'MediaTrackNext' || c === 417){ e.preventDefault(); show(cur + 1); }
-    else if (k === 'ArrowLeft' || k === 'MediaTrackPrevious' || c === 412){ e.preventDefault(); show(cur - 1); }
-    else if (k === 'Enter' || k === ' ' || k === 'MediaPlayPause' || c === 10252 || c === 415 || c === 19){
-      if (document.activeElement && document.activeElement.closest && document.activeElement.closest('.ctrl')) return;
-      e.preventDefault(); togglePause();
-    }
-    else if (k === 'ArrowUp'){ e.preventDefault(); setSpeed(-1); }
-    else if (k === 'ArrowDown'){ e.preventDefault(); setSpeed(1); }
-    else if (k === 'Escape' || k === 'Backspace' || k === 'GoBack' || c === 10009 || c === 461){ e.preventDefault(); exit(); }
-  });
+    var a = kind(e); ui();
+    if (!a) return;
+    // si el foco está en un botón de la barra, OK lo presiona
+    if (a === 'play' && document.activeElement && document.activeElement.closest && document.activeElement.closest('.ctrl')) return;
+    e.preventDefault(); e.stopPropagation();
+    if (a === 'next') show(cur + 1);
+    else if (a === 'prev') show(cur - 1);
+    else if (a === 'play') togglePause();
+    else if (a === 'up') setSpeed(-1);
+    else if (a === 'down') setSpeed(1);
+    else if (a === 'back') exit();
+  }, true);
   // tocar y deslizar
   var tx = null, ty = null;
   $('#stage').addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
@@ -485,7 +501,14 @@
     else { if ($('#stage').classList.contains('ui')) togglePause(); ui(); }
   });
   $('#stage').addEventListener('mousemove', ui);
-  $('#stage').addEventListener('click', function(e){ if (!('ontouchstart' in window) && !e.target.closest('.ctrl')) { ui(); } });
+  $('#stage').addEventListener('click', function(e){
+    if (('ontouchstart' in window) && e.pointerType !== 'mouse') return;
+    if (e.target.closest('.ctrl')) return;
+    if ($('#stage').classList.contains('ui')) togglePause();
+    ui();
+  });
+  $('#bslow').onclick = function(){ setSpeed(1); ui(); };
+  $('#bfast').onclick = function(){ setSpeed(-1); ui(); };
   $('#bprev').onclick = function(){ show(cur - 1); ui(); };
   $('#bnext').onclick = function(){ show(cur + 1); ui(); };
   $('#bplay').onclick = function(){ togglePause(); ui(); };
