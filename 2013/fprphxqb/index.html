@@ -215,7 +215,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     yearObj.photos.forEach(p => {
       const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src.replace(/\.jpe?g$/i, '.webp');
       img.alt = 'Foto familiar en Santa Mónica, ' + yearObj.year;
       track.appendChild(img);
     });

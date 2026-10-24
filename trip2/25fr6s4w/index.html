@@ -331,7 +331,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = SRC(p); }; img.src = 'sm/' + SRC(p); img.alt = 'Foto familiar en Covington, 2016';
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = SRC(p); }; img.src = 'sm/' + SRC(p).replace(/\.jpe?g$/i, '.webp'); img.alt = 'Foto familiar en Covington, 2016';
       track.appendChild(img);
     });
   }

@@ -315,9 +315,9 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     const yearObj = YEARS[currentYearIdx];
     track.innerHTML = '';
     yearObj.photos.forEach(p => {
-      if (p.video){ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; v.poster='sm/'+p.src; v.src=p.video; v.className='gvideo'; track.appendChild(v); return; }
+      if (p.video){ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; v.poster='sm/'+p.src.replace(/\.jpe?g$/i, '.webp'); v.src=p.video; v.className='gvideo'; track.appendChild(v); return; }
       const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src;
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src.replace(/\.jpe?g$/i, '.webp');
       img.alt = 'Foto familiar en ' + yearObj.year;
       track.appendChild(img);
     });

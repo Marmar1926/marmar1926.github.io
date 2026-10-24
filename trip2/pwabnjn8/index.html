@@ -228,7 +228,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
     track.innerHTML = '';
     PHOTOS.forEach(p => {
       const img = document.createElement('img');
-      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src; img.alt = 'Foto familiar en Saint Augustine, 2016';
+      if (track.children.length > 1) img.loading = 'lazy'; img.decoding = 'async'; img.onerror = function(){ this.onerror = null; this.src = p.src; }; img.src = 'sm/' + p.src.replace(/\.jpe?g$/i, '.webp'); img.alt = 'Foto familiar en Saint Augustine, 2016';
       track.appendChild(img);
     });
   }
