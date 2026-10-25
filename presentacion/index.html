@@ -365,7 +365,7 @@
     L1.querySelector('.blur').style.backgroundImage = p.bg ? 'url("' + p.bg + '")' : 'none';
     var el;
     if (p.video){
-      el = document.createElement('video'); el.src = p.video; el.poster = p.src; el.muted = false; el.volume = 1; el.playsInline = true; el.autoplay = true; el.preload = 'auto';
+      el = document.createElement('video'); el.src = p.video + '?v=2'; el.poster = p.src; el.muted = false; el.volume = 1; el.playsInline = true; el.autoplay = true; el.preload = 'auto';
     } else {
       el = document.createElement('img'); el.src = p.src; el.alt = '';
       // movimiento lento de cámara: acercamiento o desplazamiento suave (con transición, funciona en navegadores viejos)
