@@ -1,7 +1,8 @@
 """Arma los datos de la presentación (/presentacion/data/<viaje>.json): para cada viaje, sus paradas
 en orden y las fotos de cada una con su texto, tomadas de las páginas de los lugares.
 Uso: python3 _proyecto/herramientas/gen_viajes.py && python3 _proyecto/herramientas/gen_presentacion.py"""
-import json, os, re, subprocess
+import json, os, re, subprocess, hashlib
+from PIL import Image, ImageFilter, ImageEnhance
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 EXTRACT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'extraer_fotos.js')
@@ -33,10 +34,26 @@ def tab_trip(tab, place):
         return '2012md' if re.search('Orlando|Miami|Disney', str(tab.get('year')) + str(tab.get('sub'))) else '2012ny'
     return {2013: '2013', 2016: 'trip2', 2018: '2018', 2019: '2019', 2022: '2022'}.get(y)
 
+BGDIR = f'{ROOT}/presentacion/bg'
+os.makedirs(BGDIR, exist_ok=True)
+def fondo(src):
+    """Fondo ya difuminado y oscurecido (imagen chiquita): algunos televisores no pueden aplicar el desenfoque en vivo."""
+    name = hashlib.md5(src.encode()).hexdigest()[:12] + '.jpg'
+    out = f'{BGDIR}/{name}'
+    if not os.path.exists(out):
+        im = Image.open(ROOT + src).convert('RGB')
+        im.thumbnail((96, 96))
+        im = im.filter(ImageFilter.GaussianBlur(4))
+        im = ImageEnhance.Color(im).enhance(1.2)
+        im = ImageEnhance.Brightness(im).enhance(0.45)
+        im.save(out, quality=70)
+    return '/presentacion/bg/' + name
+
 def items(photos, base):
     out = []
     for ph in photos:
         it = dict(src=base + ph['src'], caption=re.sub(r'<[^>]+>', '', ph.get('caption', '')), ratio=ph.get('ratio', 0.66))
+        it['bg'] = fondo(it['src'])
         if ph.get('video'):
             it['video'] = base + ph['video']
         out.append(it)

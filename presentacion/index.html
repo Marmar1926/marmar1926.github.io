@@ -47,7 +47,7 @@
   #stage.ui{ cursor:default; }
   .layer{ position:absolute; top:0; right:0; bottom:0; left:0; opacity:0; transition:opacity 1.1s ease; }
   .layer.show{ opacity:1; }
-  .layer .blur{ position:absolute; top:-40px; right:-40px; bottom:-40px; left:-40px; background-size:cover; background-position:center; -webkit-filter:blur(28px) brightness(.45) saturate(1.2); filter:blur(28px) brightness(.45) saturate(1.2); transform:scale(1.1); }
+  .layer .blur{ position:absolute; top:-40px; right:-40px; bottom:-40px; left:-40px; background-size:cover; background-position:center; background-color:#000; }
   /* el tamaño de cada foto se calcula en JS (algunos televisores no entienden object-fit y la estiran) */
   .layer img, .layer video{ position:absolute; left:0; top:0; max-width:none; transform-origin:center; }
 
@@ -141,7 +141,7 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 8.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 9.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -362,7 +362,7 @@
     flip = !flip;
     var L1 = flip ? $('#la') : $('#lb'), L2 = flip ? $('#lb') : $('#la');
     var old = L1.querySelector('img,video'); if (old) old.parentNode.removeChild(old);
-    L1.querySelector('.blur').style.backgroundImage = 'url("' + p.src + '")';
+    L1.querySelector('.blur').style.backgroundImage = p.bg ? 'url("' + p.bg + '")' : 'none';
     var el;
     if (p.video){
       el = document.createElement('video'); el.src = p.video; el.poster = p.src; el.muted = false; el.volume = 1; el.playsInline = true; el.autoplay = true; el.preload = 'auto';
@@ -392,7 +392,8 @@
   function fitMedia(el, ratio){
     var st = $('#stage'), W = st.clientWidth || window.innerWidth, H = st.clientHeight || window.innerHeight;
     // horizontales: enteras, con un margen alrededor (el acercamiento lento no llega a cortarlas)
-    var m = ratio < 1 ? 0.86 : 1, w = W * m, h = w * ratio;
+    // los videos ocupan la pantalla entera (son 16:9, como el televisor), sin recortes
+    var m = (ratio < 1 && el.tagName !== 'VIDEO') ? 0.86 : 1, w = W * m, h = w * ratio;
     if (h > H * m){ h = H * m; w = h / ratio; }
     el.style.boxShadow = m < 1 ? '0 1vh 5vh rgba(0,0,0,.6)' : 'none';
     el.style.width = Math.round(w) + 'px'; el.style.height = Math.round(h) + 'px';
