@@ -153,7 +153,7 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 10.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 11.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -271,7 +271,7 @@
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
     var ts = sel === 'todos' ? INDEX : INDEX.filter(function(t){ return t.key === sel; });
-    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 8.5 + 19; }, 0);
+    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 19; }, 0);
     $('#dur').textContent = '· unos ' + Math.max(1, Math.round(secs / 60)) + ' min';
   }
   $('#go').onclick = function(){ startTrips(sel === 'todos' ? INDEX.map(function(t){ return t.key; }) : [sel]); };
@@ -402,7 +402,7 @@
     if (pulse) MAP.removeLayer(pulse);
     pulse = L.marker([s.lat, s.lng], { icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11], html: '<div class="pulse" style="background:' + c + '"></div>' }) }).addTo(MAP);
     if (!R){ return; }
-    var t0 = performance.now(), D = Math.max(800, dur - 900);
+    var t0 = performance.now(), D = Math.max(800, dur);
     (function step(now){
       if (S[cur] !== sl) return;
       var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
@@ -509,7 +509,11 @@
     } else if (sl.t === 'hop'){
       hidePhotos(); caption(null); hideCard();
       $('#map').classList.add('show');
-      dur = 3800; hop(sl, dur);
+      // el trazado tarda más cuanto más largo es el tramo (de 5 a 11 segundos) y después queda unos segundos a la vista
+      var pv = sl.trip.stops[sl.i - 1], st0 = sl.trip.stops[sl.i];
+      var km = pv ? Math.sqrt(d2([pv.lat, pv.lng], [st0.lat, st0.lng])) * 111 : 0;
+      var draw = Math.round(5000 + Math.min(6000, km * 15));
+      dur = draw + 2800; hop(sl, draw);
     } else if (sl.t === 'place'){
       hidePhotos(); caption(null);
       var s = sl.stop, bg = (s.photos[0] || {}).src;
