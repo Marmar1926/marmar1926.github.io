@@ -134,3 +134,8 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - Cuentakilómetros en cada tramo del mapa («Día X de N» + km acumulados, escalados al total km del viaje; los vuelos no suman).
 - Then/Now de Hollywood of the South en TV (pantalla horizontal): cortina Then→Now y después la versión lado a lado. Datos then/now/ratioThen en presentacion/data (gen_presentacion.py).
 - Cierre de cada viaje: mosaico de 15 fotos + días, km, estados, lugares y fotos (diapositiva 'recap' antes de 'end').
+
+## Presentación v13 (26/10/2026)
+- Cartel «Welcome to <estado>» al cruzar un límite estatal durante el trazado (cruces calculados en gen_presentacion.py con _proyecto/herramientas/estados.py y datos/us-states.geojson — us-atlas, dominio público).
+- Apertura de cada viaje: recorrido completo dibujándose con el título encima (diapositiva 'open').
+- «Un día como hoy» en la portada: si hoy (±3 días) coincide con un día de algún viaje, ofrece verlo (index.json trae 'fechas').

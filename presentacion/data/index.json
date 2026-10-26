@@ -8,7 +8,33 @@
 "fotos": 104,
 "corta": 36,
 "paradas": 6,
-"cover": "/2012md/t42ww8um/01.jpg"
+"cover": "/2012md/t42ww8um/01.jpg",
+"fechas": [
+[
+"16/03/2012",
+"Miami"
+],
+[
+"21/03/2012",
+"Animal Kingdom"
+],
+[
+"22/03/2012",
+"Magic Kingdom"
+],
+[
+"24/03/2012",
+"Hollywood Studios"
+],
+[
+"25/03/2012",
+"Epcot"
+],
+[
+"27/03/2012",
+"Universal Studios Florida"
+]
+]
 },
 {
 "key": "2012ny",
@@ -19,7 +45,45 @@
 "fotos": 156,
 "corta": 54,
 "paradas": 9,
-"cover": "/2012ny/n7t349b3/tsq-01.jpg"
+"cover": "/2012ny/n7t349b3/tsq-01.jpg",
+"fechas": [
+[
+"24/10/2012",
+"Times Square"
+],
+[
+"25/10/2012",
+"Estatua de la Libertad y Ellis Island"
+],
+[
+"25/10/2012",
+"Memorial 9/11"
+],
+[
+"25/10/2012",
+"Rockefeller Center"
+],
+[
+"26/10/2012",
+"Central Park"
+],
+[
+"27/10/2012",
+"Empire State"
+],
+[
+"02/11/2012",
+"Harvard University"
+],
+[
+"03/11/2012",
+"Boston y alrededores"
+],
+[
+"03/11/2012",
+"Fenway Park"
+]
+]
 },
 {
 "key": "2013",
@@ -30,7 +94,61 @@
 "fotos": 233,
 "corta": 78,
 "paradas": 13,
-"cover": "/2013/9y43778h/01.jpg"
+"cover": "/2013/9y43778h/01.jpg",
+"fechas": [
+[
+"07/06/2013",
+"Los Angeles"
+],
+[
+"07/06/2013",
+"Santa Mónica"
+],
+[
+"08/06/2013",
+"Disneyland"
+],
+[
+"09/06/2013",
+"San Diego"
+],
+[
+"10/06/2013",
+"Warner Bros. Studios"
+],
+[
+"10/06/2013",
+"Golden Oak Ranch"
+],
+[
+"12/06/2013",
+"Beverly Hills"
+],
+[
+"13/06/2013",
+"Pacific Coast Highway"
+],
+[
+"14/06/2013",
+"Yosemite National Park"
+],
+[
+"15/06/2013",
+"San Francisco"
+],
+[
+"18/06/2013",
+"Las Vegas"
+],
+[
+"20/06/2013",
+"Valley of Fire State Park"
+],
+[
+"21/06/2013",
+"Grand Canyon West Skywalk"
+]
+]
 },
 {
 "key": "trip2",
@@ -41,7 +159,49 @@
 "fotos": 163,
 "corta": 60,
 "paradas": 10,
-"cover": "/trip2/zeusbujg/01.jpg"
+"cover": "/trip2/zeusbujg/01.jpg",
+"fechas": [
+[
+"30/05/2016",
+"Key West"
+],
+[
+"01/06/2016",
+"Fort Lauderdale"
+],
+[
+"03/06/2016",
+"Kennedy Space Center"
+],
+[
+"04/06/2016",
+"Saint Augustine"
+],
+[
+"05/06/2016",
+"Atlanta"
+],
+[
+"06/06/2016",
+"World of Coca-Cola"
+],
+[
+"07/06/2016",
+"Covington"
+],
+[
+"07/06/2016",
+"Hollywood of the South"
+],
+[
+"08/06/2016",
+"Clearwater"
+],
+[
+"10/06/2016",
+"Miami"
+]
+]
 },
 {
 "key": "2018",
@@ -52,7 +212,69 @@
 "fotos": 286,
 "corta": 89,
 "paradas": 15,
-"cover": "/2013/95a7284c/2018-01.jpg"
+"cover": "/2013/95a7284c/2018-01.jpg",
+"fechas": [
+[
+"20/06/2018",
+"Las Vegas"
+],
+[
+"23/06/2018",
+"Crazy Horse Memorial"
+],
+[
+"23/06/2018",
+"Mount Rushmore Memorial"
+],
+[
+"24/06/2018",
+"Cody"
+],
+[
+"24/06/2018",
+"Yellowstone National Park"
+],
+[
+"27/06/2018",
+"Seattle"
+],
+[
+"27/06/2018",
+"Olympia"
+],
+[
+"29/06/2018",
+"San Francisco"
+],
+[
+"30/06/2018",
+"Big Sur"
+],
+[
+"01/07/2018",
+"Solvang"
+],
+[
+"02/07/2018",
+"Warner Bros. Studios"
+],
+[
+"03/07/2018",
+"Paramount Ranch"
+],
+[
+"04/07/2018",
+"Los Angeles"
+],
+[
+"05/07/2018",
+"Santa Barbara"
+],
+[
+"08/07/2018",
+"Santa Mónica"
+]
+]
 },
 {
 "key": "2019",
@@ -63,7 +285,29 @@
 "fotos": 83,
 "corta": 30,
 "paradas": 5,
-"cover": "/2012md/5bda48yt/mk19-01.jpg"
+"cover": "/2012md/5bda48yt/mk19-01.jpg",
+"fechas": [
+[
+"31/05/2019",
+"Magic Kingdom"
+],
+[
+"02/06/2019",
+"Hollywood Studios"
+],
+[
+"03/06/2019",
+"Animal Kingdom"
+],
+[
+"05/06/2019",
+"Epcot"
+],
+[
+"08/06/2019",
+"Miami"
+]
+]
 },
 {
 "key": "2022",
@@ -74,6 +318,64 @@
 "fotos": 176,
 "corta": 78,
 "paradas": 14,
-"cover": "/2022/sf29r4j6/gc-01.jpg"
+"cover": "/2022/sf29r4j6/gc-01.jpg",
+"fechas": [
+[
+"24/10/2022",
+"Grand Canyon"
+],
+[
+"25/10/2022",
+"Horseshoe Bend"
+],
+[
+"25/10/2022",
+"Antelope Canyon"
+],
+[
+"26/10/2022",
+"Monument Valley"
+],
+[
+"27/10/2022",
+"Flagstaff"
+],
+[
+"27/10/2022",
+"Williams"
+],
+[
+"28/10/2022",
+"Seligman"
+],
+[
+"28/10/2022",
+"Kingman"
+],
+[
+"28/10/2022",
+"Oatman"
+],
+[
+"05/11/2022",
+"Santa Mónica"
+],
+[
+"05/11/2022",
+"Malibu"
+],
+[
+"06/11/2022",
+"Santa Barbara"
+],
+[
+"07/11/2022",
+"Universal Studios"
+],
+[
+"09/11/2022",
+"Los Angeles"
+]
+]
 }
 ]

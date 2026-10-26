@@ -110,6 +110,27 @@
   .toast.show{ opacity:1; }
   @media (prefers-reduced-motion: reduce){ .layer img.kb, .card .bgc, .pulse{ animation:none!important; } }
 
+  /* cartel de cruce de estado */
+  .wel{ position:absolute; right:5vw; top:16vh; z-index:550; background:#11643A; color:#fff; border:.5vh solid #fff; outline:.5vh solid #11643A; border-radius:1.6vh; padding:1.6vh 4vh 2vh; text-align:center; font-family:'Source Sans 3','Arial Narrow',sans-serif; box-shadow:0 1.2vh 4vh rgba(0,0,0,.5); opacity:0; -webkit-transform:scale(.4) rotate(-6deg); transform:scale(.4) rotate(-6deg); transition:opacity .4s, -webkit-transform .55s cubic-bezier(.3,.7,.4,1.4), transform .55s cubic-bezier(.3,.7,.4,1.4); pointer-events:none; }
+  .wel.show{ opacity:1; -webkit-transform:none; transform:none; }
+  .wel small{ display:block; font-size:2.6vh; font-weight:700; letter-spacing:.4vh; }
+  .wel b{ display:block; font-size:7vh; line-height:1.05; font-weight:700; letter-spacing:.2vh; text-transform:uppercase; }
+  .wel span{ display:block; font-size:2vh; opacity:.85; margin-top:.4vh; }
+  /* apertura de cada viaje */
+  .opt1{ position:absolute; left:0; right:0; bottom:0; z-index:520; padding:14vh 5vw 6vh; background:linear-gradient(transparent, rgba(10,9,7,.88) 55%); opacity:0; transition:opacity .8s; pointer-events:none; }
+  #map.opening .opt1{ opacity:1; }
+  #map.opening .mlabel, #map.opening .odo{ opacity:0; }
+  .opt1 small{ display:block; font-size:2.6vh; font-weight:700; letter-spacing:.5vh; text-transform:uppercase; color:#FCDE5A; }
+  .opt1 b{ display:block; font-family:'Playfair Display',serif; font-weight:900; font-size:8.5vh; line-height:1; color:#fff; text-shadow:0 .5vh 3vh rgba(0,0,0,.6); }
+  #map.opening .opt1 b{ animation:drop 1.2s cubic-bezier(.3,.7,.4,1) .4s both; }
+  /* «un día como hoy» en la portada */
+  .hoy{ display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; background:linear-gradient(90deg,#3A2A10,#26211A); border:2px solid #FCDE5A; border-radius:16px; padding:12px 16px; margin:0 0 18px; }
+  .hoy[hidden]{ display:none; }
+  .hoy .ph{ width:120px; height:76px; border-radius:10px; background-size:cover; background-position:center; -webkit-flex-shrink:0; flex-shrink:0; margin-right:16px; }
+  .hoy p{ margin:0; -webkit-flex:1; flex:1; font-size:1.05rem; line-height:1.4; }
+  .hoy p small{ display:block; font-size:.8rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#FCDE5A; }
+  .hoy button{ background:#FCDE5A; color:#2B2620; border:none; border-radius:24px; padding:11px 20px; font-weight:700; font-size:1rem; cursor:pointer; margin-left:14px; white-space:nowrap; }
+  .hoy button:focus-visible{ outline:4px solid #fff; outline-offset:3px; }
   /* cuentakilómetros del mapa */
   .odo{ position:absolute; left:3vw; bottom:5vh; z-index:500; background:rgba(14,12,10,.84); color:#fff; border-radius:2vh; padding:1.6vh 3vh 1.8vh; opacity:0; transition:opacity .6s; }
   #map.show .odo{ opacity:1; }
@@ -155,6 +176,7 @@
   <a class="back" href="/">← Volver al sitio</a>
   <h1>Presentación de los viajes</h1>
   <p class="lead">Elegí un viaje y mirá el recorrido día por día: el mapa, cada lugar y sus fotos, pasando solos. Ideal para el televisor.</p>
+  <div class="hoy" id="hoy" hidden><div class="ph" id="hoyph"></div><p id="hoyt"></p><button id="hoygo">▶ Ver ese día</button></div>
   <div class="grid" id="trips"></div>
   <div class="opts">
     <fieldset id="mode"><legend>Duración</legend>
@@ -185,14 +207,14 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 12.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 13.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
 <div id="stage" aria-live="polite">
   <div class="layer" id="la"><div class="blur"></div></div>
   <div class="layer" id="lb"><div class="blur"></div></div>
-  <div id="map"><div class="mlabel"><i></i><span></span></div><div class="odo"><small id="ododay"></small><b id="odokm">0</b><span>km recorridos</span></div></div>
+  <div id="map"><div class="mlabel"><i></i><span></span></div><div class="odo"><small id="ododay"></small><b id="odokm">0</b><span>km recorridos</span></div><div class="wel" id="wel"><small>WELCOME TO</small><b></b><span></span></div><div class="opt1"><small id="opy"></small><b id="opt"></b></div></div>
   <div id="recap"></div>
   <audio id="music" src="musica/ruta.mp3" loop preload="none"></audio>
   <div class="card" id="card"></div>
@@ -246,9 +268,59 @@
     });
     var bySlug = list.filter(function(t){ return t.slug === sel || t.key === sel; })[0];
     pick(bySlug ? bySlug.key : list[list.length - 1].key);
+    diaComoHoy(list);
     if (LUGAR) { $('#start').style.display = 'none'; startLugar(LUGAR); }
     else setTimeout(function(){ $('#go').focus(); }, 50);
   });
+  // «un día como hoy»: si hoy coincide con un día de algún viaje (o cae en la misma semana), se ofrece verlo
+  var HOY = null;
+  function diaComoHoy(list){
+    var now = new Date(), y = now.getFullYear();
+    var today = Math.round(Date.UTC(y, now.getMonth(), now.getDate()) / 864e5);
+    var best = null;
+    list.forEach(function(t){
+      (t.fechas || []).forEach(function(f){
+        var p = f[0].split('/'), d = Math.round(Date.UTC(y, +p[1] - 1, +p[0]) / 864e5) - today;
+        if (d < -3 || d > 3) return;
+        var sc = Math.abs(d);
+        if (!best || sc < best.sc) best = { sc: sc, d: d, date: f[0], items: [] };
+        if (sc === best.sc && best.items.indexOf(t.key + '|' + f[0]) < 0) best.items.push(t.key + '|' + f[0]);
+      });
+    });
+    if (!best) return;
+    // lugares de ese día (puede haber más de un viaje con la misma fecha)
+    var parts = [], cover = null;
+    best.items.forEach(function(it){
+      var k = it.split('|')[0], dt = it.split('|')[1], t = list.filter(function(x){ return x.key === k; })[0];
+      var names = t.fechas.filter(function(f){ return f[0] === dt; }).map(function(f){ return f[1]; });
+      parts.push({ k: k, date: dt, names: names, years: y - (+dt.split('/')[2]), label: t.label.split(',')[0] });
+      if (!cover) cover = t.cover;
+    });
+    HOY = parts;
+    var pp = best.date.split('/'), cuando = best.sc === 0 ? 'Un día como hoy' : 'Esta semana, hace unos años';
+    var txt = parts.map(function(x){ return 'hace ' + x.years + (x.years === 1 ? ' año' : ' años') + ' estábamos en ' + x.names.join(', '); });
+    $('#hoyt').innerHTML = '<small>' + cuando + ' · ' + (+pp[0]) + ' de ' + MESES[+pp[1] - 1] + '</small>' + esc(txt.join(' · y ')[0].toUpperCase() + txt.join(' · y ').slice(1));
+    $('#hoyph').style.backgroundImage = 'url(\'' + cover.replace(/([^/]+)\.jpe?g$/i, 'sm/$1.webp') + '\')';
+    $('#hoy').hidden = false;
+    $('#hoygo').onclick = function(){ startHoy(); };
+    setTimeout(fitStart, 50);
+  }
+  function startHoy(){
+    Promise.all(HOY.map(function(x){ return load(x.k); })).then(function(trips){
+      var seq = [];
+      trips.forEach(function(t, j){
+        var x = HOY[j], first = true;
+        t.stops.forEach(function(s){
+          if (s.date !== x.date) return;
+          if (first){ seq.push({ t: 'hoy', trip: t, x: x, stop: s }); first = false; }
+          seq.push({ t: 'place', trip: t, stop: s });
+          s.photos.forEach(function(p){ seq.push({ t: p.video ? 'video' : 'photo', trip: t, stop: s, p: p }); });
+        });
+      });
+      mode = 'larga';
+      if (seq.length) run(seq);
+    });
+  }
   function pick(k){ sel = k; each('.trip', function(b){ b.classList.toggle('on', b.dataset.k === k); }); estimate(); }
   each('#mode .opt', function(b){ b.onclick = function(){ mode = b.dataset.v; on('#mode', b); estimate(); }; });
   // textos de las fotos: visibles u ocultos (se recuerda en este aparato)
@@ -329,7 +401,7 @@
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
     var ts = sel === 'todos' ? INDEX : INDEX.filter(function(t){ return t.key === sel; });
-    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 32; }, 0);
+    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 43; }, 0);
     $('#dur').textContent = '· unos ' + Math.max(1, Math.round(secs / 60)) + ' min';
   }
   $('#go').onclick = function(){ startTrips(sel === 'todos' ? INDEX.map(function(t){ return t.key; }) : [sel]); };
@@ -337,7 +409,7 @@
   // flechas del control remoto en la pantalla de inicio
   document.addEventListener('keydown', function(e){
     if ($('#stage').classList.contains('on')) return;
-    var f = Array.prototype.slice.call(document.querySelectorAll('#start .trip, #start .opt, #go'));
+    var f = Array.prototype.slice.call(document.querySelectorAll('#hoygo, #start .trip, #start .opt, #go'));
     var i = f.indexOf(document.activeElement);
     var c = e.keyCode;
     if (['ArrowRight','ArrowDown'].indexOf(e.key) >= 0 || c === 39 || c === 40){ e.preventDefault(); f[(i + 1 + f.length) % f.length].focus(); }
@@ -356,6 +428,7 @@
   function build(trips){
     var seq = [];
     trips.forEach(function(t){
+      if (t._route) seq.push({ t: 'open', trip: t });
       seq.push({ t: 'intro', trip: t });
       var prev = null;
       t.stops.forEach(function(s, i){
@@ -433,7 +506,14 @@
       }
       var f = tot > 0 && t.km ? t.km / tot : 1;
       for (q2 = 0; q2 < km.length; q2++) km[q2] = km[q2] * f;
-      t._route = { all: all, fly: kind, km: km };
+      // cada cruce de estado se ubica en el punto del recorrido más cercano (avanzando hacia adelante)
+      var cross = [], from2 = 0;
+      (t.cruces || []).forEach(function(x){
+        var p = [x.lat, x.lng], bi = -1, bd = 1e9;
+        for (var q3 = from2; q3 < all.length; q3++){ if (kind[q3]) continue; var dd = d2(all[q3], p); if (dd < bd){ bd = dd; bi = q3; } if (bd < 1e-6) break; }
+        if (bi >= 0 && bd < 0.01){ cross.push({ i: bi, state: x.state }); from2 = bi; }
+      });
+      t._route = { all: all, fly: kind, km: km, cross: cross };
     }).catch(function(){});
   }
   function ensureMap(){
@@ -455,6 +535,33 @@
     }
     flush();
   }
+  // apertura: todo el recorrido del viaje dibujándose de punta a punta, con el título encima
+  function opening(t){
+    ensureMap();
+    var R = t._route, c = ink(t.color), sl = S[cur];
+    $('#map').classList.add('show'); $('#map').classList.add('opening');
+    var d0 = dia(t.stops[0].date), dN = dia(t.stops[t.stops.length - 1].date);
+    $('#opy').textContent = t.meses + ' · ' + (dN - d0 + 1) + ' días · ' + miles(t.km) + ' km';
+    $('#opt').textContent = t.label;
+    if (pulse){ MAP.removeLayer(pulse); pulse = null; }
+    setTimeout(function(){ MAP.invalidateSize(); MAP.fitBounds(L.latLngBounds(R.all), { paddingTopLeft: [60, 60], paddingBottomRight: [60, Math.round(window.innerHeight * 0.3)], maxZoom: 9, animate: false }); }, 30);
+    var t0 = performance.now(), D = 7500, n = R.all.length - 1;
+    (function step(now){
+      if (S[cur] !== sl) return;
+      var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, idx = Math.round(n * e);
+      drawUpTo(t, idx, c);
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  var welT = null;
+  function welcome(st){
+    var w = $('#wel');
+    w.querySelector('b').textContent = st;
+    w.querySelector('span').textContent = ESTADOS_ES[st] && ESTADOS_ES[st] !== st ? 'Bienvenidos a ' + ESTADOS_ES[st] : '';
+    w.classList.remove('show'); void w.offsetWidth; w.classList.add('show');
+    clearTimeout(welT); welT = setTimeout(function(){ w.classList.remove('show'); }, 3200);
+  }
+  var ESTADOS_ES = { 'New York': 'Nueva York', 'South Dakota': 'Dakota del Sur', 'Oregon': 'Oregón', 'North Carolina': 'Carolina del Norte', 'South Carolina': 'Carolina del Sur', 'New Mexico': 'Nuevo México', 'Pennsylvania': 'Pensilvania' };
   function hop(sl, dur){
     ensureMap();
     var t = sl.trip, s = t.stops[sl.i], R = t._route, c = ink(t.color);
@@ -478,6 +585,8 @@
       var idx = Math.round(from + (target - from) * e);
       drawUpTo(t, idx, c);
       $('#odokm').textContent = miles(R.km[Math.min(idx, R.km.length - 1)] || 0);
+      // cartel al entrar a un estado nuevo
+      (R.cross || []).forEach(function(x){ if (!x.done && x.i > from && x.i <= idx && sl._shown !== x){ sl._shown = x; welcome(x.state); } });
       if (k < 1) requestAnimationFrame(step);
     })(t0);
   }
@@ -620,7 +729,9 @@
     paint(c);
     $('#hudt').textContent = t.label.split(',')[0] + ' · ' + t.year + (sl.stop ? ' · ' + sl.stop.name : '');
     $('#bar').style.width = (100 * (i + 1) / S.length) + '%';
-    if (sl.t !== 'hop') $('#map').classList.remove('show');
+    if (sl.t !== 'hop' && sl.t !== 'open') $('#map').classList.remove('show');
+    if (sl.t !== 'open') $('#map').classList.remove('opening');
+    $('#wel').classList.remove('show');
     if (sl.t !== 'recap') $('#recap').classList.remove('show');
     musicFor(sl);
     if (sl.t === 'intro'){
@@ -674,6 +785,15 @@
         } catch (e) {}
       }
       preload(i);
+    } else if (sl.t === 'hoy'){
+      hidePhotos(); caption(null);
+      var hx = sl.x, hp = hx.date.split('/');
+      card('<div class="in"><div class="kick"><i></i>Un día como hoy · ' + (+hp[0]) + ' de ' + MESES[+hp[1] - 1] + '</div><h2>Hace ' + hx.years + (hx.years === 1 ? ' año' : ' años') + '</h2>' +
+        '<p class="txt">' + esc(fecha(hx.date)) + ' · ' + esc(sl.trip.label) + '<br>' + esc(hx.names.join(' · ')) + '</p></div>', (sl.stop.photos[0] || {}).src, t.color);
+      dur = 7000;
+    } else if (sl.t === 'open'){
+      hidePhotos(); caption(null); hideCard();
+      opening(t); dur = 10500;
     } else if (sl.t === 'recap'){
       hidePhotos(); caption(null); hideCard();
       recap(t); dur = 13000;

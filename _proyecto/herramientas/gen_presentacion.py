@@ -1,7 +1,9 @@
 """Arma los datos de la presentación (/presentacion/data/<viaje>.json): para cada viaje, sus paradas
 en orden y las fotos de cada una con su texto, tomadas de las páginas de los lugares.
 Uso: python3 _proyecto/herramientas/gen_viajes.py && python3 _proyecto/herramientas/gen_presentacion.py"""
-import json, os, re, subprocess, hashlib
+import json, os, re, subprocess, hashlib, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import estados
 from PIL import Image, ImageFilter, ImageEnhance
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -110,10 +112,16 @@ for k, t in TRIPS.items():
                     lat, lng = x['lat'], x['lng']
         stops.append(dict(s, lat=lat, lng=lng, state=place['sub'], photos=ph))
     data = dict(key=k, **{x: t[x] for x in ('slug', 'label', 'year', 'color', 'intro', 'km', 'estados', 'meses')}, stops=stops)
+    # cruces de estado sobre la ruta en auto (cartel «Welcome to ...»)
+    rj = f'{ROOT}/assets/routes/{k}.json'
+    if os.path.exists(rj):
+        rd = json.load(open(rj))
+        data['cruces'] = estados.cruces(rd['auto'] if isinstance(rd, dict) else [rd])
     json.dump(data, open(f'{ROOT}/presentacion/data/{k}.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     n = sum(len(s['photos']) for s in stops)
     index.append(dict(key=k, slug=t['slug'], label=t['label'], year=t['year'], color=t['color'], fotos=n,
                       corta=sum(min(6, len(s['photos'])) for s in stops), paradas=len(stops),
-                      cover=next((s['photos'][0]['src'] for s in stops if s['photos']), '')))
+                      cover=next((s['photos'][0]['src'] for s in stops if s['photos']), ''),
+                      fechas=[[s['date'], s['name']] for s in stops]))
     print(k, len(stops), 'paradas', n, 'fotos', [len(s['photos']) for s in stops])
 json.dump(index, open(f'{ROOT}/presentacion/data/index.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
