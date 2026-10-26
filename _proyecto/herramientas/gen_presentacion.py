@@ -54,6 +54,10 @@ def items(photos, base):
     for ph in photos:
         it = dict(src=base + ph['src'], caption=re.sub(r'<[^>]+>', '', ph.get('caption', '')), ratio=ph.get('ratio', 0.66))
         it['bg'] = fondo(it['src'])
+        if ph.get('srcWide'):  # versión lado a lado (Then / Now) para pantallas horizontales
+            it['wide'] = base + ph['srcWide']
+            it['ratioWide'] = ph.get('ratioWide', 0.45)
+            it['bgWide'] = fondo(it['wide'])
         if ph.get('video'):
             it['video'] = base + ph['video']
         out.append(it)

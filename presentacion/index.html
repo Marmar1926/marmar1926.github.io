@@ -51,10 +51,13 @@
   /* el tamaño de cada foto se calcula en JS (algunos televisores no entienden object-fit y la estiran) */
   .layer img, .layer video{ position:absolute; left:0; top:0; max-width:none; transform-origin:center; }
 
-  .cap{ position:absolute; left:0; right:0; bottom:0; padding:12vh 5vw 5.5vh; background:linear-gradient(transparent,rgba(0,0,0,.78) 45%); opacity:0; transform:translateY(14px); transition:opacity .8s ease .5s, transform .8s ease .5s; pointer-events:none; }
+  .cap{ position:absolute; left:0; right:0; bottom:0; padding:12vh 4vw 5vh; background:linear-gradient(transparent,rgba(0,0,0,.78) 45%); opacity:0; transform:translateY(14px); transition:opacity .8s ease .5s, transform .8s ease .5s; pointer-events:none; }
   .cap.show{ opacity:1; transform:none; }
-  .cap p{ margin:0; max-width:78ch; font-size:3vh; line-height:1.38; text-shadow:0 2px 10px rgba(0,0,0,.6); }
-  .cap.long p{ font-size:2.45vh; }
+  .cap p{ margin:0; font-size:3vh; line-height:1.38; text-shadow:0 2px 10px rgba(0,0,0,.6); }
+  .cap.long p{ font-size:2.6vh; }
+  /* tamaño del texto elegido en la configuración */
+  #stage.fs-g .cap p{ font-size:3.9vh; } #stage.fs-g .cap.long p{ font-size:3.3vh; } #stage.fs-g .cap .where{ font-size:2.3vh; }
+  #stage.fs-mg .cap p{ font-size:4.8vh; } #stage.fs-mg .cap.long p{ font-size:4vh; } #stage.fs-mg .cap .where{ font-size:2.7vh; }
   .cap .where{ display:flex; align-items:center; gap:10px; font-size:1.9vh; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#FCDE5A; margin:0 0 .6vh; }
   .cap .where i{ width:1.4vh; height:1.4vh; min-width:9px; min-height:9px; border-radius:50%; background:#DC322F; }
 
@@ -139,9 +142,18 @@
       <button class="opt on" data-v="1">Visibles</button>
       <button class="opt" data-v="0">Ocultos</button>
     </fieldset>
+    <fieldset id="fsize"><legend>Tamaño del texto</legend>
+      <button class="opt" data-v="n">Normal</button>
+      <button class="opt on" data-v="g">Grande</button>
+      <button class="opt" data-v="mg">Muy grande</button>
+    </fieldset>
+    <fieldset id="full"><legend>Pantalla completa</legend>
+      <button class="opt on" data-v="1">Sí</button>
+      <button class="opt" data-v="0">No</button>
+    </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 9.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 10.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -212,6 +224,49 @@
   }
   each('#txt .opt', function(b){ b.onclick = function(){ setTxt(b.dataset.v === '1'); }; });
   (function(){ var v = '1'; try { v = localStorage.getItem('mvtxt') || '1'; } catch (e) {} setTxt(v === '1'); })();
+  // tamaño de la letra de los textos
+  function setFsize(v){
+    var st = $('#stage'); st.classList.remove('fs-g'); st.classList.remove('fs-mg');
+    if (v !== 'n') st.classList.add('fs-' + v);
+    each('#fsize .opt', function(b){ b.classList.toggle('on', b.dataset.v === v); });
+    try { localStorage.setItem('mvfs', v); } catch (e) {}
+  }
+  each('#fsize .opt', function(b){ b.onclick = function(){ setFsize(b.dataset.v); }; });
+  (function(){ var v = 'g'; try { v = localStorage.getItem('mvfs') || 'g'; } catch (e) {} setFsize(v); })();
+  // pantalla completa (se activa al tocar «Sí» y al comenzar)
+  var FULL = true;
+  function fsEl(){ return document.fullscreenElement || document.webkitFullscreenElement || document.webkitCurrentFullScreenElement || null; }
+  function goFull(){
+    var d = document.documentElement;
+    try { var fp = (d.requestFullscreen || d.webkitRequestFullscreen || d.webkitRequestFullScreen || function(){}).call(d); if (fp && fp.catch) fp.catch(function(){}); } catch (e) {}
+  }
+  function leaveFull(){
+    try { if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen || document.webkitCancelFullScreen).call(document); } catch (e) {}
+  }
+  function setFull(v, now){
+    FULL = v;
+    each('#full .opt', function(b){ b.classList.toggle('on', b.dataset.v === (v ? '1' : '0')); });
+    try { localStorage.setItem('mvfull', v ? '1' : '0'); } catch (e) {}
+    if (now){ if (v) goFull(); else leaveFull(); }
+  }
+  each('#full .opt', function(b){ b.onclick = function(){ setFull(b.dataset.v === '1', true); }; });
+  (function(){ var v = '1'; try { v = localStorage.getItem('mvfull') || '1'; } catch (e) {} setFull(v === '1', false); })();
+  // la portada se achica para entrar entera en la pantalla
+  function fitStart(){
+    var st = $('#start'); if (st.style.display === 'none') return;
+    st.style.minHeight = '0';
+    var H = window.innerHeight, z = 1, k;
+    // al achicar, el contenido se reacomoda; se ajusta unas veces hasta que entra justo
+    for (k = 0; k < 6; k++){
+      st.style.zoom = z;
+      var rh = st.offsetHeight * z;
+      if (Math.abs(rh - H) < 6 || (z >= 1 && rh <= H)) break;
+      z = Math.max(0.45, Math.min(1, z * (H - 4) / rh));
+    }
+  }
+  window.addEventListener('resize', fitStart);
+  window.addEventListener('load', fitStart);
+  setTimeout(fitStart, 300); setTimeout(fitStart, 1500);
   each('#speed .opt', function(b){ b.onclick = function(){ speed = +b.dataset.v; on('#speed', b); estimate(); }; });
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
@@ -359,6 +414,8 @@
   /* ---------- reproducción ---------- */
   var flip = false;
   function photoLayer(p){
+    // en pantallas horizontales (televisor) se usa la versión lado a lado, si la foto la tiene
+    if (p.wide && window.innerWidth > window.innerHeight) p = { src: p.wide, bg: p.bgWide, ratio: p.ratioWide, caption: p.caption };
     flip = !flip;
     var L1 = flip ? $('#la') : $('#lb'), L2 = flip ? $('#lb') : $('#la');
     var old = L1.querySelector('img,video'); if (old) old.parentNode.removeChild(old);
@@ -494,7 +551,7 @@
     S = seq; paused = false;
     $('#start').style.display = 'none';
     $('#stage').classList.add('on');
-    try { var fp = (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen || function(){}).call(document.documentElement); if (fp && fp.catch) fp.catch(function(){}); } catch (e) {}
+    if (FULL) goFull();
     lockWake();
     ui(); show(0);
   }
@@ -502,10 +559,10 @@
     clearTimeout(timer); S = []; cur = -1;
     each('.layer video', function(v){ try { v.pause(); } catch (e) {} });
     $('#stage').classList.remove('on'); hidePhotos(); hideCard(); caption(null); $('#map').classList.remove('show');
-    try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+    if (!FULL) leaveFull();
     if (wake){ try { wake.release(); } catch (e) {} wake = null; }
     if (LUGAR){ location.href = LUGAR; return; }
-    $('#start').style.display = ''; $('#go').focus();
+    $('#start').style.display = ''; $('#go').focus(); fitStart();
   }
   function togglePause(){
     paused = !paused;

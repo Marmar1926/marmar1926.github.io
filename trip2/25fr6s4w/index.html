@@ -323,7 +323,7 @@ window.__noSwipe=function(){return multi||z()||!!window.__lbZoom;};})();
   const carousel = document.getElementById('carousel');
   const captionEl = document.getElementById('caption');
   let i = 0;
-  const WIDE = window.matchMedia('(min-width: 1000px)').matches;
+  const WIDE = window.matchMedia('(min-width: 1000px), (orientation: landscape) and (min-width: 700px)').matches;
   const SRC = p => (WIDE && p.srcWide) ? p.srcWide : p.src;
   const RATIO = p => (WIDE && p.ratioWide) ? p.ratioWide : p.ratio;
 
