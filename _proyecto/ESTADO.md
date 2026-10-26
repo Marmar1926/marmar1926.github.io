@@ -128,3 +128,9 @@ Todas las paginas con carrusel tienen window.__noSwipe(): si hubo pellizco (2 de
 - 24/10: las fotos de galería pasaron a sm/*.webp (q82) y se borraron los sm/*.jpg. Las páginas piden la versión .webp y, si falla, usan el JPEG grande. El zoom sigue usando el JPEG de 2200 px. Para revertir, hacer git revert del commit «Fotos de galería en WebP».
 - 24/10: páginas por viaje en /viajes/<slug>/, generadas con _proyecto/herramientas/gen_viajes.py y la plantilla viaje.tpl.html. Los textos, km y estados están en META; las pestañas con fecha en SUBS; el orden dentro de un mismo día en TIE. El índice enlaza cada viaje desde «Ver el viaje →» y desde los chips de años.
 - 24/10: la presentación para TV está en /presentacion/. Los datos salen de gen_viajes.py (escribe viajes/stops.json) y de gen_presentacion.py, que lee las fotos de cada página con extraer_fotos.js y escribe presentacion/data/*.json. Se puede abrir con ?viaje=<slug> o con ?lugar=/ruta/. Desde la página de cada lugar se entra con el botón «Ver como presentación» (enhance.js v8). Si se agregan fotos, volver a correr los dos generadores.
+
+## Presentación v12 (26/10/2026)
+- Música de fondo original (presentacion/musica/ruta.mp3, generada con _proyecto/herramientas/gen_musica.py; 2:40 en loop). Opción Música Sí/No y botón ♪ en la barra; se apaga durante los videos y en pausa.
+- Cuentakilómetros en cada tramo del mapa («Día X de N» + km acumulados, escalados al total km del viaje; los vuelos no suman).
+- Then/Now de Hollywood of the South en TV (pantalla horizontal): cortina Then→Now y después la versión lado a lado. Datos then/now/ratioThen en presentacion/data (gen_presentacion.py).
+- Cierre de cada viaje: mosaico de 15 fotos + días, km, estados, lugares y fotos (diapositiva 'recap' antes de 'end').

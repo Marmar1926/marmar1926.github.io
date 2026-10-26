@@ -110,6 +110,34 @@
   .toast.show{ opacity:1; }
   @media (prefers-reduced-motion: reduce){ .layer img.kb, .card .bgc, .pulse{ animation:none!important; } }
 
+  /* cuentakilómetros del mapa */
+  .odo{ position:absolute; left:3vw; bottom:5vh; z-index:500; background:rgba(14,12,10,.84); color:#fff; border-radius:2vh; padding:1.6vh 3vh 1.8vh; opacity:0; transition:opacity .6s; }
+  #map.show .odo{ opacity:1; }
+  .odo small{ display:block; font-size:2vh; font-weight:700; letter-spacing:.3vh; text-transform:uppercase; color:#FCDE5A; }
+  .odo b{ display:block; font-size:6.4vh; line-height:1.05; font-variant-numeric:tabular-nums; }
+  .odo span{ font-size:2vh; color:#D7CDBB; }
+  /* Then / Now con cortina */
+  .tnbox{ position:absolute; overflow:hidden; box-shadow:0 1vh 5vh rgba(0,0,0,.6); background:#000; }
+  .tnbox .im{ position:absolute; top:0; left:0; bottom:0; right:0; background-size:cover; background-position:center; }
+  .tnbox .wipe{ position:absolute; top:0; left:0; bottom:0; width:0; overflow:hidden; border-right:.5vh solid #fff; box-shadow:0 0 3vh rgba(0,0,0,.7); }
+  .tnbox .wipe .im{ right:auto; }
+  .tnbox .lbl{ position:absolute; top:2.5vh; font:700 4vh 'Caveat',cursive; background:rgba(255,255,255,.92); color:#2B6CB0; padding:.2vh 2vh; border-radius:1vh; transition:opacity .6s; }
+  .tnbox .lbl.l{ left:2.5vh; opacity:0; } .tnbox .lbl.r{ right:2.5vh; }
+  /* cierre del viaje: mosaico */
+  #recap{ position:absolute; top:0; right:0; bottom:0; left:0; opacity:0; transition:opacity .8s; pointer-events:none; background:#0B0A08; }
+  #recap.show{ opacity:1; }
+  #recap .tile{ position:absolute; background-size:cover; background-position:center; border-radius:.8vh; opacity:0; -webkit-transform:scale(.6); transform:scale(.6); transition:opacity .5s ease, -webkit-transform .6s cubic-bezier(.3,.7,.4,1.3), transform .6s cubic-bezier(.3,.7,.4,1.3), -webkit-filter 1s; }
+  #recap .tile.in{ opacity:1; -webkit-transform:none; transform:none; }
+  #recap.dim .tile{ -webkit-filter:brightness(.35); filter:brightness(.35); }
+  #recap .shade{ position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,.5); opacity:0; transition:opacity 1s; }
+  #recap.dim .shade{ opacity:1; }
+  #recap .sum{ position:absolute; left:50%; top:50%; -webkit-transform:translate(-50%,-50%); transform:translate(-50%,-50%); text-align:center; opacity:0; transition:opacity .8s; width:90%; }
+  #recap.dim .sum{ opacity:1; }
+  #recap .sum h3{ font-family:'Playfair Display',serif; font-weight:900; font-size:8vh; margin:0 0 3vh; text-shadow:0 .4vh 3vh rgba(0,0,0,.8); }
+  #recap .sum .row{ display:inline-block; margin:0 1vw 1.6vh; background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.2); border-radius:1.6vh; padding:1.6vh 2.6vh; min-width:16vh; }
+  #recap .sum b{ display:block; font-size:6.4vh; line-height:1; color:#FCDE5A; }
+  #recap .sum span{ font-size:2.1vh; color:#E2D9C9; }
+
   /* navegadores viejos (por ejemplo, el de los televisores Samsung de 2017) */
   @supports not (display:grid){ .grid{ display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; } .trip{ width:23%; margin:0 2% 14px 0; } }
   @supports not (aspect-ratio:1){ .trip{ height:14vw; min-height:120px; } }
@@ -147,20 +175,26 @@
       <button class="opt on" data-v="g">Grande</button>
       <button class="opt" data-v="mg">Muy grande</button>
     </fieldset>
+    <fieldset id="mus"><legend>Música</legend>
+      <button class="opt on" data-v="1">Sí</button>
+      <button class="opt" data-v="0">No</button>
+    </fieldset>
     <fieldset id="full"><legend>Pantalla completa</legend>
       <button class="opt on" data-v="1">Sí</button>
       <button class="opt" data-v="0">No</button>
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 11.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 12.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
 <div id="stage" aria-live="polite">
   <div class="layer" id="la"><div class="blur"></div></div>
   <div class="layer" id="lb"><div class="blur"></div></div>
-  <div id="map"><div class="mlabel"><i></i><span></span></div></div>
+  <div id="map"><div class="mlabel"><i></i><span></span></div><div class="odo"><small id="ododay"></small><b id="odokm">0</b><span>km recorridos</span></div></div>
+  <div id="recap"></div>
+  <audio id="music" src="musica/ruta.mp3" loop preload="none"></audio>
   <div class="card" id="card"></div>
   <div class="cap" id="cap"><div class="where"><i></i><span></span></div><p></p></div>
   <div class="hud"><i></i><span id="hudt"></span></div>
@@ -170,6 +204,7 @@
     <button id="bnext" aria-label="Siguiente">⏭<small>Siguiente</small></button>
     <button id="bslow" aria-label="Más lento">🐢<small>Más lento</small></button>
     <button id="bfast" aria-label="Más rápido">🐇<small>Más rápido</small></button>
+    <button id="bmus" aria-label="Música">♪<small id="bmust">Sin música</small></button>
     <button id="btxt" aria-label="Mostrar u ocultar textos">Aa<small id="btxtt">Ocultar texto</small></button>
     <button id="bexit" aria-label="Salir">✕<small>Salir</small></button>
   </div>
@@ -183,6 +218,8 @@
 (function(){
   var $ = function(s){ return document.querySelector(s); };
   var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  function dia(d){ var p = d.split('/'); return Math.round(Date.UTC(+p[2], +p[1] - 1, +p[0]) / 864e5); }
+  function miles(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
   function fecha(d){ var p = d.split('/'); return (+p[0]) + ' de ' + MESES[+p[1] - 1] + ' de ' + p[2]; }
   function ink(c){ return /f1c40f/i.test(c) ? '#E8B400' : c; }
   function q(name){ var m = location.search.match(new RegExp('[?&]' + name + '=([^&]*)')); return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null; }
@@ -251,6 +288,27 @@
   }
   each('#full .opt', function(b){ b.onclick = function(){ setFull(b.dataset.v === '1', true); }; });
   (function(){ var v = '1'; try { v = localStorage.getItem('mvfull') || '1'; } catch (e) {} setFull(v === '1', false); })();
+  // música de fondo: suena bajo; se apaga durante los videos y en pausa
+  var MUSIC = true, musT = null, musTarget = 0;
+  function musFade(to, ms){
+    var a = $('#music'); musTarget = to; clearInterval(musT);
+    if (to > 0 && a.paused){ a.volume = 0; try { var pr = a.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {} }
+    var steps = Math.max(1, Math.round((ms || 1500) / 60)), from = a.volume, n = 0;
+    musT = setInterval(function(){
+      n++; var v = from + (to - from) * n / steps; try { a.volume = Math.max(0, Math.min(1, v)); } catch (e) {}
+      if (n >= steps){ clearInterval(musT); if (to === 0) a.pause(); }
+    }, 60);
+  }
+  function musicFor(sl){ musFade(MUSIC && !paused && sl && sl.t !== 'video' && $('#stage').classList.contains('on') ? 0.32 : 0, sl && sl.t === 'video' ? 700 : 1800); }
+  function setMusic(v, live){
+    MUSIC = v;
+    each('#mus .opt', function(b){ b.classList.toggle('on', b.dataset.v === (v ? '1' : '0')); });
+    $('#bmust').textContent = v ? 'Sin música' : 'Con música';
+    try { localStorage.setItem('mvmus', v ? '1' : '0'); } catch (e) {}
+    if (live){ musicFor(S[cur]); toast(v ? '♪ Música' : 'Sin música'); }
+  }
+  each('#mus .opt', function(b){ b.onclick = function(){ setMusic(b.dataset.v === '1'); }; });
+  (function(){ var v = '1'; try { v = localStorage.getItem('mvmus') || '1'; } catch (e) {} setMusic(v === '1'); })();
   // la portada se achica para entrar entera en la pantalla
   function fitStart(){
     var st = $('#start'); if (st.style.display === 'none') return;
@@ -271,7 +329,7 @@
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
     var ts = sel === 'todos' ? INDEX : INDEX.filter(function(t){ return t.key === sel; });
-    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 19; }, 0);
+    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 32; }, 0);
     $('#dur').textContent = '· unos ' + Math.max(1, Math.round(secs / 60)) + ' min';
   }
   $('#go').onclick = function(){ startTrips(sel === 'todos' ? INDEX.map(function(t){ return t.key; }) : [sel]); };
@@ -306,6 +364,7 @@
         pickPhotos(s.photos).forEach(function(p){ seq.push({ t: p.video ? 'video' : 'photo', trip: t, stop: s, p: p }); });
         prev = s;
       });
+      seq.push({ t: 'recap', trip: t });
       seq.push({ t: 'end', trip: t });
     });
     return seq;
@@ -366,7 +425,15 @@
         // si el recorrido no pasa cerca (por ejemplo, un lugar visitado a pie), no se avanza
         s._ri = best < 0 ? last : best; last = s._ri;
       });
-      t._route = { all: all, fly: kind };
+      // km acumulados por ruta (los vuelos no suman), llevados al total del viaje
+      var km = [0], tot = 0;
+      for (var q2 = 1; q2 < all.length; q2++){
+        if (!kind[q2] && !kind[q2 - 1]) tot += Math.sqrt(d2(all[q2 - 1], all[q2])) * 111.2;
+        km.push(tot);
+      }
+      var f = tot > 0 && t.km ? t.km / tot : 1;
+      for (q2 = 0; q2 < km.length; q2++) km[q2] = km[q2] * f;
+      t._route = { all: all, fly: kind, km: km };
     }).catch(function(){});
   }
   function ensureMap(){
@@ -403,10 +470,14 @@
     pulse = L.marker([s.lat, s.lng], { icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11], html: '<div class="pulse" style="background:' + c + '"></div>' }) }).addTo(MAP);
     if (!R){ return; }
     var t0 = performance.now(), D = Math.max(800, dur);
+    var d0 = dia(t.stops[0].date), dN = dia(t.stops[t.stops.length - 1].date);
+    $('#ododay').textContent = 'Día ' + (dia(s.date) - d0 + 1) + ' de ' + (dN - d0 + 1);
     (function step(now){
       if (S[cur] !== sl) return;
       var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      drawUpTo(t, Math.round(from + (target - from) * e), c);
+      var idx = Math.round(from + (target - from) * e);
+      drawUpTo(t, idx, c);
+      $('#odokm').textContent = miles(R.km[Math.min(idx, R.km.length - 1)] || 0);
       if (k < 1) requestAnimationFrame(step);
     })(t0);
   }
@@ -418,7 +489,7 @@
     if (p.wide && window.innerWidth > window.innerHeight) p = { src: p.wide, bg: p.bgWide, ratio: p.ratioWide, caption: p.caption };
     flip = !flip;
     var L1 = flip ? $('#la') : $('#lb'), L2 = flip ? $('#lb') : $('#la');
-    var old = L1.querySelector('img,video'); if (old) old.parentNode.removeChild(old);
+    var old = L1.querySelector('img,video,.tnbox'); if (old) old.parentNode.removeChild(old);
     L1.querySelector('.blur').style.backgroundImage = p.bg ? 'url("' + p.bg + '")' : 'none';
     var el;
     if (p.video){
@@ -444,6 +515,27 @@
     L1.classList.add('show'); L2.classList.remove('show');
     return el;
   }
+  // Then / Now: primero la toma de la serie y una cortina va descubriendo la foto actual en el mismo encuadre
+  function tnLayer(p){
+    flip = !flip;
+    var L1 = flip ? $('#la') : $('#lb'), L2 = flip ? $('#lb') : $('#la');
+    var old = L1.querySelector('img,video,.tnbox'); if (old) old.parentNode.removeChild(old);
+    L1.querySelector('.blur').style.backgroundImage = p.bg ? 'url("' + p.bg + '")' : 'none';
+    var box = document.createElement('div'); box.className = 'tnbox';
+    box.innerHTML = '<div class="im" style="background-image:url(\'' + p.then + '\')"></div><div class="wipe"><div class="im" style="background-image:url(\'' + p.now + '\')"></div></div><span class="lbl r">Then</span><span class="lbl l">Now</span>';
+    L1.appendChild(box);
+    box._r = p.ratioThen || 0.63; fitMedia(box, box._r);
+    box.querySelector('.wipe .im').style.width = box.style.width;
+    L1.classList.add('show'); L2.classList.remove('show');
+    var wipe = box.querySelector('.wipe');
+    setTimeout(function(){
+      wipe.style.webkitTransition = wipe.style.transition = 'width 3.2s cubic-bezier(.45,0,.25,1)';
+      wipe.style.width = '100%';
+      setTimeout(function(){ box.querySelector('.lbl.l').style.opacity = 1; }, 1200);
+      setTimeout(function(){ box.querySelector('.lbl.r').style.opacity = 0; wipe.style.borderRightWidth = '0'; }, 3200);
+    }, 2600);
+    return box;
+  }
   // ubica la foto centrada, entera (o llenando la pantalla si su forma es parecida), sin deformarla
   // las fotos se ven siempre enteras, sobre el fondo difuminado de la misma foto
   function fitMedia(el, ratio){
@@ -457,6 +549,7 @@
     el.style.left = Math.round((W - w) / 2) + 'px'; el.style.top = Math.round((H - h) / 2) + 'px';
   }
   window.addEventListener('resize', function(){
+    each('.layer .tnbox', function(el){ fitMedia(el, (el._r) || 0.63); el.querySelector('.wipe .im').style.width = el.style.width; });
     each('.layer img, .layer video', function(el){
       var r = el.naturalWidth ? el.naturalHeight / el.naturalWidth : (el.videoWidth ? el.videoHeight / el.videoWidth : 0.66);
       fitMedia(el, r);
@@ -479,6 +572,39 @@
   }
   function hideCard(){ $('#card').classList.remove('show'); }
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  // cierre del viaje: mosaico con fotos de todo el recorrido y los números del viaje
+  function recap(t){
+    var rc = $('#recap'), all = [];
+    t.stops.forEach(function(s){ s.photos.forEach(function(p){ if (!p.video && !p.then) all.push(p.src); }); });
+    var W = rc.clientWidth || window.innerWidth, H = rc.clientHeight || window.innerHeight;
+    var cols = 5, rows = 3, n = Math.min(cols * rows, all.length), g = Math.round(H * 0.012);
+    var tw = (W - g * (cols + 1)) / cols, th = (H - g * (rows + 1)) / rows, html = '';
+    for (var k = 0; k < n; k++){
+      var src = all[Math.floor(k * all.length / n)].replace(/([^/]+)\.jpe?g$/i, 'sm/$1.webp');
+      var cx = k % cols, cy = Math.floor(k / cols);
+      html += '<div class="tile" style="left:' + Math.round(g + cx * (tw + g)) + 'px;top:' + Math.round(g + cy * (th + g)) + 'px;width:' + Math.round(tw) + 'px;height:' + Math.round(th) + 'px;background-image:url(\'' + src + '\')"></div>';
+    }
+    var lug = {}; t.stops.forEach(function(x){ lug[x.n] = 1; });
+    var nf = t.stops.reduce(function(a, x){ return a + x.photos.length; }, 0);
+    var dias = dia(t.stops[t.stops.length - 1].date) - dia(t.stops[0].date) + 1;
+    function cell(v, l){ return '<div class="row"><b data-n="' + v + '">0</b><span>' + l + '</span></div>'; }
+    html += '<div class="shade"></div><div class="sum"><h3>' + esc(t.label) + '</h3>' + cell(dias, 'días') + cell(t.km, 'km') + cell(t.estados.length, t.estados.length > 1 ? 'estados' : 'estado') +
+      cell(Object.keys(lug).length, 'lugares') + cell(nf, 'fotos') + '</div>';
+    rc.className = ''; rc.innerHTML = html;
+    void rc.offsetWidth; rc.classList.add('show');
+    var tiles = rc.querySelectorAll('.tile'), order = [];
+    for (k = 0; k < tiles.length; k++) order.push(k);
+    order.sort(function(){ return Math.random() - .5; });
+    order.forEach(function(ix, j){ setTimeout(function(){ if (tiles[ix]) tiles[ix].classList.add('in'); }, 300 + j * 220); });
+    setTimeout(function(){
+      if (!rc.classList.contains('show')) return;
+      rc.classList.add('dim');
+      each('#recap [data-n]', function(b){
+        var v = +b.dataset.n, t0 = performance.now();
+        (function f(now){ var k2 = Math.min(1, (now - t0) / 1800); b.textContent = miles(v * (1 - Math.pow(1 - k2, 3))); if (k2 < 1) requestAnimationFrame(f); })(t0);
+      });
+    }, 300 + tiles.length * 220 + 1200);
+  }
   function countUp(){
     each('#card [data-n]', function(b){
       var n = +b.dataset.n, t0 = performance.now();
@@ -495,6 +621,8 @@
     $('#hudt').textContent = t.label.split(',')[0] + ' · ' + t.year + (sl.stop ? ' · ' + sl.stop.name : '');
     $('#bar').style.width = (100 * (i + 1) / S.length) + '%';
     if (sl.t !== 'hop') $('#map').classList.remove('show');
+    if (sl.t !== 'recap') $('#recap').classList.remove('show');
+    musicFor(sl);
     if (sl.t === 'intro'){
       hidePhotos(); caption(null);
       var first = (t.stops[0].photos[0] || {}).src;
@@ -522,7 +650,15 @@
       dur = 4800;
     } else if (sl.t === 'photo' || sl.t === 'video'){
       hideCard();
-      var el = photoLayer(sl.p); caption(sl);
+      var land = window.innerWidth > window.innerHeight;
+      if (sl.t === 'photo' && sl.p.then && land){
+        // cortina Then -> Now y después las dos fotos lado a lado
+        var el = tnLayer(sl.p); caption(sl);
+        setTimeout(function(){ if (S[cur] === sl) photoLayer(sl.p); }, 9000);
+        dur = 9000 + speed * 1000;
+      } else {
+        var el = photoLayer(sl.p); caption(sl);
+      }
       if (sl.t === 'video'){
         // el video se ve completo y con sonido: se pasa a la foto siguiente cuando termina
         dur = 0;
@@ -538,6 +674,9 @@
         } catch (e) {}
       }
       preload(i);
+    } else if (sl.t === 'recap'){
+      hidePhotos(); caption(null); hideCard();
+      recap(t); dur = 13000;
     } else if (sl.t === 'end'){
       hidePhotos(); caption(null);
       var lastP = null; t.stops.forEach(function(x){ if (x.photos.length) lastP = x.photos[x.photos.length - 1].src; });
@@ -561,6 +700,7 @@
   }
   function exit(){
     clearTimeout(timer); S = []; cur = -1;
+    musFade(0, 800); $('#recap').classList.remove('show');
     each('.layer video', function(v){ try { v.pause(); } catch (e) {} });
     $('#stage').classList.remove('on'); hidePhotos(); hideCard(); caption(null); $('#map').classList.remove('show');
     if (!FULL) leaveFull();
@@ -576,6 +716,7 @@
     if (im && paused){ var tf = getComputedStyle(im).transform || getComputedStyle(im).webkitTransform; im.style.webkitTransition = im.style.transition = 'none'; im.style.webkitTransform = im.style.transform = tf; }
     var v = document.querySelector('.layer.show video');
     toast(paused ? '⏸ En pausa' : '▶ Continúa');
+    musicFor(S[cur]);
     if (v){
       // con un video, la pausa lo detiene y al seguir continúa desde donde estaba (y con sonido)
       clearTimeout(timer);
@@ -646,6 +787,7 @@
   $('#stage').addEventListener('mouseup', stageTap);
   act('#bslow', function(){ setSpeed(1); });
   act('#bfast', function(){ setSpeed(-1); });
+  act('#bmus', function(){ setMusic(!MUSIC, true); });
   act('#btxt', function(){ setTxt($('#stage').classList.contains('notxt'), true); });
   var lastAct = 0;
   function act(id, fn){

@@ -58,6 +58,10 @@ def items(photos, base):
             it['wide'] = base + ph['srcWide']
             it['ratioWide'] = ph.get('ratioWide', 0.45)
             it['bgWide'] = fondo(it['wide'])
+        if ph.get('srcThen') and ph.get('srcNow'):  # para el efecto cortina Then -> Now
+            it['then'] = base + ph['srcThen']; it['now'] = base + ph['srcNow']
+            w, h = Image.open(ROOT + it['then']).size
+            it['ratioThen'] = round(h / w, 4)
         if ph.get('video'):
             it['video'] = base + ph['video']
         out.append(it)
