@@ -183,7 +183,9 @@
       <button class="opt on" data-v="corta">Resumida</button>
       <button class="opt" data-v="larga">Completa</button>
     </fieldset>
-    <fieldset id="speed"><legend>Velocidad</legend>
+    <fieldset id="speed"><legend>Tiempo por foto</legend>
+      <button class="opt" data-v="20">20 s</button>
+      <button class="opt" data-v="14">14 s</button>
       <button class="opt" data-v="10">Lenta</button>
       <button class="opt on" data-v="7">Normal</button>
       <button class="opt" data-v="5">Rápida</button>
@@ -207,7 +209,7 @@
     </fieldset>
     <button id="go">▶ Comenzar <small id="dur"></small></button>
   </div>
-  <p class="tips"><b>Versión 13.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
+  <p class="tips"><b>Versión 14.</b> <b>En el televisor:</b> flechas ◀ ▶ para pasar fotos, OK para pausar, ▲ ▼ para cambiar la velocidad, «Volver» para salir.<br>
   <b>Con el teléfono duplicado (Smart View):</b> ponelo en horizontal antes de comenzar; tocá la pantalla para pausar y deslizá para pasar.</p>
 </div>
 
@@ -397,11 +399,12 @@
   window.addEventListener('resize', fitStart);
   window.addEventListener('load', fitStart);
   setTimeout(fitStart, 300); setTimeout(fitStart, 1500);
-  each('#speed .opt', function(b){ b.onclick = function(){ speed = +b.dataset.v; on('#speed', b); estimate(); }; });
+  each('#speed .opt', function(b){ b.onclick = function(){ speed = +b.dataset.v; on('#speed', b); estimate(); try { localStorage.setItem('mvspd', speed); } catch (e) {} }; });
+  (function(){ var v = 0; try { v = +localStorage.getItem('mvspd'); } catch (e) {} if (v){ speed = v; each('#speed .opt', function(b){ b.classList.toggle('on', +b.dataset.v === v); }); } })();
   function on(fs, b){ each(fs + ' .opt', function(x){ x.classList.toggle('on', x === b); }); }
   function estimate(){
     var ts = sel === 'todos' ? INDEX : INDEX.filter(function(t){ return t.key === sel; });
-    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 43; }, 0);
+    var secs = ts.reduce(function(sum, t){ return sum + (mode === 'corta' ? t.corta : t.fotos) * speed + t.paradas * 14 + 52; }, 0);
     $('#dur').textContent = '· unos ' + Math.max(1, Math.round(secs / 60)) + ' min';
   }
   $('#go').onclick = function(){ startTrips(sel === 'todos' ? INDEX.map(function(t){ return t.key; }) : [sel]); };
@@ -521,10 +524,30 @@
     MAP = L.map('map', { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, touchZoom: false, zoomSnap: 0.25, fadeAnimation: true });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap' }).addTo(MAP);
   }
+  // dibuja el recorrido hasta el punto «upto»; si sólo avanza, agrega los puntos nuevos a la línea
+  // existente en vez de rehacerla (en los televisores rehacer todo en cada cuadro es muy lento)
+  var dState = null;
   function drawUpTo(t, upto, color){
     var R = t._route; if (!R) return;
+    upto = Math.min(upto, R.all.length - 1);
+    var ds = dState;
+    if (ds && drawn && ds.t === t && ds.color === color && upto >= ds.upto){
+      for (var j = ds.upto + 1; j <= upto; j++){
+        if (R.fly[j] !== ds.fly){
+          // empieza un tramo de otro tipo (auto / avión): línea nueva desde el último punto
+          var last = R.all[j - 1];
+          ds.fly = R.fly[j];
+          ds.a = L.polyline([last], { color: '#fff', weight: 9, opacity: .8, dashArray: ds.fly ? '2 10' : null, lineCap: 'round' }).addTo(drawn);
+          ds.b = L.polyline([last], { color: color, weight: 5, opacity: 1, dashArray: ds.fly ? '2 10' : null, lineCap: 'round' }).addTo(drawn);
+        }
+        ds.a.addLatLng(R.all[j]); ds.b.addLatLng(R.all[j]);
+      }
+      ds.upto = upto;
+      return;
+    }
     if (drawn) MAP.removeLayer(drawn);
     drawn = L.layerGroup().addTo(MAP);
+    dState = null;
     var run = [], fly = R.fly[0];
     function flush(){ if (run.length > 1){
       drawn.addLayer(L.polyline(run, { color: '#fff', weight: 9, opacity: .8, dashArray: fly ? '2 10' : null, lineCap: 'round' }));
@@ -533,7 +556,24 @@
       if (R.fly[i] !== fly){ flush(); run = run.length ? [run[run.length - 1]] : []; fly = R.fly[i]; }
       run.push(R.all[i]);
     }
-    flush();
+    // la última línea queda abierta para seguir agregándole puntos
+    var a = L.polyline(run.slice(), { color: '#fff', weight: 9, opacity: .8, dashArray: fly ? '2 10' : null, lineCap: 'round' }).addTo(drawn);
+    var b = L.polyline(run.slice(), { color: color, weight: 5, opacity: 1, dashArray: fly ? '2 10' : null, lineCap: 'round' }).addTo(drawn);
+    dState = { t: t, color: color, upto: upto, fly: fly, a: a, b: b };
+  }
+  // reloj de animación: si el aparato es lento y se saltea cuadros, la animación se hace más lenta
+  // en vez de saltar al final; en pausa se detiene. Al terminar, la diapositiva sigue tras «hold» ms.
+  function animate(sl, D, frame, hold){
+    var el = 0, last = null; sl._anim = true;
+    (function step(now){
+      if (S[cur] !== sl) return;
+      if (last !== null && !paused) el += Math.min(120, now - last);
+      last = now;
+      var k = Math.min(1, el / D), e = -(Math.cos(Math.PI * k) - 1) / 2;
+      frame(e);
+      if (k < 1) requestAnimationFrame(step);
+      else { sl._anim = false; clearTimeout(timer); timer = setTimeout(function(){ if (S[cur] === sl && !paused) show(cur + 1); }, hold); }
+    })(performance.now());
   }
   // apertura: todo el recorrido del viaje dibujándose de punta a punta, con el título encima
   function opening(t){
@@ -544,14 +584,16 @@
     $('#opy').textContent = t.meses + ' · ' + (dN - d0 + 1) + ' días · ' + miles(t.km) + ' km';
     $('#opt').textContent = t.label;
     if (pulse){ MAP.removeLayer(pulse); pulse = null; }
-    setTimeout(function(){ MAP.invalidateSize(); MAP.fitBounds(L.latLngBounds(R.all), { paddingTopLeft: [60, 60], paddingBottomRight: [60, Math.round(window.innerHeight * 0.3)], maxZoom: 9, animate: false }); }, 30);
-    var t0 = performance.now(), D = 7500, n = R.all.length - 1;
-    (function step(now){
+    if (drawn){ MAP.removeLayer(drawn); drawn = null; dState = null; }
+    MAP.invalidateSize();
+    MAP.fitBounds(L.latLngBounds(R.all), { paddingTopLeft: [60, 60], paddingBottomRight: [60, Math.round(window.innerHeight * 0.3)], maxZoom: 9, animate: false });
+    var n = R.all.length - 1;
+    drawUpTo(t, 0, c);
+    // se espera un momento a que cargue el mapa antes de empezar a dibujar (14 s de trazado)
+    setTimeout(function(){
       if (S[cur] !== sl) return;
-      var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, idx = Math.round(n * e);
-      drawUpTo(t, idx, c);
-      if (k < 1) requestAnimationFrame(step);
-    })(t0);
+      animate(sl, 14000, function(e){ drawUpTo(t, Math.round(n * e), c); }, 3500);
+    }, 1500);
   }
   var welT = null;
   function welcome(st){
@@ -575,20 +617,19 @@
     setTimeout(function(){ MAP.invalidateSize(); MAP.fitBounds(L.latLngBounds(pts), { padding: [80, 80], maxZoom: 9, animate: false }); }, 30);
     if (pulse) MAP.removeLayer(pulse);
     pulse = L.marker([s.lat, s.lng], { icon: L.divIcon({ className: '', iconSize: [22, 22], iconAnchor: [11, 11], html: '<div class="pulse" style="background:' + c + '"></div>' }) }).addTo(MAP);
-    if (!R){ return; }
-    var t0 = performance.now(), D = Math.max(800, dur);
+    if (!R){ return false; }
+    var D = Math.max(800, dur);
     var d0 = dia(t.stops[0].date), dN = dia(t.stops[t.stops.length - 1].date);
     $('#ododay').textContent = 'Día ' + (dia(s.date) - d0 + 1) + ' de ' + (dN - d0 + 1);
-    (function step(now){
-      if (S[cur] !== sl) return;
-      var k = Math.min(1, (now - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    drawUpTo(t, from, c);
+    animate(sl, D, function(e){
       var idx = Math.round(from + (target - from) * e);
       drawUpTo(t, idx, c);
       $('#odokm').textContent = miles(R.km[Math.min(idx, R.km.length - 1)] || 0);
       // cartel al entrar a un estado nuevo
       (R.cross || []).forEach(function(x){ if (!x.done && x.i > from && x.i <= idx && sl._shown !== x){ sl._shown = x; welcome(x.state); } });
-      if (k < 1) requestAnimationFrame(step);
-    })(t0);
+    }, 2800);
+    return true;
   }
 
   /* ---------- reproducción ---------- */
@@ -752,7 +793,7 @@
       var pv = sl.trip.stops[sl.i - 1], st0 = sl.trip.stops[sl.i];
       var km = pv ? Math.sqrt(d2([pv.lat, pv.lng], [st0.lat, st0.lng])) * 111 : 0;
       var draw = Math.round(5000 + Math.min(6000, km * 15));
-      dur = draw + 2800; hop(sl, draw);
+      dur = hop(sl, draw) ? 0 : draw + 2800;
     } else if (sl.t === 'place'){
       hidePhotos(); caption(null);
       var s = sl.stop, bg = (s.photos[0] || {}).src;
@@ -793,7 +834,7 @@
       dur = 7000;
     } else if (sl.t === 'open'){
       hidePhotos(); caption(null); hideCard();
-      opening(t); dur = 10500;
+      opening(t); dur = 0;
     } else if (sl.t === 'recap'){
       hidePhotos(); caption(null); hideCard();
       recap(t); dur = 13000;
@@ -843,10 +884,12 @@
       if (paused) v.pause(); else { v.muted = false; try { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {} }
       return;
     }
+    // mapa a medio dibujar: la pausa congela el trazado y al seguir continúa desde ahí
+    if (S[cur] && S[cur]._anim){ clearTimeout(timer); return; }
     if (paused) clearTimeout(timer); else show(cur + 1);
   }
   function setSpeed(d){
-    var opts = [5, 7, 10, 14], k = opts.indexOf(speed); k = Math.max(0, Math.min(opts.length - 1, (k < 0 ? 1 : k) + d)); speed = opts[k];
+    var opts = [5, 7, 10, 14, 20], k = opts.indexOf(speed); k = Math.max(0, Math.min(opts.length - 1, (k < 0 ? 1 : k) + d)); speed = opts[k];
     toast('Velocidad: ' + speed + ' s por foto');
   }
   var tt = null;
